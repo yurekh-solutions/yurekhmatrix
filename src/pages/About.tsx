@@ -161,7 +161,7 @@ const About = () => {
     {
       icon: Handshake,
       title: "Partnership",
-      description: "Working together as partners to achieve mutual growth and success.",
+      description: "Working together as partners to achieve mutual growth and success and growth.",
       stats: "5000+ Partners",
     },
     {
@@ -173,7 +173,7 @@ const About = () => {
     {
       icon: Target,
       title: "Quality Assurance",
-      description: "Rigorous quality checks and verified materials ensure project success.",
+      description: "Rigorous quality checks and verified Quality materials  ensure project success.",
       stats: "99.9% Quality Rate",
     },
     {
@@ -188,10 +188,10 @@ const About = () => {
     {
       title: "Industry Recognition",
       items: [
-        "Best Construction Tech Platform 2024",
+        "Best Construction Tech Platform ",
         "AI Innovation Award Winner",
         "Top 10 Startup of the Year",
-        "Excellence in Digital Transformation",
+        "Excellence in Transformation",
       ],
     },
     {
@@ -496,85 +496,147 @@ const About = () => {
             <CarouselCards />
 
       <ProcurementGrid />
-      <section className="py-12 sm:py-16 md:py-20 bg-[#f9f7f6]">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-8 sm:mb-12 md:mb-16">
-            <Badge className="mb-4 bg-primary/10 text-primary border-0 px-4 py-2">
-              Achievements
-            </Badge>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-[#c15738] to-[#5c2d23] bg-clip-text text-transparent">
-              Recognition <span className="text-gradient bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">& Milestones</span>
-            </h2>
-            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-[#c15738] to-[#5c2d23] mx-auto rounded-full" />
-          </div>
+      <section className="relative py-12 sm:py-16 md:py-20 bg-[#f9f7f6] overflow-hidden">
+  {/* Glowing background elements */}
+  <div className="absolute top-0 left-0 w-64 h-64 bg-gradient-to-br from-[#c15738]/30 to-[#5c2d23]/30 rounded-full blur-3xl opacity-70 animate-pulse" />
+  <div className="absolute bottom-0 right-0 w-72 h-72 bg-gradient-to-tr from-[#5c2d23]/25 to-[#c15738]/25 rounded-full blur-3xl opacity-70 animate-pulse" />
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
-            {achievements.map((achievement, index) => (
-              <Card key={index} className="p-4 sm:p-6 md:p-8 h-full bg-white/70 backdrop-blur-md hover:bg-white/80 hover:shadow-2xl transition-all duration-300 border border-white/20 shadow-lg rounded-xl">
-                <div className="text-center mb-4 sm:mb-6">
-                  <div className="w-12 h-12 sm:w-14 sm:h-16 md:w-16 md:h-16 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4 shadow-lg">
-                    <Award className="h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8 text-white" />
-                  </div>
-                  <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4">
-                    {achievement.title}
-                  </h3>
-                </div>
-                <div className="space-y-2 sm:space-y-3">
-                  {achievement.items.map((item, itemIndex) => (
-                    <div
-                      key={itemIndex}
-                      className="flex items-start space-x-2 sm:space-x-3 p-2 sm:p-3 bg-[#f1eee9] rounded-lg hover:bg-[#ede8e1] transition-colors duration-200"
-                    >
-                      <div className="w-3 h-3 sm:w-4 sm:h-4 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <CheckCircle className="w-2 h-2 sm:w-2.5 sm:h-2.5 text-white" />
-                      </div>
-                      <span className="text-xs sm:text-sm font-medium text-gray-700">{item}</span>
-                    </div>
-                  ))}
-                </div>
-              </Card>
-            ))}
-          </div>
+  <div className="container mx-auto px-4 relative z-10">
+    {/* Section Header */}
+    <div className="text-center mb-8 sm:mb-12 md:mb-16">
+      <Badge className="mb-4 bg-primary/10 text-primary border-0 px-4 py-2">
+        Achievements
+      </Badge>
+      <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-[#c15738] to-[#5c2d23] bg-clip-text text-transparent">
+        Recognition{" "}
+        <span className="text-gradient bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+          & Milestones
+        </span>
+      </h2>
+      <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-[#c15738] to-[#5c2d23] mx-auto rounded-full" />
+    </div>
+
+    {/* Achievements Grid */}
+   {/* Achievements Grid */}
+<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+  {achievements.map((achievement, index) => (
+    <div key={index} className="group perspective-1000">
+      <Card
+        className="relative p-6 sm:p-8 border-0 shadow-2xl hover:shadow-3xl transition-all duration-700 transform hover:scale-105 hover:-translate-y-3 bg-gradient-to-br from-white via-white to-primary/5 backdrop-blur-md preserve-3d hover:rotate-y-6 overflow-hidden cursor-pointer"
+      >
+        {/* Animated background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+
+        {/* Floating decorative dots */}
+        <div className="absolute top-4 right-4 w-3 h-3 bg-primary/20 rounded-full animate-pulse"></div>
+        <div
+          className="absolute bottom-6 left-4 w-2 h-2 bg-secondary/30 rounded-full animate-bounce"
+          style={{ animationDelay: '0.4s' }}
+        ></div>
+
+        {/* Icon */}
+        <div className="w-16 h-16 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-2xl flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform duration-300">
+          <Award className="h-8 w-8 text-white" />
         </div>
-      </section>
+
+        {/* Title */}
+        <h3 className="relative text-lg sm:text-xl font-bold mb-4 text-foreground group-hover:text-primary transition-colors duration-300">
+          {achievement.title}
+        </h3>
+
+        {/* Achievement Items */}
+        <div className="space-y-2 sm:space-y-3">
+          {achievement.items.map((item, itemIndex) => (
+            <div
+              key={itemIndex}
+              className="flex items-start space-x-3 p-3 bg-[#f1eee9] rounded-lg hover:bg-[#ede8e1] transition-colors duration-200"
+            >
+              <div className="w-3 h-3 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                <CheckCircle className="w-2 h-2 text-white" />
+              </div>
+              <span className="text-sm font-medium text-gray-700">{item}</span>
+            </div>
+          ))}
+        </div>
+
+        {/* Interactive glow borders */}
+        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-primary to-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+        <div className="absolute top-0 bottom-0 right-0 w-1 bg-gradient-to-b from-primary to-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+        {/* Glow effect */}
+        <div className="absolute -inset-1 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10 blur-sm"></div>
+      </Card>
+    </div>
+  ))}
+</div>
+
+  </div>
+</section>
 
       {/* Core Values Section */}
-      <section className="py-12 sm:py-16 md:py-20 bg-[#f1eee9]">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-8 sm:mb-12 md:mb-16">
-            <Badge className="mb-4 bg-primary/10 text-primary border-0 px-4 py-2">
-              Core Values
-            </Badge>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-[#c15738] to-[#5c2d23] bg-clip-text text-transparent">
-              What Drives <span className="text-gradient bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Us Forward</span>
-            </h2>
-            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-[#c15738] to-[#5c2d23] mx-auto rounded-full" />
-          </div>
+      <section className="py-12 sm:py-16 md:py-20 bg-[#f1eee9] relative overflow-hidden">
+  <div className="container mx-auto px-4">
+    {/* Header */}
+    <div className="text-center mb-8 sm:mb-12 md:mb-16">
+      <Badge className="mb-4 bg-primary/10 text-primary border-0 px-4 py-2">
+        Core Values
+      </Badge>
+      <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-[#c15738] to-[#5c2d23] bg-clip-text text-transparent">
+        What Drives{" "}
+        <span className="text-gradient bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+          Us Forward
+        </span>
+      </h2>
+      <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-[#c15738] to-[#5c2d23] mx-auto rounded-full" />
+    </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
-            {values.map((value, index) => (
-              <Card key={index} className="p-4 sm:p-6 md:p-8 text-center h-full bg-white/70 backdrop-blur-md hover:bg-white/80 hover:shadow-2xl transition-all duration-300 border border-white/20 shadow-lg rounded-xl">
-                <div className="w-12 h-12 sm:w-14 sm:h-16 md:w-16 md:h-16 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6 group-hover:scale-110 transition-all duration-300 shadow-lg">
-                  <value.icon className="h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8 text-white" />
-                </div>
-                <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4">{value.title}</h3>
-                <p className="text-gray-600 mb-4 sm:mb-6 leading-relaxed text-sm sm:text-base">
-                  {value.description}
-                </p>
+    {/* 3D Value Cards */}
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8">
+      {values.map((value, index) => (
+        <div key={index} className="group perspective-1000">
+          <Card className="relative p-6 sm:p-8 border-0 shadow-xl hover:shadow-3xl transition-all duration-700 transform hover:scale-105 hover:-translate-y-3 bg-gradient-to-br from-white via-white to-primary/5 backdrop-blur-md preserve-3d hover:rotate-y-6 overflow-hidden rounded-2xl">
+            
+            {/* Animated gradient overlay */}
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700 rounded-2xl"></div>
 
-                <div className="flex items-center justify-center space-x-2">
-                  <div className="w-3 h-3 sm:w-4 sm:h-4 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-full flex items-center justify-center">
-                    <CheckCircle className="w-2 h-2 sm:w-2.5 sm:h-2.5 text-white" />
-                  </div>
-                  <Badge className="bg-gradient-to-r from-[#c15738] to-[#5c2d23] text-white border-0 px-2 sm:px-3 py-1 text-xs">
-                    {value.stats}
-                  </Badge>
-                </div>
-              </Card>
-            ))}
-          </div>
+            {/* Floating particles for subtle motion */}
+            <div className="absolute top-6 left-6 w-2 h-2 bg-primary/30 rounded-full animate-pulse"></div>
+            <div className="absolute bottom-6 right-8 w-1.5 h-1.5 bg-secondary/40 rounded-full animate-bounce" style={{ animationDelay: '0.3s' }}></div>
+            <div className="absolute top-1/3 left-1/4 w-1 h-1 bg-primary/50 rounded-full animate-ping" style={{ animationDelay: '0.8s' }}></div>
+
+            {/* Icon with hover scaling */}
+            <div className="w-16 h-16 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-2xl flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform duration-300 shadow-lg">
+              <value.icon className="h-8 w-8 text-white" />
+            </div>
+
+            {/* Title and description */}
+            <h3 className="relative text-lg sm:text-xl font-bold mb-3 text-gray-900 group-hover:text-primary transition-colors duration-300 z-10">
+              {value.title}
+            </h3>
+            <p className="relative text-sm sm:text-base text-gray-600 mb-4 leading-relaxed group-hover:text-gray-700 transition-colors duration-300 z-10">
+              {value.description}
+            </p>
+
+            {/* Stats Badge with Check Icon */}
+            <div className="relative flex items-center justify-center z-10 group-hover:scale-105 transition-transform duration-300 space-x-2">
+              <div className="w-4 h-4 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-full flex items-center justify-center">
+                <CheckCircle className="w-2.5 h-2.5 text-white" />
+              </div>
+              <Badge className="bg-gradient-to-r from-[#c15738] to-[#5c2d23] text-white border-0 px-3 py-1 text-xs">
+                {value.stats}
+              </Badge>
+            </div>
+
+            {/* Glow + bottom line effect */}
+            <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-[#c15738] to-[#5c2d23] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10 blur-sm"></div>
+          </Card>
         </div>
-      </section>
+      ))}
+    </div>
+  </div>
+</section>
+
 
       {/* Achievements Section */}
       

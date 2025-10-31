@@ -143,7 +143,6 @@ const Index = () => {
         <ScrollToTop />
         {/* Hero Section */}
         <section className="relative pt-20 sm:pt-24 md:pt-32 pb-12 sm:pb-16 md:pb-24 overflow-hidden">
-          <AnimatedBackground />
 
           {/* Animated Background Elements */}
           <div className="absolute inset-0">
@@ -156,7 +155,7 @@ const Index = () => {
           {backgroundImages.map((image, index) => (
             <div
               key={index}
-              className={`absolute inset-0 black/50 transition-opacity duration-1000 ${index === currentImageIndex ? 'opacity-20' : 'opacity-0'
+              className={`absolute inset-0 black/50 transition-opacity duration-1000 ${index === currentImageIndex ? 'opacity-0' : 'opacity-0'
                 }`}
               style={{
                 backgroundImage: `url(${image})`,
@@ -170,7 +169,7 @@ const Index = () => {
             <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
               {/* Left Column */}
               <div className="space-y-6 md:space-y-8 animate-slide-up">
-                <Badge className="bg-gradient-to-r from-primary to-secondary border-0 text-primary-foreground px-4 py-1.5 text-sm">
+                <Badge className="bg-gradient-to-r from-primary to-secondary border-0 text-primary-foreground px-4 py-1.5 text-sm mt-10">
                   <Lightbulb className="w-4 h-4 mr-2" />
                   Trusted AI-Powered Platform
                 </Badge>
@@ -190,7 +189,7 @@ const Index = () => {
                   <Link to="/products">
                     <Button
                       size="lg"
-                      className="bg-gradient-to-r from-primary to-secondary text-primary-foreground shadow-lg group w-full sm:w-auto"
+                      className="bg-gradient-to-r from-primary to-secondary text-primary-foreground shadow-lg rounded-full group w-full sm:w-auto"
                     >
                       Submit RFQ
                       <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -200,7 +199,7 @@ const Index = () => {
                     <Button
                       size="lg"
                       variant="outline"
-                      className="border-primary text-primary hover:bg-primary hover:text-primary-foreground w-full sm:w-auto"
+                      className="border-primary text-primary hover:bg-primary hover:text-primary-foreground  rounded-full w-full sm:w-auto"
                     >
                       Learn More
                     </Button>
@@ -904,88 +903,88 @@ const Index = () => {
 
 
         {/* Contact Information Section */}
-        <section className="py-12 sm:py-16 md:py-20 bg-[#f7f5f2]">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-8 sm:mb-12 md:mb-16">
-              <Badge className="mb-4 bg-primary/10 text-primary border-0">
-                Get in Touch
-              </Badge>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-[#c15738] to-[#5c2d23] bg-clip-text text-transparent">
-                Ready to <span className="text-gradient bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Get Started?</span>
-              </h2>
-              <div className="w-16 sm:w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto mb-4"></div>
-              <p className="text-base sm:text-lg text-muted-foreground max-w-3xl mx-auto px-4">
-                Connect with our experts and transform your construction material procurement today
-              </p>
+          <section className="py-12 sm:py-16 md:py-20 bg-[#f7f5f2]">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="text-center mb-8 sm:mb-12 md:mb-16">
+                <Badge className="mb-4 bg-primary/10 text-primary border-0">
+                  Get in Touch
+                </Badge>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-[#c15738] to-[#5c2d23] bg-clip-text text-transparent">
+                  Ready to <span className="text-gradient bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Get Started?</span>
+                </h2>
+                <div className="w-16 sm:w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto mb-4"></div>
+                <p className="text-base sm:text-lg text-muted-foreground max-w-3xl mx-auto px-4">
+                  Connect with our experts and transform your construction material procurement today
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 mb-8 sm:mb-12">
+                {[
+                  {
+                    icon: Phone,
+                    title: "Call Us",
+                    value: "+91 91362 42706",
+                    description: "24/7 customer support",
+                    action: "tel:+919136242706"
+                  },
+                  {
+                    icon: Mail,
+                    title: "Email Us",
+                    value: "support@materialmatrix.ai",
+                    description: "Quick response guaranteed",
+                    action: "mailto:support@materialmatrix.ai"
+                  },
+                  {
+                    icon: MapPin,
+                    title: "Visit Us",
+                    value: "Mumbai, India",
+                    description: "01 RR DM Road Vakola Bridge",
+                    action: "https://maps.app.goo.gl/nBjFpHMPRA67dDgBA"
+                  },
+                ].map((contact, index) => (
+                  <div key={index} className="group perspective-1000">
+                    <Card
+                      className="relative p-6 sm:p-8 border-0 shadow-2xl hover:shadow-3xl transition-all duration-700 transform hover:scale-105 hover:-translate-y-3 bg-gradient-to-br from-white via-white to-primary/5 backdrop-blur-md preserve-3d hover:rotate-y-6 overflow-hidden cursor-pointer"
+                      onClick={() => window.open(contact.action, '_blank')}
+                    >
+                      {/* Animated background */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+
+                      {/* Floating elements */}
+                      <div className="absolute top-4 right-4 w-3 h-3 bg-primary/20 rounded-full animate-pulse"></div>
+                      <div className="absolute bottom-6 left-4 w-2 h-2 bg-secondary/30 rounded-full animate-bounce" style={{ animationDelay: '0.4s' }}></div>
+
+                      {/* Icon with consistent styling */}
+                      <div className="w-16 h-16 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-2xl flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform duration-300">
+                        <contact.icon className="h-8 w-8 text-white" />
+                      </div>
+
+                      {/* Content */}
+                      <h3 className="relative text-lg sm:text-xl font-bold mb-2 text-foreground group-hover:text-primary transition-colors duration-300">{contact.title}</h3>
+                      <p className="relative text-sm sm:text-base font-medium text-primary mb-2 group-hover:text-secondary transition-colors duration-300">{contact.value}</p>
+                      <p className="relative text-xs sm:text-sm text-muted-foreground group-hover:text-foreground/70 transition-colors duration-300">{contact.description}</p>
+
+                      {/* Interactive elements */}
+                      <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-primary to-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                      <div className="absolute top-0 bottom-0 right-0 w-1 bg-gradient-to-b from-primary to-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                      {/* Glow effect */}
+                      <div className="absolute -inset-1 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10 blur-sm"></div>
+                    </Card>
+                  </div>
+                ))}
+              </div>
+
+              <div className="text-center">
+                <Link to="/contact">
+                  <Button size="lg" className="bg-gradient-to-r from-primary to-secondary text-primary-foreground shadow-lg hover:shadow-xl transition-all duration-300">
+                    Contact Our Team
+                    <ArrowRight className="ml-2 w-4 h-4" />
+                  </Button>
+                </Link>
+              </div>
             </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 mb-8 sm:mb-12">
-              {[
-                {
-                  icon: Phone,
-                  title: "Call Us",
-                  value: "+91 91362 42706",
-                  description: "24/7 customer support",
-                  action: "tel:+919136242706"
-                },
-                {
-                  icon: Mail,
-                  title: "Email Us",
-                  value: "support@materialmatrix.ai",
-                  description: "Quick response guaranteed",
-                  action: "mailto:support@materialmatrix.ai"
-                },
-                {
-                  icon: MapPin,
-                  title: "Visit Us",
-                  value: "Mumbai, India",
-                  description: "01 RR DM Road Vakola Bridge",
-                  action: "https://maps.app.goo.gl/nBjFpHMPRA67dDgBA"
-                },
-              ].map((contact, index) => (
-                <div key={index} className="group perspective-1000">
-                  <Card
-                    className="relative p-6 sm:p-8 border-0 shadow-2xl hover:shadow-3xl transition-all duration-700 transform hover:scale-105 hover:-translate-y-3 bg-gradient-to-br from-white via-white to-primary/5 backdrop-blur-md preserve-3d hover:rotate-y-6 overflow-hidden cursor-pointer"
-                    onClick={() => window.open(contact.action, '_blank')}
-                  >
-                    {/* Animated background */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-
-                    {/* Floating elements */}
-                    <div className="absolute top-4 right-4 w-3 h-3 bg-primary/20 rounded-full animate-pulse"></div>
-                    <div className="absolute bottom-6 left-4 w-2 h-2 bg-secondary/30 rounded-full animate-bounce" style={{ animationDelay: '0.4s' }}></div>
-
-                    {/* Icon with consistent styling */}
-                    <div className="w-16 h-16 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-2xl flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform duration-300">
-                      <contact.icon className="h-8 w-8 text-white" />
-                    </div>
-
-                    {/* Content */}
-                    <h3 className="relative text-lg sm:text-xl font-bold mb-2 text-foreground group-hover:text-primary transition-colors duration-300">{contact.title}</h3>
-                    <p className="relative text-sm sm:text-base font-medium text-primary mb-2 group-hover:text-secondary transition-colors duration-300">{contact.value}</p>
-                    <p className="relative text-xs sm:text-sm text-muted-foreground group-hover:text-foreground/70 transition-colors duration-300">{contact.description}</p>
-
-                    {/* Interactive elements */}
-                    <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-primary to-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    <div className="absolute top-0 bottom-0 right-0 w-1 bg-gradient-to-b from-primary to-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-
-                    {/* Glow effect */}
-                    <div className="absolute -inset-1 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10 blur-sm"></div>
-                  </Card>
-                </div>
-              ))}
-            </div>
-
-            <div className="text-center">
-              <Link to="/contact">
-                <Button size="lg" className="bg-gradient-to-r from-primary to-secondary text-primary-foreground shadow-lg hover:shadow-xl transition-all duration-300">
-                  Contact Our Team
-                  <ArrowRight className="ml-2 w-4 h-4" />
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </section>
+          </section>
  <Testimonials />
         <FAQ />
         {/* CTA Section */}
