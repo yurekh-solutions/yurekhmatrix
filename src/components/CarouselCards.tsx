@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import {
   ChevronLeft,
   ChevronRight,
@@ -83,26 +82,6 @@ const CarouselCards = () => {
     },
   ];
 
-  const slideVariants = {
-    enter: (direction: number) => ({
-      x: direction > 0 ? 1000 : -1000,
-      opacity: 0,
-      scale: 0.9,
-    }),
-    center: {
-      zIndex: 1,
-      x: 0,
-      opacity: 1,
-      scale: 1,
-    },
-    exit: (direction: number) => ({
-      zIndex: 0,
-      x: direction < 0 ? 1000 : -1000,
-      opacity: 0,
-      scale: 0.9,
-    }),
-  };
-
   const nextSlide = () => {
     setDirection(1);
     setCurrentIndex((prev) => (prev + 1) % cards.length);
@@ -122,133 +101,82 @@ const CarouselCards = () => {
   const Icon = currentCard.icon;
 
   return (
-    <section className="py-16 md:py-28 bg-gradient-to-br from-primary/5 via-background to-secondary/5 relative overflow-hidden">
+    <section className="py-12 md:py-16 lg:py-24 bg-gradient-to-br from-primary/5 via-background to-secondary/5 relative overflow-hidden">
       {/* Decorative background blobs */}
       <div className="absolute top-20 left-20 w-64 h-64 bg-primary/10 rounded-full blur-[100px]" />
       <div className="absolute bottom-20 right-20 w-80 h-80 bg-secondary/10 rounded-full blur-[120px]" />
 
       <div className="container mx-auto px-4 relative z-10">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-10 md:mb-16"
-        >
-          {/* <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3">
-            Explore Our{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-orange-500">
-              AI Capabilities
-            </span>
-          </h2> */}
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-[#c15738] to-[#5c2d23] bg-clip-text text-transparent">
-                Explore Our{" "} <span className="text-gradient bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">AI Capabilities</span>
-              </h2>
+        <div className="text-center mb-8 md:mb-12 lg:mb-16">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 md:mb-4 bg-gradient-to-r from-[#c15738] to-[#5c2d23] bg-clip-text text-transparent">
+            Explore Our <span className="text-gradient bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">AI Capabilities</span>
+          </h2>
           <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
-            Discover how artificial intelligence transforms every aspect of
-            procurement.
+            Discover how artificial intelligence transforms every aspect of procurement.
           </p>
-        </motion.div>
+        </div>
 
         {/* Carousel Container */}
         <div className="relative max-w-6xl mx-auto">
-          <div className="relative min-h-[550px] sm:min-h-[480px]">
-            <AnimatePresence initial={false} custom={direction}>
-              <motion.div
-                key={currentIndex}
-                custom={direction}
-                variants={slideVariants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={{
-                  x: { type: "spring", stiffness: 300, damping: 30 },
-                  opacity: { duration: 0.4 },
-                }}
-                className="absolute inset-0"
-              >
-                <div className="glass-effect rounded-3xl overflow-hidden h-auto shadow-xl hover:shadow-2xl transition-all duration-300">
-                  <div className="grid grid-cols-1 md:grid-cols-2">
-                    {/* Image Section */}
-                    <div className="relative w-full h-auto md:h-full">
-                      <img
-                        src={currentCard.image}
-                        alt={currentCard.title}
-                        className="w-full h-auto md:h-full object-cover"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-primary/60 via-primary/20 to-transparent" />
-                      <div className="absolute top-4 left-4 sm:top-6 sm:left-6">
-                        <div className="   bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-2xl p-2 sm:p-3 border border-white/30">
-                          <Icon className="w-6 h-6 sm:w-8 sm:h-8 text-white drop-shadow-lg" />
-                        </div>
+          <div className="relative min-h-[400px] sm:min-h-[450px] md:min-h-[500px] lg:min-h-[550px]">
+            <div className="absolute inset-0 transition-all duration-700 ease-in-out">
+              <div className="glass-effect rounded-2xl sm:rounded-3xl overflow-hidden h-auto shadow-xl hover:shadow-2xl transition-all duration-300">
+                <div className="grid grid-cols-1 md:grid-cols-2">
+                  {/* Image Section */}
+                  <div className="relative w-full h-auto md:h-full">
+                    <img
+                      src={currentCard.image}
+                      alt={currentCard.title}
+                      className="w-full h-[200px] sm:h-[250px] md:h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-primary/60 via-primary/20 to-transparent" />
+                    <div className="absolute top-3 sm:top-4 md:top-6 left-3 sm:left-4 md:left-6">
+                      <div className="bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-xl sm:rounded-2xl p-2 sm:p-3 border border-white/30">
+                        <Icon className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 text-white drop-shadow-lg" />
                       </div>
                     </div>
+                  </div>
 
-                    {/* Text Content */}
-                    <div className="p-6 sm:p-8 md:p-10 flex flex-col justify-center bg-gradient-to-br from-background/50 to-primary/5 backdrop-blur-md">
-                      <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.2 }}
-                      >
-                        <span className="text-xs sm:text-sm font-semibold text-primary bg-primary/10 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border border-primary/20 inline-block mb-3 sm:mb-4">
-                          {currentCard.subtitle}
-                        </span>
+                  {/* Text Content */}
+                  <div className="p-4 sm:p-6 md:p-8 lg:p-10 flex flex-col justify-center bg-gradient-to-br from-background/50 to-primary/5 backdrop-blur-md">
+                    <div>
+                      <span className="text-xs sm:text-sm font-semibold text-primary bg-primary/10 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border border-primary/20 inline-block mb-3 sm:mb-4">
+                        {currentCard.subtitle}
+                      </span>
 
-                        <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 text-foreground">
-                          {currentCard.title}
-                        </h3>
+                      <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4 text-foreground">
+                        {currentCard.title}
+                      </h3>
 
-                        <p className="text-sm sm:text-base md:text-lg text-muted-foreground leading-relaxed mb-6">
-                          {currentCard.description}
-                        </p>
+                      <p className="text-sm sm:text-base md:text-lg text-muted-foreground leading-relaxed mb-4 sm:mb-6">
+                        {currentCard.description}
+                      </p>
 
-                        <div className="grid grid-cols-2 gap-3 sm:gap-4">
-                          {currentCard.stats.map((stat, idx) => (
-                            <motion.div
-                              key={idx}
-                              initial={{ opacity: 0, scale: 0.8 }}
-                              animate={{ opacity: 1, scale: 1 }}
-                              transition={{ delay: 0.3 + idx * 0.1 }}
-                              className="glass-effect rounded-xl p-3 sm:p-4 border border-primary/10"
-                            >
-                              <div className="text-xl sm:text-2xl md:text-3xl font-bold text-primary mb-1">
-                                {stat.value}
-                              </div>
-                              <div className="text-xs sm:text-sm text-muted-foreground">
-                                {stat.label}
-                              </div>
-                            </motion.div>
-                          ))}
-                        </div>
-                      </motion.div>
+                      <div className="grid grid-cols-2 gap-3 sm:gap-4">
+                        {currentCard.stats.map((stat, idx) => (
+                          <div
+                            key={idx}
+                            className="glass-effect rounded-xl p-3 sm:p-4 border border-primary/10"
+                          >
+                            <div className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-primary mb-1">
+                              {stat.value}
+                            </div>
+                            <div className="text-xs sm:text-sm text-muted-foreground">
+                              {stat.label}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
-              </motion.div>
-            </AnimatePresence>
+              </div>
+            </div>
           </div>
 
           {/* Nav Buttons */}
-          <div className="absolute top-1/2 -translate-y-1/2 left-0 right-0 flex justify-between px-3 sm:px-4 pointer-events-none">
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              onClick={prevSlide}
-              className="glass-effect rounded-full p-2 sm:p-3 hover:bg-primary/20 transition-colors pointer-events-auto shadow-lg"
-            >
-              <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
-            </motion.button>
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              onClick={nextSlide}
-              className="glass-effect rounded-full p-2 sm:p-3 hover:bg-primary/20 transition-colors pointer-events-auto shadow-lg"
-            >
-              <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
-            </motion.button>
-          </div>
-
+        
           {/* Dots */}
           <div className="flex justify-center gap-2 mt-6 sm:mt-8">
             {cards.map((_, idx) => (
@@ -260,7 +188,7 @@ const CarouselCards = () => {
                 }}
                 className={`h-2 rounded-full transition-all duration-300 ${
                   idx === currentIndex
-                    ? "w-8 sm:w-12 bg-primary"
+                    ? "w-6 sm:w-8 md:w-12 bg-primary"
                     : "w-2 bg-primary/30 hover:bg-primary/50"
                 }`}
               />
@@ -272,4 +200,4 @@ const CarouselCards = () => {
   );
 };
 
-export default CarouselCards;
+export default CarouselCards

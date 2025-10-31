@@ -40,8 +40,7 @@ import {
   RefreshCw,
   Users,
 } from "lucide-react";
-import { motion, useInView } from "framer-motion";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import heroImage from "@/assets/hero-construction.jpg";
 import officeBuilding from "@/assets/office-building.jpg";
 import ProcurementHero from "@/components/ProcurementHero";
@@ -90,39 +89,6 @@ import panIndia from "@/assets/cards/pan-india.jpg";
 
 const About = () => {
   const [activeTab, setActiveTab] = useState("ai-solutions");
-  
-  const missionRef = useRef(null);
-  const tabbedRef = useRef(null);
-  const valuesRef = useRef(null);
-  const achievementsRef = useRef(null);
-  const statsRef = useRef(null);
-
-  const isMissionInView = useInView(missionRef, { once: true, margin: "-100px" });
-  const isTabbedInView = useInView(tabbedRef, { once: true, margin: "-100px" });
-  const isValuesInView = useInView(valuesRef, { once: true, margin: "-100px" });
-  const isAchievementsInView = useInView(achievementsRef, { once: true, margin: "-100px" });
-  const isStatsInView = useInView(statsRef, { once: true, margin: "-100px" });
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5,
-      },
-    },
-  };
 
   const tabbedContent = {
     "ai-solutions": [
@@ -270,7 +236,7 @@ const About = () => {
 
       {/* Hero Section */}
       <section
-        className="relative pt-32 pb-20 overflow-hidden"
+        className="relative pt-24 sm:pt-28 md:pt-32 pb-16 sm:pb-20 overflow-hidden"
         style={{
           backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${heroImage})`,
           backgroundSize: "cover",
@@ -278,134 +244,246 @@ const About = () => {
         }}
       >
         <div className="container mx-auto px-4 text-center relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <Badge className="bg-gradient-to-r from-[#c15738] to-[#5c2d23] border-0 text-white px-6 py-2 text-sm mb-6 font-medium">
+          <div className="max-w-4xl mx-auto">
+            <Badge className="bg-gradient-to-r from-[#c15738] to-[#5c2d23] border-0 text-white px-4 sm:px-6 py-2 text-xs sm:text-sm mb-4 sm:mb-6 font-medium">
               About MaterialMatrix
             </Badge>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-bold mb-6 text-white leading-tight">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 text-white leading-tight">
               Revolutionizing Construction Procurement
             </h1>
-            <p className="text-lg sm:text-xl text-gray-200 max-w-3xl mx-auto leading-relaxed px-4">
+            <p className="text-base sm:text-lg md:text-xl text-gray-200 max-w-3xl mx-auto leading-relaxed px-4">
               AI-powered platform connecting builders with verified suppliers
               across India, transforming how construction materials are sourced.
             </p>
-          </motion.div>
+          </div>
         </div>
       </section>
-                <ProcurementHero />
-
+      
+      <ProcurementHero />
 
       {/* Mission, Vision & Approach Section */}
-      
+      <section className="py-12 sm:py-16 md:py-20 bg-[#f1eee9]">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-8 sm:mb-12 md:mb-16">
+            <Badge className="mb-4 bg-primary/10 text-primary border-0 px-4 py-2">
+              Our Foundation
+            </Badge>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-[#c15738] to-[#5c2d23] bg-clip-text text-transparent">
+              Mission <span className="text-gradient bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Vision & Approach</span>
+            </h2>
+            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-[#c15738] to-[#5c2d23] mx-auto rounded-full" />
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 mb-6 sm:mb-8">
+            {/* Mission Card */}
+            <Card className="p-4 sm:p-6 md:p-8 bg-white/90 backdrop-blur-xl border border-white/20 shadow-lg rounded-xl">
+              <div className="flex flex-col gap-6 sm:gap-8 md:gap-10">
+                {/* Our Mission */}
+                <div>
+                  <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6 mb-4 sm:mb-6">
+                    <div className="w-12 h-12 sm:w-14 sm:h-16 md:w-16 md:h-16 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-xl sm:rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg">
+                      <Target className="text-white h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-xl sm:text-2xl font-bold mb-2 sm:mb-3 text-gray-900">Our Mission</h3>
+                      <p className="text-gray-600 leading-relaxed text-sm sm:text-base">
+                        Transform raw material procurement for the construction industry by leveraging advanced AI and digital innovation to create a transparent, reliable, and cost-efficient marketplace.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
+                    {[
+                      "AI-Powered Matching",
+                      "Transparent Pricing",
+                      "Quality Assurance",
+                      "Real-time Tracking",
+                      "Pan-India Network",
+                      "24/7 Support",
+                    ].map((item, index) => (
+                      <div
+                        key={item}
+                        className="flex items-center space-x-2 sm:space-x-3 p-2 sm:p-3 bg-[#f1eee9] rounded-lg hover:bg-[#ede8e1] transition-colors duration-200"
+                      >
+                        <div className="w-3 h-3 sm:w-4 sm:h-4 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-full flex items-center justify-center flex-shrink-0">
+                          <CheckCircle className="w-2 h-2 sm:w-2.5 sm:h-2.5 text-white" />
+                        </div>
+                        <span className="text-xs sm:text-sm font-medium text-gray-700">{item}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Our Approach */}
+                <div className="flex flex-col gap-4 sm:gap-6">
+                  <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6">
+                    <div className="w-12 h-12 sm:w-14 sm:h-16 md:w-16 md:h-16 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-xl sm:rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg">
+                      <Lightbulb className="text-white h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-xl sm:text-2xl font-bold mb-2 sm:mb-3 text-gray-900">Our Approach</h3>
+                      <p className="text-gray-600 leading-relaxed mb-4 sm:mb-6 text-sm sm:text-base">
+                        We combine cutting-edge AI technology with deep industry expertise to deliver unmatched procurement solutions. Our data-driven approach ensures optimal supplier matching and cost efficiency.
+                      </p>
+
+                      <div className="grid grid-cols-2 gap-2 sm:gap-3">
+                        <div className="flex flex-col items-center justify-center py-2 sm:py-3 px-2 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-lg text-white shadow-md">
+                          <div className="text-base sm:text-lg md:text-xl font-bold leading-tight">99.9%</div>
+                          <div className="text-[10px] sm:text-xs opacity-90 mt-0.5">Accuracy Rate</div>
+                        </div>
+
+                        <div className="flex flex-col items-center justify-center py-2 sm:py-3 px-2 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-lg text-white shadow-md">
+                          <div className="text-base sm:text-lg md:text-xl font-bold leading-tight">24/7</div>
+                          <div className="text-[10px] sm:text-xs opacity-90 mt-0.5">AI Support</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Card>
+
+            {/* Vision Card */}
+            <Card className="p-4 sm:p-6 md:p-8 bg-white/90 backdrop-blur-xl border border-white/20 shadow-lg rounded-xl">
+              <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6 mb-4 sm:mb-6">
+                <div className="w-12 h-12 sm:w-14 sm:h-16 md:w-16 md:h-16 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-xl sm:rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg">
+                  <TrendingUp className="text-white h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-xl sm:text-2xl font-bold mb-2 sm:mb-3 text-gray-900">Vision 2030</h3>
+                  <p className="text-gray-600 leading-relaxed text-sm sm:text-base">
+                    Become the world's leading digital marketplace for construction trade, enabling
+                    billions in transactions and fostering a fully digital, efficient ecosystem.
+                  </p>
+                </div>
+              </div>
+
+              <div className="space-y-2 sm:space-y-3 mb-4 sm:mb-6">
+                {[
+                  "Become #1 AI-Powered Procurement platform in India",
+                  "Expand to international markets across Asia-Pacific",
+                  "Achieve carbon-neutral operations by 2030",
+                  "Enable $10B+ in annual transactions",
+                ].map((goal, idx) => (
+                  <div
+                    key={idx}
+                    className="flex items-start space-x-2 sm:space-x-3 p-2 sm:p-3 bg-[#f1eee9] rounded-lg hover:bg-[#ede8e1] transition-colors duration-200"
+                  >
+                    <div className="w-3 h-3 sm:w-4 sm:h-4 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <CheckCircle className="w-2 h-2 sm:w-2.5 sm:h-2.5 text-white" />
+                    </div>
+                    <span className="text-xs sm:text-sm font-medium text-gray-700">{goal}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="relative overflow-hidden rounded-xl shadow-lg">
+                <img
+                  src={officeBuilding}
+                  alt="MaterialMatrix modern office building"
+                  className="w-full h-32 sm:h-40 md:h-48 object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                <div className="absolute bottom-2 sm:bottom-4 left-2 sm:left-4 text-white">
+                  <p className="text-xs sm:text-sm font-medium flex items-center gap-1 sm:gap-2">
+                    <Building2 className="w-3 h-3 sm:w-4 sm:h-4" />
+                    Our Modern Headquarters
+                  </p>
+                  <p className="text-[10px] sm:text-xs opacity-90 flex items-center gap-1 sm:gap-2 mt-1">
+                    <Globe className="w-2 h-2 sm:w-3 sm:h-3" />
+                    Mumbai, Maharashtra
+                  </p>
+                </div>
+              </div>
+            </Card>
+          </div>
+        </div>
+      </section>
 
       {/* Tabbed Carousel Section */}
-      <section className="py-20 bg-[#f9f7f6]" ref={tabbedRef}>
+      <section className="py-12 sm:py-16 md:py-20 bg-[#f9f7f6]">
         <div className="container mx-auto px-4">
-          <motion.div
-            className="text-center mb-16"
-            initial={{ opacity: 0, y: 40 }}
-            animate={isTabbedInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-            transition={{ duration: 0.8 }}
-          >
-            
-            <Badge className="mb-4   bg-primary/10 text-primary border-0 px-4 py-2">
+          <div className="text-center mb-8 sm:mb-12 md:mb-16">
+            <Badge className="mb-4 bg-primary/10 text-primary border-0 px-4 py-2">
               All-in-One AI Procurement Suite
             </Badge>
-            {/* <h2 className="text-3xl sm:text-4xl lg:text-4xl font-bold mb-6 ">
-              About MaterialMatrix AI
-            </h2> */}
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-[#c15738] to-[#5c2d23] bg-clip-text text-transparent">
-                About <span className="text-gradient bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Advanced AI</span>
-              </h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-[#c15738] to-[#5c2d23] mx-auto rounded-full" />
-          </motion.div>
+              About <span className="text-gradient bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Advanced AI</span>
+            </h2>
+            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-[#c15738] to-[#5c2d23] mx-auto rounded-full" />
+          </div>
 
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <div className="flex flex-col lg:flex-row gap-8">
+            <div className="flex flex-col lg:flex-row gap-4 sm:gap-6 lg:gap-8">
               {/* Tabs List - Left Side */}
-              <motion.div
-                initial={{ opacity: 0, x: -50 }}
-                animate={isTabbedInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
-                transition={{ duration: 0.8 }}
-                className="lg:w-64 flex-shrink-0"
-              >
-                <TabsList className="flex flex-row lg:flex-col h-auto w-full bg-transparent gap-3">
+              <div className="lg:w-64 flex-shrink-0">
+                <TabsList className="flex flex-row lg:flex-col h-auto w-full bg-transparent gap-2 sm:gap-3">
                   <TabsTrigger
                     value="ai-solutions"
-                    className="w-full justify-start px-6 py-4 text-left bg-white/70 backdrop-blur-md border border-white/20 rounded-lg data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#c15738] data-[state=active]:to-[#5c2d23] data-[state=active]:text-white data-[state=active]:shadow-lg hover:bg-white/90 transition-all duration-300"
+                    className="w-full justify-start px-3 sm:px-4 sm:px-6 py-3 sm:py-4 text-left bg-white/70 backdrop-blur-md border border-white/20 rounded-lg data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#c15738] data-[state=active]:to-[#5c2d23] data-[state=active]:text-white data-[state=active]:shadow-lg hover:bg-white/90 transition-all duration-300 text-sm sm:text-base"
                   >
-                    <Brain className="w-5 h-5 mr-3" />
-                    AI Solutions
+                    <Brain className="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3" />
+                    <span className="hidden sm:inline">AI Solutions</span>
+                    <span className="sm:hidden">AI</span>
                   </TabsTrigger>
                   <TabsTrigger
                     value="features"
-                    className="w-full justify-start px-6 py-4 text-left bg-white/70 backdrop-blur-md border border-white/20 rounded-lg data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#c15738] data-[state=active]:to-[#5c2d23] data-[state=active]:text-white data-[state=active]:shadow-lg hover:bg-white/90 transition-all duration-300"
+                    className="w-full justify-start px-3 sm:px-4 sm:px-6 py-3 sm:py-4 text-left bg-white/70 backdrop-blur-md border border-white/20 rounded-lg data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#c15738] data-[state=active]:to-[#5c2d23] data-[state=active]:text-white data-[state=active]:shadow-lg hover:bg-white/90 transition-all duration-300 text-sm sm:text-base"
                   >
-                    <Zap className="w-5 h-5 mr-3" />
+                    <Zap className="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3" />
                     Features
                   </TabsTrigger>
                   <TabsTrigger
                     value="industries"
-                    className="w-full justify-start px-6 py-4 text-left bg-white/70 backdrop-blur-md border border-white/20 rounded-lg data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#c15738] data-[state=active]:to-[#5c2d23] data-[state=active]:text-white data-[state=active]:shadow-lg hover:bg-white/90 transition-all duration-300"
+                    className="w-full justify-start px-3 sm:px-4 sm:px-6 py-3 sm:py-4 text-left bg-white/70 backdrop-blur-md border border-white/20 rounded-lg data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#c15738] data-[state=active]:to-[#5c2d23] data-[state=active]:text-white data-[state=active]:shadow-lg hover:bg-white/90 transition-all duration-300 text-sm sm:text-base"
                   >
-                    <Building2 className="w-5 h-5 mr-3" />
+                    <Building2 className="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3" />
                     Industries
                   </TabsTrigger>
                   <TabsTrigger
                     value="benefits"
-                    className="w-full justify-start px-6 py-4 text-left bg-white/70 backdrop-blur-md border border-white/20 rounded-lg data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#c15738] data-[state=active]:to-[#5c2d23] data-[state=active]:text-white data-[state=active]:shadow-lg hover:bg-white/90 transition-all duration-300"
+                    className="w-full justify-start px-3 sm:px-4 sm:px-6 py-3 sm:py-4 text-left bg-white/70 backdrop-blur-md border border-white/20 rounded-lg data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#c15738] data-[state=active]:to-[#5c2d23] data-[state=active]:text-white data-[state=active]:shadow-lg hover:bg-white/90 transition-all duration-300 text-sm sm:text-base"
                   >
-                    <Award className="w-5 h-5 mr-3" />
+                    <Award className="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3" />
                     Benefits
                   </TabsTrigger>
                 </TabsList>
-              </motion.div>
+              </div>
 
               {/* Cards Grid - Right Side */}
               <div className="flex-1">
                 {Object.entries(tabbedContent).map(([key, cards]) => (
                   <TabsContent key={key} value={key} className="mt-0">
-                    <motion.div
-                      className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
-                      variants={containerVariants}
-                      initial="hidden"
-                      animate={isTabbedInView ? "visible" : "hidden"}
-                    >
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4">
                       {cards.map((card, index) => (
-                        <motion.div key={index} variants={itemVariants}>
-                          <Card className="group relative overflow-hidden rounded-xl border-0 shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 h-full">
-                            {/* Background Image */}
-                            <div
-                              className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
-                              style={{ backgroundImage: `url(${card.image})` }}
-                            />
-                            
-                            {/* Default Overlay */}
-                            <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70 transition-all duration-500" />
-                            
-                            {/* Hover Overlay */}
-                            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/60 transition-all duration-500" />
-                            
-                            {/* Content */}
-                            <div className="relative z-10 p-6 flex flex-col h-full">
-                              <div className="w-12 h-12 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-lg flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
-                                <card.icon className="w-6 h-6 text-white" />
-                              </div>
-                              <h4 className="font-bold text-white mb-2 text-base group-hover:text-orange-200 transition-colors duration-300">
-                                {card.title}
-                              </h4>
-                              <p className="text-sm text-gray-200 leading-relaxed group-hover:text-white transition-colors duration-300">
-                                {card.description}
-                              </p>
+                        <Card key={index} className="group relative overflow-hidden rounded-xl border-0 shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 h-full">
+                          {/* Background Image */}
+                          <div
+                            className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
+                            style={{ backgroundImage: `url(${card.image})` }}
+                          />
+                          
+                          {/* Default Overlay */}
+                          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70 transition-all duration-500" />
+                          
+                          {/* Hover Overlay */}
+                          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/60 transition-all duration-500" />
+                          
+                          {/* Content */}
+                          <div className="relative z-10 p-3 sm:p-4 md:p-6 flex flex-col h-full">
+                            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-lg flex items-center justify-center mb-3 sm:mb-4 shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
+                              <card.icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                             </div>
-                          </Card>
-                        </motion.div>
+                            <h4 className="font-bold text-white mb-2 text-sm sm:text-base group-hover:text-orange-200 transition-colors duration-300">
+                              {card.title}
+                            </h4>
+                            <p className="text-xs sm:text-sm text-gray-200 leading-relaxed group-hover:text-white transition-colors duration-300">
+                              {card.description}
+                            </p>
+                          </div>
+                        </Card>
                       ))}
-                    </motion.div>
+                    </div>
                   </TabsContent>
                 ))}
               </div>
@@ -414,325 +492,116 @@ const About = () => {
         </div>
       </section>
 
-              <CarouselCards />
+      <CarouselCards />
       <AIFeatureSection />
-
-      <section className="py-20 bg-[#f1eee9]" ref={missionRef}>
-        <div className="container mx-auto px-4">
-          <motion.div
-            className="text-center mb-16"
-            initial={{ opacity: 0, y: 40 }}
-            animate={isMissionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-            transition={{ duration: 0.8 }}
-          >
-            <Badge className="mb-4 bg-primary/10 text-primary border-0 px-4 py-2">
-              Our Foundation
-            </Badge>
-            {/* <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 text-gray-900">
-              Mission, Vision & Approach
-            </h2> */}
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-[#c15738] to-[#5c2d23] bg-clip-text text-transparent">
-                Mission <span className="text-gradient bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Vission & Approach</span>
-              </h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-[#c15738] to-[#5c2d23] mx-auto rounded-full" />
-          </motion.div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-            {/* Mission Card */}
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              animate={isMissionInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            >
-           <Card className="p-8 bg-white/90 backdrop-blur-xl border border-white/20 shadow-lg hover:shadow-2xl transition-all duration-300 rounded-xl hover:-translate-y-2">
-  <div className="flex flex-col gap-10">
-    {/* --- Our Mission --- */}
-    <div>
-      <div className="flex items-start gap-6 mb-6">
-        <div className="w-16 h-16 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg">
-          <Target className="text-white h-8 w-8" />
-        </div>
-        <div>
-          <h3 className="text-2xl font-bold mb-3 text-gray-900">Our Mission</h3>
-          <p className="text-gray-600 leading-relaxed text-base">
-            Transform raw material procurement for the construction industry by leveraging advanced AI and digital innovation to create a transparent, reliable, and cost-efficient marketplace.
-          </p>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-2">
-        {[
-          "AI-Powered Matching",
-          "Transparent Pricing",
-          "Quality Assurance",
-          "Real-time Tracking",
-          "Pan-India Network",
-          "24/7 Support",
-        ].map((item, index) => (
-          <motion.div
-            key={item}
-            className="flex items-center space-x-3 p-3 bg-[#f1eee9] rounded-lg hover:bg-[#ede8e1] transition-colors duration-200"
-            initial={{ opacity: 0, y: 20 }}
-            animate={isMissionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
-          >
-            <div className="w-4 h-4 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-full flex items-center justify-center flex-shrink-0">
-              <CheckCircle className="w-2.5 h-2.5 text-white" />
-            </div>
-            <span className="text-sm font-medium text-gray-700">{item}</span>
-          </motion.div>
-        ))}
-      </div>
-    </div>
-
-
-    {/* --- Our Approach --- */}
-    <div className="flex flex-col lg:flex-row items-start gap-6">
-      <div className="w-16 h-16 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg">
-        <Lightbulb className="text-white h-8 w-8" />
-      </div>
-      <div className="flex-1">
-        <h3 className="text-2xl font-bold mb-3 text-gray-900">Our Approach</h3>
-        <p className="text-gray-600 leading-relaxed mb-6 text-base">
-          We combine cutting-edge AI technology with deep industry expertise to deliver unmatched procurement solutions. Our data-driven approach ensures optimal supplier matching and cost efficiency.
-        </p>
-
-      <div className="grid grid-cols-2 sm:grid-cols-2 gap-3 mt-4">
-  <div className="flex flex-col items-center justify-center py-3 px-2 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-lg text-white shadow-md hover:shadow-lg transition-all duration-300">
-    <div className="text-lg sm:text-xl font-bold leading-tight">99.9%</div>
-    <div className="text-[11px] sm:text-xs opacity-90 mt-0.5">Accuracy Rate</div>
-  </div>
-
-  <div className="flex flex-col items-center justify-center py-3 px-2 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-lg text-white shadow-md hover:shadow-lg transition-all duration-300">
-    <div className="text-lg sm:text-xl font-bold leading-tight">24/7</div>
-    <div className="text-[11px] sm:text-xs opacity-90 mt-0.5">AI Support</div>
-  </div>
-</div>
-
-
-       
-      </div>
-    </div>
-  </div>
-</Card>
-
-            </motion.div>
-
-            {/* Vision Card */}
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              animate={isMissionInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-            >
-              <Card className="p-8 bg-white/90 backdrop-blur-xl border border-white/20 shadow-lg hover:shadow-2xl transition-all duration-300 h-full rounded-xl hover:-translate-y-2">
-                <div className="flex items-start gap-6 mb-6">
-                  <div className="w-16 h-16 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg">
-                    <TrendingUp className="text-white h-8 w-8" />
-                  </div>
-                  <div>
-                    <h3 className="text-2xl font-bold mb-3 text-gray-900">Vision 2030</h3>
-                    <p className="text-gray-600 leading-relaxed text-base">
-                      Become the world's leading digital marketplace for construction trade, enabling
-                      billions in transactions and fostering a fully digital, efficient ecosystem.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="space-y-3 mb-6">
-                  {[
-                    "Become #1 AI-Powered Procurement platform in India",
-                    "Expand to international markets across Asia-Pacific",
-                    "Achieve carbon-neutral operations by 2030",
-                    "Enable $10B+ in annual transactions",
-                  ].map((goal, idx) => (
-                    <motion.div
-                      key={idx}
-                      className="flex items-start space-x-3 p-3 bg-[#f1eee9] rounded-lg hover:bg-[#ede8e1] transition-colors duration-200"
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={isMissionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                      transition={{ duration: 0.5, delay: 0.6 + idx * 0.1 }}
-                    >
-                      <div className="w-4 h-4 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <CheckCircle className="w-2.5 h-2.5 text-white" />
-                      </div>
-                      <span className="text-sm font-medium text-gray-700">{goal}</span>
-                    </motion.div>
-                  ))}
-                </div>
-
-                <div className="relative overflow-hidden rounded-xl shadow-lg">
-                  <img
-                    src={officeBuilding}
-                    alt="MaterialMatrix modern office building"
-                    className="w-full h-48 object-cover transition-transform duration-300 hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                  <div className="absolute bottom-4 left-4 text-white">
-                    <p className="text-sm font-medium flex items-center gap-2">
-                      <Building2 className="w-4 h-4" />
-                      Our Modern Headquarters
-                    </p>
-                    <p className="text-xs opacity-90 flex items-center gap-2 mt-1">
-                      <Globe className="w-3 h-3" />
-                      Mumbai, Maharashtra
-                    </p>
-                  </div>
-                </div>
-              </Card>
-            </motion.div>
-          </div>
-
-          {/* Our Approach Card (Full Width) */}
-         
-        </div>
-      </section>
-<ProcurementGrid />
+      <ProcurementGrid />
 
       {/* Core Values Section */}
-      <section className="py-20 bg-[#f1eee9]" ref={valuesRef}>
+      <section className="py-12 sm:py-16 md:py-20 bg-[#f1eee9]">
         <div className="container mx-auto px-4">
-          <motion.div
-            className="text-center mb-16"
-            initial={{ opacity: 0, y: 40 }}
-            animate={isValuesInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-            transition={{ duration: 0.8 }}
-          >
+          <div className="text-center mb-8 sm:mb-12 md:mb-16">
             <Badge className="mb-4 bg-primary/10 text-primary border-0 px-4 py-2">
               Core Values
             </Badge>
-            {/* <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 text-gray-900">
-              What Drives Us Forward
-            </h2> */}
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-[#c15738] to-[#5c2d23] bg-clip-text text-transparent">
-                What Drives <span className="text-gradient bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Us Forward</span>
-              </h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-[#c15738] to-[#5c2d23] mx-auto rounded-full" />
-          </motion.div>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-[#c15738] to-[#5c2d23] bg-clip-text text-transparent">
+              What Drives <span className="text-gradient bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Us Forward</span>
+            </h2>
+            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-[#c15738] to-[#5c2d23] mx-auto rounded-full" />
+          </div>
 
-          <motion.div
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
-            variants={containerVariants}
-            initial="hidden"
-            animate={isValuesInView ? "visible" : "hidden"}
-          >
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
             {values.map((value, index) => (
-              <motion.div key={index} variants={itemVariants}>
-                <Card className="p-8 text-center h-full bg-white/70 backdrop-blur-md hover:bg-white/80 hover:shadow-2xl transition-all duration-300 border border-white/20 shadow-lg rounded-xl hover:-translate-y-2">
-                  <div className="w-16 h-16 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-all duration-300 shadow-lg">
-                    <value.icon className="h-8 w-8 text-white" />
-                  </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-4">{value.title}</h3>
-                  <p className="text-gray-600 mb-6 leading-relaxed text-sm">
-                    {value.description}
-                  </p>
+              <Card key={index} className="p-4 sm:p-6 md:p-8 text-center h-full bg-white/70 backdrop-blur-md hover:bg-white/80 hover:shadow-2xl transition-all duration-300 border border-white/20 shadow-lg rounded-xl">
+                <div className="w-12 h-12 sm:w-14 sm:h-16 md:w-16 md:h-16 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6 group-hover:scale-110 transition-all duration-300 shadow-lg">
+                  <value.icon className="h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8 text-white" />
+                </div>
+                <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4">{value.title}</h3>
+                <p className="text-gray-600 mb-4 sm:mb-6 leading-relaxed text-sm sm:text-base">
+                  {value.description}
+                </p>
 
-                  <div className="flex items-center justify-center space-x-2">
-                    <div className="w-4 h-4 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-full flex items-center justify-center">
-                      <CheckCircle className="w-2.5 h-2.5 text-white" />
-                    </div>
-                    <Badge className="bg-gradient-to-r from-[#c15738] to-[#5c2d23] text-white border-0 px-3 py-1 text-xs">
-                      {value.stats}
-                    </Badge>
+                <div className="flex items-center justify-center space-x-2">
+                  <div className="w-3 h-3 sm:w-4 sm:h-4 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-full flex items-center justify-center">
+                    <CheckCircle className="w-2 h-2 sm:w-2.5 sm:h-2.5 text-white" />
                   </div>
-                </Card>
-              </motion.div>
+                  <Badge className="bg-gradient-to-r from-[#c15738] to-[#5c2d23] text-white border-0 px-2 sm:px-3 py-1 text-xs">
+                    {value.stats}
+                  </Badge>
+                </div>
+              </Card>
             ))}
-          </motion.div>
+          </div>
         </div>
       </section>
 
       {/* Achievements Section */}
-      <section className="py-20 bg-[#f9f7f6]" ref={achievementsRef}>
+      <section className="py-12 sm:py-16 md:py-20 bg-[#f9f7f6]">
         <div className="container mx-auto px-4">
-          <motion.div
-            className="text-center mb-16"
-            initial={{ opacity: 0, y: 40 }}
-            animate={isAchievementsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-            transition={{ duration: 0.8 }}
-          >
+          <div className="text-center mb-8 sm:mb-12 md:mb-16">
             <Badge className="mb-4 bg-primary/10 text-primary border-0 px-4 py-2">
               Achievements
             </Badge>
-            {/* <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 text-gray-900">
-              Recognition & Milestones
-            </h2> */}
-             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-[#c15738] to-[#5c2d23] bg-clip-text text-transparent">
-                 Recognition <span className="text-gradient bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"> & Milestones</span>
-              </h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-[#c15738] to-[#5c2d23] mx-auto rounded-full" />
-          </motion.div>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-[#c15738] to-[#5c2d23] bg-clip-text text-transparent">
+              Recognition <span className="text-gradient bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">& Milestones</span>
+            </h2>
+            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-[#c15738] to-[#5c2d23] mx-auto rounded-full" />
+          </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
             {achievements.map((achievement, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 40 }}
-                animate={isAchievementsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-                transition={{ duration: 0.8, delay: index * 0.2 }}
-              >
-                <Card className="p-8 h-full bg-white/70 backdrop-blur-md hover:bg-white/80 hover:shadow-2xl transition-all duration-300 border border-white/20 shadow-lg rounded-xl hover:-translate-y-2">
-                  <div className="text-center mb-6">
-                    <div className="w-16 h-16 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
-                      <Award className="h-8 w-8 text-white" />
+              <Card key={index} className="p-4 sm:p-6 md:p-8 h-full bg-white/70 backdrop-blur-md hover:bg-white/80 hover:shadow-2xl transition-all duration-300 border border-white/20 shadow-lg rounded-xl">
+                <div className="text-center mb-4 sm:mb-6">
+                  <div className="w-12 h-12 sm:w-14 sm:h-16 md:w-16 md:h-16 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4 shadow-lg">
+                    <Award className="h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8 text-white" />
+                  </div>
+                  <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4">
+                    {achievement.title}
+                  </h3>
+                </div>
+                <div className="space-y-2 sm:space-y-3">
+                  {achievement.items.map((item, itemIndex) => (
+                    <div
+                      key={itemIndex}
+                      className="flex items-start space-x-2 sm:space-x-3 p-2 sm:p-3 bg-[#f1eee9] rounded-lg hover:bg-[#ede8e1] transition-colors duration-200"
+                    >
+                      <div className="w-3 h-3 sm:w-4 sm:h-4 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <CheckCircle className="w-2 h-2 sm:w-2.5 sm:h-2.5 text-white" />
+                      </div>
+                      <span className="text-xs sm:text-sm font-medium text-gray-700">{item}</span>
                     </div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-4">
-                      {achievement.title}
-                    </h3>
-                  </div>
-                  <div className="space-y-3 ">
-                    {achievement.items.map((item, itemIndex) => (
-                      <motion.div
-                        key={itemIndex}
-                        className="flex items-start space-x-3 p-3  bg-[#f1eee9] rounded-lg hover:bg-[#ede8e1] transition-colors duration-200 ackdrop-blur-sm rounded-lg border border-white/20"
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={isAchievementsInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
-                        transition={{ duration: 0.5, delay: index * 0.2 + itemIndex * 0.1 }}
-                      >
-                        <div className="w-4 h-4 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                          <CheckCircle className="w-2.5 h-2.5 text-white" />
-                        </div>
-                        <span className="text-sm font-medium text-gray-700">{item}</span>
-                      </motion.div>
-                    ))}
-                  </div>
-                </Card>
-              </motion.div>
+                  ))}
+                </div>
+              </Card>
             ))}
           </div>
         </div>
       </section>
 
       {/* Stats Section */}
-      <section className="py-20 bg-gradient-to-r from-[#c15738] to-[#5c2d23]" ref={statsRef}>
+      <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-r from-[#c15738] to-[#5c2d23]">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 text-white">
+          <div className="text-center mb-8 sm:mb-12">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 text-white">
               Our Impact in Numbers
             </h2>
-            <p className="text-xl text-orange-100 max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg md:text-xl text-orange-100 max-w-2xl mx-auto">
               Transforming the construction industry one connection at a time
             </p>
           </div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {stats.map((stat, index) => (
-              <motion.div
-                key={index}
-                className="text-center"
-                initial={{ opacity: 0, scale: 0.5 }}
-                animate={isStatsInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.5 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-              >
-                <Card className="p-6 bg-white/10 backdrop-blur-md hover:bg-white/20 transition-all duration-300 rounded-xl border border-white/20 shadow-lg hover:-translate-y-2">
-                  <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
-                    <stat.icon className="h-8 w-8 text-white" />
+              <div key={index} className="text-center">
+                <Card className="p-4 sm:p-6 bg-white/10 backdrop-blur-md hover:bg-white/20 transition-all duration-300 rounded-xl border border-white/20 shadow-lg">
+                  <div className="w-12 h-12 sm:w-14 sm:h-16 md:w-16 md:h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4 shadow-lg">
+                    <stat.icon className="h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8 text-white" />
                   </div>
-                  <div className="text-3xl lg:text-4xl font-bold text-white mb-2">
+                  <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-1 sm:mb-2">
                     {stat.number}
                   </div>
-                  <div className="text-orange-100 font-medium text-sm">{stat.label}</div>
+                  <div className="text-orange-100 font-medium text-xs sm:text-sm">{stat.label}</div>
                 </Card>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
