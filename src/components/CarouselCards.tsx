@@ -135,12 +135,15 @@ const CarouselCards = () => {
           viewport={{ once: true }}
           className="text-center mb-10 md:mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3">
+          {/* <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3">
             Explore Our{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-orange-500">
               AI Capabilities
             </span>
-          </h2>
+          </h2> */}
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-[#c15738] to-[#5c2d23] bg-clip-text text-transparent">
+                Explore Our{" "} <span className="text-gradient bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">AI Capabilities</span>
+              </h2>
           <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
             Discover how artificial intelligence transforms every aspect of
             procurement.
@@ -175,7 +178,7 @@ const CarouselCards = () => {
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-primary/60 via-primary/20 to-transparent" />
                       <div className="absolute top-4 left-4 sm:top-6 sm:left-6">
-                        <div className="glass-effect rounded-2xl p-2 sm:p-3 border border-white/30">
+                        <div className="   bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-2xl p-2 sm:p-3 border border-white/30">
                           <Icon className="w-6 h-6 sm:w-8 sm:h-8 text-white drop-shadow-lg" />
                         </div>
                       </div>

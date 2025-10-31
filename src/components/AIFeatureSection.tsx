@@ -94,8 +94,8 @@ const AIFeatureSection = () => {
                   className="inline-block mb-2"
                 >
                   <div className="relative">
-                    <div className="absolute inset-0 bg-primary/30 rounded-2xl blur-xl" />
-                    <div className="relative bg-white/10 dark:bg-white/5 backdrop-blur-md p-3 md:p-4 rounded-2xl border border-white/20 dark:border-white/10 shadow-lg">
+                    <div className="absolute inset-0 rounded-2xl blur-xl" />
+                    <div className=" relative bg-white/10 dark:bg-white/5 backdrop-blur-md p-3 md:p-4 rounded-2xl border border-white/20 dark:border-white/10 shadow-lg">
                       <Icon className="w-6 h-6 md:w-8 md:h-8 text-primary" />
                     </div>
                   </div>
@@ -113,7 +113,7 @@ const AIFeatureSection = () => {
                 </div>
 
                 <div>
-                  <h2 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-2 md:mb-3 leading-tight">
+                  <h2 className="text-2xl md:text-3xl lg:text-4xl xl:text-4xl font-bold mb-2 md:mb-3 leading-tight">
                     {feature.title}
                   </h2>
                   <p className="text-lg md:text-xl lg:text-2xl text-gradient font-semibold mb-4 md:mb-6">
@@ -127,7 +127,7 @@ const AIFeatureSection = () => {
 
                 <Button 
                   size="lg"
-                  className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 md:px-8 py-5 md:py-6 text-sm md:text-base rounded-full hover-lift shadow-elegant mt-2 md:mt-4"
+                  className="bg-gradient-to-r from-primary to-secondary text-primary-foreground px-6 md:px-8 py-5 md:py-6 text-sm md:text-base rounded-full hover-lift shadow-elegant mt-2 md:mt-4"
                 >
                   {feature.buttonText}
                   <motion.span
