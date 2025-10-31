@@ -262,7 +262,100 @@ const About = () => {
       <ProcurementHero />
 
       {/* Mission, Vision & Approach Section */}
-      <section className="py-12 sm:py-16 md:py-20 bg-[#f1eee9]">
+     
+
+      {/* Tabbed Carousel Section */}
+      <section className="py-12 sm:py-16 md:py-20 bg-[#f9f7f6]">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-8 sm:mb-12 md:mb-16">
+            <Badge className="mb-4 bg-primary/10 text-primary border-0 px-4 py-2">
+              All-in-One AI Procurement Suite
+            </Badge>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-[#c15738] to-[#5c2d23] bg-clip-text text-transparent">
+              About <span className="text-gradient bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Advanced AI</span>
+            </h2>
+            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-[#c15738] to-[#5c2d23] mx-auto rounded-full" />
+          </div>
+
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+            <div className="flex flex-col lg:flex-row gap-4 sm:gap-6 lg:gap-8">
+              {/* Tabs List - Left Side */}
+              <div className="lg:w-64 flex-shrink-0">
+                <TabsList className="flex flex-row lg:flex-col h-auto w-full bg-transparent gap-2 sm:gap-3">
+                  <TabsTrigger
+                    value="ai-solutions"
+                    className="w-full justify-start px-3 sm:px-4 sm:px-6 py-3 sm:py-4 text-left bg-white/70 backdrop-blur-md border border-white/20 rounded-lg data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#c15738] data-[state=active]:to-[#5c2d23] data-[state=active]:text-white data-[state=active]:shadow-lg hover:bg-white/90 transition-all duration-300 text-sm sm:text-base"
+                  >
+                    <Brain className="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3" />
+                    <span className="hidden sm:inline">AI Solutions</span>
+                    <span className="sm:hidden">AI</span>
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="features"
+                    className="w-full justify-start px-3 sm:px-4 sm:px-6 py-3 sm:py-4 text-left bg-white/70 backdrop-blur-md border border-white/20 rounded-lg data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#c15738] data-[state=active]:to-[#5c2d23] data-[state=active]:text-white data-[state=active]:shadow-lg hover:bg-white/90 transition-all duration-300 text-sm sm:text-base"
+                  >
+                    <Zap className="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3" />
+                    Features
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="industries"
+                    className="w-full justify-start px-3 sm:px-4 sm:px-6 py-3 sm:py-4 text-left bg-white/70 backdrop-blur-md border border-white/20 rounded-lg data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#c15738] data-[state=active]:to-[#5c2d23] data-[state=active]:text-white data-[state=active]:shadow-lg hover:bg-white/90 transition-all duration-300 text-sm sm:text-base"
+                  >
+                    <Building2 className="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3" />
+                    Industries
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="benefits"
+                    className="w-full justify-start px-3 sm:px-4 sm:px-6 py-3 sm:py-4 text-left bg-white/70 backdrop-blur-md border border-white/20 rounded-lg data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#c15738] data-[state=active]:to-[#5c2d23] data-[state=active]:text-white data-[state=active]:shadow-lg hover:bg-white/90 transition-all duration-300 text-sm sm:text-base"
+                  >
+                    <Award className="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3" />
+                    Benefits
+                  </TabsTrigger>
+                </TabsList>
+              </div>
+
+              {/* Cards Grid - Right Side */}
+              <div className="flex-1">
+                {Object.entries(tabbedContent).map(([key, cards]) => (
+                  <TabsContent key={key} value={key} className="mt-0">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4">
+                      {cards.map((card, index) => (
+                        <Card key={index} className="group relative overflow-hidden rounded-xl border-0 shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 h-full">
+                          {/* Background Image */}
+                          <div
+                            className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
+                            style={{ backgroundImage: `url(${card.image})` }}
+                          />
+                          
+                          {/* Default Overlay */}
+                          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70 transition-all duration-500" />
+                          
+                          {/* Hover Overlay */}
+                          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/60 transition-all duration-500" />
+                          
+                          {/* Content */}
+                          <div className="relative z-10 p-3 sm:p-4 md:p-6 flex flex-col h-full">
+                            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-lg flex items-center justify-center mb-3 sm:mb-4 shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
+                              <card.icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                            </div>
+                            <h4 className="font-bold text-white mb-2 text-sm sm:text-base group-hover:text-orange-200 transition-colors duration-300">
+                              {card.title}
+                            </h4>
+                            <p className="text-xs sm:text-sm text-gray-200 leading-relaxed group-hover:text-white transition-colors duration-300">
+                              {card.description}
+                            </p>
+                          </div>
+                        </Card>
+                      ))}
+                    </div>
+                  </TabsContent>
+                ))}
+              </div>
+            </div>
+          </Tabs>
+        </div>
+      </section>
+ <section className="py-12 sm:py-16 md:py-20 bg-[#f1eee9]">
         <div className="container mx-auto px-4">
           <div className="text-center mb-8 sm:mb-12 md:mb-16">
             <Badge className="mb-4 bg-primary/10 text-primary border-0 px-4 py-2">
@@ -399,142 +492,10 @@ const About = () => {
           </div>
         </div>
       </section>
-
-      {/* Tabbed Carousel Section */}
-      <section className="py-12 sm:py-16 md:py-20 bg-[#f9f7f6]">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-8 sm:mb-12 md:mb-16">
-            <Badge className="mb-4 bg-primary/10 text-primary border-0 px-4 py-2">
-              All-in-One AI Procurement Suite
-            </Badge>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-[#c15738] to-[#5c2d23] bg-clip-text text-transparent">
-              About <span className="text-gradient bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Advanced AI</span>
-            </h2>
-            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-[#c15738] to-[#5c2d23] mx-auto rounded-full" />
-          </div>
-
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <div className="flex flex-col lg:flex-row gap-4 sm:gap-6 lg:gap-8">
-              {/* Tabs List - Left Side */}
-              <div className="lg:w-64 flex-shrink-0">
-                <TabsList className="flex flex-row lg:flex-col h-auto w-full bg-transparent gap-2 sm:gap-3">
-                  <TabsTrigger
-                    value="ai-solutions"
-                    className="w-full justify-start px-3 sm:px-4 sm:px-6 py-3 sm:py-4 text-left bg-white/70 backdrop-blur-md border border-white/20 rounded-lg data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#c15738] data-[state=active]:to-[#5c2d23] data-[state=active]:text-white data-[state=active]:shadow-lg hover:bg-white/90 transition-all duration-300 text-sm sm:text-base"
-                  >
-                    <Brain className="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3" />
-                    <span className="hidden sm:inline">AI Solutions</span>
-                    <span className="sm:hidden">AI</span>
-                  </TabsTrigger>
-                  <TabsTrigger
-                    value="features"
-                    className="w-full justify-start px-3 sm:px-4 sm:px-6 py-3 sm:py-4 text-left bg-white/70 backdrop-blur-md border border-white/20 rounded-lg data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#c15738] data-[state=active]:to-[#5c2d23] data-[state=active]:text-white data-[state=active]:shadow-lg hover:bg-white/90 transition-all duration-300 text-sm sm:text-base"
-                  >
-                    <Zap className="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3" />
-                    Features
-                  </TabsTrigger>
-                  <TabsTrigger
-                    value="industries"
-                    className="w-full justify-start px-3 sm:px-4 sm:px-6 py-3 sm:py-4 text-left bg-white/70 backdrop-blur-md border border-white/20 rounded-lg data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#c15738] data-[state=active]:to-[#5c2d23] data-[state=active]:text-white data-[state=active]:shadow-lg hover:bg-white/90 transition-all duration-300 text-sm sm:text-base"
-                  >
-                    <Building2 className="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3" />
-                    Industries
-                  </TabsTrigger>
-                  <TabsTrigger
-                    value="benefits"
-                    className="w-full justify-start px-3 sm:px-4 sm:px-6 py-3 sm:py-4 text-left bg-white/70 backdrop-blur-md border border-white/20 rounded-lg data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#c15738] data-[state=active]:to-[#5c2d23] data-[state=active]:text-white data-[state=active]:shadow-lg hover:bg-white/90 transition-all duration-300 text-sm sm:text-base"
-                  >
-                    <Award className="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3" />
-                    Benefits
-                  </TabsTrigger>
-                </TabsList>
-              </div>
-
-              {/* Cards Grid - Right Side */}
-              <div className="flex-1">
-                {Object.entries(tabbedContent).map(([key, cards]) => (
-                  <TabsContent key={key} value={key} className="mt-0">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4">
-                      {cards.map((card, index) => (
-                        <Card key={index} className="group relative overflow-hidden rounded-xl border-0 shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 h-full">
-                          {/* Background Image */}
-                          <div
-                            className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
-                            style={{ backgroundImage: `url(${card.image})` }}
-                          />
-                          
-                          {/* Default Overlay */}
-                          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70 transition-all duration-500" />
-                          
-                          {/* Hover Overlay */}
-                          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/60 transition-all duration-500" />
-                          
-                          {/* Content */}
-                          <div className="relative z-10 p-3 sm:p-4 md:p-6 flex flex-col h-full">
-                            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-lg flex items-center justify-center mb-3 sm:mb-4 shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
-                              <card.icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-                            </div>
-                            <h4 className="font-bold text-white mb-2 text-sm sm:text-base group-hover:text-orange-200 transition-colors duration-300">
-                              {card.title}
-                            </h4>
-                            <p className="text-xs sm:text-sm text-gray-200 leading-relaxed group-hover:text-white transition-colors duration-300">
-                              {card.description}
-                            </p>
-                          </div>
-                        </Card>
-                      ))}
-                    </div>
-                  </TabsContent>
-                ))}
-              </div>
-            </div>
-          </Tabs>
-        </div>
-      </section>
-
-      <CarouselCards />
       <AIFeatureSection />
+            <CarouselCards />
+
       <ProcurementGrid />
-
-      {/* Core Values Section */}
-      <section className="py-12 sm:py-16 md:py-20 bg-[#f1eee9]">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-8 sm:mb-12 md:mb-16">
-            <Badge className="mb-4 bg-primary/10 text-primary border-0 px-4 py-2">
-              Core Values
-            </Badge>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-[#c15738] to-[#5c2d23] bg-clip-text text-transparent">
-              What Drives <span className="text-gradient bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Us Forward</span>
-            </h2>
-            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-[#c15738] to-[#5c2d23] mx-auto rounded-full" />
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
-            {values.map((value, index) => (
-              <Card key={index} className="p-4 sm:p-6 md:p-8 text-center h-full bg-white/70 backdrop-blur-md hover:bg-white/80 hover:shadow-2xl transition-all duration-300 border border-white/20 shadow-lg rounded-xl">
-                <div className="w-12 h-12 sm:w-14 sm:h-16 md:w-16 md:h-16 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6 group-hover:scale-110 transition-all duration-300 shadow-lg">
-                  <value.icon className="h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8 text-white" />
-                </div>
-                <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4">{value.title}</h3>
-                <p className="text-gray-600 mb-4 sm:mb-6 leading-relaxed text-sm sm:text-base">
-                  {value.description}
-                </p>
-
-                <div className="flex items-center justify-center space-x-2">
-                  <div className="w-3 h-3 sm:w-4 sm:h-4 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-full flex items-center justify-center">
-                    <CheckCircle className="w-2 h-2 sm:w-2.5 sm:h-2.5 text-white" />
-                  </div>
-                  <Badge className="bg-gradient-to-r from-[#c15738] to-[#5c2d23] text-white border-0 px-2 sm:px-3 py-1 text-xs">
-                    {value.stats}
-                  </Badge>
-                </div>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Achievements Section */}
       <section className="py-12 sm:py-16 md:py-20 bg-[#f9f7f6]">
         <div className="container mx-auto px-4">
           <div className="text-center mb-8 sm:mb-12 md:mb-16">
@@ -576,6 +537,47 @@ const About = () => {
           </div>
         </div>
       </section>
+
+      {/* Core Values Section */}
+      <section className="py-12 sm:py-16 md:py-20 bg-[#f1eee9]">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-8 sm:mb-12 md:mb-16">
+            <Badge className="mb-4 bg-primary/10 text-primary border-0 px-4 py-2">
+              Core Values
+            </Badge>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-[#c15738] to-[#5c2d23] bg-clip-text text-transparent">
+              What Drives <span className="text-gradient bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Us Forward</span>
+            </h2>
+            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-[#c15738] to-[#5c2d23] mx-auto rounded-full" />
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+            {values.map((value, index) => (
+              <Card key={index} className="p-4 sm:p-6 md:p-8 text-center h-full bg-white/70 backdrop-blur-md hover:bg-white/80 hover:shadow-2xl transition-all duration-300 border border-white/20 shadow-lg rounded-xl">
+                <div className="w-12 h-12 sm:w-14 sm:h-16 md:w-16 md:h-16 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6 group-hover:scale-110 transition-all duration-300 shadow-lg">
+                  <value.icon className="h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8 text-white" />
+                </div>
+                <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4">{value.title}</h3>
+                <p className="text-gray-600 mb-4 sm:mb-6 leading-relaxed text-sm sm:text-base">
+                  {value.description}
+                </p>
+
+                <div className="flex items-center justify-center space-x-2">
+                  <div className="w-3 h-3 sm:w-4 sm:h-4 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-full flex items-center justify-center">
+                    <CheckCircle className="w-2 h-2 sm:w-2.5 sm:h-2.5 text-white" />
+                  </div>
+                  <Badge className="bg-gradient-to-r from-[#c15738] to-[#5c2d23] text-white border-0 px-2 sm:px-3 py-1 text-xs">
+                    {value.stats}
+                  </Badge>
+                </div>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Achievements Section */}
+      
 
       {/* Stats Section */}
       <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-r from-[#c15738] to-[#5c2d23]">
