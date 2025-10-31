@@ -167,7 +167,7 @@ const MarqueeSection = () => {
   const secondRowCards = marqueeCards.slice(4);
 
   return (
-    <section className="py-16 sm:py-24 bg-[#fefefe]  overflow-hidden">
+    <section className="py-16 sm:py-24 bg-[#f9f7f6] overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-12 mb-12">
        
       </div>

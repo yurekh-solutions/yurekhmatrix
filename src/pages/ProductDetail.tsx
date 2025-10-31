@@ -101,11 +101,11 @@ const ProductDetail = () => {
       </div>
 
       <div className="section-padding relative z-10">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 mt-10">
           {/* Breadcrumb & Back Button */}
           <div className="flex items-center gap-4 mb-8">
             <Link to="/products">
-              <Button variant="outline" className="glass-morphism">
+              <Button variant="" className=" bg-gradient-to-br from-primary to-secondary text-primary-foreground ">
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Back to Products
               </Button>
@@ -136,27 +136,7 @@ const ProductDetail = () => {
               </div>
 
               {/* Image Thumbnails */}
-              <div className="grid grid-cols-4 gap-4">
-                {productImages.map((img, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => setSelectedImageIndex(idx)}
-                    className={`glass-card overflow-hidden transition-all duration-300 ${
-                      selectedImageIndex === idx
-                        ? "ring-2 ring-primary scale-105"
-                        : "hover:scale-105"
-                    }`}
-                  >
-                    <div className="aspect-square">
-                      <img
-                        src={img}
-                        alt={`${product.name} ${idx + 1}`}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  </button>
-                ))}
-              </div>
+           
 
               {/* Product Specifications Card */}
               <div className="glass-card p-6">
@@ -315,7 +295,10 @@ const ProductDetail = () => {
               </div>
 
               {/* AI-Powered Insights */}
-              <div className="glass-card p-6 bg-gradient-to-br from-primary/5 to-transparent border-primary/20">
+            
+            </div>
+          </div>
+  <div className="glass-card p-6 bg-gradient-to-br from-primary/5 to-transparent border-primary/20">
                 <div className="flex items-start gap-3">
                   <div className="icon-circle-lg">
                     <Sparkles className="w-6 h-6 text-white" />
@@ -342,13 +325,10 @@ const ProductDetail = () => {
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-
           {/* Related Products */}
           {relatedProducts.length > 0 && (
             <div>
-              <h2 className="text-3xl font-bold mb-8 text-center">Related Products</h2>
+              <h2 className="text-3xl font-bold mb-8 text-center mt-10">Related Products</h2>
               <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 {relatedProducts.map((relatedProduct) => (
                   <Link

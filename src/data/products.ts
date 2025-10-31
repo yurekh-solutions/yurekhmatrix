@@ -75,6 +75,12 @@ export const categories = [
   { value: "stainless-steel", label: "Stainless Steel" },
   { value: "construction", label: "Construction Materials" },
   { value: "electrical", label: "Electrical Materials" },
+  { value: "stainlesses", label: "Stainless " },
+  { value: "constructionnn", label: "Construction " },
+   { value: "mildd", label: "Mild " },
+  { value: "stainlesseses", label: "Stainlesses " },
+  { value: "constructionp", label: "Construction Materialss" },
+
 ];
 
 // 100 Premium Products with Professional Product Images

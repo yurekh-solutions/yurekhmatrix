@@ -19,7 +19,7 @@ const Products = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 12;
+  const itemsPerPage = 16;
 
   // Shuffle function to randomize array
   const shuffleArray = <T,>(array: T[]): T[] => {
@@ -109,7 +109,7 @@ const Products = () => {
           backgroundImage: `url(${heroBg})`,
         }}
       >
-        <div className="absolute inset-0 bg-black/80 z-0"></div>
+        <div className="absolute inset-0 bg-black/60 z-0"></div>
         <AnimatedBackground />
         
         <div className="text-center px-4 py-12 sm:py-16 lg:py-20 relative z-10">
@@ -151,49 +151,56 @@ const Products = () => {
       <section id="catalog" className="py-12">
         <div className="container mx-auto px-4">
           <div className="text-center mb-10">
-            <h2 className="text-3xl md:text-4xl font-bold mb-3">
+            <h2 className="text-3xl md:text-4xl font-bold mb-3 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
               Order Ferrous and Non-Ferrous Commodities
             </h2>
-            <p className="text-muted-foreground text-sm">
+            <p className="text-muted-foreground text-lg">
               Add any commodity you want to enquire about and get instant quotations
             </p>
           </div>
 
           {/* Search and Filter */}
-          <div className="glass-card p-5 mb-8">
-            <div className="max-w-3xl mx-auto mb-5">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-                <Input
-                  type="text"
-                  placeholder="Search products (e.g., TMT, SS, cement)"
-                  className="pl-10 h-11 glass-morphism"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                />
-              </div>
-            </div>
+        <div className="glass-card p-5 mb-8">
+  <div className="max-w-2xl mx-auto mb-5">
+    <div className="relative flex items-center">
+      {/* Search Icon */}
+      <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 pointer-events-none z-10" />
 
-            <div className="flex flex-wrap gap-2 justify-center">
-              {categories.map((category) => (
-                <Button
-                  key={category.value}
-                  onClick={() => {
-                    setSelectedCategory(category.value);
-                    setCurrentPage(1);
-                  }}
-                  variant={selectedCategory === category.value ? "default" : "outline"}
-                  className={
-                    selectedCategory === category.value
-                      ? "bg-gradient-primary border-0"
-                      : "glass-morphism"
-                  }
-                >
-                  {category.label}
-                </Button>
-              ))}
-            </div>
-          </div>
+      {/* Input Box */}
+      <Input
+        type="text"
+        placeholder="Search products (e.g., TMT, SS, cement)"
+        className="pl-10 h-11 glass-morphism w-full"
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+      />
+    </div>
+  </div>
+
+ <div className="w-full overflow-x-auto scrollbar-hide">
+  <div className="flex gap-5 justify-start px-4 pb-2 min-w-max">
+    {categories.map((category) => (
+      <Button
+        key={category.value}
+        onClick={() => {
+          setSelectedCategory(category.value);
+          setCurrentPage(1);
+        }}
+        variant={selectedCategory === category.value ? "default" : "outline"}
+        className={
+          selectedCategory === category.value
+            ? "bg-gradient-to-br from-primary to-secondary text-primary-foreground  border-0 flex-shrink-0"
+            : " flex-shrink-0"
+        }
+      >
+        {category.label}
+      </Button>
+    ))}
+  </div>
+</div>
+
+</div>
+
 
           {/* Products Grid */}
           {paginatedProducts.length > 0 ? (

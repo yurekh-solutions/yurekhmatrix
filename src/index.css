@@ -234,3 +234,80 @@ All colors MUST be HSL.
     transform: scale(1);
   }
 }
+/* Hide scrollbar but keep scroll functionality */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none; /* for Internet Explorer and Edge */
+  scrollbar-width: none; /* for Firefox */
+}
+
+/* 3D Effects and Perspective */
+@layer utilities {
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+  
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+  
+  .rotate-y-6 {
+    transform: rotateY(6deg);
+  }
+  
+  .rotate-y-8 {
+    transform: rotateY(8deg);
+  }
+  
+  .rotate-y-12 {
+    transform: rotateY(12deg);
+  }
+  
+  .transform-gpu {
+    transform: translateZ(0);
+    will-change: transform;
+  }
+  
+  .shadow-3xl {
+    box-shadow: 
+      0 25px 50px -12px rgba(0, 0, 0, 0.25),
+      0 0 80px -20px hsl(var(--primary) / 0.4);
+  }
+  
+  .hover-3d-lift {
+    @apply transition-all duration-700 hover:-translate-y-4 hover:shadow-3xl hover:rotate-y-6;
+  }
+  
+  /* Hexagonal Cards */
+  .hexagon-card {
+    position: relative;
+    width: 100%;
+    height: 120px;
+    margin: 20px 0;
+    clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+    transition: all 0.3s ease;
+  }
+  
+  .hexagon-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  @media (min-width: 640px) {
+    .hexagon-card {
+      height: 140px;
+    }
+  }
+}
+

@@ -100,7 +100,7 @@ const categories = [
     : discoverItems.filter(item => item.category === selectedCategory);
   return (
     <div>
-      <section className="section-padding py-20 bg-[#f3f0ec]">
+      <section className="section-padding py-20 bg-gradient-to-br from-primary/5 to-secondary/5">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
