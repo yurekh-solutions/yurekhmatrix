@@ -248,7 +248,7 @@ const About = () => {
             <Badge className="bg-gradient-to-r from-[#c15738] to-[#5c2d23] border-0 text-white px-4 sm:px-6 py-2 text-xs sm:text-sm mb-4 sm:mb-6 font-medium">
               About MaterialMatrix
             </Badge>
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 text-white leading-tight">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-4xl font-bold mb-4 sm:mb-6 text-white leading-tight">
               Revolutionizing Construction Procurement
             </h1>
             <p className="text-base sm:text-lg md:text-xl text-gray-200 max-w-3xl mx-auto leading-relaxed px-4">
