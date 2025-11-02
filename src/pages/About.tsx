@@ -39,6 +39,7 @@ import {
   Eye,
   RefreshCw,
   Users,
+  Sparkles
 } from "lucide-react";
 import { useState } from "react";
 import heroImage from "@/assets/hero-construction.jpg";
@@ -86,6 +87,7 @@ import verifiedPartners from "@/assets/cards/verified-partners.jpg";
 import realtimeUpdates from "@/assets/cards/realtime-updates.jpg";
 import expertSupport from "@/assets/cards/expert-support.jpg";
 import panIndia from "@/assets/cards/pan-india.jpg";
+import aiProcurementHero from "@/assets/ai-procurementp.jpg"
 
 const About = () => {
   const [activeTab, setActiveTab] = useState("ai-solutions");
@@ -235,29 +237,103 @@ const About = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <section
-        className="relative pt-24 sm:pt-28 md:pt-32 pb-16 sm:pb-20 overflow-hidden"
-        style={{
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${heroImage})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        <div className="container mx-auto px-4 text-center relative z-10">
-          <div className="max-w-4xl mx-auto">
-            <Badge className="bg-gradient-to-r from-[#c15738] to-[#5c2d23] border-0 text-white px-4 sm:px-6 py-2 text-xs sm:text-sm mb-4 sm:mb-6 font-medium">
-              About MaterialMatrix
-            </Badge>
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-4xl font-bold mb-4 sm:mb-6 text-white leading-tight">
-              Revolutionizing Construction Procurement
-            </h1>
-            <p className="text-base sm:text-lg md:text-xl text-gray-200 max-w-3xl mx-auto leading-relaxed px-4">
-              AI-powered platform connecting builders with verified suppliers
-              across India, transforming how construction materials are sourced.
-            </p>
+  <section className="bg-gradient-to-b from-[#fffbee] via-[#f9f7f6] to-[#f1eee9] pt-6 pb-0 px-3 sm:px-6 lg:px-10 overflow-hidden">
+         <div className="absolute inset-0">
+    <div className="absolute top-20 left-10 w-32 h-32 sm:w-48 sm:h-48 bg-primary/10 rounded-full blur-[30px] animate-pulse" />
+    <div className="absolute bottom-20 right-10 w-40 h-40 sm:w-56 sm:h-56 bg-secondary/10 rounded-full blur-[80px] animate-pulse delay-1000" />
+    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 sm:w-80 sm:h-80 bg-primary/5 rounded-full blur-[20px] animate-pulse delay-2000" />
+  </div>
+        <main className="flex-grow flex flex-col items-center max-w-7xl mx-auto w-full mt-20">
+          {/* Badge */}
+          <Badge className="mt-12 sm:mt-16 mb-4 sm:mb-6 flex items-center w-fit space-x-2 border-2 border-primary/30 bg-primary/10 text-primary text-xs sm:text-sm rounded-full px-4 sm:px-5 pr-2 py-2  transition-all duration-300 group">
+            <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 text-primary animate-pulse" />
+            <span className="font-medium">About MaterialMatrix</span>
+             
+          </Badge>
+
+          {/* Main Heading */}
+          <h1 className="text-center text-foreground font-bold text-3xl sm:text-4xl md:text-5xl lg:text-4xl max-w-4xl leading-tight px-4">
+            Revolutionizing Construction{" "}
+            <span className=" text-3xl sm:text-4xl md:text-4xl lg:text-6xl max-w-4xl bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+              Procurement with Intelligence
+            </span>
+          </h1>
+
+          {/* Description */}
+          <p className="mt-4 sm:mt-6 text-center text-muted-foreground max-w-2xl text-sm sm:text-base lg:text-lg leading-relaxed px-4 pt-5">
+            MaterialMatrix is an AI-powered platform connecting builders with verified suppliers across India, 
+            transforming how construction materials are sourced with intelligent matching, real-time pricing, 
+            and automated procurement workflows.
+          </p>
+
+          {/* Key Features Pills */}
+          
+
+          {/* CTA Button */}
+          {/* <button
+            className="mt-8 bg-gradient-to-r from-primary to-secondary text-white px-6 sm:px-8 pr-3 py-3 sm:py-3.5 rounded-full text-sm sm:text-base font-medium flex items-center space-x-2 sm:space-x-3 hover:shadow-elegant hover:scale-105 transition-all duration-300 group"
+            type="button"
+          >
+            <span>Discover Our AI Solutions</span>
+            <span className="flex items-center justify-center size-7 sm:size-8 rounded-full bg-white/20 group-hover:bg-white/30 transition-colors duration-300">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4.821 11.999h13.43m0 0-6.714-6.715m6.715 6.715-6.715 6.715" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </span>
+          </button> */}
+
+          {/* Hero Image */}
+          <div className="mt-12 sm:mt-16 w-full max-w-6xl relative group mb-10">
+            {/* Glow effect behind image */}
+            <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-[60px] opacity-0  transition-opacity duration-500" />
+            
+            <img 
+              className="relative rounded-[40px] sm:rounded-[60px] w-full h-64 sm:h-80 md:h-96 lg:h-[500px] object-cover rounded-b-none shadow-xs border-t-4 border-x-4 border-primary/20" 
+              src={aiProcurementHero}
+              alt="AI-powered procurement dashboard showing intelligent material sourcing and supplier matching"
+            />
+            
+            {/* Floating stats cards on image */}
+            <div className="absolute top-4 left-4 sm:top-8 sm:left-8 bg-white/90 backdrop-blur-md rounded-2xl p-3 sm:p-4 shadow-lg animate-float">
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-primary to-secondary rounded-xl flex items-center justify-center">
+                  <Brain className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                </div>
+                <div>
+                  <p className="text-xs sm:text-sm font-bold text-foreground">99.9%</p>
+                  <p className="text-[10px] sm:text-xs text-muted-foreground">AI Accuracy</p>
+                </div>
+              </div>
+            </div>
+            
+            <div className="absolute top-4 right-4 sm:top-8 sm:right-8 bg-white/90 backdrop-blur-md rounded-2xl p-3 sm:p-4 shadow-lg animate-float" style={{ animationDelay: '1s' }}>
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-primary to-secondary rounded-xl flex items-center justify-center">
+                  <Zap className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                </div>
+                <div>
+                  <p className="text-xs sm:text-sm font-bold text-foreground">60%</p>
+                  <p className="text-[10px] sm:text-xs text-muted-foreground">Time Saved</p>
+                </div>
+              </div>
+            </div>
+            
+            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 bg-white/90 backdrop-blur-md rounded-2xl p-3 sm:p-4 shadow-lg animate-float hidden sm:block" style={{ animationDelay: '2s' }}>
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-primary to-secondary rounded-xl flex items-center justify-center">
+                  <TrendingUp className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                </div>
+                <div>
+                  <p className="text-xs sm:text-sm font-bold text-foreground">₹500+ Cr</p>
+                  <p className="text-[10px] sm:text-xs text-muted-foreground">Transactions</p>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
+        </main>
       </section>
+
+
       
       <ProcurementHero />
 
