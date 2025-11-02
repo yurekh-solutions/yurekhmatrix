@@ -112,143 +112,154 @@ const ProcurementFeatures = () => {
   }, []);
 
   return (
-    <section className="py-16 sm:py-24 bg-gradient-to-b from-background via-muted/30 to-background overflow-hidden">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12 xl:gap-16 items-start">
-          {/* Left Content */}
-          <div className="space-y-8">
-            <div className="space-y-4">
-              <Badge className="bg-primary/10 text-primary border-primary/30 px-4 py-2 text-sm">
-                Revolutionary Platform
-              </Badge>
-              {/* Revolutionize Your Procurement Strategy */}
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold ">
-                Revolutionize Your {""}<br/>
-                <span className=" bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mt-2">
-                Procurement Strategy 
+   <section className="py-12 sm:py-20 bg-gradient-to-b from-background via-muted/30 to-background overflow-hidden">
+  <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="grid lg:grid-cols-2 gap-10 xl:gap-16 items-start">
+      {/* Left Content */}
+      <div className="space-y-8">
+        <div className="space-y-4">
+          <Badge className="bg-primary/10 text-primary border-primary/30 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm">
+            Revolutionary Platform
+          </Badge>
+          <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold leading-tight">
+            Revolutionize Your <br />
+            <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mt-2">
+              Procurement Strategy
+            </span>
+          </h2>
+          <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
+            MaterialMatrix leverages cutting-edge AI technology to revolutionize how construction businesses source
+            materials. Say goodbye to manual procurement headaches and hello to intelligent automation.
+          </p>
+        </div>
+
+        {/* Benefits List */}
+        <div className="space-y-4">
+          <h3 className="text-lg sm:text-xl font-semibold text-foreground">Key Benefits</h3>
+          <div className="grid gap-3">
+            {benefits.map((benefit, index) => (
+              <div key={index} className="flex items-start gap-2 sm:gap-3 group">
+                <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5 text-primary flex-shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
+                <span className="text-sm sm:text-base text-muted-foreground group-hover:text-foreground transition-colors">
+                  {benefit}
                 </span>
-              </h2>
-              <p className="text-lg text-muted-foreground leading-relaxed">
-                MaterialMatrix leverages cutting-edge AI technology to revolutionize how construction businesses source materials.
-                Say goodbye to manual procurement headaches and hello to intelligent automation.
-              </p>
-            </div>
-
-            {/* Benefits List */}
-            <div className="space-y-4">
-              <h3 className="text-xl font-semibold text-foreground">Key Benefits</h3>
-              <div className="grid gap-3">
-                {benefits.map((benefit, index) => (
-                  <div key={index} className="flex items-start gap-3 group">
-                    <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
-                    <span className="text-muted-foreground group-hover:text-foreground transition-colors">
-                      {benefit}
-                    </span>
-                  </div>
-                ))}
               </div>
-            </div>
-
-            {/* Dynamic Counter Cards */}
-            <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              <Card className="p-6 bg-gradient-to-br from-primary/10 to-secondary/10 border-primary/20">
-                <div className="text-4xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent transition-all duration-300">
-                  {deliveryDays.toFixed(1)} days
-                </div>
-                <div className="text-sm text-muted-foreground mt-1">Average delivery time</div>
-              </Card>
-              <Card className="p-6 bg-gradient-to-br from-secondary/10 to-primary/10 border-secondary/20">
-                <div className="text-4xl font-bold bg-gradient-to-r from-secondary to-primary bg-clip-text text-transparent transition-all duration-300">
-                  {companies}+
-                </div>
-                <div className="text-sm text-muted-foreground mt-1">Trusted by leading companies</div>
-              </Card>
-            </div>
+            ))}
           </div>
+        </div>
 
-          {/* Right Marquee Columns */}
-          <div className="grid grid-cols-2 gap-4 relative h-[600px] sm:h-[650px] overflow-hidden">
-            {/* Column 1 */}
-            <div className="space-y-4 animate-marquee">
-              {[...firstColumn, ...firstColumn].map((feature, index) => {
-                const Icon = feature.icon;
-                return (
-                  <Card
-                    key={index}
-                    className="p-6 border-primary/10 hover:border-primary/30 transition-all duration-300 hover:shadow-lg group bg-gradient-to-br from-card to-muted/20"
-                  >
-                    <div className="flex items-start justify-between mb-4">
-                      <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                        <Icon className="w-6 h-6 text-primary-foreground" />
-                      </div>
-                      <Badge variant="secondary" className="text-xs font-bold">
-                        {feature.stat}
-                      </Badge>
-                    </div>
-                    <h3 className="text-lg font-semibold mb-2 text-foreground group-hover:text-primary transition-colors">
-                      {feature.title}
-                    </h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{feature.description}</p>
-                  </Card>
-                );
-              })}
+        {/* Dynamic Counter Cards */}
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-4">
+          <Card className="p-4 sm:p-6 bg-gradient-to-br from-primary/10 to-secondary/10 border-primary/20">
+            <div className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent transition-all duration-300">
+              {deliveryDays.toFixed(1)} days
             </div>
-
-            {/* Column 2 (reverse direction) */}
-            <div className="space-y-4 animate-marquee-reverse">
-              {[...secondColumn, ...secondColumn].map((feature, index) => {
-                const Icon = feature.icon;
-                return (
-                  <Card
-                    key={index}
-                    className="p-6 border-primary/10 hover:border-primary/30 transition-all duration-300 hover:shadow-lg group bg-gradient-to-br from-card to-muted/20"
-                  >
-                    <div className="flex items-start justify-between mb-4">
-                      <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                        <Icon className="w-6 h-6 text-primary-foreground" />
-                      </div>
-                      <Badge variant="secondary" className="text-xs font-bold">
-                        {feature.stat}
-                      </Badge>
-                    </div>
-                    <h3 className="text-lg font-semibold mb-2 text-foreground group-hover:text-primary transition-colors">
-                      {feature.title}
-                    </h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{feature.description}</p>
-                  </Card>
-                );
-              })}
+            <div className="text-xs sm:text-sm text-muted-foreground mt-1">Average delivery time</div>
+          </Card>
+          <Card className="p-4 sm:p-6 bg-gradient-to-br from-secondary/10 to-primary/10 border-secondary/20">
+            <div className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-secondary to-primary bg-clip-text text-transparent transition-all duration-300">
+              {companies}+
             </div>
-          </div>
+            <div className="text-xs sm:text-sm text-muted-foreground mt-1">Trusted by leading companies</div>
+          </Card>
         </div>
       </div>
 
-      {/* Marquee Animation */}
-      <style jsx>{`
-        @keyframes marquee {
-          0% {
-            transform: translateY(0);
-          }
-          100% {
-            transform: translateY(-50%);
-          }
-        }
-        @keyframes marquee-reverse {
-          0% {
-            transform: translateY(-50%);
-          }
-          100% {
-            transform: translateY(0);
-          }
-        }
-        .animate-marquee {
-          animation: marquee 30s linear infinite;
-        }
-        .animate-marquee-reverse {
-          animation: marquee-reverse 30s linear infinite;
-        }
-      `}</style>
-    </section>
+      {/* Right Marquee Columns */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 relative h-[500px] sm:h-[650px] overflow-hidden">
+        {/* Column 1 */}
+        <div className="space-y-4 animate-marquee">
+          {[...firstColumn, ...firstColumn].map((feature, index) => {
+            const Icon = feature.icon;
+            return (
+              <Card
+                key={index}
+                className="p-4 sm:p-6 border-primary/10 hover:border-primary/30 transition-all duration-300 hover:shadow-lg group bg-gradient-to-br from-card to-muted/20"
+              >
+                <div className="flex items-start justify-between mb-3 sm:mb-4">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-primary-foreground" />
+                  </div>
+                  <Badge variant="secondary" className="text-[10px] sm:text-xs font-bold">
+                    {feature.stat}
+                  </Badge>
+                </div>
+                <h3 className="text-base sm:text-lg font-semibold mb-1 sm:mb-2 text-foreground group-hover:text-primary transition-colors">
+                  {feature.title}
+                </h3>
+                <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                  {feature.description}
+                </p>
+              </Card>
+            );
+          })}
+        </div>
+
+        {/* Column 2 (reverse direction) */}
+        <div className="hidden sm:block space-y-4 animate-marquee-reverse">
+          {[...secondColumn, ...secondColumn].map((feature, index) => {
+            const Icon = feature.icon;
+            return (
+              <Card
+                key={index}
+                className="p-4 sm:p-6 border-primary/10 hover:border-primary/30 transition-all duration-300 hover:shadow-lg group bg-gradient-to-br from-card to-muted/20"
+              >
+                <div className="flex items-start justify-between mb-3 sm:mb-4">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-primary-foreground" />
+                  </div>
+                  <Badge variant="secondary" className="text-[10px] sm:text-xs font-bold">
+                    {feature.stat}
+                  </Badge>
+                </div>
+                <h3 className="text-base sm:text-lg font-semibold mb-1 sm:mb-2 text-foreground group-hover:text-primary transition-colors">
+                  {feature.title}
+                </h3>
+                <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                  {feature.description}
+                </p>
+              </Card>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {/* Marquee Animation */}
+  <style jsx>{`
+    @keyframes marquee {
+      0% {
+        transform: translateY(0);
+      }
+      100% {
+        transform: translateY(-50%);
+      }
+    }
+    @keyframes marquee-reverse {
+      0% {
+        transform: translateY(-50%);
+      }
+      100% {
+        transform: translateY(0);
+      }
+    }
+    .animate-marquee {
+      animation: marquee 35s linear infinite;
+    }
+    .animate-marquee-reverse {
+      animation: marquee-reverse 35s linear infinite;
+    }
+
+    @media (max-width: 640px) {
+      .animate-marquee,
+      .animate-marquee-reverse {
+        animation-duration: 45s;
+      }
+    }
+  `}</style>
+</section>
+
   );
 };
 

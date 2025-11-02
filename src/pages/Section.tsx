@@ -46,7 +46,6 @@ const Section = () => {
     <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-primary/5 to-secondary/5 relative overflow-hidden">
       {/* Subtle gradient background overlay */}
       <div className="absolute inset-0 opacity-30">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-secondary/10" />
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -86,34 +85,23 @@ const Section = () => {
               />
 
               {/* Permanent Black Overlay */}
-              <div className="absolute inset-0 bg-black/50 group-hover:bg-black/50 transition-all duration-500"></div>
+    <div className="absolute inset-0 bg-black/70 group-hover:bg-black/70 transition-all duration-500"></div>
 
               {/* Content */}
-              <div className="absolute inset-0 flex flex-col justify-end p-4 sm:p-6 text-white">
-                <div className="text-2xl sm:text-3xl md:text-4xl font-bold   bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-1 sm:mb-2">
-                  {stat.value}
-                </div>
+             <div className="absolute inset-0 flex flex-col justify-end p-4 sm:p-6 text-white text-center sm:text-left items-center justify-center  mt-10     sm:items-start">
+  <div className="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-1 sm:mb-2">
+    {stat.value}
+  </div>
 
-                <h3 className="text-sm sm:text-base font-bold text-white mb-5">
-                  {stat.label}
-                </h3>
+  <h3 className="text-sm sm:text-base font-bold text-white mb-5">
+    {stat.label}
+  </h3>
 
-                <p className="text-xs sm:text-sm text-white/90 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0 leading-relaxed">
-                  {stat.description}
-                </p>
+  <p className="text-xs sm:text-sm text-white/90 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0 leading-relaxed">
+    {stat.description}
+  </p>
+</div>
 
-                {/* <div className="mt-3 sm:mt-4 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
-                  <Link to="/products">
-                    <Button
-                      size="sm"
-                      className="bg-gradient-to-r from-primary to-secondary text-primary-foreground shadow-lg hover:shadow-xl transition-all duration-300"
-                    >
-                      View More
-                      <ArrowRight className="ml-2 w-4 h-4" />
-                    </Button>
-                  </Link>
-                </div> */}
-              </div>
             </div>
           ))}
         </div>

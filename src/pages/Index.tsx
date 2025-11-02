@@ -145,115 +145,112 @@ const Index = () => {
         <Navbar />
         <ScrollToTop />
         {/* Hero Section */}
-        <section className="relative pt-20 sm:pt-24 md:pt-32 pb-12 sm:pb-16 md:pb-24 overflow-hidden">
+     <section className="relative pt-16 sm:pt-20 md:pt-28 pb-10 sm:pb-14 md:pb-20 overflow-hidden">
+  {/* Animated Background Elements */}
+  <div className="absolute inset-0">
+    <div className="absolute top-20 left-10 w-32 h-32 sm:w-48 sm:h-48 bg-primary/10 rounded-full blur-[30px] animate-pulse" />
+    <div className="absolute bottom-20 right-10 w-40 h-40 sm:w-56 sm:h-56 bg-secondary/10 rounded-full blur-[80px] animate-pulse delay-1000" />
+    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 sm:w-80 sm:h-80 bg-primary/5 rounded-full blur-[20px] animate-pulse delay-2000" />
+  </div>
 
-          {/* Animated Background Elements */}
-          <div className="absolute inset-0">
-            <div className="absolute top-20 left-10 w-32 h-32 sm:w-64 sm:h-64 bg-primary/10 rounded-full blur-[20px] animate-pulse" />
-            <div className="absolute bottom-20 right-10 w-40 h-40 sm:w-72 sm:h-72 bg-secondary/10 rounded-full blur-[100px] animate-pulse" style={{ animationDelay: '1s' }} />
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-48 h-48 sm:w-96 sm:h-96 bg-primary/5 rounded-full blur-[10px] animate-pulse" style={{ animationDelay: '2s' }} />
-          </div>
-
-          {/* Rotating Background Images */}
+  <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <div className="grid lg:grid-cols-2 items-center gap-8 lg:gap-12 xl:gap-16 lg:mt-20">
       
+      {/* Left Column */}
+      <div className="space-y-6 md:space-y-8 animate-slide-up mt-12 sm:mt-20 md:mt-0">
+        <Badge className="flex items-center w-fit bg-primary/10 text-primary border-primary/30 px-4 md:px-6 py-1.5 md:py-2 text-xs sm:text-sm">
+          <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 text-primary animate-pulse mr-2" />
+          Next-Gen Procurement Platform
+        </Badge>
 
-         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-  <div className="grid lg:grid-cols-2 gap-10 xl:gap-16 items-center">
-   <div className="space-y-6 md:space-y-8 animate-slide-up mt-20 sm:mt-28 md:mt-36 lg:mt-40">
-  <Badge className="flex items-center w-fit mb-3 sm:mb-4 bg-primary/10 text-primary border-primary/30 px-4 md:px-6 py-1.5 md:py-2 text-xs sm:text-sm">
-    <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 text-primary animate-pulse mr-2" />
-    Next-Gen Procurement Platform
-  </Badge>
+        <div className="space-y-4 sm:space-y-5">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+            Smart Material
+            <span className="block bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mt-1.5 sm:mt-2">
+              Procurement
+            </span>
+          </h1>
 
-  <div className="space-y-4 sm:space-y-5">
-    <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-      Smart Material
-      <span className="block bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mt-2">
-        Procurement
-      </span>
-    </h1>
-
-    <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-xl leading-relaxed">
-      AI-powered procurement platform revolutionizing how businesses source construction materials.
-      Get instant quotes, verify suppliers, and track deliveries with intelligent automation.
-    </p>
-  </div>
-
-  <div className="flex flex-col sm:flex-row gap-3 sm:gap-5 pt-2">
-    <Link to="/products" className="w-full sm:w-auto">
-      <Button
-        size="lg"
-        className="bg-gradient-to-r from-primary to-secondary text-primary-foreground shadow-lg rounded-xl w-full sm:w-auto group"
-      >
-        Submit RFQ
-        <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-      </Button>
-    </Link>
-
-    <Link to="/about" className="w-full sm:w-auto">
-      <Button
-        size="lg"
-        variant="outline"
-        className="border-primary text-primary rounded-xl w-full sm:w-auto"
-      >
-        Learn More
-      </Button>
-    </Link>
-  </div>
-
-  <div className="grid grid-cols-3 gap-3 sm:gap-4 md:gap-6 pt-4 sm:pt-6">
-    {[
-      { value: "500+", label: "Suppliers" },
-      { value: "98%", label: "On-time" },
-      { value: "28", label: "States" },
-    ].map((item, index) => (
-      <Card
-        key={index}
-        className="text-center p-3 sm:p-4 border border-primary/10 shadow-lg bg-white/70 backdrop-blur-sm"
-      >
-        <div className="text-xl sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-          {item.value}
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-xl leading-relaxed">
+            AI-powered procurement platform revolutionizing how businesses source construction materials.
+            Get instant quotes, verify suppliers, and track deliveries with intelligent automation.
+          </p>
         </div>
-        <div className="text-xs sm:text-sm text-muted-foreground">{item.label}</div>
-      </Card>
-    ))}
-  </div>
-</div>
 
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2">
+          <Link to="/products" className="w-full sm:w-auto">
+            <Button
+              size="lg"
+              className="bg-gradient-to-r from-primary to-secondary text-primary-foreground shadow-lg rounded-xl w-full sm:w-auto group"
+            >
+              Submit RFQ
+              <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Button>
+          </Link>
 
-    {/* Right Column - Enhanced Live Analytics */}
-    <div className="relative animate-scale-in mt-8 lg:mt-0">
-      {/* Rotating Backgrounds */}
-      <div
-        className={`absolute inset-0 rounded-2xl transition-opacity duration-1000 ${
-          currentImageIndex % 2 === 0 ? "opacity-10" : "opacity-0"
-        }`}
-        style={{
-          backgroundImage: `url(${aiDashboard})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      />
-      <div
-        className={`absolute inset-0 rounded-2xl transition-opacity duration-1000 ${
-          currentImageIndex % 2 === 1 ? "opacity-10" : "opacity-0"
-        }`}
-        style={{
-          backgroundImage: `url(${aiSourcing})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      />
+          <Link to="/about" className="w-full sm:w-auto">
+            <Button
+              size="lg"
+              variant="outline"
+              className="border-primary text-primary rounded-xl w-full sm:w-auto"
+            >
+              Learn More
+            </Button>
+          </Link>
+        </div>
 
-      {/* Live Analytics Card */}
-       <div className="relative animate-scale-in mt-8 lg:mt-0">
-              <LiveAnalytics />
-            </div>
+        {/* Stats */}
+        <div className="grid grid-cols-3 gap-3 sm:gap-4 md:gap-6 pt-4 sm:pt-6">
+          {[
+            { value: "500+", label: "Suppliers" },
+            { value: "98%", label: "On-time" },
+            { value: "28", label: "States" },
+          ].map((item, index) => (
+            <Card
+              key={index}
+              className="text-center p-3 sm:p-4 border border-primary/10 shadow-md bg-white/60 backdrop-blur-sm rounded-xl"
+            >
+              <div className="text-xl sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                {item.value}
+              </div>
+              <div className="text-xs sm:text-sm text-muted-foreground">{item.label}</div>
+            </Card>
+          ))}
+        </div>
+      </div>
+
+      {/* Right Column - Analytics */}
+      <div className="relative animate-scale-in mt-10 lg:mt-0">
+        {/* Background transition layers */}
+        <div
+          className={`absolute inset-0 rounded-2xl transition-opacity duration-1000 ${
+            currentImageIndex % 2 === 0 ? "opacity-10" : "opacity-0"
+          }`}
+          style={{
+            backgroundImage: `url(${aiDashboard})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        />
+        <div
+          className={`absolute inset-0 rounded-2xl transition-opacity duration-1000 ${
+            currentImageIndex % 2 === 1 ? "opacity-10" : "opacity-0"
+          }`}
+          style={{
+            backgroundImage: `url(${aiSourcing})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        />
+
+        <div className="relative z-10">
+          <LiveAnalytics />
+        </div>
+      </div>
     </div>
   </div>
-</div>
+</section>
 
-        </section>
 
        <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-primary/5 to-secondary/5">
   <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -458,7 +455,7 @@ const Index = () => {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6 sm:mb-8">
-              {products.slice(0, 8).map((product, index) => (
+              {products.slice(0, 4).map((product, index) => (
                 <Link key={product.id} to={`/product/${product.id}`}>
                   <Card
                     className="group overflow-hidden border border-primary/10 shadow-lg transition-all duration-300 animate-scale-in"
@@ -519,7 +516,7 @@ const Index = () => {
         {/* Key Offerings */}
 
 
-        <Discover />
+        {/* <Discover /> */}
          {/* Technology Stack Section */}
       
 
