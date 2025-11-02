@@ -254,6 +254,7 @@ const Index = () => {
 </div>
 
         </section>
+
        <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-primary/5 to-secondary/5">
   <div className="container mx-auto px-4 sm:px-6 lg:px-8">
     {/* Section Header */}
@@ -356,7 +357,87 @@ const Index = () => {
     </div>
   </div>
 </section>
+                <ProcurementFeatures />
+  <section className="py-12 sm:py-16 md:py-20 bg-[#f9f7f6]">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-8 sm:mb-12 md:mb-16">
+              <Badge className="mb-4 bg-primary/10 text-primary border-0">
+                Technology
+              </Badge>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-[#c15738] to-[#5c2d23] bg-clip-text text-transparent">
+                Powered by <span className="text-gradient bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Advanced AI</span>
+              </h2>
+              <div className="w-16 sm:w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto mb-4"></div>
+              <p className="text-base sm:text-lg text-muted-foreground max-w-3xl mx-auto px-4">
+                Cutting-edge technology stack ensuring seamless, intelligent, and secure procurement experiences
+              </p>
+            </div>
 
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+              {[
+                {
+                  icon: BarChart3,
+                  title: "AI Price Intelligence",
+                  description: "Machine learning algorithms analyze market trends and predict optimal pricing strategies",
+                  features: ["Real-time market analysis", "Price prediction models", "Cost optimization"]
+                },
+                {
+                  icon: Shield,
+                  title: "Blockchain Verification",
+                  description: "Immutable supplier verification and transaction records for complete transparency",
+                  features: ["Supplier authentication", "Transaction security", "Quality assurance"]
+                },
+                {
+                  icon: Smartphone,
+                  title: "Multi-Platform Access",
+                  description: "Seamless experience across all devices with responsive design and native apps",
+                  features: ["Mobile-first design", "Cross-platform sync", "Offline capabilities"]
+                },
+              ].map((tech, index) => (
+                <div key={index} className="group perspective-1000">
+                  <Card className="relative p-6 sm:p-8 border-0 shadow-2xl hover:shadow-xs transition-all duration-700 transform hover:scale-105 hover:-translate-y-3 bg-gradient-to-br from-white via-white to-primary/5 backdrop-blur-md preserve-3d hover:rotate-y-6 overflow-hidden">
+                    {/* Animated background gradient */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+
+                    {/* Floating elements */}
+                    <div className="absolute top-4 right-4 w-3 h-3 bg-primary/20 rounded-full animate-pulse"></div>
+                    <div className="absolute bottom-6 left-4 w-2 h-2 bg-secondary/30 rounded-full animate-bounce" style={{ animationDelay: '0.5s' }}></div>
+                    <div className="absolute top-1/2 right-6 w-1 h-1 bg-primary/40 rounded-full animate-ping" style={{ animationDelay: '1s' }}></div>
+
+                    {/* Icon with consistent styling */}
+                    <div className="w-16 h-16 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-2xl flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform duration-300">
+                      <tech.icon className="h-8 w-8 text-white" />
+                    </div>
+
+                    {/* Title with enhanced styling */}
+                    <h3 className="relative text-lg sm:text-xl font-bold mb-3 text-foreground group-hover:text-primary transition-colors duration-300">{tech.title}</h3>
+
+                    {/* Description */}
+                    <p className="relative text-sm sm:text-base text-muted-foreground mb-4 leading-relaxed group-hover:text-foreground/80 transition-colors duration-300">{tech.description}</p>
+
+                    {/* Features list with enhanced styling */}
+                    <ul className="relative space-y-2">
+                      {tech.features.map((feature, idx) => (
+                        <li key={idx} className="flex items-center text-xs sm:text-sm text-muted-foreground group-hover:text-foreground/70 transition-colors duration-300">
+                          <div className="w-4 h-4 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                            <CheckCircle className="w-2.5 h-2.5 text-white" />
+                          </div>
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
+
+                    {/* Bottom accent with animation */}
+                    <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-secondary to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                    {/* Side accent */}
+                    <div className="absolute top-0 bottom-0 left-0 w-1 bg-gradient-to-b from-primary to-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  </Card>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
         {/* Featured Products with Images */}
         <section className="py-12 bg-[#f9f7f6] sm:py-16 md:py-20 relative">
           {/* Background Pattern */}
@@ -433,7 +514,6 @@ const Index = () => {
 <Section />
 
         {/* <MarqueeSection /> */}
-        <ProcurementFeatures />
 
 
         {/* Key Offerings */}
@@ -441,86 +521,7 @@ const Index = () => {
 
         <Discover />
          {/* Technology Stack Section */}
-        <section className="py-12 sm:py-16 md:py-20 bg-[#f9f7f6]">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-8 sm:mb-12 md:mb-16">
-              <Badge className="mb-4 bg-primary/10 text-primary border-0">
-                Technology
-              </Badge>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-[#c15738] to-[#5c2d23] bg-clip-text text-transparent">
-                Powered by <span className="text-gradient bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Advanced AI</span>
-              </h2>
-              <div className="w-16 sm:w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto mb-4"></div>
-              <p className="text-base sm:text-lg text-muted-foreground max-w-3xl mx-auto px-4">
-                Cutting-edge technology stack ensuring seamless, intelligent, and secure procurement experiences
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-              {[
-                {
-                  icon: BarChart3,
-                  title: "AI Price Intelligence",
-                  description: "Machine learning algorithms analyze market trends and predict optimal pricing strategies",
-                  features: ["Real-time market analysis", "Price prediction models", "Cost optimization"]
-                },
-                {
-                  icon: Shield,
-                  title: "Blockchain Verification",
-                  description: "Immutable supplier verification and transaction records for complete transparency",
-                  features: ["Supplier authentication", "Transaction security", "Quality assurance"]
-                },
-                {
-                  icon: Smartphone,
-                  title: "Multi-Platform Access",
-                  description: "Seamless experience across all devices with responsive design and native apps",
-                  features: ["Mobile-first design", "Cross-platform sync", "Offline capabilities"]
-                },
-              ].map((tech, index) => (
-                <div key={index} className="group perspective-1000">
-                  <Card className="relative p-6 sm:p-8 border-0 shadow-2xl hover:shadow-3xl transition-all duration-700 transform hover:scale-105 hover:-translate-y-3 bg-gradient-to-br from-white via-white to-primary/5 backdrop-blur-md preserve-3d hover:rotate-y-6 overflow-hidden">
-                    {/* Animated background gradient */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-
-                    {/* Floating elements */}
-                    <div className="absolute top-4 right-4 w-3 h-3 bg-primary/20 rounded-full animate-pulse"></div>
-                    <div className="absolute bottom-6 left-4 w-2 h-2 bg-secondary/30 rounded-full animate-bounce" style={{ animationDelay: '0.5s' }}></div>
-                    <div className="absolute top-1/2 right-6 w-1 h-1 bg-primary/40 rounded-full animate-ping" style={{ animationDelay: '1s' }}></div>
-
-                    {/* Icon with consistent styling */}
-                    <div className="w-16 h-16 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-2xl flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform duration-300">
-                      <tech.icon className="h-8 w-8 text-white" />
-                    </div>
-
-                    {/* Title with enhanced styling */}
-                    <h3 className="relative text-lg sm:text-xl font-bold mb-3 text-foreground group-hover:text-primary transition-colors duration-300">{tech.title}</h3>
-
-                    {/* Description */}
-                    <p className="relative text-sm sm:text-base text-muted-foreground mb-4 leading-relaxed group-hover:text-foreground/80 transition-colors duration-300">{tech.description}</p>
-
-                    {/* Features list with enhanced styling */}
-                    <ul className="relative space-y-2">
-                      {tech.features.map((feature, idx) => (
-                        <li key={idx} className="flex items-center text-xs sm:text-sm text-muted-foreground group-hover:text-foreground/70 transition-colors duration-300">
-                          <div className="w-4 h-4 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-full flex items-center justify-center mr-3 flex-shrink-0">
-                            <CheckCircle className="w-2.5 h-2.5 text-white" />
-                          </div>
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
-
-                    {/* Bottom accent with animation */}
-                    <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-secondary to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-
-                    {/* Side accent */}
-                    <div className="absolute top-0 bottom-0 left-0 w-1 bg-gradient-to-b from-primary to-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  </Card>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+      
 
         <HowItWorks />
         <section className="py-16 sm:py-20 bg-[#f7f5f2]" >
@@ -543,9 +544,9 @@ const Index = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {[FileText, Settings, Clock, Headphones].map((Icon, index) => (
                 <div key={index} className="group perspective-1000">
-                  <Card className="relative p-6 sm:p-8 border-0 shadow-2xl hover:shadow-3xl transition-all duration-700 transform hover:scale-105 hover:-translate-y-3 bg-gradient-to-br from-white via-white to-primary/5 backdrop-blur-md preserve-3d hover:rotate-y-6 overflow-hidden">
+                  <Card className="relative p-6 sm:p-8 border-0 shadow-2xl hover:shadow-xs transition-all duration-700 transform hover:scale-105 hover:-translate-y-3  preserve-3d hover:rotate-y-6 overflow-hidden">
                     {/* Animated background */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                    <div className="absolute inset-0 opacity-0  transition-opacity duration-700"></div>
 
                     {/* Floating particles */}
                     <div className="absolute top-4 right-4 w-2 h-2 bg-primary/30 rounded-full animate-pulse"></div>
@@ -574,7 +575,6 @@ const Index = () => {
                     <div className="absolute top-0 bottom-0 left-0 w-1 bg-gradient-to-b from-primary to-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
                     {/* Glow effect */}
-                    <div className="absolute -inset-1 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10 blur-sm"></div>
                   </Card>
                 </div>
               ))}
@@ -638,7 +638,7 @@ const Index = () => {
                 },
               ].map((process, index) => (
                 <div key={index} className="group perspective-1000">
-                  <Card className="relative p-6 sm:p-8 border-0 shadow-2xl hover:shadow-3xl transition-all duration-700 transform hover:scale-105 hover:-translate-y-4 bg-gradient-to-br from-white via-white to-primary/5 backdrop-blur-md preserve-3d hover:rotate-y-8 overflow-hidden">
+                  <Card className="relative p-6 sm:p-8 border-0 shadow-2xl hover:shadow-xs transition-all duration-700 transform hover:scale-105 hover:-translate-y-4 bg-gradient-to-br from-white via-white to-primary/5 backdrop-blur-md preserve-3d hover:rotate-y-8 overflow-hidden">
                     {/* Animated background */}
                     <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
 
@@ -671,7 +671,6 @@ const Index = () => {
                     <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
                     {/* Side glow effect */}
-                    <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10 blur-sm"></div>
                   </Card>
                 </div>
               ))}

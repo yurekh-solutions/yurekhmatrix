@@ -90,11 +90,11 @@ const Section = () => {
 
               {/* Content */}
               <div className="absolute inset-0 flex flex-col justify-end p-4 sm:p-6 text-white">
-                <div className="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-1 sm:mb-2">
+                <div className="text-2xl sm:text-3xl md:text-4xl font-bold   bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-1 sm:mb-2">
                   {stat.value}
                 </div>
 
-                <h3 className="text-sm sm:text-base font-bold text-white mb-2">
+                <h3 className="text-sm sm:text-base font-bold text-white mb-5">
                   {stat.label}
                 </h3>
 
@@ -102,7 +102,7 @@ const Section = () => {
                   {stat.description}
                 </p>
 
-                <div className="mt-3 sm:mt-4 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
+                {/* <div className="mt-3 sm:mt-4 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
                   <Link to="/products">
                     <Button
                       size="sm"
@@ -112,7 +112,7 @@ const Section = () => {
                       <ArrowRight className="ml-2 w-4 h-4" />
                     </Button>
                   </Link>
-                </div>
+                </div> */}
               </div>
             </div>
           ))}
