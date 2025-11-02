@@ -188,13 +188,13 @@ const Index = () => {
             </Button>
           </Link>
 
-          <Link to="/about" className="w-full sm:w-auto">
+          <Link to="/Voice" className="w-full sm:w-auto">
             <Button
               size="lg"
               variant="outline"
               className="border-primary text-primary rounded-xl w-full sm:w-auto"
             >
-              Learn More
+              Voice AI
             </Button>
           </Link>
         </div>

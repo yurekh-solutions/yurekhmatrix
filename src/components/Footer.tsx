@@ -110,8 +110,19 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-white/20 text-center text-white/60 text-sm">
-          <p>© {new Date().getFullYear()} MaterialMatrix. All rights reserved.</p>
+        <div className="mt-12 pt-8 border-t border-white/20 text-center  text-[#fefefe] text-sm">
+        <p>
+  © {new Date().getFullYear()} <span className="font-semibold">MaterialMatrix.</span> All rights reserved. Powered by{" "}
+  <a
+    href="https://yurekh.com"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="font-normal  text-white/60  "
+  >
+    YUREKH SOLUTIONS
+  </a>
+</p>
+
         </div>
       </div>
     </footer>
