@@ -162,7 +162,17 @@ All colors MUST be HSL.
   .shadow-elegant {
     box-shadow: 0 10px 40px -10px hsl(var(--primary) / 0.2);
   }
-  
+   .animate-scroll {
+    animation: scroll 30s linear infinite;
+  }
+
+  .animate-scroll-reverse {
+    animation: scroll-reverse 25s linear infinite;
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
   .shadow-3d {
     box-shadow: 
       0 10px 30px -5px rgba(0, 0, 0, 0.1),
@@ -234,6 +244,23 @@ All colors MUST be HSL.
     transform: scale(1);
   }
 }
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  @keyframes scroll-reverse {
+    0% {
+      transform: translateX(-50%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
 /* Hide scrollbar but keep scroll functionality */
 .scrollbar-hide::-webkit-scrollbar {
   display: none;

@@ -80,6 +80,12 @@ const Index = () => {
     heroImage,
     aiSourcing
   ];
+   const suppliers = [
+    "Ceigall India", "VRC Constructions", "RCC Developers Pvt Ltd", "HMM Infra",
+    "N S Associates", "Kaluwala", "Himalayan Infra", "Rashmi Metals",
+    "JSW Steel", "Tata Steel", "MSP Steel", "Ultratech Cement", "ACC Limited"
+  ];
+
 
   // Simulate live data updates
   useEffect(() => {
@@ -519,6 +525,52 @@ const Index = () => {
         {/* <Discover /> */}
          {/* Technology Stack Section */}
       
+<section className="py-20" >
+  <div className="container mx-auto px-4">
+    <div className="text-center mb-16">
+      {/* <h2 className="text-4xl font-bold text-foreground mb-6">Trusted by Industry Leaders</h2> */}
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-[#c15738] to-[#5c2d23] bg-clip-text text-transparent mb">
+                Trusted  <span className="text-gradient bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"> by Industry Leaders</span>
+              </h2>
+      <div className="w-32 h-1 bg-gradient-primary mx-auto rounded-full mb-6" />
+      <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+        Join our network of verified suppliers and grow your business with reliable partnerships across India.
+      </p>
+    </div>
+
+    {/* Scrolling Supplier Names - Forward */}
+    <div className="relative overflow-hidden mb-8">
+      <div className="flex animate-scroll space-x-8">
+        {[...suppliers, ...suppliers].map((supplier, index) => (
+          <div
+            key={index}
+            className="flex-shrink-0 px-6 py-4 glass-morphism backdrop-blur-xl rounded-xl border border-glass-border group hover:border-primary/50 transition-all duration-300"
+          >
+            <span className="text-foreground font-medium whitespace-nowrap group-hover:text-primary transition-colors duration-300">
+              {supplier}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    {/* Scrolling Supplier Names - Reverse */}
+    <div className="relative overflow-hidden">
+      <div className="flex animate-scroll-reverse space-x-8">
+        {[...suppliers.slice().reverse(), ...suppliers.slice().reverse()].map((supplier, index) => (
+          <div
+            key={index}
+            className="flex-shrink-0 px-6 py-4 glass-morphism backdrop-blur-xl rounded-xl border border-glass-border group hover:border-primary/50 transition-all duration-300"
+          >
+            <span className="text-foreground font-medium whitespace-nowrap group-hover:text-primary transition-colors duration-300">
+              {supplier}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
 
         <HowItWorks />
         <section className="py-16 sm:py-20 bg-[#f7f5f2]" >
