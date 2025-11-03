@@ -317,3 +317,20 @@ export default Products;
             ))}
           </div>
         </div>
+
+
+
+
+
+export const categories = [
+  { value: "all", label: "All" },
+  { value: "mild-steel", label: "Mild Steel" },
+  { value: "stainless-steel", label: "Stainless Steel" },
+  { value: "construction", label: "Construction Materials" },
+  { value: "electrical", label: "Electrical Materials" },
+     { value: "stainlesses", label: "Stainless " },
+ { value: "constructionnn", label: "Construction " },
+   { value: "mildd", label: "Mild " },
+   { value: "stainlesseses", label: "Stainlesses " },
+  { value: "constructionp", label: "Construction Materialss" },
+];

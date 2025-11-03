@@ -123,8 +123,7 @@ const ProcurementGrid = () => {
 
                   {/* Hover indicator */}
                   <div className="mt-3 sm:mt-4 flex items-center gap-2 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <span className="text-xs font-semibold drop-shadow-lg">Explore</span>
-                    <span>→</span>
+                   
                   </div>
 
                   {/* Gradient overlay on hover */}

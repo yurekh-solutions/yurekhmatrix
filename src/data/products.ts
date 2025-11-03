@@ -1,4 +1,13 @@
 // Import all product images
+// Priority Products (Featured)
+import tmtBarsNew from "@/assets/products/tmt-bars-new.jpg";
+import msHollowSections from "@/assets/products/ms-hollow-sections.jpg";
+import plywoodNew from "@/assets/products/plywood-new.jpg";
+import tilesCeramic from "@/assets/products/tiles-ceramic.jpg";
+import constructionSand from "@/assets/products/construction-sand.jpg";
+import stoneGrit from "@/assets/products/stone-grit.jpg";
+import clayBricks from "@/assets/products/clay-bricks.jpg";
+
 import msRoundBars from "@/assets/products/ms-round-bars.jpg";
 import msPlates from "@/assets/products/ms-plates.jpg";
 import msBeamsChannels from "@/assets/products/ms-beams-channels.jpg";
@@ -59,6 +68,106 @@ import rccbBreakers from "@/assets/products/rccb-breakers.jpg";
 import distributionBoard from "@/assets/products/distribution-board.jpg";
 import panelBoards from "@/assets/products/panel-boards.jpg";
 
+// New Unique Product Images
+import msRoundBarsNew from "@/assets/products/ms-round-bars-new.jpg";
+import msPlatesNew from "@/assets/products/ms-plates-new.jpg";
+import msIBeamsNew from "@/assets/products/ms-i-beams-new.jpg";
+import msChannelsNew from "@/assets/products/ms-channels-new.jpg";
+import msAnglesNew from "@/assets/products/ms-angles-new.jpg";
+import hrSteelCoilsNew from "@/assets/products/hr-steel-coils-new.jpg";
+import crSteelCoilsNew from "@/assets/products/cr-steel-coils-new.jpg";
+import msSquareTubesNew from "@/assets/products/ms-square-tubes-new.jpg";
+import msRectangularTubesNew from "@/assets/products/ms-rectangular-tubes-new.jpg";
+import msPipesNew from "@/assets/products/ms-pipes-new.jpg";
+import msFlatBarsNew from "@/assets/products/ms-flat-bars-new.jpg";
+import msGratingsNew from "@/assets/products/ms-gratings-new.jpg";
+import wireRodsNew from "@/assets/products/wire-rods-new.jpg";
+import forgedComponentsNew from "@/assets/products/forged-components-new.jpg";
+import chequeredPlatesNew from "@/assets/products/chequered-plates-new.jpg";
+import galvanizedSheetsNew from "@/assets/products/galvanized-sheets-new.jpg";
+import ssMirrorPlatesNew from "@/assets/products/ss-mirror-plates-new.jpg";
+import ssPipesNew from "@/assets/products/ss-pipes-new.jpg";
+import ssCoilsNew from "@/assets/products/ss-coils-new.jpg";
+import ssSquareTubesNew from "@/assets/products/ss-square-tubes-new.jpg";
+import ssRoundBarsNew from "@/assets/products/ss-round-bars-new.jpg";
+import ssSheetsNew from "@/assets/products/ss-sheets-new.jpg";
+import ssAnglesChannelsNew from "@/assets/products/ss-angles-channels-new.jpg";
+import ssPerforatedMeshNew from "@/assets/products/ss-perforated-mesh-new.jpg";
+import ssFittingsNew from "@/assets/products/ss-fittings-new.jpg";
+import ssRectangularTubesNew from "@/assets/products/ss-rectangular-tubes-new.jpg";
+import hexBarsNew from "@/assets/products/hex-bars-new.jpg";
+import cementNew from "@/assets/products/cement-new.jpg";
+import aggregatesNew from "@/assets/products/aggregates-new.jpg";
+import flyAshBricksNew from "@/assets/products/fly-ash-bricks-new.jpg";
+import aacBlocksNew from "@/assets/products/aac-blocks-new.jpg";
+import concreteBlocksNew from "@/assets/products/concrete-blocks-new.jpg";
+import readyMixConcreteNew from "@/assets/products/ready-mix-concrete-new.jpg";
+import plywoodBwrNew from "@/assets/products/plywood-bwr-new.jpg";
+import waterproofingNew from "@/assets/products/waterproofing-new.jpg";
+import paintsCoatingsNew from "@/assets/products/paints-coatings-new.jpg";
+import wallPuttyNew from "@/assets/products/wall-putty-new.jpg";
+import tileAdhesiveNew from "@/assets/products/tile-adhesive-new.jpg";
+import whiteCementNew from "@/assets/products/white-cement-new.jpg";
+import woodPreservativeNew from "@/assets/products/wood-preservative-new.jpg";
+import houseWireNew from "@/assets/products/house-wire-new.jpg";
+import armouredCablesNew from "@/assets/products/armoured-cables-new.jpg";
+import flexibleCablesNew from "@/assets/products/flexible-cables-new.jpg";
+import coaxialCablesNew from "@/assets/products/coaxial-cables-new.jpg";
+import switchesSocketsNew from "@/assets/products/switches-sockets-new.jpg";
+import powerSocketsNew from "@/assets/products/power-sockets-new.jpg";
+import usbSocketsNew from "@/assets/products/usb-sockets-new.jpg";
+import electricalConduitsNew from "@/assets/products/electrical-conduits-new.jpg";
+import flexibleConduitsNew from "@/assets/products/flexible-conduits-new.jpg";
+import metalConduitsNew from "@/assets/products/metal-conduits-new.jpg";
+import junctionBoxesNew from "@/assets/products/junction-boxes-new.jpg";
+import cableTraysNew from "@/assets/products/cable-trays-new.jpg";
+import ledBulbsNew from "@/assets/products/led-bulbs-new.jpg";
+import ledTubesNew from "@/assets/products/led-tubes-new.jpg";
+import ledDownlightsNew from "@/assets/products/led-downlights-new.jpg";
+import ledFloodlightsNew from "@/assets/products/led-floodlights-new.jpg";
+import mcbBreakersNew from "@/assets/products/mcb-breakers-new.jpg";
+import rccbBreakersNew from "@/assets/products/rccb-breakers-new.jpg";
+import distributionBoardNew from "@/assets/products/distribution-board-new.jpg";
+import panelBoardsNew from "@/assets/products/panel-boards-new.jpg";
+
+// Additional Unique Product Images
+import msBeamsIslbNew from "@/assets/products/ms-beams-islb-new.jpg";
+import ppcCementNew from "@/assets/products/ppc-cement-new.jpg";
+import riverSandNew from "@/assets/products/river-sand-new.jpg";
+import mSandNew from "@/assets/products/m-sand-new.jpg";
+import aggregates10mmNew from "@/assets/products/aggregates-10mm-new.jpg";
+import redClayBricksNew from "@/assets/products/red-clay-bricks-new.jpg";
+import concreteSolidBlocksNew from "@/assets/products/concrete-solid-blocks-new.jpg";
+import plywoodMarineNew from "@/assets/products/plywood-marine-new.jpg";
+import plywoodCommercialBwrNew from "@/assets/products/plywood-commercial-bwr-new.jpg";
+import shutteringPlywoodNew from "@/assets/products/shuttering-plywood-new.jpg";
+import liquidWaterproofingNew from "@/assets/products/liquid-waterproofing-new.jpg";
+import tileGroutEpoxyNew from "@/assets/products/tile-grout-epoxy-new.jpg";
+import asianPaintsApexNew from "@/assets/products/asian-paints-apex-new.jpg";
+import asianPaintsRoyaleNew from "@/assets/products/asian-paints-royale-new.jpg";
+import enamelPaintNew from "@/assets/products/enamel-paint-new.jpg";
+import primerCementNew from "@/assets/products/primer-cement-new.jpg";
+import polycabFrlsNew from "@/assets/products/polycab-frls-new.jpg";
+import havellsHouseWireNew from "@/assets/products/havells-house-wire-new.jpg";
+import ssSheets2bNew from "@/assets/products/ss-sheets-2b-new.jpg";
+import ssFlatBarsNew from "@/assets/products/ss-flat-bars-new.jpg";
+import ssWireRodsNew from "@/assets/products/ss-wire-rods-new.jpg";
+import ssWeldedPipesNew from "@/assets/products/ss-welded-pipes-new.jpg";
+import ssChequeredPlatesNew from "@/assets/products/ss-chequered-plates-new.jpg";
+import ssExpandedMeshNew from "@/assets/products/ss-expanded-mesh-new.jpg";
+import ssStripsBaNew from "@/assets/products/ss-strips-ba-new.jpg";
+import ssIBeamsNew from "@/assets/products/ss-i-beams-new.jpg";
+import ssCapillaryTubesNew from "@/assets/products/ss-capillary-tubes-new.jpg";
+import ssGratingsNew from "@/assets/products/ss-gratings-new.jpg";
+import ssPrecisionTubesNew from "@/assets/products/ss-precision-tubes-new.jpg";
+import ssPlates316tiNew from "@/assets/products/ss-plates-316ti-new.jpg";
+import ssProfilesCustomNew from "@/assets/products/ss-profiles-custom-new.jpg";
+import ssThreadedRodsNew from "@/assets/products/ss-threaded-rods-new.jpg";
+import pvcConduitsFinolexNew from "@/assets/products/pvc-conduits-finolex-new.jpg";
+import ledPanelLightsNew from "@/assets/products/led-panel-lights-new.jpg";
+import elcbBreakerNew from "@/assets/products/elcb-breaker-new.jpg";
+import mainPanel3phaseNew from "@/assets/products/main-panel-3phase-new.jpg";
+
 export interface Product {
   id: string;
   name: string;
@@ -75,23 +184,86 @@ export const categories = [
   { value: "stainless-steel", label: "Stainless Steel" },
   { value: "construction", label: "Construction Materials" },
   { value: "electrical", label: "Electrical Materials" },
-  { value: "stainlesses", label: "Stainless " },
-  { value: "constructionnn", label: "Construction " },
+     { value: "stainlesses", label: "Stainless " },
+ { value: "constructionnn", label: "Construction " },
    { value: "mildd", label: "Mild " },
-  { value: "stainlesseses", label: "Stainlesses " },
+   { value: "stainlesseses", label: "Stainlesses " },
   { value: "constructionp", label: "Construction Materialss" },
-
 ];
 
-// 100 Premium Products with Professional Product Images
+// 107 Premium Products with Professional Product Images
 export const products: Product[] = [
+  // Featured Priority Products (7 products)
+  {
+    id: "featured-1",
+    name: "TMT Bars Fe 500D",
+    category: "mild-steel",
+    description: "High-strength Thermo-Mechanically Treated reinforcement bars conforming to IS 1786 Fe 500D grade. Superior ductility, weldability, and earthquake resistance for modern construction projects.",
+    image: tmtBarsNew,
+    applications: ["High-Rise Buildings", "Bridge Construction", "Industrial Structures", "Seismic Zone Projects"],
+    features: ["Fe 500D Grade", "Earthquake Resistant", "Superior Ductility", "Corrosion Resistant"]
+  },
+  {
+    id: "featured-2",
+    name: "MS Hollow Sections",
+    category: "mild-steel",
+    description: "Premium mild steel hollow square and rectangular sections for structural applications. Manufactured to IS 4923 standards with uniform wall thickness and precise dimensions.",
+    image: msHollowSections,
+    applications: ["Steel Structures", "Roof Trusses", "Industrial Frames", "Fabrication Works"],
+    features: ["Uniform Wall Thickness", "High Strength-to-Weight Ratio", "Easy Fabrication", "Cost Effective"]
+  },
+  {
+    id: "featured-3",
+    name: "Premium Plywood BWP Grade",
+    category: "construction",
+    description: "Boiling Water Proof (BWP) grade plywood with superior bonding and moisture resistance. Made from high-quality hardwood veneers for construction and furniture applications.",
+    image: plywoodNew,
+    applications: ["Furniture Making", "Interior Paneling", "Construction Formwork", "Kitchen Cabinets"],
+    features: ["BWP Grade", "Moisture Resistant", "Termite Treatment", "Smooth Surface"]
+  },
+  {
+    id: "featured-4",
+    name: "Ceramic Floor Tiles",
+    category: "construction",
+    description: "Premium ceramic floor tiles with anti-slip surface and stain resistance. Available in multiple designs, colors, and finishes for residential and commercial spaces.",
+    image: tilesCeramic,
+    applications: ["Floor Tiling", "Wall Cladding", "Bathroom Flooring", "Commercial Spaces"],
+    features: ["Anti-Slip Surface", "Stain Resistant", "Easy Maintenance", "Durable Finish"]
+  },
+  {
+    id: "featured-5",
+    name: "Construction Sand (M-Sand)",
+    category: "construction",
+    description: "High-quality manufactured sand (M-Sand) conforming to IS 383 standards. Ideal for concrete, plastering, and masonry works with consistent gradation and minimal silt content.",
+    image: constructionSand,
+    applications: ["Concrete Mixing", "Plastering Works", "Brick Masonry", "Block Work"],
+    features: ["IS 383 Compliant", "Consistent Quality", "Low Silt Content", "Eco-Friendly"]
+  },
+  {
+    id: "featured-6",
+    name: "Stone Grit (20mm Aggregate)",
+    category: "construction",
+    description: "Premium quality crushed stone aggregate (20mm) for concrete production. Clean, durable, and conforming to IS 383 standards with uniform grading.",
+    image: stoneGrit,
+    applications: ["RCC Works", "Road Construction", "Concrete Production", "Foundation Works"],
+    features: ["IS 383 Grade", "Uniform Size", "High Strength", "Clean Material"]
+  },
+  {
+    id: "featured-7",
+    name: "Clay Bricks (Red Bricks)",
+    category: "construction",
+    description: "Traditional clay bricks manufactured from high-quality clay with uniform burning. Excellent compressive strength and durability for load-bearing masonry construction.",
+    image: clayBricks,
+    applications: ["Load Bearing Walls", "Partition Walls", "Boundary Walls", "Foundation Works"],
+    features: ["High Compressive Strength", "Uniform Size", "Good Thermal Insulation", "Durable"]
+  },
   // Mild Steel Products (25 products)
   {
     id: "1",
     name: "MS Round Bars IS 2062",
     category: "mild-steel",
     description: "Premium quality mild steel round bars manufactured to IS 2062 specifications. Perfect for machining, fabrication, and construction applications with excellent weldability and machinability.",
-    image: msRoundBars,
+    image: msRoundBarsNew,
     applications: ["Precision Machining", "Industrial Fabrication", "Construction Framework", "Automotive Components"],
     features: ["High Tensile Strength", "Uniform Diameter", "Smooth Surface Finish", "Cost Effective"]
   },
@@ -100,7 +272,7 @@ export const products: Product[] = [
     name: "MS Plates Grade A",
     category: "mild-steel",
     description: "Heavy-duty mild steel plates conforming to Grade A standards. Ideal for shipbuilding, pressure vessels, and heavy industrial applications with superior strength.",
-    image: msPlates,
+    image: msPlatesNew,
     applications: ["Ship Building", "Pressure Vessels", "Industrial Machinery", "Structural Engineering"],
     features: ["High Load Bearing", "Uniform Thickness", "Easy to Weld", "Corrosion Resistant Coating"]
   },
@@ -109,7 +281,7 @@ export const products: Product[] = [
     name: "MS Channels ISMC 100",
     category: "mild-steel",
     description: "Indian Standard Medium Channels manufactured to precise specifications. Widely used in construction and infrastructure projects for structural support.",
-    image: msBeamsChannels,
+    image: msChannelsNew,
     applications: ["Building Construction", "Bridge Structures", "Industrial Sheds", "Support Beams"],
     features: ["High Strength-to-Weight Ratio", "Easy Installation", "Durable Finish", "Multiple Sizes Available"]
   },
@@ -118,7 +290,7 @@ export const products: Product[] = [
     name: "MS Angles L-Section",
     category: "mild-steel",
     description: "Equal and unequal angle sections for diverse construction needs. Precision-cut with excellent straightness for easy installation.",
-    image: msAngles,
+    image: msAnglesNew,
     applications: ["Roof Trusses", "Support Structures", "Frame Making", "Industrial Racking"],
     features: ["Precise Dimensions", "High Rigidity", "Corrosion Protection", "Easy to Cut & Weld"]
   },
@@ -127,7 +299,7 @@ export const products: Product[] = [
     name: "MS H-Beams Wide Flange",
     category: "mild-steel",
     description: "Wide flange H-beams for heavy structural applications. Provides exceptional load-bearing capacity for high-rise buildings and bridges.",
-    image: msBeamsChannels,
+    image: msIBeamsNew,
     applications: ["High-Rise Buildings", "Bridge Construction", "Industrial Plants", "Heavy Machinery Bases"],
     features: ["Superior Load Capacity", "Excellent Bending Resistance", "Long Span Coverage", "Seismic Resistant"]
   },
@@ -136,7 +308,7 @@ export const products: Product[] = [
     name: "CR Coils Cold Rolled",
     category: "mild-steel",
     description: "Cold rolled steel coils with premium surface finish. Perfect for applications requiring aesthetic appeal and precision thickness.",
-    image: steelCoils,
+    image: crSteelCoilsNew,
     applications: ["Automotive Parts", "Home Appliances", "Metal Furniture", "Precision Components"],
     features: ["Smooth Surface", "Tight Tolerances", "High Tensile Strength", "Paintable Surface"]
   },
@@ -145,7 +317,7 @@ export const products: Product[] = [
     name: "HR Coils Hot Rolled",
     category: "mild-steel",
     description: "Hot rolled steel coils for general fabrication work. Cost-effective solution for non-critical applications with good formability.",
-    image: steelCoils,
+    image: hrSteelCoilsNew,
     applications: ["General Fabrication", "Structural Components", "Industrial Equipment", "Agricultural Machinery"],
     features: ["Good Formability", "Cost Effective", "High Strength", "Easy to Weld"]
   },
@@ -154,7 +326,7 @@ export const products: Product[] = [
     name: "MS Square Tubes",
     category: "mild-steel",
     description: "Hollow square sections for structural and decorative applications. Available in various wall thicknesses and sizes.",
-    image: msTubes,
+    image: msSquareTubesNew,
     applications: ["Structural Framework", "Furniture Manufacturing", "Handrails", "Fencing"],
     features: ["Uniform Wall Thickness", "Precision Cut Ends", "Easy to Join", "Aesthetically Pleasing"]
   },
@@ -163,7 +335,7 @@ export const products: Product[] = [
     name: "MS Rectangular Tubes",
     category: "mild-steel",
     description: "Rectangular hollow sections ideal for construction and industrial applications requiring directional strength.",
-    image: msTubes,
+    image: msRectangularTubesNew,
     applications: ["Building Frames", "Support Columns", "Industrial Equipment", "Automotive Chassis"],
     features: ["High Directional Strength", "Clean Appearance", "Easy Fabrication", "Corrosion Resistant"]
   },
@@ -181,7 +353,7 @@ export const products: Product[] = [
     name: "MS Flat Bars",
     category: "mild-steel",
     description: "Versatile flat steel bars for various fabrication needs. Available in multiple widths and thicknesses.",
-    image: msFlatBars,
+    image: msFlatBarsNew,
     applications: ["Brackets & Supports", "Frame Making", "Industrial Fabrication", "Hardware Manufacturing"],
     features: ["Precise Dimensions", "Smooth Edges", "Easy to Machine", "Multiple Sizes"]
   },
@@ -190,7 +362,7 @@ export const products: Product[] = [
     name: "MS I-Beams ISLB",
     category: "mild-steel",
     description: "Indian Standard Light Beams for medium load applications. Cost-effective alternative to H-beams for lighter structures.",
-    image: msBeamsChannels,
+    image: msBeamsIslbNew,
     applications: ["Medium Span Structures", "Mezzanine Floors", "Industrial Shelving", "Support Beams"],
     features: ["Good Load Capacity", "Economical", "Easy to Install", "Standard Sizes"]
   },
@@ -199,7 +371,7 @@ export const products: Product[] = [
     name: "MS Pipes ERW Black",
     category: "mild-steel",
     description: "Electric Resistance Welded pipes for structural and plumbing applications. Strong and durable for multiple uses.",
-    image: msPipes,
+    image: msPipesNew,
     applications: ["Water Supply", "Gas Distribution", "Structural Framework", "Industrial Piping"],
     features: ["Leak Proof Joints", "High Pressure Rating", "Corrosion Resistant", "Cost Effective"]
   },
@@ -381,7 +553,7 @@ export const products: Product[] = [
     name: "SS Sheets 2B Finish",
     category: "stainless-steel",
     description: "Standard 2B finish stainless steel sheets for general fabrication. Cost-effective with good surface quality.",
-    image: ssSheets,
+    image: ssSheets2bNew,
     applications: ["General Fabrication", "Industrial Equipment", "Kitchen Equipment", "Architectural Panels"],
     features: ["Standard Finish", "Good Formability", "Weldable", "Cost Effective"]
   },
@@ -399,7 +571,7 @@ export const products: Product[] = [
     name: "SS Flat Bars 304",
     category: "stainless-steel",
     description: "Versatile SS 304 flat bars for various fabrication needs. Excellent corrosion resistance.",
-    image: ssSheets,
+    image: ssFlatBarsNew,
     applications: ["Hardware Manufacturing", "Brackets", "Support Structures", "Machine Parts"],
     features: ["Corrosion Resistant", "Easy to Machine", "Good Finish", "Weldable"]
   },
@@ -408,7 +580,7 @@ export const products: Product[] = [
     name: "SS Wire Rods 316L",
     category: "stainless-steel",
     description: "Low carbon SS 316L wire rods for specialized applications. Superior corrosion resistance.",
-    image: ssRoundBars,
+    image: ssWireRodsNew,
     applications: ["Wire Drawing", "Springs", "Medical Devices", "Marine Applications"],
     features: ["Low Carbon", "Marine Grade", "High Ductility", "Corrosion Proof"]
   },
@@ -426,7 +598,7 @@ export const products: Product[] = [
     name: "SS Welded Pipes 304L",
     category: "stainless-steel",
     description: "Low carbon SS 304L welded pipes for general applications. Good weldability.",
-    image: ssPipes,
+    image: ssWeldedPipesNew,
     applications: ["General Piping", "Handrails", "Structures", "Industrial Applications"],
     features: ["Good Weldability", "Corrosion Resistant", "Cost Effective", "Smooth Finish"]
   },
@@ -435,7 +607,7 @@ export const products: Product[] = [
     name: "SS Chequered Plates",
     category: "stainless-steel",
     description: "Anti-skid stainless steel chequered plates for hygienic flooring applications.",
-    image: ssSheets,
+    image: ssChequeredPlatesNew,
     applications: ["Food Processing Floors", "Clean Rooms", "Marine Walkways", "Hospital Floors"],
     features: ["Anti-Skid", "Hygienic", "Corrosion Proof", "Easy to Clean"]
   },
@@ -453,7 +625,7 @@ export const products: Product[] = [
     name: "SS Expanded Metal Mesh",
     category: "stainless-steel",
     description: "Expanded stainless steel mesh for filters and architectural applications.",
-    image: ssPerforatedMesh,
+    image: ssExpandedMeshNew,
     applications: ["Filters", "Walkway Gratings", "Architectural Screens", "Security Barriers"],
     features: ["High Strength", "Lightweight", "Corrosion Proof", "Ventilation Friendly"]
   },
@@ -462,7 +634,7 @@ export const products: Product[] = [
     name: "SS Strips BA Finish",
     category: "stainless-steel",
     description: "Bright annealed finish stainless steel strips for precision applications.",
-    image: ssSheets,
+    image: ssStripsBaNew,
     applications: ["Precision Components", "Electronics", "Medical Devices", "Automotive Parts"],
     features: ["Bright Finish", "Tight Tolerances", "Clean Surface", "High Quality"]
   },
@@ -471,7 +643,7 @@ export const products: Product[] = [
     name: "SS I-Beams Structural",
     category: "stainless-steel",
     description: "Structural stainless steel I-beams for corrosive environments.",
-    image: ssAnglesChannels,
+    image: ssIBeamsNew,
     applications: ["Chemical Plants", "Marine Structures", "Coastal Buildings", "Clean Room Structures"],
     features: ["Corrosion Proof", "High Load Capacity", "Long Service Life", "Low Maintenance"]
   },
@@ -480,7 +652,7 @@ export const products: Product[] = [
     name: "SS Capillary Tubes",
     category: "stainless-steel",
     description: "Precision stainless steel capillary tubes for instrumentation.",
-    image: ssPipes,
+    image: ssCapillaryTubesNew,
     applications: ["Instrumentation", "Medical Equipment", "Analytical Instruments", "Pressure Gauges"],
     features: ["Precision Bore", "Clean Inside", "Tight Tolerances", "High Pressure"]
   },
@@ -489,7 +661,7 @@ export const products: Product[] = [
     name: "SS Gratings Industrial",
     category: "stainless-steel",
     description: "Industrial grade stainless steel gratings for hygienic environments.",
-    image: ssAnglesChannels,
+    image: ssGratingsNew,
     applications: ["Food Processing", "Pharmaceutical Plants", "Clean Rooms", "Chemical Plants"],
     features: ["Hygienic Design", "Load Bearing", "Corrosion Proof", "Easy to Clean"]
   },
@@ -507,7 +679,7 @@ export const products: Product[] = [
     name: "SS Precision Tubes",
     category: "stainless-steel",
     description: "Precision drawn stainless steel tubes for high-quality applications.",
-    image: ssPipes,
+    image: ssPrecisionTubesNew,
     applications: ["Automotive", "Hydraulics", "Pneumatics", "Precision Machinery"],
     features: ["Tight Tolerances", "Smooth Finish", "High Strength", "Dimensional Accuracy"]
   },
@@ -516,7 +688,7 @@ export const products: Product[] = [
     name: "SS Plates 316Ti",
     category: "stainless-steel",
     description: "Titanium stabilized SS 316Ti plates for high-temperature applications.",
-    image: ssSheets,
+    image: ssPlates316tiNew,
     applications: ["High Temperature", "Chemical Equipment", "Heat Exchangers", "Boilers"],
     features: ["High Temperature Resistant", "Corrosion Proof", "Stabilized Grade", "Durable"]
   },
@@ -525,7 +697,7 @@ export const products: Product[] = [
     name: "SS Profiles Custom",
     category: "stainless-steel",
     description: "Custom stainless steel profiles for specialized architectural needs.",
-    image: ssAnglesChannels,
+    image: ssProfilesCustomNew,
     applications: ["Architectural Features", "Custom Structures", "Interior Design", "Facades"],
     features: ["Custom Shapes", "Aesthetic Appeal", "Corrosion Proof", "Precision Made"]
   },
@@ -534,7 +706,7 @@ export const products: Product[] = [
     name: "SS Rods Threaded",
     category: "stainless-steel",
     description: "Threaded stainless steel rods for fastening applications.",
-    image: ssRoundBars,
+    image: ssThreadedRodsNew,
     applications: ["Fastening", "Construction", "Marine Hardware", "Industrial Assembly"],
     features: ["Pre-Threaded", "Corrosion Resistant", "High Strength", "Easy Installation"]
   },
@@ -554,7 +726,7 @@ export const products: Product[] = [
     name: "Portland Pozzolana Cement PPC",
     category: "construction",
     description: "Environment-friendly PPC cement with enhanced durability. Ideal for marine and mass concrete applications.",
-    image: cement,
+    image: ppcCementNew,
     applications: ["Marine Structures", "Mass Concrete", "Dams", "Underground Structures"],
     features: ["Eco-Friendly", "Low Heat Generation", "High Durability", "Sulfate Resistant"]
   },
@@ -563,7 +735,7 @@ export const products: Product[] = [
     name: "River Sand Fine Grade",
     category: "construction",
     description: "Premium quality fine river sand for plastering and finishing work. Washed and graded.",
-    image: aggregates,
+    image: riverSandNew,
     applications: ["Plastering", "Finishing Work", "Brickwork", "Block Work"],
     features: ["Washed & Clean", "Uniform Grade", "Low Silt Content", "Quality Tested"]
   },
@@ -572,7 +744,7 @@ export const products: Product[] = [
     name: "M-Sand Manufactured Sand",
     category: "construction",
     description: "High-quality manufactured sand as eco-friendly alternative to river sand. Consistent quality.",
-    image: aggregates,
+    image: mSandNew,
     applications: ["Concrete Work", "Plastering", "Brickwork", "General Construction"],
     features: ["Eco-Friendly", "Consistent Quality", "Better Bonding", "Cost Effective"]
   },
@@ -590,7 +762,7 @@ export const products: Product[] = [
     name: "10mm Aggregates Blue Metal",
     category: "construction",
     description: "Quality 10mm blue metal aggregates for fine concrete work and finishing.",
-    image: aggregates,
+    image: aggregates10mmNew,
     applications: ["Fine Concrete", "Flooring", "Plastering", "Paver Blocks"],
     features: ["Uniform Size", "High Density", "Low Absorption", "Quality Certified"]
   },
@@ -599,7 +771,7 @@ export const products: Product[] = [
     name: "Red Clay Bricks First Class",
     category: "construction",
     description: "Traditional first-class red clay bricks for load-bearing walls. High compressive strength.",
-    image: bricks,
+    image: redClayBricksNew,
     applications: ["Load Bearing Walls", "Foundation Work", "Boundary Walls", "General Construction"],
     features: ["High Compressive Strength", "Uniform Size", "Low Water Absorption", "Durable"]
   },
@@ -626,7 +798,7 @@ export const products: Product[] = [
     name: "Concrete Solid Blocks 4 inch",
     category: "construction",
     description: "Solid concrete blocks for heavy-duty construction applications.",
-    image: concreteBlocks,
+    image: concreteSolidBlocksNew,
     applications: ["Load Bearing Walls", "Retaining Walls", "Foundation Work", "Industrial Buildings"],
     features: ["High Strength", "Weather Resistant", "Fire Proof", "Long Lasting"]
   },
@@ -644,7 +816,7 @@ export const products: Product[] = [
     name: "Plywood Marine Grade BWP",
     category: "construction",
     description: "Boiling Water Proof marine plywood for exterior applications. Waterproof bonding.",
-    image: plywood,
+    image: plywoodMarineNew,
     applications: ["Exterior Shuttering", "Marine Applications", "Kitchen Cabinets", "Furniture"],
     features: ["Waterproof", "Termite Resistant", "High Strength", "Durable"]
   },
@@ -653,7 +825,7 @@ export const products: Product[] = [
     name: "Plywood Commercial BWR",
     category: "construction",
     description: "Boiling Water Resistant commercial plywood for interior applications.",
-    image: plywood,
+    image: plywoodCommercialBwrNew,
     applications: ["Interior Furniture", "False Ceiling", "Wall Paneling", "General Carpentry"],
     features: ["Moisture Resistant", "Smooth Finish", "Easy to Work", "Cost Effective"]
   },
@@ -662,7 +834,7 @@ export const products: Product[] = [
     name: "Shuttering Plywood Film Faced",
     category: "construction",
     description: "Film faced shuttering plywood for concrete formwork. Reusable multiple times.",
-    image: plywood,
+    image: shutteringPlywoodNew,
     applications: ["Concrete Formwork", "Shuttering", "Construction Scaffolding", "Temporary Structures"],
     features: ["Reusable", "Smooth Finish", "High Density", "Water Resistant"]
   },
@@ -680,7 +852,7 @@ export const products: Product[] = [
     name: "Waterproofing Coating Liquid",
     category: "construction",
     description: "Liquid waterproofing coating for bathrooms and wet areas. Easy to apply.",
-    image: waterproofing,
+    image: liquidWaterproofingNew,
     applications: ["Bathrooms", "Kitchens", "Balconies", "Water Tanks"],
     features: ["Easy Application", "Crack Bridging", "Flexible", "Chemical Resistant"]
   },
@@ -716,7 +888,7 @@ export const products: Product[] = [
     name: "Tile Grout Epoxy Based",
     category: "construction",
     description: "Epoxy-based tile grout for stain-resistant and durable tile joints.",
-    image: tileAdhesive,
+    image: tileGroutEpoxyNew,
     applications: ["Kitchen Tiles", "Bathroom Tiles", "Swimming Pools", "Commercial Spaces"],
     features: ["Stain Resistant", "Water Proof", "Anti-Fungal", "Easy to Clean"]
   },
@@ -725,7 +897,7 @@ export const products: Product[] = [
     name: "Asian Paints Apex Exterior",
     category: "construction",
     description: "Premium exterior emulsion paint with weather-proof technology.",
-    image: paintsCoatings,
+    image: asianPaintsApexNew,
     applications: ["Exterior Walls", "Boundary Walls", "Facades", "Outdoor Structures"],
     features: ["Weather Proof", "Fade Resistant", "Crack Resistance", "Long Lasting"]
   },
@@ -734,7 +906,7 @@ export const products: Product[] = [
     name: "Asian Paints Royale Interior",
     category: "construction",
     description: "Luxury interior emulsion with smooth silk finish and advanced stain guard.",
-    image: paintsCoatings,
+    image: asianPaintsRoyaleNew,
     applications: ["Interior Walls", "Living Rooms", "Bedrooms", "Offices"],
     features: ["Smooth Finish", "Stain Guard", "Low Odor", "Washable"]
   },
@@ -743,7 +915,7 @@ export const products: Product[] = [
     name: "Enamel Paint Oil Based",
     category: "construction",
     description: "High-gloss oil-based enamel paint for wood and metal surfaces.",
-    image: paintsCoatings,
+    image: enamelPaintNew,
     applications: ["Doors", "Windows", "Metal Grills", "Furniture"],
     features: ["High Gloss", "Weather Resistant", "Durable Finish", "Rust Protection"]
   },
@@ -752,7 +924,7 @@ export const products: Product[] = [
     name: "Primer Cement Based",
     category: "construction",
     description: "Cement-based primer for better paint adhesion on walls.",
-    image: paintsCoatings,
+    image: primerCementNew,
     applications: ["New Walls", "Old Walls", "Interior", "Exterior"],
     features: ["Better Adhesion", "Fills Minor Cracks", "Economical", "Easy Application"]
   },
@@ -772,7 +944,7 @@ export const products: Product[] = [
     name: "Polycab FRLS Cables 2.5 sq mm",
     category: "electrical",
     description: "Flame Retardant Low Smoke cables for residential wiring. IS certified.",
-    image: electricalCables,
+    image: polycabFrlsNew,
     applications: ["House Wiring", "Commercial Buildings", "Offices", "Apartments"],
     features: ["Fire Retardant", "Low Smoke Emission", "IS Certified", "Long Life"]
   },
@@ -781,7 +953,7 @@ export const products: Product[] = [
     name: "Havells House Wire 1.5 sq mm",
     category: "electrical",
     description: "Standard house wiring cable for lighting circuits. Flexible and durable.",
-    image: electricalCables,
+    image: havellsHouseWireNew,
     applications: ["Lighting Circuits", "Switch Boards", "Residential Wiring", "Small Appliances"],
     features: ["Flexible", "Tinned Copper", "Heat Resistant", "Quality Certified"]
   },
@@ -925,7 +1097,7 @@ export const products: Product[] = [
     name: "LED Panel Lights 2x2 Feet",
     category: "electrical",
     description: "Slim LED panel lights for false ceiling installation. Uniform lighting.",
-    image: ledLights,
+    image: ledPanelLightsNew,
     applications: ["False Ceiling", "Offices", "Hospitals", "Commercial Spaces"],
     features: ["Slim Design", "Uniform Light", "Energy Efficient", "Long Life"]
   },
@@ -970,7 +1142,7 @@ export const products: Product[] = [
     name: "ELCB Earth Leakage Breaker",
     category: "electrical",
     description: "Earth Leakage Circuit Breaker for complete electrical safety.",
-    image: circuitBreakers,
+    image: elcbBreakerNew,
     applications: ["Main Incoming", "Safety Device", "Industrial", "Commercial"],
     features: ["Complete Protection", "Reliable", "Fast Acting", "Test Button"]
   },
@@ -988,7 +1160,7 @@ export const products: Product[] = [
     name: "Main Panel Board 3 Phase",
     category: "electrical",
     description: "3-phase main panel board for industrial and commercial power distribution.",
-    image: panelBoards,
+    image: mainPanel3phaseNew,
     applications: ["Industrial", "Commercial Buildings", "Large Complexes", "Power Distribution"],
     features: ["High Capacity", "Safe Design", "Organized", "Bus Bar System"]
   },

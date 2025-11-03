@@ -146,9 +146,13 @@ const RFQ = () => {
   }
 
   return (
-    <div className="min-h-screen glass-bg">
+    <div className="min-h-screen ">
       <Navbar />
-
+  <div className="absolute inset-0">
+    <div className="absolute top-20 left-10 w-32 h-32 sm:w-48 sm:h-48 bg-primary/10 rounded-full blur-[30px] animate-pulse" />
+    <div className="absolute bottom-20 right-10 w-40 h-40 sm:w-56 sm:h-56 bg-secondary/10 rounded-full blur-[80px] animate-pulse delay-1000" />
+    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 sm:w-80 sm:h-80 bg-primary/5 rounded-full blur-[20px] animate-pulse delay-2000" />
+  </div>
       <div className="container mx-auto px-4 pt-24 pb-16">
         <div className="max-w-4xl mx-auto">
           {/* Progress */}
@@ -156,15 +160,15 @@ const RFQ = () => {
             <div className="flex items-center justify-center gap-4 mb-4">
               <div
                 className={`w-10 h-10 rounded-full flex items-center justify-center font-bold ${
-                  step >= 1 ? "bg-gradient-primary text-white" : "glass-card"
+                  step >= 1 ? "bg-gradient-to-br from-primary to-secondary  text-white" : "glass-card"
                 }`}
               >
                 1
               </div>
-              <div className={`h-1 w-20 ${step >= 2 ? "bg-gradient-primary" : "bg-muted"}`}></div>
+              <div className={`h-1 w-20 ${step >= 2 ? "bg-gradient-primary" : "bg-gradient-to-br from-primary to-secondary "}`}></div>
               <div
                 className={`w-10 h-10 rounded-full flex items-center justify-center font-bold ${
-                  step >= 2 ? "bg-gradient-primary text-white" : "glass-card"
+                  step >= 2 ? "bg-gradient-to-br from-primary to-secondary  text-white" : "bg-[#d09a8b] text-white"
                 }`}
               >
                 2
@@ -182,27 +186,30 @@ const RFQ = () => {
 
           {step === 1 ? (
             /* Step 1: Cart */
-            <div className="glass-card p-8">
-              <h3 className="text-xl font-bold mb-6">Your Cart</h3>
+            <div className="bg-[#f3e3de] rounded-3xl p-8">
+              <h3 className=" text-gradient text-xl font-bold mb-6">Your Cart</h3>
 
               {cartItems.length > 0 ? (
                 <div className="space-y-4 mb-6">
                   {cartItems.map((item, index) => {
                     const product = products.find((p) => p.id === item.productId);
                     return (
-                      <div key={index} className="glass-card p-4 flex items-center justify-between">
+                      <div key={index} className="glass-card p-4 flex items-center justify-between ">
                         <div className="flex items-center gap-4">
                           <Package className="w-8 h-8 text-primary" />
                           <div>
-                            <h4 className="font-semibold">{item.productName}</h4>
-                            <div className="flex gap-2 mt-1">
-                              <Badge variant="outline" className="text-xs">
+                            <h2 className=" text-muted-foreground font-bold">{item.productName}</h2>
+                            <div className="flex gap-2 mt-4">
+                                      <Badge className="mb-4 bg-primary/10 text-primary border-4">
+                              
                                 Brand: {item.brand}
                               </Badge>
-                              <Badge variant="outline" className="text-xs">
+                                      <Badge className="mb-4 bg-primary/10 text-primary border-4">
+                              
                                 Grade: {item.grade}
                               </Badge>
-                              <Badge variant="outline" className="text-xs">
+                                      <Badge className="mb-4 bg-primary/10 text-primary border-4">
+
                                 {item.quantity} MT
                               </Badge>
                             </div>
@@ -234,7 +241,7 @@ const RFQ = () => {
                     <ArrowLeft className="w-4 h-4 mr-2" />
                     Add More Products
                   </Button>
-                  <Button onClick={handleNext} className="bg-gradient-primary hover:opacity-90">
+                  <Button onClick={handleNext} className="bg-gradient-to-br from-primary to-secondary  hover:opacity-90">
                     Next
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </Button>
@@ -243,12 +250,13 @@ const RFQ = () => {
             </div>
           ) : (
             /* Step 2: Customer Info */
-            <div className="glass-card p-8">
+            <div className="glass-card bg-[#f3e3de] p-8">
               <h3 className="text-xl font-bold mb-6">Customer Information</h3>
 
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div>
-                  <Label htmlFor="name">
+              <form onSubmit={handleSubmit} className="space-y-5 ">
+                <div className="mb-2">
+
+                  <Label  htmlFor="name">
                     Name <span className="text-destructive">*</span>
                   </Label>
                   <Input
@@ -256,7 +264,7 @@ const RFQ = () => {
                     value={customerInfo.name}
                     onChange={(e) => setCustomerInfo({ ...customerInfo, name: e.target.value })}
                     required
-                    className="glass-morphism"
+                    className="glass-morphism mt-2"
                     placeholder="Your name"
                   />
                 </div>
@@ -272,7 +280,7 @@ const RFQ = () => {
                       setCustomerInfo({ ...customerInfo, company: e.target.value })
                     }
                     required
-                    className="glass-morphism"
+                    className="glass-morphism mt-2"
                     placeholder="Your company name"
                   />
                 </div>
@@ -288,7 +296,7 @@ const RFQ = () => {
                       setCustomerInfo({ ...customerInfo, location: e.target.value })
                     }
                     required
-                    className="glass-morphism"
+                    className="glass-morphism mt-2"
                     placeholder="Delivery location"
                   />
                 </div>
@@ -300,22 +308,24 @@ const RFQ = () => {
                     type="email"
                     value={customerInfo.email}
                     onChange={(e) => setCustomerInfo({ ...customerInfo, email: e.target.value })}
-                    className="glass-morphism"
+                    className="glass-morphism mt-2"
                     placeholder="Your email"
                   />
                 </div>
 
-                <div>
+                <div >
+
                   <Label htmlFor="phone">
                     Phone <span className="text-destructive">*</span>
                   </Label>
+                 
                   <Input
                     id="phone"
                     type="tel"
                     value={customerInfo.phone}
                     onChange={(e) => setCustomerInfo({ ...customerInfo, phone: e.target.value })}
                     required
-                    className="glass-morphism"
+                    className="glass-morphism mt-2"
                     placeholder="Your phone number"
                   />
                 </div>
@@ -332,7 +342,7 @@ const RFQ = () => {
                   </Button>
                   <Button 
                     type="submit" 
-                    className="bg-gradient-primary hover:opacity-90 w-full"
+                    className="bg-gradient-to-br from-primary to-secondary  hover:opacity-90 w-full"
                     disabled={isSubmitting}
                   >
                     {isSubmitting ? "Submitting..." : "Submit RFQ"}

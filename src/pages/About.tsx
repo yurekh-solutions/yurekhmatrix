@@ -490,7 +490,7 @@ Intelligent Procurement Automation Suite
                             <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-lg flex items-center justify-center mb-3 sm:mb-4 shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
                               <card.icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                             </div>
-                            <h4 className="font-bold text-white mb-2 text-sm sm:text-base group-hover:text-orange-200 transition-colors duration-300">
+                            <h4 className="font-bold text-white mb-2 text-sm sm:text-base group-hover:text-[#ca5031] transition-colors duration-300">
                               {card.title}
                             </h4>
                             <p className="text-xs sm:text-sm text-gray-200 leading-relaxed group-hover:text-white transition-colors duration-300">
