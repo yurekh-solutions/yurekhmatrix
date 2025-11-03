@@ -487,12 +487,12 @@ const About = () => {
 
     </div>
 
-   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
   {stats.map((stat, index) => (
     <div key={index}>
       <div
         className="bg-[#fcfcfb] p-8 text-center rounded-2xl shadow-lg border border-white/20
-                   backdrop-blur-md bg-white/10 hover:scale-105 transition-all duration-300"
+                    hover:scale-105 transition-all duration-300"
       >
         {/* Icon */}
       <div className="w-10 h-10 md:w-14 md:h-14 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg">
