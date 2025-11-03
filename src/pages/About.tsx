@@ -53,9 +53,9 @@ import ProcurementGrid from "@/components/ProcurementGrid";
 import AIFeatureSection from "@/components/AIFeatureSection";
 import CarouselCards from "@/components/CarouselCards";
 import ImageCarousel from "@/components/ImageCarousel";
-import materialWarehouse from "../assets/ai-networks.jpg";
+import materialWarehouse from "../assets/materials-warehouse.jpg";
 import officeBuildings from "../assets/sourcing-optimizer.png";
-import constructionSite from "../assets/ai-procurementp.jpg";
+import constructionSite from "../assets/construction-site.jpg";
 import aiDashboard from "../assets/ai-dashboard.jpg";
 import naayatradeLogo from '../assets/yuvi.png';
 // import TeamConnectingModal from "@/components/TeamConnectingModal";
@@ -100,10 +100,12 @@ import expertSupport from "@/assets/cards/expert-support.jpg";
 import panIndia from "@/assets/cards/pan-india.jpg";
 import aiProcurementHero from "@/assets/ai-procurementp.jpg"
 import AnimatedCounter from "@/components/AnimatedCounter";
+import ProcurementFeatures from "@/components/ProcurementFeatures ";
+import CarouselCard from "@/components/CarouselCards";
 
 const About = () => {
   const [activeTab, setActiveTab] = useState("ai-solutions");
-  const carouselImages = [materialWarehouse, constructionSite, aiDashboard, officeBuildings];
+  const carouselImages = [materialWarehouse, constructionSite, aiDashboard, officeBuilding];
 
   const tabbedContent = {
     "ai-solutions": [
@@ -174,7 +176,7 @@ const About = () => {
       suffix: "%"
     },
     { 
-      value: 20, 
+      value: 28, 
       label: "States Coverage", 
       description: "Pan-India presence",
       icon: Globe,
@@ -182,12 +184,12 @@ const About = () => {
       suffix: "+"
     },
     {
-      value: 2,
-      label: "Million ARR",
-      description: "Annual recurring revenue",
-      icon: DollarSign,
-      prefix: "$",
-      suffix: "M"
+      value: 40,
+      label: "Tech Innovations",
+      description: "Advancing digital transformation",
+      icon: Sparkles,
+      prefix: "",
+      suffix: "+"
     },
     {
       value: 200,
@@ -387,7 +389,6 @@ const About = () => {
 
 
       
-      <ProcurementHero />
       <section className="py-16 lg:py-20 overflow-hidden">
   <div className="container mx-auto px-4">
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -411,13 +412,13 @@ const About = () => {
           About NaayaConstruction
         </h2> */}
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-[#c15738] to-[#5c2d23] bg-clip-text text-transparent">
-              About <span className="text-gradient bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">NaayaConstruction</span>
+              About <span className="text-gradient bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">MaterialMatrix</span>
             </h2>
 
         <p className="text-base lg:text-lg text-muted-foreground leading-relaxed">
-          Naaya Construction is India's next-generation AI-powered procurement
+          Material Matrix is India's next-generation AI-powered procurement
           platform for the construction industry, backed by the strength of
-          Naaya Group. We are revolutionizing the way contractors, builders, and
+          Intelligence. We are revolutionizing the way contractors, builders, and
           enterprises source their construction needs by making procurement
           seamless, digital-first, and cost-effective.
         </p>
@@ -425,7 +426,7 @@ const About = () => {
         <p className="text-base lg:text-lg text-muted-foreground leading-relaxed">
           Our team is committed to transforming the procurement ecosystem with a
           focus on innovation, technology, and sustainability. More than just a
-          procurement platform, Naaya Construction delivers an integrated
+          procurement platform, Material Matrix delivers an integrated
           ecosystem — connecting buyers and suppliers, offering real-time
           sourcing intelligence, and ensuring end-to-end support across
           projects.
@@ -465,68 +466,6 @@ const About = () => {
   </div>
 </section>
 
-
-      {/* Mission, Vision & Approach Section */}
-     
-<section className="py-16 ">
-  <div className="container mx-auto px-4">
-    <div className="text-center mb-12">
-      {/* <h2 className="text-3xl lg:text-4xl font-bold mb-4">
-        <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-          Our Impact in Numbers
-        </span>
-      </h2> */}
-       <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-[#c15738] to-[#5c2d23] bg-clip-text text-transparent">
-              Our Impact <span className="text-gradient bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"> in Numbers</span>
-            </h2>
-      <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-        See how we're transforming the procurement landscape
-      </p>
-            {/* <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent mx-auto rounded-full mb-4" /> */}
-            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-[#c15738] to-[#5c2d23] mx-auto rounded-full mt-2" />
-
-    </div>
-
-   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
-  {stats.map((stat, index) => (
-    <div key={index}>
-      <div
-        className="bg-[#fcfcfb] p-8 text-center rounded-2xl shadow-lg border border-white/20
-                    hover:scale-105 transition-all duration-300"
-      >
-        {/* Icon */}
-      <div className="w-10 h-10 md:w-14 md:h-14 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                    <stat.icon className="h-5 w-5 md:h-7 md:w-7 text-primary-foreground" />
-                  </div>
-
-        {/* Value */}
-        <div className="text-3xl lg:text-4xl font-bold text-[#ca5031] mb-2">
-          <AnimatedCounter
-            end={stat.value}
-            duration={2.5}
-            prefix={stat.prefix}
-            suffix={stat.suffix}
-          />
-        </div>
-
-        {/* Label */}
-        <h3 className="text-base md:text-lg font-semibold text-muted-foreground mb-1">
-          {stat.label}
-        </h3>
-
-        {/* Description */}
-        <p className="text-sm text-gray-500">{stat.description}</p>
-      </div>
-    </div>
-  ))}
-</div>
-
-  </div>
-</section>
-
-      {/* Tabbed Carousel Section */}
-      
-            {/* <ProcurementGrid /> */}
 
  <section className="py-12 sm:py-16 md:py-20 bg-[#f1eee9]">
         <div className="container mx-auto px-4">
@@ -593,14 +532,14 @@ const About = () => {
                       </p>
 
                       <div className="grid grid-cols-2 gap-2 sm:gap-3">
-                        <div className="flex flex-col items-center justify-center py-2 sm:py-3 px-2 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-lg text-white shadow-md">
-                          <div className="text-base sm:text-lg md:text-xl font-bold leading-tight">99.9%</div>
-                          <div className="text-[10px] sm:text-xs opacity-90 mt-0.5">Accuracy Rate</div>
+                        <div className="flex flex-col items-center justify-center py-2 sm:py-3 px-2 bg-primary/5 rounded-lg border border-primary/20 rounded-lg text-white shadow-md">
+                          <div className="text-primary sm:text-lg md:text-xl font-bold leading-tight">99.9%</div>
+                          <div className="text-[10px]  text-muted-foreground sm:text-xs opacity-90 mt-0.5">Accuracy Rate</div>
                         </div>
 
-                        <div className="flex flex-col items-center justify-center py-2 sm:py-3 px-2 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-lg text-white shadow-md">
-                          <div className="text-base sm:text-lg md:text-xl font-bold leading-tight">24/7</div>
-                          <div className="text-[10px] sm:text-xs opacity-90 mt-0.5">AI Support</div>
+                        <div className="flex flex-col items-center justify-center py-2 sm:py-3 px-2 bg-primary/5 rounded-lg border border-primary/20 shadow-md">
+                          <div className=" text-base  text-primary sm:text-lg md:text-xl font-bold leading-tight">24/7</div>
+                          <div className="text-[10px]  text-muted-foreground sm:text-xs opacity-90 mt-0.5">AI Support</div>
                         </div>
                       </div>
                     </div>
@@ -657,7 +596,7 @@ const About = () => {
                   </p>
                   <p className="text-[10px] sm:text-xs opacity-90 flex items-center gap-1 sm:gap-2 mt-1">
                     <Globe className="w-2 h-2 sm:w-3 sm:h-3" />
-                    Mumbai, Maharashtra
+                  INDIA
                   </p>
                 </div>
               </div>
@@ -665,6 +604,68 @@ const About = () => {
           </div>
         </div>
       </section>
+      {/* Mission, Vision & Approach Section */}
+     
+<section className="py-16 ">
+  <div className="container mx-auto px-4">
+    <div className="text-center mb-12">
+      {/* <h2 className="text-3xl lg:text-4xl font-bold mb-4">
+        <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+          Our Impact in Numbers
+        </span>
+      </h2> */}
+       <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-[#c15738] to-[#5c2d23] bg-clip-text text-transparent">
+              Our Impact <span className="text-gradient bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"> in Numbers</span>
+            </h2>
+      <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+        See how we're transforming the procurement landscape
+      </p>
+            {/* <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent mx-auto rounded-full mb-4" /> */}
+            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-[#c15738] to-[#5c2d23] mx-auto rounded-full mt-2" />
+
+    </div>
+
+   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
+  {stats.map((stat, index) => (
+    <div key={index}>
+      <div
+        className="bg-[#fcfcfb] p-8 text-center rounded-2xl shadow-lg border border-white/20
+                    hover:scale-105 transition-all duration-300"
+      >
+        {/* Icon */}
+      <div className="w-10 h-10 md:w-14 md:h-14 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                    <stat.icon className="h-5 w-5 md:h-7 md:w-7 text-primary-foreground" />
+                  </div>
+
+        {/* Value */}
+        <div className="text-3xl lg:text-4xl font-bold text-[#ca5031] mb-2">
+          <AnimatedCounter
+            end={stat.value}
+            duration={2.5}
+            prefix={stat.prefix}
+            suffix={stat.suffix}
+          />
+        </div>
+
+        {/* Label */}
+        <h3 className="text-base md:text-lg font-semibold text-muted-foreground mb-1">
+          {stat.label}
+        </h3>
+
+        {/* Description */}
+        <p className="text-sm text-gray-500">{stat.description}</p>
+      </div>
+    </div>
+  ))}
+</div>
+
+  </div>
+</section>
+
+      {/* Tabbed Carousel Section */}
+      
+            {/* <ProcurementGrid /> */}
+
       {/* <AIFeatureSection /> */}
              <section className="py-12 sm:py-16 md:py-20 bg-[#f1eee9] relative overflow-hidden">
   <div className="container mx-auto px-4">
@@ -702,19 +703,23 @@ const About = () => {
             </div>
 
             {/* Title and description */}
-            <h3 className="relative text-lg sm:text-xl font-bold mb-3 text-gray-900 group-hover:text-primary transition-colors duration-300 z-10">
-              {value.title}
-            </h3>
-            <p className="relative text-sm sm:text-base text-gray-600 mb-4 leading-relaxed group-hover:text-gray-700 transition-colors duration-300 z-10">
-              {value.description}
-            </p>
+  <h3
+  className="relative text-lg sm:text-xl font-bold mb-3 text-gray-900 group-hover:text-primary transition-colors duration-300 z-10 text-center"
+>
+  {value.title}
+</h3>
+
+<p
+  className="relative text-sm sm:text-base text-gray-600 mb-4 leading-relaxed group-hover:text-gray-700 transition-colors duration-300 z-10 text-center"
+>
+  {value.description}
+</p>
+
 
             {/* Stats Badge with Check Icon */}
             <div className="relative flex items-center justify-center z-10 group-hover:scale-105 transition-transform duration-300 space-x-2">
-              <div className="w-4 h-4 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-full flex items-center justify-center">
-                <CheckCircle className="w-2.5 h-2.5 text-white" />
-              </div>
-              <Badge className="bg-gradient-to-r from-[#c15738] to-[#5c2d23] text-white border-0 px-3 py-1 text-xs">
+            
+              <Badge className="bg-primary/10 text-primary border-primary/30 border-0 px-3 py-1 text-xs">
                 {value.stats}
               </Badge>
             </div>
@@ -767,9 +772,9 @@ const About = () => {
         ></div>
 
         {/* Icon */}
-        <div className="w-16 h-16 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-2xl flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform duration-300">
+        {/* <div className="w-16 h-16 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-2xl flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform duration-300">
           <Award className="h-8 w-8 text-white" />
-        </div>
+        </div> */}
 
         {/* Title */}
         <h3 className="relative text-lg sm:text-xl font-bold mb-4 text-foreground group-hover:text-primary transition-colors duration-300">
@@ -803,6 +808,9 @@ const About = () => {
 
   </div>
 </section>
+      {/* <ProcurementHero /> */}
+      {/* <  CarouselCard /> */}
+      {/* <AIFeatureSection /> */}
 
       {/* Core Values Section */}
   

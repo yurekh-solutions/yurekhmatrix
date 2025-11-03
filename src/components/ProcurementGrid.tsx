@@ -61,22 +61,20 @@ const ProcurementGrid = () => {
       <div className="container mx-auto px-4 md:px-6 relative z-10">
         <div className="text-center mb-8 md:mb-12 lg:mb-16">
           <Badge className="mb-4 bg-primary/10 text-primary border-0 px-4 py-2">
-              Enterprise-Grade Efficiency
-            </Badge>
-          <h2 className=" text-2xl sm:text-3xl md:text-4xl font-bold mb-3 md:mb-4">
-            Procurement Made  <span className="text-gradient">Intelligent with AI Innovation</span>
+            Enterprise-Grade Efficiency
+          </Badge>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 md:mb-4">
+            Procurement Made <span className="text-gradient">Intelligent with Innovation</span>
           </h2>
           <p className="text-base md:text-lg lg:text-xl text-muted-foreground max-w-3xl mx-auto">
             Explore our comprehensive suite of AI-powered tools designed to transform 
             your construction material procurement process
           </p>
           <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-[#c15738] to-[#5c2d23] mx-auto mt-4 rounded-full" />
-
         </div>
-        
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 lg:gap-5">
-          {gridCards.map((card, index) => {
+          {gridCards.map((card) => {
             const Icon = card.icon;
             
             return (
@@ -84,7 +82,7 @@ const ProcurementGrid = () => {
                 key={card.id}
                 className="group relative overflow-hidden rounded-xl sm:rounded-2xl cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1"
               >
-                {/* Glass morphism background */}
+                {/* Background image */}
                 {card.image ? (
                   <div className="absolute inset-0">
                     <img 
@@ -92,7 +90,8 @@ const ProcurementGrid = () => {
                       alt={card.title}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary/40 via-primary/20 to-secondary/40 opacity-80 group-hover:opacity-70 transition-opacity" />
+                    {/* 🔥 Black overlay added here */}
+                    <div className="absolute inset-0 bg-black/60 group-hover:bg-black/50 transition-all duration-300" />
                   </div>
                 ) : (
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-secondary/15 to-accent/20" />
@@ -103,7 +102,6 @@ const ProcurementGrid = () => {
 
                 {/* Content */}
                 <div className="relative z-10 p-4 sm:p-5 lg:p-6 flex flex-col h-full min-h-[200px] sm:min-h-[220px] md:min-h-[250px] lg:min-h-[280px] justify-end">
-                  {/* Icon with glass effect */}
                   <div className="mb-3 sm:mb-4">
                     <div className="relative inline-block">
                       <div className="absolute inset-0 bg-primary/30 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -120,19 +118,6 @@ const ProcurementGrid = () => {
                   <p className="text-xs sm:text-sm lg:text-base text-white/95 leading-relaxed drop-shadow-md line-clamp-3">
                     {card.description}
                   </p>
-
-                  {/* Hover indicator */}
-                  <div className="mt-3 sm:mt-4 flex items-center gap-2 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                   
-                  </div>
-
-                  {/* Gradient overlay on hover */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
-                </div>
-
-                {/* Shimmer effect */}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full animate-shimmer" />
                 </div>
               </div>
             );
@@ -143,4 +128,4 @@ const ProcurementGrid = () => {
   );
 };
 
-export default ProcurementGrid
+export default ProcurementGrid;

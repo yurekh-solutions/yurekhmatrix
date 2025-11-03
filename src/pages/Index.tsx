@@ -54,6 +54,7 @@ import SEOHead from "@/components/SEOHead";
 import LiveAnalytics from "@/components/LiveAnalytics";
 import ProcurementFeatures from "@/components/ProcurementFeatures ";
 import Section from "./Section";
+import ProcurementGrid from "@/components/ProcurementGrid";
 
 const Index = () => {
   const [stats, setStats] = useState({
@@ -361,6 +362,8 @@ const Index = () => {
   </div>
 </section>
                 <ProcurementFeatures />
+                      <ProcurementGrid  />
+
   <section className="py-12 sm:py-16 md:py-20 bg-[#f9f7f6]">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-8 sm:mb-12 md:mb-16">
