@@ -84,8 +84,8 @@ const ProcurementHero = () => {
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
        
+<div className="grid lg:grid-cols-2  items-center md:gap-3 lg:gap-4">
 
-        <div className="grid lg:grid-cols-2 gap-10 items-center">
           {/* Left Content */}
           <div className="space-y-6">
             <div className="space-y-4">
@@ -130,7 +130,7 @@ const ProcurementHero = () => {
           </div>
 
           {/* Right Cards - Animated Loop with 3D Stack */}
-          <div className="relative flex justify-center lg:justify-end items-center w-full h-[420px] md:h-[500px]">
+          <div className="relative flex justify-center lg:justify-center items-center w-full h-[460px] md:h-[500px] mt-20 ">
             <AnimatePresence>
               {cards.map((card, i) => {
                 const Icon = card.icon;
