@@ -89,7 +89,7 @@ const ProcurementHero = () => {
           {/* Left Content */}
           <div className="space-y-6">
             <div className="space-y-4">
-              <h3 className="text-2xl sm:text-3xl font-bold">Transforming Construction Procurement</h3>
+              <h3 className="text-2xl sm:text-3xl font-bold  text-gradient bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Transform Construction Procurement</h3>
               <p className="text-muted-foreground text-lg leading-relaxed">
                 MaterialMatrix leverages advanced AI algorithms to revolutionize how construction companies source, purchase, and manage materials. Our platform reduces costs, improves efficiency, and ensures quality across your entire supply chain.
               </p>

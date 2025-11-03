@@ -4,6 +4,8 @@ import ScrollToTop from "@/components/ScrollToTop";
 import FloatingActionButtons from "@/components/FloatingActionButtons";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Target,
@@ -11,6 +13,8 @@ import {
   TrendingUp,
   Shield,
   Zap,
+  Download,
+   Users2,
   Globe,
   CheckCircle,
   Building2,
@@ -48,6 +52,13 @@ import ProcurementHero from "@/components/ProcurementHero";
 import ProcurementGrid from "@/components/ProcurementGrid";
 import AIFeatureSection from "@/components/AIFeatureSection";
 import CarouselCards from "@/components/CarouselCards";
+import ImageCarousel from "@/components/ImageCarousel";
+import materialWarehouse from "../assets/ai-networks.jpg";
+import officeBuildings from "../assets/sourcing-optimizer.png";
+import constructionSite from "../assets/ai-procurementp.jpg";
+import aiDashboard from "../assets/ai-dashboard.jpg";
+import naayatradeLogo from '../assets/yuvi.png';
+// import TeamConnectingModal from "@/components/TeamConnectingModal";
 // AI Solutions images
 import supplierMatching from "@/assets/cards/supplier-matching.jpg";
 import priceIntelligence from "@/assets/cards/price-intelligence.jpg";
@@ -91,6 +102,7 @@ import aiProcurementHero from "@/assets/ai-procurementp.jpg"
 
 const About = () => {
   const [activeTab, setActiveTab] = useState("ai-solutions");
+  const carouselImages = [materialWarehouse, constructionSite, aiDashboard, officeBuildings];
 
   const tabbedContent = {
     "ai-solutions": [
@@ -243,7 +255,7 @@ const About = () => {
     <div className="absolute bottom-20 right-10 w-40 h-40 sm:w-56 sm:h-56 bg-secondary/10 rounded-full blur-[80px] animate-pulse delay-1000" />
     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 sm:w-80 sm:h-80 bg-primary/5 rounded-full blur-[20px] animate-pulse delay-2000" />
   </div>
-        <main className="flex-grow flex flex-col items-center max-w-7xl mx-auto w-full mt-20">
+        <main className="flex-grow flex flex-col items-center max-w-7xl mx-auto w-full mt-10">
           {/* Badge */}
           <Badge className="mt-12 sm:mt-16 mb-4 sm:mb-6 flex items-center w-fit space-x-2 border-2 border-primary/30 bg-primary/10 text-primary text-xs sm:text-sm rounded-full px-4 sm:px-5 pr-2 py-2  transition-all duration-300 group">
             <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 text-primary animate-pulse" />
@@ -266,21 +278,7 @@ const About = () => {
             and automated procurement workflows.
           </p>
 
-          {/* Key Features Pills */}
-          
-
-          {/* CTA Button */}
-          {/* <button
-            className="mt-8 bg-gradient-to-r from-primary to-secondary text-white px-6 sm:px-8 pr-3 py-3 sm:py-3.5 rounded-full text-sm sm:text-base font-medium flex items-center space-x-2 sm:space-x-3 hover:shadow-elegant hover:scale-105 transition-all duration-300 group"
-            type="button"
-          >
-            <span>Discover Our AI Solutions</span>
-            <span className="flex items-center justify-center size-7 sm:size-8 rounded-full bg-white/20 group-hover:bg-white/30 transition-colors duration-300">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M4.821 11.999h13.43m0 0-6.714-6.715m6.715 6.715-6.715 6.715" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </span>
-          </button> */}
+        
 
           {/* Hero Image */}
           <div className="mt-12 sm:mt-16 w-full max-w-6xl relative group mb-10">
@@ -288,7 +286,7 @@ const About = () => {
             <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-[60px] opacity-0  transition-opacity duration-500" />
             
             <img 
-              className="relative rounded-[40px] sm:rounded-[60px] w-full h-64 sm:h-80 md:h-96 lg:h-[500px] object-cover rounded-b-none shadow-xs border-t-4 border-x-4 border-primary/20" 
+              className="relative rounded-[40px] sm:rounded-[160px] w-full h-64 sm:h-80 md:h-96 lg:h-[200px] object-cover rounded-b-none shadow-xs border-t-4 border-x-4 border-primary/20" 
               src={aiProcurementHero}
               alt="AI-powered procurement dashboard showing intelligent material sourcing and supplier matching"
             />
@@ -336,6 +334,83 @@ const About = () => {
 
       
       <ProcurementHero />
+      <section className="py-16 lg:py-20 overflow-hidden">
+  <div className="container mx-auto px-4">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      {/* Left Side - Image Carousel */}
+      <div className="relative">
+        <div className="relative transform-3d">
+          <div className="p-2">
+            <ImageCarousel
+              images={carouselImages}
+              className="h-80 lg:h-96 rounded-xl"
+              autoPlay={true}
+              interval={5000}
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* Right Side - Content */}
+      <div className="space-y-6">
+        {/* <h2 className="text-3xl lg:text-4xl font-bold bg-gradient-to-r from-primary via-accent to-primary-glow bg-clip-text text-transparent">
+          About NaayaConstruction
+        </h2> */}
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-[#c15738] to-[#5c2d23] bg-clip-text text-transparent">
+              About <span className="text-gradient bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">NaayaConstruction</span>
+            </h2>
+
+        <p className="text-base lg:text-lg text-muted-foreground leading-relaxed">
+          Naaya Construction is India's next-generation AI-powered procurement
+          platform for the construction industry, backed by the strength of
+          Naaya Group. We are revolutionizing the way contractors, builders, and
+          enterprises source their construction needs by making procurement
+          seamless, digital-first, and cost-effective.
+        </p>
+
+        <p className="text-base lg:text-lg text-muted-foreground leading-relaxed">
+          Our team is committed to transforming the procurement ecosystem with a
+          focus on innovation, technology, and sustainability. More than just a
+          procurement platform, Naaya Construction delivers an integrated
+          ecosystem — connecting buyers and suppliers, offering real-time
+          sourcing intelligence, and ensuring end-to-end support across
+          projects.
+        </p>
+
+        <div className="flex flex-col sm:flex-row gap-4">
+          <Button
+            size="lg"
+                              // className="bg-gradient-to-r from-primary to-secondary text-primary-foreground px-6 md:px-8 py-5 md:py-6 text-sm md:text-base rounded-full shadow-elegant md:mt-4"
+
+            className="text-lg px-6 py-3 font-semibold bg-gradient-to-r from-primary to-secondary text-primary-foreground  shadow-lg hover:scale-105 hover:shadow-glow transition-all duration-300"
+            onClick={() => {
+              const link = document.createElement("a");
+              link.href = "#";
+              link.download = "MaterialMatrix-Brochure.pdf";
+              link.click();
+            }}
+          >
+            <Download className="h-5 w-5 mr-2" />
+            Download Brochure
+          </Button>
+
+          <Button
+            asChild
+            variant="outline"
+            size="lg"
+            className="glass-morphism border-primary/30 text-primary hover:bg-primary/10 text-lg px-6 py-3"
+          >
+            <a href="/contact">
+              <Users2 className="h-5 w-5 mr-2" />
+              Contact Us
+            </a>
+          </Button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 
       {/* Mission, Vision & Approach Section */}
      
@@ -345,10 +420,11 @@ const About = () => {
         <div className="container mx-auto px-4">
           <div className="text-center mb-8 sm:mb-12 md:mb-16">
             <Badge className="mb-4 bg-primary/10 text-primary border-0 px-4 py-2">
-              All-in-One AI Procurement Suite
+            
+Intelligent Procurement Automation Suite
             </Badge>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-[#c15738] to-[#5c2d23] bg-clip-text text-transparent">
-              About <span className="text-gradient bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Advanced AI</span>
+              AI-Enhanced Procurement  <span className="text-gradient bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Management Platform</span>
             </h2>
             <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-[#c15738] to-[#5c2d23] mx-auto rounded-full" />
           </div>
@@ -431,6 +507,8 @@ const About = () => {
           </Tabs>
         </div>
       </section>
+            <ProcurementGrid />
+
  <section className="py-12 sm:py-16 md:py-20 bg-[#f1eee9]">
         <div className="container mx-auto px-4">
           <div className="text-center mb-8 sm:mb-12 md:mb-16">
@@ -568,10 +646,9 @@ const About = () => {
           </div>
         </div>
       </section>
-      <AIFeatureSection />
-            <CarouselCards />
+      {/* <AIFeatureSection /> */}
+            {/* <CarouselCards /> */}
 
-      <ProcurementGrid />
       <section className="relative py-12 sm:py-16 md:py-20 bg-[#f9f7f6] overflow-hidden">
   {/* Glowing background elements */}
   <div className="absolute top-0 left-0 w-64 h-64 bg-gradient-to-br from-[#c15738]/30 to-[#5c2d23]/30 rounded-full blur-3xl opacity-70 animate-pulse" />
@@ -598,7 +675,7 @@ const About = () => {
   {achievements.map((achievement, index) => (
     <div key={index} className="group perspective-1000">
       <Card
-        className="relative p-6 sm:p-8 border-0 shadow-2xl hover:shadow-3xl transition-all duration-700 transform hover:scale-105 hover:-translate-y-3 bg-gradient-to-br from-white via-white to-primary/5 backdrop-blur-md preserve-3d hover:rotate-y-6 overflow-hidden cursor-pointer"
+        className="relative p-6 sm:p-8 border-0 shadow-xs hover:shadow-xs transition-all duration-700 transform hover:scale-105 hover:-translate-y-3 bg-gradient-to-br from-white via-white to-primary/5 backdrop-blur-md preserve-3d hover:rotate-y-6 overflow-hidden cursor-pointer"
       >
         {/* Animated background */}
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
@@ -640,7 +717,6 @@ const About = () => {
         <div className="absolute top-0 bottom-0 right-0 w-1 bg-gradient-to-b from-primary to-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
         {/* Glow effect */}
-        <div className="absolute -inset-1 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10 blur-sm"></div>
       </Card>
     </div>
   ))}
@@ -670,7 +746,7 @@ const About = () => {
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8">
       {values.map((value, index) => (
         <div key={index} className="group perspective-1000">
-          <Card className="relative p-6 sm:p-8 border-0 shadow-xl hover:shadow-3xl transition-all duration-700 transform hover:scale-105 hover:-translate-y-3 bg-gradient-to-br from-white via-white to-primary/5 backdrop-blur-md preserve-3d hover:rotate-y-6 overflow-hidden rounded-2xl">
+          <Card className="relative p-6 sm:p-8 border-0 shadow-xs hover:shadow-xs transition-all duration-700 transform hover:scale-105 hover:-translate-y-3 bg-gradient-to-br from-white via-white to-primary/5 backdrop-blur-md preserve-3d hover:rotate-y-6 overflow-hidden rounded-2xl">
             
             {/* Animated gradient overlay */}
             <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700 rounded-2xl"></div>
@@ -705,7 +781,7 @@ const About = () => {
 
             {/* Glow + bottom line effect */}
             <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-[#c15738] to-[#5c2d23] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-            <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10 blur-sm"></div>
+            {/* <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10 blur-sm"></div> */}
           </Card>
         </div>
       ))}

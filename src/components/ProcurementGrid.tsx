@@ -8,6 +8,7 @@ import aiSourcingImage from "@/assets/ai-sourcing-optimization.jpg";
 import rateManagementImage from "@/assets/rate-management.jpg";
 import supplierVerificationImage from "@/assets/supplier-verification.jpg";
 import autonomousProcurementImage from "@/assets/autonomous-procurement.jpg";
+import { Badge } from "@/components/ui/badge";
 
 interface GridCard {
   id: number;
@@ -59,14 +60,20 @@ const ProcurementGrid = () => {
 
       <div className="container mx-auto px-4 md:px-6 relative z-10">
         <div className="text-center mb-8 md:mb-12 lg:mb-16">
-          <h2 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-3 md:mb-4">
-            All-in-One <span className="text-gradient">AI Procurement Suite</span>
+          <Badge className="mb-4 bg-primary/10 text-primary border-0 px-4 py-2">
+              Enterprise-Grade Efficiency
+            </Badge>
+          <h2 className=" text-2xl sm:text-3xl md:text-4xl font-bold mb-3 md:mb-4">
+            Procurement Made  <span className="text-gradient">Intelligent with AI Innovation</span>
           </h2>
           <p className="text-base md:text-lg lg:text-xl text-muted-foreground max-w-3xl mx-auto">
             Explore our comprehensive suite of AI-powered tools designed to transform 
             your construction material procurement process
           </p>
+          <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-[#c15738] to-[#5c2d23] mx-auto mt-4 rounded-full" />
+
         </div>
+        
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 lg:gap-5">
           {gridCards.map((card, index) => {
