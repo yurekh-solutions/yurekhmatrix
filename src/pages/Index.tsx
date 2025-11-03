@@ -259,7 +259,7 @@ const Index = () => {
 </section>
 
 
-       <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-primary/5 to-secondary/5">
+<section className="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-primary/5 to-secondary/5">
   <div className="container mx-auto px-4 sm:px-6 lg:px-8">
     {/* Section Header */}
     <div className="text-center mb-8 sm:mb-12 md:mb-16 animate-slide-up">
@@ -320,7 +320,7 @@ const Index = () => {
         },
       ].map((offering, index) => (
         <div key={index} className="group perspective-[1000px]">
-          <Card className="relative p-5 sm:p-6 border-0 bg-gradient-to-br from-white via-white to-primary/5 backdrop-blur-md overflow-hidden rounded-2xl shadow-md transform transition-transform duration-700 group-hover:rotate-y-[8deg] group-hover:-translate-y-1">
+          <Card className="relative p-5 sm:p-6 border-0 bg-gradient-to-br from-white via-white to-primary/5 backdrop-blur-md overflow-hidden rounded-2xl shadow-md transform transition-transform duration-700 group-hover:rotate-y-[8deg] group-hover:-translate-y-1 text-center">
             {/* Gradient lines (appear on hover) */}
             <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-primary to-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             <div className="absolute top-0 bottom-0 right-0 w-1 bg-gradient-to-b from-primary to-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
@@ -333,7 +333,7 @@ const Index = () => {
 
               <Badge
                 variant="outline"
-                className="text-xs border-primary/20 bg-primary/5"
+                className="text-xs border-primary/20 bg-primary/5 mx-auto"
               >
                 {offering.label}
               </Badge>
@@ -342,7 +342,7 @@ const Index = () => {
                 {offering.title}
               </h3>
 
-              <p className="text-sm text-muted-foreground leading-relaxed">
+              <p className="text-sm text-muted-foreground leading-relaxed mx-auto">
                 {offering.description}
               </p>
 
@@ -361,6 +361,7 @@ const Index = () => {
     </div>
   </div>
 </section>
+
                 <ProcurementFeatures />
                       <ProcurementGrid  />
 
@@ -416,10 +417,10 @@ const Index = () => {
                     </div>
 
                     {/* Title with enhanced styling */}
-                    <h3 className="relative text-lg sm:text-xl font-bold mb-3 text-foreground group-hover:text-primary transition-colors duration-300">{tech.title}</h3>
+                    <h3 className="relative text-lg sm:text-xl font-bold mb-3 text-foreground group-hover:text-primary transition-colors duration-300 ">{tech.title}</h3>
 
                     {/* Description */}
-                    <p className="relative text-sm sm:text-base text-muted-foreground mb-4 leading-relaxed group-hover:text-foreground/80 transition-colors duration-300">{tech.description}</p>
+                    <p className="relative text-sm sm:text-base text-muted-foreground mb-4 leading-relaxed group-hover:text-foreground/80 transition-colors duration-300 ">{tech.description}</p>
 
                     {/* Features list with enhanced styling */}
                     <ul className="relative space-y-2">
@@ -576,63 +577,57 @@ const Index = () => {
 </section>
 
         <HowItWorks />
-        <section className="py-16 sm:py-20 bg-[#f7f5f2]" >
-          <div className="container mx-auto px-4 sm:px-6 lg:px-12">
+      <section className="py-16 sm:py-20 bg-[#f7f5f2]">
+  <div className="container mx-auto px-4 sm:px-6 lg:px-12">
+    <div className="text-center mb-10 sm:mb-16">
+      <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold mb-4">
+        <span className="bg-gradient-to-r from-[#c15738] to-[#5c2d23] bg-clip-text text-transparent">
+          Why Choose MaterialMatrix?
+        </span>
+      </h2>
+      <div className="w-20 sm:w-28 h-1 bg-gradient-to-r from-[#c15738] to-[#5c2d23] mx-auto rounded-full mb-4" />
+      <p className="text-sm sm:text-lg text-muted-foreground max-w-2xl mx-auto px-2">
+        Experience the future of construction material procurement.
+      </p>
+    </div>
+
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {[FileText, Settings, Clock, Headphones].map((Icon, index) => (
+        <div key={index} className="group perspective-1000">
+          <Card className="relative p-6 sm:p-8 border-0 shadow-2xl hover:shadow-xs transition-all duration-700 transform hover:scale-105 hover:-translate-y-3 preserve-3d hover:rotate-y-6 overflow-hidden text-center">
+            <div className="absolute inset-0 opacity-0 transition-opacity duration-700"></div>
+
+            <div className="absolute top-4 right-4 w-2 h-2 bg-primary/30 rounded-full animate-pulse"></div>
             <div
-              className="text-center mb-10 sm:mb-16"
+              className="absolute bottom-6 left-4 w-1.5 h-1.5 bg-secondary/40 rounded-full animate-bounce"
+              style={{ animationDelay: "0.3s" }}
+            ></div>
 
-            >
-              <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold mb-4">
-                <span className="bg-gradient-to-r from-[#c15738] to-[#5c2d23] bg-clip-text text-transparent">
-                  Why Choose MaterialMatrix?
-                </span>
-              </h2>
-              <div className="w-20 sm:w-28 h-1 bg-gradient-to-r from-[#c15738] to-[#5c2d23] mx-auto rounded-full mb-4" />
-              <p className="text-sm sm:text-lg text-muted-foreground max-w-2xl mx-auto px-2">
-                Experience the future of construction material procurement.
-              </p>
+            <div className="w-16 h-16 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-2xl flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform duration-300">
+              <Icon className="h-8 w-8 text-white" />
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {[FileText, Settings, Clock, Headphones].map((Icon, index) => (
-                <div key={index} className="group perspective-1000">
-                  <Card className="relative p-6 sm:p-8 border-0 shadow-2xl hover:shadow-xs transition-all duration-700 transform hover:scale-105 hover:-translate-y-3  preserve-3d hover:rotate-y-6 overflow-hidden">
-                    {/* Animated background */}
-                    <div className="absolute inset-0 opacity-0  transition-opacity duration-700"></div>
+            <h3 className="relative text-lg sm:text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors duration-300">
+              {["Bulk Orders", "Custom Solutions", "Just-in-Time Delivery", "24/7 Support"][index]}
+            </h3>
+            <p className="relative text-sm sm:text-base text-muted-foreground leading-relaxed group-hover:text-foreground/80 transition-colors duration-300 mx-auto">
+              {[
+                "Special pricing for large-scale projects.",
+                "Tailored packages for your large-scale needs.",
+                "Scheduled deliveries with competitive pricing and tracking.",
+                "Always-on support from our experts.",
+              ][index]}
+            </p>
 
-                    {/* Floating particles */}
-                    <div className="absolute top-4 right-4 w-2 h-2 bg-primary/30 rounded-full animate-pulse"></div>
-                    <div className="absolute bottom-6 left-4 w-1.5 h-1.5 bg-secondary/40 rounded-full animate-bounce" style={{ animationDelay: '0.3s' }}></div>
+            <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-primary to-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <div className="absolute top-0 bottom-0 left-0 w-1 bg-gradient-to-b from-primary to-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          </Card>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
 
-                    {/* Icon with consistent styling */}
-                    <div className="w-16 h-16 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-2xl flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform duration-300">
-                      <Icon className="h-8 w-8 text-white" />
-                    </div>
-
-                    {/* Content */}
-                    <h3 className="relative text-lg sm:text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors duration-300">
-                      {["Bulk Orders", "Custom Solutions", "Just-in-Time Delivery", "24/7 Support"][index]}
-                    </h3>
-                    <p className="relative text-sm sm:text-base text-muted-foreground leading-relaxed group-hover:text-foreground/80 transition-colors duration-300">
-                      {[
-                        "Special pricing for large-scale projects.",
-                        "Tailored packages for your large-scale needs.",
-                        "Scheduled deliveries with Competitive pricing  tracking.",
-                        "Always-on support from our experts.",
-                      ][index]}
-                    </p>
-
-                    {/* Interactive elements */}
-                    <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-primary to-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    <div className="absolute top-0 bottom-0 left-0 w-1 bg-gradient-to-b from-primary to-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-
-                    {/* Glow effect */}
-                  </Card>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
         {/* Product Categories */}
 
        
