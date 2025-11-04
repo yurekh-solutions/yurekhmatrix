@@ -28,19 +28,8 @@ const RFQ = () => {
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [cartItems, setCartItems] = useState<RFQItem[]>([]);
-
-  // Load cart from sessionStorage on mount
-  useEffect(() => {
-    const savedCart = sessionStorage.getItem('rfq_cart');
-    if (savedCart) {
-      try {
-        const cart = JSON.parse(savedCart);
-        setCartItems(cart);
-      } catch (error) {
-        console.error('Failed to load cart:', error);
-      }
-    }
-  }, []);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const [customerInfo, setCustomerInfo] = useState({
     name: "",
@@ -50,13 +39,22 @@ const RFQ = () => {
     phone: "",
   });
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
+  useEffect(() => {
+    const savedCart = sessionStorage.getItem("rfq_cart");
+    if (savedCart) {
+      try {
+        const cart = JSON.parse(savedCart);
+        setCartItems(cart);
+      } catch (error) {
+        console.error("Failed to load cart:", error);
+      }
+    }
+  }, []);
 
   const handleRemoveItem = (index: number) => {
     const updatedCart = cartItems.filter((_, i) => i !== index);
     setCartItems(updatedCart);
-    sessionStorage.setItem('rfq_cart', JSON.stringify(updatedCart));
+    sessionStorage.setItem("rfq_cart", JSON.stringify(updatedCart));
     toast.success("Item removed from cart");
   };
 
@@ -76,24 +74,17 @@ const RFQ = () => {
     }
 
     setIsSubmitting(true);
-
     try {
-      // Prepare complete RFQ data with cart items
       const rfqData = {
-        type: 'rfq' as const,
-        customerName: customerInfo.name,
-        company: customerInfo.company,
-        location: customerInfo.location,
-        email: customerInfo.email,
-        phone: customerInfo.phone,
-        cartItems: cartItems,
-        totalItems: cartItems.length
+        type: "rfq" as const,
+        ...customerInfo,
+        cartItems,
+        totalItems: cartItems.length,
       };
 
-      // Save EACH product to localStorage for Excel export
-      cartItems.forEach(item => {
+      cartItems.forEach((item) => {
         saveToLocalStorage({
-          source: 'RFQ Page - Complete Submission',
+          source: "RFQ Page - Complete Submission",
           productName: item.productName,
           productCategory: item.category,
           brand: item.brand,
@@ -103,38 +94,23 @@ const RFQ = () => {
           customerCompany: customerInfo.company,
           deliveryLocation: customerInfo.location,
           customerEmail: customerInfo.email,
-          customerPhone: customerInfo.phone
+          customerPhone: customerInfo.phone,
         });
       });
 
-      // Send to WhatsApp with ALL products + customer info
       sendToWhatsApp(rfqData);
-
-      // Send Email
-      setTimeout(() => {
-        sendEmail(rfqData);
-      }, 500);
-
-      // Download CSV/Excel with all data
+      setTimeout(() => sendEmail(rfqData), 500);
       setTimeout(() => {
         downloadCSV();
         toast.success("Excel file downloaded successfully!");
       }, 1000);
 
-      // Clear cart from sessionStorage
-      sessionStorage.removeItem('rfq_cart');
+      sessionStorage.removeItem("rfq_cart");
 
-      // Show success animation AFTER all operations
-      setTimeout(() => {
-        setShowSuccess(true);
-      }, 1500);
-
-      // Navigate after animation
-      setTimeout(() => {
-        navigate("/");
-      }, 4500);
+      setTimeout(() => setShowSuccess(true), 1500);
+      setTimeout(() => navigate("/"), 4500);
     } catch (error) {
-      console.error('Error submitting RFQ:', error);
+      console.error("Error submitting RFQ:", error);
       toast.error("Failed to submit RFQ. Please try again.");
     } finally {
       setIsSubmitting(false);
@@ -142,106 +118,136 @@ const RFQ = () => {
   };
 
   if (showSuccess) {
-    return <SuccessAnimation message="RFQ submitted successfully! Opening WhatsApp..." duration={3000} />;
+    return (
+      <SuccessAnimation
+        message="RFQ submitted successfully! Opening WhatsApp..."
+        duration={3000}
+      />
+    );
   }
 
   return (
-    <div className="min-h-screen ">
+    <div className="min-h-screen relative">
       <Navbar />
-  <div className="absolute inset-0">
-    <div className="absolute top-20 left-10 w-32 h-32 sm:w-48 sm:h-48 bg-primary/10 rounded-full blur-[30px] animate-pulse" />
-    <div className="absolute bottom-20 right-10 w-40 h-40 sm:w-56 sm:h-56 bg-secondary/10 rounded-full blur-[80px] animate-pulse delay-1000" />
-    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 sm:w-80 sm:h-80 bg-primary/5 rounded-full blur-[20px] animate-pulse delay-2000" />
-  </div>
-      <div className="container mx-auto px-4 pt-24 pb-16">
-        <div className="max-w-4xl mx-auto">
+
+      {/* Background Elements */}
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute top-20 left-10 w-24 h-24 sm:w-48 sm:h-48 bg-primary/10 rounded-full blur-[30px] animate-pulse" />
+        <div className="absolute bottom-20 right-10 w-32 h-32 sm:w-56 sm:h-56 bg-secondary/10 rounded-full blur-[80px] animate-pulse delay-1000" />
+      </div>
+
+      <div className="container mx-auto px-4 pt-20 pb-16">
+        <div className="max-w-3xl mx-auto">
           {/* Progress */}
-          <div className="mb-8">
-            <div className="flex items-center justify-center gap-4 mb-4">
+          <div className="mb-8 text-center">
+            <div className="flex items-center justify-center gap-2 sm:gap-4 mb-4">
               <div
                 className={`w-10 h-10 rounded-full flex items-center justify-center font-bold ${
-                  step >= 1 ? "bg-gradient-to-br from-primary to-secondary  text-white" : "glass-card"
+                  step >= 1
+                    ? "bg-gradient-to-br from-primary to-secondary text-white"
+                    : "bg-gray-300 text-gray-600"
                 }`}
               >
                 1
               </div>
-              <div className={`h-1 w-20 ${step >= 2 ? "bg-gradient-primary" : "bg-gradient-to-br from-primary to-secondary "}`}></div>
+              <div
+                className={`h-1 w-12 sm:w-20 ${
+                  step >= 2
+                    ? "bg-gradient-to-r from-primary to-secondary"
+                    : "bg-gray-300"
+                }`}
+              />
               <div
                 className={`w-10 h-10 rounded-full flex items-center justify-center font-bold ${
-                  step >= 2 ? "bg-gradient-to-br from-primary to-secondary  text-white" : "bg-[#d09a8b] text-white"
+                  step >= 2
+                    ? "bg-gradient-to-br from-primary to-secondary text-white"
+                    : "bg-gray-300 text-gray-600"
                 }`}
               >
                 2
               </div>
             </div>
-            <div className="text-center">
-              <h2 className="text-2xl font-bold mb-2">
-                Request for Quotation - Step {step} of 2
-              </h2>
-              <p className="text-muted-foreground">
-                {step === 1 ? "Review your cart" : "Enter your details"}
-              </p>
-            </div>
+            <h2 className="text-xl sm:text-2xl font-bold mb-2">
+              Request for Quotation – Step {step} of 2
+            </h2>
+            <p className="text-muted-foreground text-sm sm:text-base">
+              {step === 1 ? "Review your cart" : "Enter your details"}
+            </p>
           </div>
 
+          {/* Step 1: Cart */}
           {step === 1 ? (
-            /* Step 1: Cart */
-            <div className="bg-[#f3e3de] rounded-3xl p-8">
-              <h3 className=" text-gradient text-xl font-bold mb-6">Your Cart</h3>
+            <div className="bg-[#f3e3de] rounded-3xl p-4 sm:p-8 shadow-md">
+              <h3 className="text-lg sm:text-xl font-bold mb-4 sm:mb-6 text-gradient">
+                Your Cart
+              </h3>
 
               {cartItems.length > 0 ? (
                 <div className="space-y-4 mb-6">
-                  {cartItems.map((item, index) => {
-                    const product = products.find((p) => p.id === item.productId);
-                    return (
-                      <div key={index} className="glass-card p-4 flex items-center justify-between ">
-                        <div className="flex items-center gap-4">
-                          <Package className="w-8 h-8 text-primary" />
-                          <div>
-                            <h2 className=" text-muted-foreground font-bold">{item.productName}</h2>
-                            <div className="flex gap-2 mt-4">
-                                      <Badge className="mb-4 bg-primary/10 text-primary border-4">
-                              
-                                Brand: {item.brand}
-                              </Badge>
-                                      <Badge className="mb-4 bg-primary/10 text-primary border-4">
-                              
-                                Grade: {item.grade}
-                              </Badge>
-                                      <Badge className="mb-4 bg-primary/10 text-primary border-4">
-
-                                {item.quantity} MT
-                              </Badge>
-                            </div>
+                  {cartItems.map((item, index) => (
+                    <div
+                      key={index}
+                      className="glass-card p-4 rounded-2xl flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4"
+                    >
+                      <div className="flex items-center gap-3">
+                        <Package className="w-6 h-6 sm:w-8 sm:h-8 text-primary" />
+                        <div>
+                          <h2 className="font-semibold text-sm sm:text-base text-muted-foreground">
+                            {item.productName}
+                          </h2>
+                          <div className="flex flex-wrap gap-2 mt-3">
+                            <Badge className="bg-primary/10 text-primary border-0 text-xs sm:text-sm">
+                              Brand: {item.brand}
+                            </Badge>
+                            <Badge className="bg-primary/10 text-primary border-0 text-xs sm:text-sm">
+                              Grade: {item.grade}
+                            </Badge>
+                            <Badge className="bg-primary/10 text-primary border-0 text-xs sm:text-sm">
+                              {item.quantity} MT
+                            </Badge>
                           </div>
                         </div>
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          onClick={() => handleRemoveItem(index)}
-                          className="text-destructive hover:text-destructive hover:bg-destructive/10"
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </Button>
                       </div>
-                    );
-                  })}
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => handleRemoveItem(index)}
+                        className="self-end sm:self-center text-destructive hover:bg-destructive/10"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </Button>
+                    </div>
+                  ))}
                 </div>
               ) : (
-                <div className="text-center py-12">
-                  <Package className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
-                  <p className="text-muted-foreground mb-4">Your cart is empty</p>
-                  <Button onClick={() => navigate("/products")}>Browse Products</Button>
+                <div className="text-center py-10">
+                  <Package className="w-12 h-12 text-muted-foreground mx-auto mb-3" />
+                  <p className="text-muted-foreground mb-4">
+                    Your cart is empty
+                  </p>
+                  <Button
+                    onClick={() => navigate("/products")}
+                    className="bg-gradient-to-br from-primary to-secondary text-white"
+                  >
+                    Browse Products
+                  </Button>
                 </div>
               )}
 
               {cartItems.length > 0 && (
-                <div className="flex justify-between">
-                  <Button variant="outline" onClick={() => navigate("/products")} className="glass-morphism">
+                <div className="flex flex-col sm:flex-row justify-between gap-3 sm:gap-0 mt-6">
+                  <Button
+                    variant="outline"
+                    onClick={() => navigate("/products")}
+                    className="w-full sm:w-auto"
+                  >
                     <ArrowLeft className="w-4 h-4 mr-2" />
-                    Add More Products
+                    Add More
                   </Button>
-                  <Button onClick={handleNext} className="bg-gradient-to-br from-primary to-secondary  hover:opacity-90">
+                  <Button
+                    onClick={handleNext}
+                    className="w-full sm:w-auto bg-gradient-to-br from-primary to-secondary hover:opacity-90 text-white"
+                  >
                     Next
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </Button>
@@ -250,22 +256,28 @@ const RFQ = () => {
             </div>
           ) : (
             /* Step 2: Customer Info */
-            <div className="glass-card bg-[#f3e3de] p-8">
-              <h3 className="text-xl font-bold mb-6">Customer Information</h3>
+            <div className="bg-[#f3e3de] rounded-3xl p-4 sm:p-8 shadow-md">
+              <h3 className="text-lg sm:text-xl font-bold mb-6">
+                Customer Information
+              </h3>
 
-              <form onSubmit={handleSubmit} className="space-y-5 ">
-                <div className="mb-2">
-
-                  <Label  htmlFor="name">
+              <form onSubmit={handleSubmit} className="space-y-5">
+                <div>
+                  <Label htmlFor="name">
                     Name <span className="text-destructive">*</span>
                   </Label>
                   <Input
                     id="name"
                     value={customerInfo.name}
-                    onChange={(e) => setCustomerInfo({ ...customerInfo, name: e.target.value })}
-                    required
-                    className="glass-morphism mt-2"
+                    onChange={(e) =>
+                      setCustomerInfo({
+                        ...customerInfo,
+                        name: e.target.value,
+                      })
+                    }
+                    className="mt-2"
                     placeholder="Your name"
+                    required
                   />
                 </div>
 
@@ -277,11 +289,14 @@ const RFQ = () => {
                     id="company"
                     value={customerInfo.company}
                     onChange={(e) =>
-                      setCustomerInfo({ ...customerInfo, company: e.target.value })
+                      setCustomerInfo({
+                        ...customerInfo,
+                        company: e.target.value,
+                      })
                     }
-                    required
-                    className="glass-morphism mt-2"
+                    className="mt-2"
                     placeholder="Your company name"
+                    required
                   />
                 </div>
 
@@ -293,11 +308,14 @@ const RFQ = () => {
                     id="location"
                     value={customerInfo.location}
                     onChange={(e) =>
-                      setCustomerInfo({ ...customerInfo, location: e.target.value })
+                      setCustomerInfo({
+                        ...customerInfo,
+                        location: e.target.value,
+                      })
                     }
-                    required
-                    className="glass-morphism mt-2"
+                    className="mt-2"
                     placeholder="Delivery location"
+                    required
                   />
                 </div>
 
@@ -307,42 +325,50 @@ const RFQ = () => {
                     id="email"
                     type="email"
                     value={customerInfo.email}
-                    onChange={(e) => setCustomerInfo({ ...customerInfo, email: e.target.value })}
-                    className="glass-morphism mt-2"
+                    onChange={(e) =>
+                      setCustomerInfo({
+                        ...customerInfo,
+                        email: e.target.value,
+                      })
+                    }
+                    className="mt-2"
                     placeholder="Your email"
                   />
                 </div>
 
-                <div >
-
+                <div>
                   <Label htmlFor="phone">
                     Phone <span className="text-destructive">*</span>
                   </Label>
-                 
                   <Input
                     id="phone"
                     type="tel"
                     value={customerInfo.phone}
-                    onChange={(e) => setCustomerInfo({ ...customerInfo, phone: e.target.value })}
-                    required
-                    className="glass-morphism mt-2"
+                    onChange={(e) =>
+                      setCustomerInfo({
+                        ...customerInfo,
+                        phone: e.target.value,
+                      })
+                    }
+                    className="mt-2"
                     placeholder="Your phone number"
+                    required
                   />
                 </div>
 
-                <div className="flex gap-4 pt-4">
+                <div className="flex flex-col sm:flex-row gap-3 pt-4">
                   <Button
                     type="button"
                     variant="outline"
                     onClick={() => setStep(1)}
-                    className="glass-morphism w-full"
+                    className="w-full sm:w-1/2"
                   >
                     <ArrowLeft className="w-4 h-4 mr-2" />
                     Back to Cart
                   </Button>
-                  <Button 
-                    type="submit" 
-                    className="bg-gradient-to-br from-primary to-secondary  hover:opacity-90 w-full"
+                  <Button
+                    type="submit"
+                    className="w-full sm:w-1/2 bg-gradient-to-br from-primary to-secondary hover:opacity-90 text-white"
                     disabled={isSubmitting}
                   >
                     {isSubmitting ? "Submitting..." : "Submit RFQ"}

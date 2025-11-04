@@ -175,7 +175,7 @@ const Contact = () => {
       whatsappMessage += `_Submitted: ${new Date().toLocaleString()}_`;
       
       const encodedWhatsAppMessage = encodeURIComponent(whatsappMessage);
-      const whatsappUrl = `https://wa.me/917021341409?text=${encodedWhatsAppMessage}`;
+      const whatsappUrl = `https://wa.me/919136242706?text=${encodedWhatsAppMessage}`;
       
       const emailSubject = encodeURIComponent(`${type} Enquiry from ${formData.firstName} ${formData.lastName} - MaterialMatrix`);
       
