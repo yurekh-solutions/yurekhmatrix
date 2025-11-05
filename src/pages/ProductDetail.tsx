@@ -313,11 +313,17 @@ const ProductDetail = () => {
 
           {/* Related Products */}
           {relatedProducts.length > 0 && (
-            <div className="mt-12">
-              <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-center">
+            <div className="mt-20">
+              {/* <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-center">
                 Related Products
-              </h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              </h2> */}
+               <h2 className="text-2xl bg-gradient-to-r from-[#c15738] to-[#5c2d23] bg-clip-text text-transparent sm:text-3xl md:text-4xl font-bold mb-4 text-center">
+        Related {" "}
+        <span className="text-gradient bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+Products
+       </span>
+      </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-10">
                 {relatedProducts.map((rp) => (
                   <Link
                     key={rp.id}
