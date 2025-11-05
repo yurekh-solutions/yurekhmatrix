@@ -5,7 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { MessageSquare, User, Phone, Mail, Package, FileText } from "lucide-react";
-import { sendToWhatsApp, sendEmail } from "@/lib/whatsappIntegration";
+import { sendToWhatsApp } from "@/lib/whatsappIntegration";
 import { saveToLocalStorage } from "@/lib/sheetsIntegration";
 import SuccessAnimation from "./SuccessAnimation";
 
@@ -81,11 +81,6 @@ const ProductNotFoundForm = ({ searchQuery }: ProductNotFoundFormProps) => {
 
       // Send to WhatsApp
       sendToWhatsApp(inquiryData);
-
-      // Send email
-      setTimeout(() => {
-        sendEmail(inquiryData);
-      }, 500);
 
       // Show success animation
       setShowSuccess(true);

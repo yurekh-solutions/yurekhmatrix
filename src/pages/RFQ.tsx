@@ -7,10 +7,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Trash2, Package, ArrowRight, ArrowLeft } from "lucide-react";
-import { products } from "@/data/products";
+
 import { toast } from "sonner";
-import { sendToWhatsApp, sendEmail } from "@/lib/whatsappIntegration";
-import { saveToLocalStorage, downloadCSV } from "@/lib/sheetsIntegration";
+import { sendToWhatsApp } from "@/lib/whatsappIntegration";
+import { saveToLocalStorage } from "@/lib/sheetsIntegration";
 import SuccessAnimation from "@/components/SuccessAnimation";
 import ScrollToTop from "@/components/ScrollToTop";
 import FloatingActionButtons from "@/components/FloatingActionButtons";
@@ -109,11 +109,6 @@ const RFQ = () => {
 
       // Send to WhatsApp with ALL products + customer info
       sendToWhatsApp(rfqData);
-
-      // Send Email
-      setTimeout(() => {
-        sendEmail(rfqData);
-      }, 500);
 
       // Excel download removed - data saved to localStorage for admin access only
 
@@ -336,7 +331,9 @@ const RFQ = () => {
                 </div>
 
                 <div>
-                  <Label htmlFor="email">Email</Label>
+                  <Label htmlFor="email">
+                    Email <span className="text-destructive">*</span>
+                  </Label>
                   <Input
                     id="email"
                     type="email"
@@ -349,6 +346,7 @@ const RFQ = () => {
                     }
                     className="mt-2"
                     placeholder="Your email"
+                    required
                   />
                 </div>
 
