@@ -230,7 +230,7 @@ const Products = () => {
                             size="sm"
                           >
                             <Eye className="w-4 h-4 mr-2" />
-                            View Details
+                            View Details    
                           </Button>
                         </div>
                       </Link>

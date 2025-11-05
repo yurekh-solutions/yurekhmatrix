@@ -18,6 +18,7 @@ import {
   Zap,
   Target,
   FileText,
+  Mic ,
   Settings,
   Headphones,
   Play,
@@ -203,6 +204,7 @@ const Index = () => {
             >
               Voice AI
             </Button>
+            
           </Link>
         </div>
 
