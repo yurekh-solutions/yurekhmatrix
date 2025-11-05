@@ -230,19 +230,36 @@ const Products = () => {
                             size="sm"
                           >
                             <Eye className="w-4 h-4 mr-2" />
-                            View Details    
+                            View Details
                           </Button>
                         </div>
                       </Link>
                     </div>
 
+                    {/* <div className="p-4 sm:p-5">
+                      <Badge className="mb-2 sm:mb-3 bg-primary/10 text-primary border-0 px-2.5 py-0.5 rounded-full text-xs font-medium">
+                        {categories.find((c) => c.value === product.category)?.label}
+                      </Badge>
+                      <h3 className="text-sm sm:text-base font-bold mb-2 line-clamp-2 group-hover:text-primary transition-colors">{product.name}</h3>
+                      <p className="text-xs sm:text-sm text-muted-foreground mb-3 sm:mb-4 line-clamp-2">{product.description}</p>
+                        <Link to={`/rfq?product=${product.id}`}>
+                        <Button 
+                          variant="outline" 
+                          size="sm"
+                          className="w-full border-primary/20 hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:text-white hover:border-transparent transition-all duration-300 text-xs sm:text-sm"
+                        >
+                          <Plus className="w-3 h-3 sm:w-4 sm:h-4 mr-1.5" />
+                          Add to RFQ
+                        </Button>
+                      </Link>
+                    </div> */}
                     <div className="p-4 sm:p-5">
                       <Badge className="mb-2 sm:mb-3 bg-primary/10 text-primary border-0 px-2.5 py-0.5 rounded-full text-xs font-medium">
                         {categories.find((c) => c.value === product.category)?.label}
                       </Badge>
                       <h3 className="text-sm sm:text-base font-bold mb-2 line-clamp-2 group-hover:text-primary transition-colors">{product.name}</h3>
                       <p className="text-xs sm:text-sm text-muted-foreground mb-3 sm:mb-4 line-clamp-2">{product.description}</p>
-                      <Link to={`/rfq?product=${product.id}`}>
+                      <Link to={`/product/${product.id}`}>
                         <Button 
                           variant="outline" 
                           size="sm"

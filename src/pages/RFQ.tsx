@@ -136,7 +136,7 @@ const RFQ = () => {
         <div className="absolute bottom-20 right-10 w-32 h-32 sm:w-56 sm:h-56 bg-secondary/10 rounded-full blur-[80px] animate-pulse delay-1000" />
       </div>
 
-      <div className="container mx-auto px-4 pt-20 pb-16">
+      <div className="container mx-auto px-4 pt-20 pb-16 mt-10">
         <div className="max-w-3xl mx-auto">
           {/* Progress */}
           <div className="mb-8 text-center">
@@ -177,7 +177,8 @@ const RFQ = () => {
 
           {/* Step 1: Cart */}
           {step === 1 ? (
-            <div className="bg-[#f3e3de] rounded-3xl p-4 sm:p-8 shadow-md">
+            <div className="rounded-3xl p-4 sm:p-8 shadow-md backdrop-blur-lg bg-[#f3e3de]/40 border border-white/30">
+
               <h3 className="text-lg sm:text-xl font-bold mb-4 sm:mb-6 text-gradient">
                 Your Cart
               </h3>
@@ -256,7 +257,8 @@ const RFQ = () => {
             </div>
           ) : (
             /* Step 2: Customer Info */
-            <div className="bg-[#f3e3de] rounded-3xl p-4 sm:p-8 shadow-md">
+            <div className="rounded-3xl p-4 sm:p-8 shadow-md backdrop-blur-lg bg-[#f3e3de]/40 border border-white/30">
+
               <h3 className="text-lg sm:text-xl font-bold mb-6">
                 Customer Information
               </h3>

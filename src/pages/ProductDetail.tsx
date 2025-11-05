@@ -170,6 +170,21 @@ const ProductDetail = () => {
                       <Truck className="w-4 h-4 text-primary" /> Pan India
                     </span>
                   </div>
+                   <div className="flex justify-between py-2 border-b border-border/50">
+                    <span className="text-muted-foreground">Material Standard</span>
+                    <span className="font-medium">IS 2062 / ASTM A36</span>
+                  </div>
+                    <div className="flex justify-between py-2 border-b border-border/50">
+                    <span className="text-muted-foreground">Packaging</span>
+                    <span className="font-medium">Bundle / Crate</span>
+                  </div>
+                   <div className="flex justify-between py-2 border-b border-border/50">
+                    <span className="text-muted-foreground">Testing Certificate</span>
+                    <span className="font-medium flex items-center gap-1">
+                      <Award className="w-4 h-4 text-primary" />
+                      Mill Test Available
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -179,7 +194,7 @@ const ProductDetail = () => {
               <div className="glass-card p-5 sm:p-6 rounded-xl">
                 <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-4 gap-3">
                   <div>
-                    <h6 className="text-2xl sm:text-3xl font-bold mb-2">
+                    <h6 className="text2xl sm:text-2xl font-bold mb-2">
                       {product.name}
                     </h6>
                     <Badge className="bg-primary/10 text-primary">
