@@ -56,8 +56,70 @@ const ProductDetail = () => {
 
   const productImages = [product.image, product.image, product.image, product.image];
 
-  const brands = ["JSW Steel", "Tata Steel", "SAIL", "Jindal Steel", "Essar Steel"];
-  const grades = ["Grade A", "Grade B", "SS 304", "SS 316", "MS Grade A", "IS 2062"];
+  // Get default specifications based on category
+  const getDefaultSpecifications = (category: string) => {
+    switch (category) {
+      case "mild-steel":
+        return {
+          brand: ["JSW Steel", "Tata Steel", "SAIL", "Jindal Steel", "Essar Steel"],
+          grades: ["Grade A", "Grade B", "IS 2062", "ASTM A36", "S235JR"],
+          materialStandard: "IS 2062 / ASTM A36",
+          packaging: "Bundle / Crate",
+          testingCertificate: "Mill Test Available",
+          delivery: "Pan India",
+          quality: "ISO Certified",
+          availability: "In Stock"
+        };
+      case "stainless-steel":
+        return {
+          brand: ["Jindal Stainless", "Outokumpu", "Acerinox", "Posco", "VDM Metals"],
+          grades: ["SS 304", "SS 304L", "SS 316", "SS 316L", "SS 321"],
+          materialStandard: "ASTM A240 / EN 10088",
+          packaging: "Wooden Crate / Pallet",
+          testingCertificate: "Mill Test Certificate + PMI Report",
+          delivery: "Worldwide Shipping",
+          quality: "NACE Certified",
+          availability: "In Stock"
+        };
+      case "construction":
+        return {
+          brand: ["UltraTech", "ACC", "Ambuja", "Shree Cement", "JK Cement"],
+          grades: ["Grade 1", "Grade 2", "Premium Grade", "Standard Grade"],
+          materialStandard: "IS Standards Compliant",
+          packaging: "Bags / Bulk",
+          testingCertificate: "BIS Certification",
+          delivery: "Pan India",
+          quality: "BIS Certified",
+          availability: "In Stock"
+        };
+      case "electrical":
+        return {
+          brand: ["Havells", "Polycab", "Finolex", "KEI", "Legrand"],
+          grades: ["Standard Grade", "Premium Grade", "Industrial Grade", "Commercial Grade"],
+          materialStandard: "IS Standards / IEC Standards",
+          packaging: "Box / Coil",
+          testingCertificate: "ISI Mark & CE Certification",
+          delivery: "Pan India",
+          quality: "ISI Certified",
+          availability: "In Stock"
+        };
+      default:
+        return {
+          brand: ["Premium Brand", "Standard Brand", "Economy Brand"],
+          grades: ["Grade A", "Grade B", "Standard Grade"],
+          materialStandard: "Industry Standards",
+          packaging: "Standard Packaging",
+          testingCertificate: "Quality Certificate",
+          delivery: "Pan India",
+          quality: "Quality Certified",
+          availability: "In Stock"
+        };
+    }
+  };
+
+  const defaultSpecs = getDefaultSpecifications(product.category);
+  const brands = product.specifications?.brand || defaultSpecs.brand;
+  const grades = product.specifications?.grades || defaultSpecs.grades;
 
   const relatedProducts = products
     .filter((p) => p.category === product.category && p.id !== product.id)
@@ -155,34 +217,34 @@ const ProductDetail = () => {
                   <div className="flex justify-between py-2 border-b border-border/50">
                     <span className="text-muted-foreground">Availability</span>
                     <span className="text-primary font-medium flex items-center gap-1">
-                      <Check className="w-4 h-4" /> In Stock
+                      <Check className="w-4 h-4" /> {product.specifications?.availability || defaultSpecs.availability}
                     </span>
                   </div>
                   <div className="flex justify-between py-2 border-b border-border/50">
                     <span className="text-muted-foreground">Quality</span>
                     <span className="font-medium flex items-center gap-1">
-                      <Award className="w-4 h-4 text-primary" /> ISO Certified
+                      <Award className="w-4 h-4 text-primary" /> {product.specifications?.quality || defaultSpecs.quality}
                     </span>
                   </div>
-                  <div className="flex justify-between py-2">
+                  <div className="flex justify-between py-2 border-b border-border/50">
                     <span className="text-muted-foreground">Delivery</span>
                     <span className="font-medium flex items-center gap-1">
-                      <Truck className="w-4 h-4 text-primary" /> Pan India
+                      <Truck className="w-4 h-4 text-primary" /> {product.specifications?.delivery || defaultSpecs.delivery}
                     </span>
                   </div>
-                   <div className="flex justify-between py-2 border-b border-border/50">
+                  <div className="flex justify-between py-2 border-b border-border/50">
                     <span className="text-muted-foreground">Material Standard</span>
-                    <span className="font-medium">IS 2062 / ASTM A36</span>
+                    <span className="font-medium">{product.specifications?.materialStandard || defaultSpecs.materialStandard}</span>
                   </div>
-                    <div className="flex justify-between py-2 border-b border-border/50">
+                  <div className="flex justify-between py-2 border-b border-border/50">
                     <span className="text-muted-foreground">Packaging</span>
-                    <span className="font-medium">Bundle / Crate</span>
+                    <span className="font-medium">{product.specifications?.packaging || defaultSpecs.packaging}</span>
                   </div>
-                   <div className="flex justify-between py-2 border-b border-border/50">
+                  <div className="flex justify-between py-2">
                     <span className="text-muted-foreground">Testing Certificate</span>
                     <span className="font-medium flex items-center gap-1">
                       <Award className="w-4 h-4 text-primary" />
-                      Mill Test Available
+                      {product.specifications?.testingCertificate || defaultSpecs.testingCertificate}
                     </span>
                   </div>
                 </div>
@@ -297,7 +359,7 @@ const ProductDetail = () => {
 
                   <Button
                     onClick={handleSubmit}
-                    className="w-full bg-gradient-primary hover:opacity-90 h-11 sm:h-12 text-sm sm:text-base font-semibold"
+                    className="w-full bg-gradient-to-br from-primary to-secondary text-primary-foreground hover:opacity-90 h-11 sm:h-12 text-sm sm:text-base font-semibold"
                     disabled={!selectedBrand || !selectedGrade || quantity < 1}
                   >
                     <ShoppingCart className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />

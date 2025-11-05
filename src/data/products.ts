@@ -176,6 +176,16 @@ export interface Product {
   image: string;
   applications: string[];
   features: string[];
+  specifications?: {
+    materialStandard?: string;
+    packaging?: string;
+    testingCertificate?: string;
+    brand?: string[];
+    grades?: string[];
+    delivery?: string;
+    quality?: string;
+    availability?: string;
+  };
 }
 
 export const categories = [
@@ -201,7 +211,17 @@ export const products: Product[] = [
     description: "High-strength Thermo-Mechanically Treated reinforcement bars conforming to IS 1786 Fe 500D grade. Superior ductility, weldability, and earthquake resistance for modern construction projects.",
     image: tmtBarsNew,
     applications: ["High-Rise Buildings", "Bridge Construction", "Industrial Structures", "Seismic Zone Projects"],
-    features: ["Fe 500D Grade", "Earthquake Resistant", "Superior Ductility", "Corrosion Resistant"]
+    features: ["Fe 500D Grade", "Earthquake Resistant", "Superior Ductility", "Corrosion Resistant"],
+    specifications: {
+      materialStandard: "IS 1786 Fe 500D",
+      packaging: "Bundle / Loose",
+      testingCertificate: "Mill Test Certificate Available",
+      brand: ["JSW Steel", "Tata Steel", "SAIL", "Jindal Steel", "Kamdhenu"],
+      grades: ["Fe 500D", "Fe 550D", "Fe 600"],
+      delivery: "Pan India",
+      quality: "ISI Certified",
+      availability: "In Stock"
+    }
   },
   {
     id: "featured-2",
@@ -210,7 +230,17 @@ export const products: Product[] = [
     description: "Premium mild steel hollow square and rectangular sections for structural applications. Manufactured to IS 4923 standards with uniform wall thickness and precise dimensions.",
     image: msHollowSections,
     applications: ["Steel Structures", "Roof Trusses", "Industrial Frames", "Fabrication Works"],
-    features: ["Uniform Wall Thickness", "High Strength-to-Weight Ratio", "Easy Fabrication", "Cost Effective"]
+    features: ["Uniform Wall Thickness", "High Strength-to-Weight Ratio", "Easy Fabrication", "Cost Effective"],
+    specifications: {
+      materialStandard: "IS 4923 / ASTM A500",
+      packaging: "Bundle / Crate",
+      testingCertificate: "Material Test Certificate",
+      brand: ["Tata Steel", "JSW Steel", "SAIL", "Essar Steel"],
+      grades: ["Grade A", "Grade B", "S355"],
+      delivery: "Pan India",
+      quality: "ISO Certified",
+      availability: "In Stock"
+    }
   },
   {
     id: "featured-3",
@@ -219,7 +249,17 @@ export const products: Product[] = [
     description: "Boiling Water Proof (BWP) grade plywood with superior bonding and moisture resistance. Made from high-quality hardwood veneers for construction and furniture applications.",
     image: plywoodNew,
     applications: ["Furniture Making", "Interior Paneling", "Construction Formwork", "Kitchen Cabinets"],
-    features: ["BWP Grade", "Moisture Resistant", "Termite Treatment", "Smooth Surface"]
+    features: ["BWP Grade", "Moisture Resistant", "Termite Treatment", "Smooth Surface"],
+    specifications: {
+      materialStandard: "IS 303 BWP Grade",
+      packaging: "Wooden Pallet / Bundle",
+      testingCertificate: "ISI Mark & Quality Certificate",
+      brand: ["Century Ply", "Greenply", "Kitply", "National Plywood", "Austin Ply"],
+      grades: ["BWP Grade", "BWR Grade", "MR Grade", "Marine Grade"],
+      delivery: "Pan India",
+      quality: "ISI Certified",
+      availability: "In Stock"
+    }
   },
   {
     id: "featured-4",
@@ -265,7 +305,17 @@ export const products: Product[] = [
     description: "Premium quality mild steel round bars manufactured to IS 2062 specifications. Perfect for machining, fabrication, and construction applications with excellent weldability and machinability.",
     image: msRoundBarsNew,
     applications: ["Precision Machining", "Industrial Fabrication", "Construction Framework", "Automotive Components"],
-    features: ["High Tensile Strength", "Uniform Diameter", "Smooth Surface Finish", "Cost Effective"]
+    features: ["High Tensile Strength", "Uniform Diameter", "Smooth Surface Finish", "Cost Effective"],
+    specifications: {
+      materialStandard: "IS 2062 / ASTM A36",
+      packaging: "Bundle / Loose",
+      testingCertificate: "Mill Test Available",
+      brand: ["JSW Steel", "Tata Steel", "SAIL", "Jindal Steel", "Essar Steel"],
+      grades: ["Grade A", "Grade B", "E250A"],
+      delivery: "Pan India",
+      quality: "ISO Certified",
+      availability: "In Stock"
+    }
   },
   {
     id: "2",
@@ -274,7 +324,17 @@ export const products: Product[] = [
     description: "Heavy-duty mild steel plates conforming to Grade A standards. Ideal for shipbuilding, pressure vessels, and heavy industrial applications with superior strength.",
     image: msPlatesNew,
     applications: ["Ship Building", "Pressure Vessels", "Industrial Machinery", "Structural Engineering"],
-    features: ["High Load Bearing", "Uniform Thickness", "Easy to Weld", "Corrosion Resistant Coating"]
+    features: ["High Load Bearing", "Uniform Thickness", "Easy to Weld", "Corrosion Resistant Coating"],
+    specifications: {
+      materialStandard: "IS 2062 Grade A / ASTM A36",
+      packaging: "Wooden Crate / Bundle",
+      testingCertificate: "Mill Test Certificate",
+      brand: ["Tata Steel", "JSW Steel", "SAIL", "Jindal Steel", "Essar Steel"],
+      grades: ["Grade A", "Grade B", "Grade C", "S235JR", "S275JR"],
+      delivery: "Pan India",
+      quality: "ISO 9001 Certified",
+      availability: "In Stock"
+    }
   },
   {
     id: "3",
@@ -492,7 +552,17 @@ export const products: Product[] = [
     description: "Premium grade SS 304 plates with mirror finish. Highly corrosion resistant for food and pharmaceutical industries.",
     image: ssMirrorPlates,
     applications: ["Food Processing", "Pharmaceutical Equipment", "Kitchen Equipment", "Decorative Applications"],
-    features: ["Corrosion Resistant", "Hygienic Surface", "Easy to Clean", "Aesthetic Appeal"]
+    features: ["Corrosion Resistant", "Hygienic Surface", "Easy to Clean", "Aesthetic Appeal"],
+    specifications: {
+      materialStandard: "ASTM A240 / EN 10088",
+      packaging: "Wooden Crate / Pallet",
+      testingCertificate: "Mill Test Certificate + PMI Report",
+      brand: ["Jindal Stainless", "Outokumpu", "Acerinox", "Posco"],
+      grades: ["SS 304", "SS 304L", "SS 316", "SS 316L"],
+      delivery: "Worldwide",
+      quality: "NACE Certified",
+      availability: "In Stock"
+    }
   },
   {
     id: "27",
@@ -501,7 +571,17 @@ export const products: Product[] = [
     description: "Marine grade SS 316 seamless pipes with superior corrosion resistance. Ideal for chemical and marine applications.",
     image: ssPipes,
     applications: ["Chemical Plants", "Marine Equipment", "Oil & Gas", "Pharmaceutical Piping"],
-    features: ["Marine Grade", "Chloride Resistant", "High Temperature", "No Welded Seam"]
+    features: ["Marine Grade", "Chloride Resistant", "High Temperature", "No Welded Seam"],
+    specifications: {
+      materialStandard: "ASTM A312 / EN 10216-5",
+      packaging: "Wooden Box / Bundle",
+      testingCertificate: "Mill Test Certificate + PMI Report",
+      brand: ["Jindal Stainless", "Outokumpu", "Sandvik", "Acerinox", "VDM Metals"],
+      grades: ["SS 316", "SS 316L", "SS 316Ti", "SS 317L", "SS 321"],
+      delivery: "Worldwide Shipping",
+      quality: "NACE MR0175 Certified",
+      availability: "In Stock"
+    }
   },
   {
     id: "28",
@@ -719,7 +799,17 @@ export const products: Product[] = [
     description: "High-grade Ordinary Portland Cement 53 grade for superior strength concrete. Ideal for high-rise buildings and infrastructure.",
     image: cement,
     applications: ["High-Rise Buildings", "Bridges", "Dams", "Infrastructure Projects"],
-    features: ["High Strength", "Fast Setting", "Low Heat of Hydration", "Superior Durability"]
+    features: ["High Strength", "Fast Setting", "Low Heat of Hydration", "Superior Durability"],
+    specifications: {
+      materialStandard: "IS 12269 OPC 53 Grade",
+      packaging: "50 Kg Bags",
+      testingCertificate: "BIS Certification",
+      brand: ["UltraTech", "ACC", "Ambuja", "Shree Cement", "JK Cement"],
+      grades: ["OPC 53", "OPC 43", "PPC"],
+      delivery: "Pan India",
+      quality: "BIS Certified",
+      availability: "In Stock"
+    }
   },
   {
     id: "52",
@@ -728,7 +818,17 @@ export const products: Product[] = [
     description: "Environment-friendly PPC cement with enhanced durability. Ideal for marine and mass concrete applications.",
     image: ppcCementNew,
     applications: ["Marine Structures", "Mass Concrete", "Dams", "Underground Structures"],
-    features: ["Eco-Friendly", "Low Heat Generation", "High Durability", "Sulfate Resistant"]
+    features: ["Eco-Friendly", "Low Heat Generation", "High Durability", "Sulfate Resistant"],
+    specifications: {
+      materialStandard: "IS 1489 Part 1 PPC",
+      packaging: "50 Kg Paper Bags",
+      testingCertificate: "BIS License & Test Reports",
+      brand: ["UltraTech", "ACC", "Ambuja", "Shree Cement", "JK Cement", "Dalmia"],
+      grades: ["PPC Grade", "Composite Cement", "Slag Cement"],
+      delivery: "Pan India Network",
+      quality: "BIS Certified",
+      availability: "In Stock"
+    }
   },
   {
     id: "53",
@@ -946,7 +1046,17 @@ export const products: Product[] = [
     description: "Flame Retardant Low Smoke cables for residential wiring. IS certified.",
     image: polycabFrlsNew,
     applications: ["House Wiring", "Commercial Buildings", "Offices", "Apartments"],
-    features: ["Fire Retardant", "Low Smoke Emission", "IS Certified", "Long Life"]
+    features: ["Fire Retardant", "Low Smoke Emission", "IS Certified", "Long Life"],
+    specifications: {
+      materialStandard: "IS 694 / IEC 60227",
+      packaging: "Coil / Drum",
+      testingCertificate: "BIS Certification",
+      brand: ["Polycab", "Havells", "Finolex", "KEI", "RR Kabel"],
+      grades: ["FRLS", "ZHFR", "XLPE"],
+      delivery: "Pan India",
+      quality: "ISI Marked",
+      availability: "In Stock"
+    }
   },
   {
     id: "77",
@@ -955,7 +1065,17 @@ export const products: Product[] = [
     description: "Standard house wiring cable for lighting circuits. Flexible and durable.",
     image: havellsHouseWireNew,
     applications: ["Lighting Circuits", "Switch Boards", "Residential Wiring", "Small Appliances"],
-    features: ["Flexible", "Tinned Copper", "Heat Resistant", "Quality Certified"]
+    features: ["Flexible", "Tinned Copper", "Heat Resistant", "Quality Certified"],
+    specifications: {
+      materialStandard: "IS 694 / IEC 60227-4",
+      packaging: "90m Coil / 180m Coil",
+      testingCertificate: "ISI Mark & Test Certificate",
+      brand: ["Havells", "Polycab", "Finolex", "KEI", "RR Kabel", "V-Guard"],
+      grades: ["1.5 sq mm", "2.5 sq mm", "4 sq mm", "6 sq mm"],
+      delivery: "Pan India",
+      quality: "ISI Marked",
+      availability: "In Stock"
+    }
   },
   {
     id: "78",
@@ -991,7 +1111,17 @@ export const products: Product[] = [
     description: "Premium modular switches with sleek design and long-lasting performance.",
     image: switchesSockets,
     applications: ["Residential", "Commercial", "Offices", "Hotels"],
-    features: ["Sleek Design", "Durable", "Easy Installation", "10 Year Warranty"]
+    features: ["Sleek Design", "Durable", "Easy Installation", "10 Year Warranty"],
+    specifications: {
+      materialStandard: "IS 3854 / IEC 60669",
+      packaging: "Individual Box / Bulk Pack",
+      testingCertificate: "ISI Mark & CE Certification",
+      brand: ["Legrand", "Schneider", "Anchor Roma", "Goldmedal", "Havells"],
+      grades: ["6A/16A Switch", "20A Switch", "32A Switch", "Bell Push"],
+      delivery: "Pan India",
+      quality: "ISI & CE Certified",
+      availability: "In Stock"
+    }
   },
   {
     id: "82",
