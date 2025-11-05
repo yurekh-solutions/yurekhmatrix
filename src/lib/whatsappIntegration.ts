@@ -1,3 +1,12 @@
+interface CartItem {
+  productId: string;
+  productName: string;
+  category: string;
+  brand: string;
+  grade: string;
+  quantity: number;
+}
+
 interface WhatsAppData {
   type: 'rfq' | 'inquiry' | 'product-detail';
   productName?: string;
@@ -11,6 +20,8 @@ interface WhatsAppData {
   grade?: string;
   quantity?: string;
   specifications?: string;
+  cartItems?: CartItem[];
+  totalItems?: number;
 }
 
 export const formatWhatsAppMessage = (data: WhatsAppData): string => {
@@ -40,12 +51,34 @@ export const formatWhatsAppMessage = (data: WhatsAppData): string => {
     }
     message += `\n📍 *Source:* Product Search (Not Found)\n`;
   } else if (data.type === 'rfq') {
-    message += `👤 *Name:* ${data.customerName || 'N/A'}\n`;
-    message += `🏢 *Company:* ${data.company || 'N/A'}\n`;
-    message += `📍 *Location:* ${data.location || 'N/A'}\n`;
-    message += `📧 *Email:* ${data.email || 'N/A'}\n`;
-    message += `📞 *Phone:* ${data.phone || 'N/A'}\n\n`;
-    message += `📍 *Source:* RFQ Form\n`;
+    message += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
+    message += `*REQUEST FOR QUOTATION*\n`;
+    message += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
+    
+    message += `*📋 CUSTOMER DETAILS*\n`;
+    message += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+    message += `👤 Name: ${data.customerName || 'N/A'}\n`;
+    message += `🏢 Company: ${data.company || 'Not specified'}\n`;
+    message += `📍 Delivery Location: ${data.location || 'Not specified'}\n`;
+    message += `📧 Email: ${data.email || 'N/A'}\n`;
+    message += `📞 Phone: ${data.phone || 'N/A'}\n\n`;
+    
+    if (data.cartItems && data.cartItems.length > 0) {
+      message += `*📦 MATERIAL REQUIREMENTS*\n`;
+      message += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+      message += `Total Items: ${data.totalItems}\n\n`;
+      
+      data.cartItems.forEach((item, index) => {
+        message += `*Item ${index + 1}*\n`;
+        message += `├─ Product: ${item.productName}\n`;
+        message += `├─ Category: ${item.category}\n`;
+        message += `├─ Brand: ${item.brand}\n`;
+        message += `├─ Material/Grade: ${item.grade}\n`;
+        message += `└─ Quantity: *${item.quantity} MT*\n\n`;
+      });
+    }
+    
+    message += `📍 Source: Complete RFQ Submission\n`;
   }
 
   message += `\n⏰ *Time:* ${timestamp}`;
@@ -89,12 +122,34 @@ export const formatEmailBody = (data: WhatsAppData): string => {
     }
     body += `\nSource: Product Search (Not Found)\n`;
   } else if (data.type === 'rfq') {
-    body += `Customer Name: ${data.customerName || 'N/A'}\n`;
-    body += `Company: ${data.company || 'N/A'}\n`;
-    body += `Location: ${data.location || 'N/A'}\n`;
-    body += `Email: ${data.email || 'N/A'}\n`;
-    body += `Phone: ${data.phone || 'N/A'}\n\n`;
-    body += `Source: RFQ Form\n`;
+    body += `REQUEST FOR QUOTATION\n`;
+    body += `${'═'.repeat(50)}\n\n`;
+    
+    body += `CUSTOMER DETAILS\n`;
+    body += `${'-'.repeat(50)}\n`;
+    body += `Name:              ${data.customerName || 'N/A'}\n`;
+    body += `Company:           ${data.company || 'Not specified'}\n`;
+    body += `Delivery Location: ${data.location || 'Not specified'}\n`;
+    body += `Email:             ${data.email || 'N/A'}\n`;
+    body += `Phone:             ${data.phone || 'N/A'}\n\n`;
+    
+    if (data.cartItems && data.cartItems.length > 0) {
+      body += `MATERIAL REQUIREMENTS\n`;
+      body += `${'-'.repeat(50)}\n`;
+      body += `Total Items: ${data.totalItems}\n\n`;
+      
+      data.cartItems.forEach((item, index) => {
+        body += `Item ${index + 1}:\n`;
+        body += `  Product:         ${item.productName}\n`;
+        body += `  Category:        ${item.category}\n`;
+        body += `  Brand:           ${item.brand}\n`;
+        body += `  Material/Grade:  ${item.grade}\n`;
+        body += `  Quantity:        ${item.quantity} MT\n\n`;
+      });
+    }
+    
+    body += `${'-'.repeat(50)}\n`;
+    body += `Source: Complete RFQ Submission\n`;
   }
 
   body += `\nTimestamp: ${timestamp}\n`;

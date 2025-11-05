@@ -28,8 +28,19 @@ const RFQ = () => {
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [cartItems, setCartItems] = useState<RFQItem[]>([]);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
+
+
+  useEffect(() => {
+    const savedCart = sessionStorage.getItem('rfq_cart');
+    if (savedCart) {
+      try {
+        const cart = JSON.parse(savedCart);
+        setCartItems(cart);
+      } catch (error) {
+        console.error('Failed to load cart:', error);
+      }
+    }
+  }, []);
 
   const [customerInfo, setCustomerInfo] = useState({
     name: "",
@@ -39,22 +50,13 @@ const RFQ = () => {
     phone: "",
   });
 
-  useEffect(() => {
-    const savedCart = sessionStorage.getItem("rfq_cart");
-    if (savedCart) {
-      try {
-        const cart = JSON.parse(savedCart);
-        setCartItems(cart);
-      } catch (error) {
-        console.error("Failed to load cart:", error);
-      }
-    }
-  }, []);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const handleRemoveItem = (index: number) => {
     const updatedCart = cartItems.filter((_, i) => i !== index);
     setCartItems(updatedCart);
-    sessionStorage.setItem("rfq_cart", JSON.stringify(updatedCart));
+    sessionStorage.setItem('rfq_cart', JSON.stringify(updatedCart));
     toast.success("Item removed from cart");
   };
 
@@ -74,17 +76,24 @@ const RFQ = () => {
     }
 
     setIsSubmitting(true);
+
     try {
+      // Prepare complete RFQ data with cart items
       const rfqData = {
-        type: "rfq" as const,
-        ...customerInfo,
-        cartItems,
-        totalItems: cartItems.length,
+        type: 'rfq' as const,
+        customerName: customerInfo.name,
+        company: customerInfo.company,
+        location: customerInfo.location,
+        email: customerInfo.email,
+        phone: customerInfo.phone,
+        cartItems: cartItems,
+        totalItems: cartItems.length
       };
 
-      cartItems.forEach((item) => {
+      // Save EACH product to localStorage for Excel export
+      cartItems.forEach(item => {
         saveToLocalStorage({
-          source: "RFQ Page - Complete Submission",
+          source: 'RFQ Page - Complete Submission',
           productName: item.productName,
           productCategory: item.category,
           brand: item.brand,
@@ -94,23 +103,34 @@ const RFQ = () => {
           customerCompany: customerInfo.company,
           deliveryLocation: customerInfo.location,
           customerEmail: customerInfo.email,
-          customerPhone: customerInfo.phone,
+          customerPhone: customerInfo.phone
         });
       });
 
+      // Send to WhatsApp with ALL products + customer info
       sendToWhatsApp(rfqData);
-      setTimeout(() => sendEmail(rfqData), 500);
+
+      // Send Email
       setTimeout(() => {
-        downloadCSV();
-        toast.success("Excel file downloaded successfully!");
-      }, 1000);
+        sendEmail(rfqData);
+      }, 500);
 
-      sessionStorage.removeItem("rfq_cart");
+      // Excel download removed - data saved to localStorage for admin access only
 
-      setTimeout(() => setShowSuccess(true), 1500);
-      setTimeout(() => navigate("/"), 4500);
+      // Clear cart from sessionStorage
+      sessionStorage.removeItem('rfq_cart');
+
+      // Show success animation AFTER all operations
+      setTimeout(() => {
+        setShowSuccess(true);
+      }, 1500);
+
+      // Navigate after animation
+      setTimeout(() => {
+        navigate("/");
+      }, 4500);
     } catch (error) {
-      console.error("Error submitting RFQ:", error);
+      console.error('Error submitting RFQ:', error);
       toast.error("Failed to submit RFQ. Please try again.");
     } finally {
       setIsSubmitting(false);
@@ -118,15 +138,9 @@ const RFQ = () => {
   };
 
   if (showSuccess) {
-    return (
-      <SuccessAnimation
-        message="RFQ submitted successfully! Opening WhatsApp..."
-        duration={3000}
-      />
-    );
+    return <SuccessAnimation message="RFQ submitted successfully! Opening WhatsApp..." duration={3000} />;
   }
-
-  return (
+ return (
     <div className="min-h-screen relative">
       <Navbar />
 
