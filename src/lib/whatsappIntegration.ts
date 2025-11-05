@@ -34,54 +34,50 @@ export const formatWhatsAppMessage = (data: WhatsAppData): string => {
   let message = '*New Request - MaterialMatrix*\n\n';
 
   if (data.type === 'product-detail') {
-    message += `📦 *Product:* ${data.productName || 'N/A'}\n`;
-    message += `🏷️ *Category:* ${data.category || 'N/A'}\n`;
-    message += `🏭 *Brand:* ${data.brand || 'N/A'}\n`;
-    message += `⚙️ *Grade:* ${data.grade || 'N/A'}\n`;
-    message += `📊 *Quantity:* ${data.quantity || 'N/A'}\n\n`;
-    message += `📍 *Source:* Product Detail Page\n`;
+    message += `*Product:* ${data.productName || 'N/A'}\n`;
+    message += `*Category:* ${data.category || 'N/A'}\n`;
+    message += `*Brand:* ${data.brand || 'N/A'}\n`;
+    message += `*Grade:* ${data.grade || 'N/A'}\n`;
+    message += `*Quantity:* ${data.quantity || 'N/A'}\n\n`;
+    message += `*Source:* Product Detail Page\n`;
   } else if (data.type === 'inquiry') {
-    message += `🔍 *Product Inquiry:* ${data.productName || 'N/A'}\n`;
-    message += `👤 *Name:* ${data.customerName || 'N/A'}\n`;
-    message += `📞 *Phone:* ${data.phone || 'N/A'}\n`;
-    message += `📧 *Email:* ${data.email || 'N/A'}\n`;
-    message += `📊 *Quantity:* ${data.quantity || 'N/A'}\n`;
+    message += `*Product Inquiry:* ${data.productName || 'N/A'}\n`;
+    message += `*Name:* ${data.customerName || 'N/A'}\n`;
+    message += `*Phone:* ${data.phone || 'N/A'}\n`;
+    message += `*Email:* ${data.email || 'N/A'}\n`;
+    message += `*Quantity:* ${data.quantity || 'N/A'}\n`;
     if (data.specifications) {
-      message += `📝 *Specifications:*\n${data.specifications}\n`;
+      message += `*Specifications:*\n${data.specifications}\n`;
     }
-    message += `\n📍 *Source:* Product Search (Not Found)\n`;
+    message += `\n*Source:* Product Search (Not Found)\n`;
   } else if (data.type === 'rfq') {
-    message += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
-    message += `*REQUEST FOR QUOTATION*\n`;
-    message += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
+    message += `*REQUEST FOR QUOTATION*\n\n`;
     
-    message += `*📋 CUSTOMER DETAILS*\n`;
-    message += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
-    message += `👤 Name: ${data.customerName || 'N/A'}\n`;
-    message += `🏢 Company: ${data.company || 'Not specified'}\n`;
-    message += `📍 Delivery Location: ${data.location || 'Not specified'}\n`;
-    message += `📧 Email: ${data.email || 'N/A'}\n`;
-    message += `📞 Phone: ${data.phone || 'N/A'}\n\n`;
+    message += `*CUSTOMER DETAILS*\n`;
+    message += `Name: ${data.customerName || 'N/A'}\n`;
+    message += `Company: ${data.company || 'Not specified'}\n`;
+    message += `Delivery Location: ${data.location || 'Not specified'}\n`;
+    message += `Email: ${data.email || 'N/A'}\n`;
+    message += `Phone: ${data.phone || 'N/A'}\n\n`;
     
     if (data.cartItems && data.cartItems.length > 0) {
-      message += `*📦 MATERIAL REQUIREMENTS*\n`;
-      message += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+      message += `*MATERIAL REQUIREMENTS*\n`;
       message += `Total Items: ${data.totalItems}\n\n`;
       
       data.cartItems.forEach((item, index) => {
         message += `*Item ${index + 1}*\n`;
-        message += `├─ Product: ${item.productName}\n`;
-        message += `├─ Category: ${item.category}\n`;
-        message += `├─ Brand: ${item.brand}\n`;
-        message += `├─ Material/Grade: ${item.grade}\n`;
-        message += `└─ Quantity: *${item.quantity} MT*\n\n`;
+        message += `Product: ${item.productName}\n`;
+        message += `Category: ${item.category}\n`;
+        message += `Brand: ${item.brand}\n`;
+        message += `Material/Grade: ${item.grade}\n`;
+        message += `Quantity: *${item.quantity} MT*\n\n`;
       });
     }
     
-    message += `📍 Source: Complete RFQ Submission\n`;
+    message += `*Source:* Complete RFQ Submission\n`;
   }
 
-  message += `\n⏰ *Time:* ${timestamp}`;
+  message += `\n*Time:* ${timestamp}`;
 
   return message;
 };
