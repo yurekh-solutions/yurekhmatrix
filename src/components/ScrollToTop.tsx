@@ -7,11 +7,23 @@ const ScrollToTop = () => {
   const [isVisible, setIsVisible] = useState(false);
   const location = useLocation();
 
-  // Automatically scroll to top on route change
+  // Automatically scroll to top on route change - IMMEDIATE
   useEffect(() => {
-    window.scrollTo(0, 0);
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    // Also ensure smooth scroll for any delayed content
+    setTimeout(() => {
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    }, 0);
   }, [location.pathname]);
 
+  // Additional effect to ensure scroll on mount
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  }, []);
+
+  // Show/hide scroll to top button
   useEffect(() => {
     const toggleVisibility = () => {
       if (window.pageYOffset > 300) {

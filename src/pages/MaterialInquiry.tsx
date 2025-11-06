@@ -86,7 +86,7 @@ const MaterialInquiry = () => {
 📦 Material: ${selectedMaterial?.label || formData.material}
 📊 Quantity: ${formData.quantity}
 
-*Additional Specifications:*
+*Detailed Specifications:*
 ${formData.specifications || "No additional specifications"}
 
 _Please provide quotation at your earliest convenience._`;
@@ -446,7 +446,7 @@ _Please provide quotation at your earliest convenience._`;
 
                       <div className="space-y-2 md:col-span-2">
                         <Label htmlFor="specifications" className="text-sm font-medium">
-                          Additional Specifications
+                          Detailed Specifications
                         </Label>
                         <Textarea
                           id="specifications"

@@ -217,19 +217,21 @@ const Navbar = () => {
         {/* Mobile Menu */}
         {mobileMenuOpen && (
           <div className="lg:hidden py-4 space-y-2 border-t border-border bg-white shadow-inner">
-            {[
-              { name: "Home", path: "/" },
-              { name: "About Us", path: "/about" },
-              { name: "Products", path: "/products" },
-              { name: "Blogs", path: "/blogs" },
-              { name: "Contact Us", path: "/contact" },
-            ].map((item) => (
-              <Link key={item.path} to={item.path} onClick={() => setMobileMenuOpen(false)}>
-                <Button variant="ghost" className="w-full justify-start">
-                  {item.name}
-                </Button>
-              </Link>
-            ))}
+            <Link to="/" onClick={() => setMobileMenuOpen(false)}>
+              <Button variant="ghost" className="w-full justify-start">Home</Button>
+            </Link>
+            <Link to="/about" onClick={() => setMobileMenuOpen(false)}>
+              <Button variant="ghost" className="w-full justify-start">About Us</Button>
+            </Link>
+            <Link to="/products" onClick={() => setMobileMenuOpen(false)}>
+              <Button variant="ghost" className="w-full justify-start">Products</Button>
+            </Link>
+            <Link to="/blogs" onClick={() => setMobileMenuOpen(false)}>
+              <Button variant="ghost" className="w-full justify-start">Blogs</Button>
+            </Link>
+            <Link to="/contact" onClick={() => setMobileMenuOpen(false)}>
+              <Button variant="ghost" className="w-full justify-start">Contact Us</Button>
+            </Link>
           </div>
         )}
       </div>
