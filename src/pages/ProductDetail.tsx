@@ -192,7 +192,7 @@ const ProductDetail = () => {
   <div className="space-y-6">
     {/* Product Image */}
     <div className="glass-card overflow-hidden rounded-xl">
-      <div className="relative h-[400px] w-full">
+      <div className="relative h-[400px] sm:h-[300px] w-full">
         <img
           src={productImages[selectedImageIndex]}
           alt={product.name}

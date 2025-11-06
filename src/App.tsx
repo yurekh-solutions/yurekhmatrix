@@ -21,6 +21,7 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import FAQs from "./pages/FAQQ";
 import Careers from "./pages/Careers";
 import RFQ from "./pages/RFQ";
+import MaterialInquiry from "./pages/MaterialInquiry";
 import NotFound from "./pages/NotFound";
 import ScrollToTop from "./components/ScrollToTop";
 
@@ -54,6 +55,7 @@ const App = () => (
           <Route path="/faqs" element={<FAQs />} />
           <Route path="/careers" element={<Careers />} />
           <Route path="/rfq" element={<RFQ />} />
+          <Route path="/inquiry" element={<MaterialInquiry />} />
           {/* Catch-all route */}
           <Route path="*" element={<NotFound />} />
         </Routes>

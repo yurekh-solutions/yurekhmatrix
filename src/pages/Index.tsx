@@ -186,12 +186,12 @@ const Index = () => {
         </div>
 
         <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2">
-          <Link to="/products" className="w-full sm:w-auto">
+          <Link to="/inquiry" className="w-full sm:w-auto">
             <Button
               size="lg"
               className="bg-gradient-to-r from-primary to-secondary text-primary-foreground shadow-lg rounded-xl w-full sm:w-auto group"
             >
-              Submit RFQ
+              Material Inquiry
               <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Button>
           </Link>
