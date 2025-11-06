@@ -51,6 +51,7 @@ const MaterialInquiry = () => {
     company: "",
     location: "",
     material: "",
+    customMaterial: "",
     quantity: "",
     specifications: "",
   });
@@ -70,9 +71,10 @@ const MaterialInquiry = () => {
     await new Promise((resolve) => setTimeout(resolve, 1500));
 
     // Format WhatsApp message
-    const selectedMaterial = MATERIAL_OPTIONS.find(
-      (m) => m.value === formData.material
-    );
+    const materialName = formData.material === "other" 
+      ? formData.customMaterial 
+      : MATERIAL_OPTIONS.find((m) => m.value === formData.material)?.label || formData.material;
+    
     const message = `*🏗️ MATERIAL INQUIRY REQUEST*
 
 *Customer Details:*
@@ -83,7 +85,7 @@ const MaterialInquiry = () => {
 📍 Location: ${formData.location}
 
 *Material Requirements:*
-📦 Material: ${selectedMaterial?.label || formData.material}
+📦 Material: ${materialName}
 📊 Quantity: ${formData.quantity}
 
 *Detailed Specifications:*
@@ -112,6 +114,7 @@ _Please provide quotation at your earliest convenience._`;
         company: "",
         location: "",
         material: "",
+        customMaterial: "",
         quantity: "",
         specifications: "",
       });
@@ -409,7 +412,7 @@ _Please provide quotation at your earliest convenience._`;
                         <Select
                           value={formData.material}
                           onValueChange={(value) =>
-                            setFormData((prev) => ({ ...prev, material: value }))
+                            setFormData((prev) => ({ ...prev, material: value, customMaterial: "" }))
                           }
                           required
                         >
@@ -425,9 +428,39 @@ _Please provide quotation at your earliest convenience._`;
                                 </div>
                               </SelectItem>
                             ))}
+                            <div className="border-t border-border my-2" />
+                            <SelectItem value="other">
+                              <div className="flex items-center gap-2">
+                                <span>✨</span>
+                                <span>Other (Specify below)</span>
+                              </div>
+                            </SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
+
+                      {formData.material === "other" && (
+                        <div className="space-y-2 md:col-span-2 animate-in fade-in">
+                          <Label htmlFor="customMaterial" className="text-sm font-medium flex items-center gap-2">
+                            <Package className="h-4 w-4 text-primary" />
+                            Specify Your Material Type *
+                          </Label>
+                          <Input
+                            id="customMaterial"
+                            name="customMaterial"
+                            value={formData.customMaterial}
+                            onChange={(e) =>
+                              setFormData((prev) => ({ ...prev, customMaterial: e.target.value }))
+                            }
+                            placeholder="Enter the material type you need (e.g., Concrete, Pipes, Hinges, etc.)"
+                            required={formData.material === "other"}
+                            className="h-11 sm:h-12 border-primary/20 focus:border-primary bg-blue-50/50"
+                          />
+                          <p className="text-xs text-muted-foreground mt-1 flex items-center gap-1">
+                            <span>💡</span> We'll help you source this material from our network
+                          </p>
+                        </div>
+                      )}
 
                       <div className="space-y-2 md:col-span-2">
                         <Label htmlFor="quantity" className="text-sm font-medium">

@@ -16,10 +16,9 @@ import {
   BarChart3,
   Activity,
   Zap,
-  Mic,
   Target,
   FileText,
-  
+  Mic ,
   Settings,
   Headphones,
   Play,
@@ -204,8 +203,6 @@ const Index = () => {
               className="border-primary text-primary rounded-xl w-full sm:w-auto"
             >
               Voice AI
-                      <Mic className="w-5 h-5" />
-
             </Button>
             
           </Link>
