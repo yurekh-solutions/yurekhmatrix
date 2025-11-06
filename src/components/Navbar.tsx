@@ -106,6 +106,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ShoppingCart, Menu, X } from "lucide-react";
 import { useState, useEffect } from "react";
+import LanguageSelector from "./LanguageSelector";
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -182,8 +183,11 @@ const Navbar = () => {
             </Link>
           </div>
 
-          {/* Cart & Mobile Menu */}
-          <div className="flex items-center gap-3">
+          {/* Cart, Language & Mobile Menu */}
+          <div className="flex items-center gap-2 md:gap-3">
+            {/* Language Selector */}
+            <LanguageSelector />
+
             {/* Cart */}
             <Link to="/rfq" className="relative inline-block">
               <Button

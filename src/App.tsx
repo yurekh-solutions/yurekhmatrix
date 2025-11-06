@@ -25,6 +25,7 @@ import MaterialInquiry from "./pages/MaterialInquiry";
 import MiloAI from "./pages/MiloAI";
 import NotFound from "./pages/NotFound";
 import ScrollToTop from "./components/ScrollToTop";
+import GoogleTranslateWidget from "./components/GoogleTranslateWidget";
 
 const queryClient = new QueryClient();
 
@@ -33,6 +34,7 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
+      <GoogleTranslateWidget />
       <BrowserRouter>
         {/* ✅ Correct placement for ScrollToTop */}
         <ScrollToTop />

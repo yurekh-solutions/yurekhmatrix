@@ -118,11 +118,36 @@ All colors MUST be HSL.
   body {
     @apply bg-background text-foreground antialiased;
     font-feature-settings: "rlig" 1, "calt" 1;
+    /* Prevent Google Translate from adding top offset */
+    top: 0 !important;
+    position: static !important;
   }
 
   /* Smooth scrolling */
   html {
     scroll-behavior: smooth;
+  }
+
+  /* Completely hide Google Translate UI elements */
+  .goog-te-banner-frame,
+  .goog-te-banner,
+  .skiptranslate,
+  iframe.skiptranslate,
+  .goog-te-gadget,
+  .goog-te-combo,
+  .goog-te-balloon-frame,
+  .goog-te-menu-frame,
+  .goog-logo-link {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    height: 0 !important;
+    width: 0 !important;
+    position: absolute !important;
+    top: -9999px !important;
+    left: -9999px !important;
+    z-index: -9999 !important;
+    pointer-events: none !important;
   }
 }
 
@@ -384,3 +409,92 @@ All colors MUST be HSL.
   }
 }
 
+
+/* Google Translate Custom Styles */
+/* Hide default Google Translate widget but keep it functional */
+#google_translate_element {
+  position: fixed !important;
+  bottom: 10px !important;
+  left: 10px !important;
+  z-index: -1 !important;
+  opacity: 0.01 !important;
+  pointer-events: none !important;
+  max-width: 50px !important;
+  max-height: 50px !important;
+  overflow: hidden !important;
+}
+
+/* Keep the select element accessible */
+.goog-te-combo {
+  pointer-events: auto !important;
+}
+
+/* Hide Google Translate top banner frame */
+.goog-te-banner-frame.skiptranslate {
+  display: none !important;
+}
+
+body > .skiptranslate {
+  display: none !important;
+}
+
+/* Remove top margin added by Google Translate */
+body {
+  top: 0 !important;
+  position: static !important;
+}
+
+/* Hide Google Translate iframe */
+iframe.skiptranslate {
+  display: none !important;
+}
+
+/* Ensure no layout shift when translation is active */
+html.translated-ltr,
+html.translated-rtl {
+  margin-top: 0 !important;
+}
+
+body.translated-ltr,
+body.translated-rtl {
+  top: 0 !important;
+  margin-top: 0 !important;
+}
+
+/* Hide Google branding */
+.goog-logo-link,
+.goog-te-gadget span,
+.goog-te-gadget img {
+  display: none !important;
+}
+
+.goog-te-gadget {
+  color: transparent !important;
+  font-size: 0 !important;
+}
+
+/* Style for translated content */
+.translated-rtl {
+  direction: rtl !important;
+}
+
+.translated-ltr {
+  direction: ltr !important;
+}
+
+/* Smooth transitions for translation */
+font[style*="vertical-align: inherit"] {
+  vertical-align: inherit !important;
+}
+
+/* Fix for any Google Translate positioning issues */
+.skiptranslate {
+  position: fixed !important;
+  top: -9999px !important;
+  left: -9999px !important;
+}
+
+/* Ensure the widget container doesn't interfere */
+#google_translate_element > div {
+  display: none !important;
+}
