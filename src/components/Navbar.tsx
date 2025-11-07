@@ -104,13 +104,15 @@
 // export default Navbar;
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ShoppingCart, Menu, X } from "lucide-react";
+import { ShoppingCart, Menu, X, Mic } from "lucide-react";
 import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import LanguageSelector from "./LanguageSelector";
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [cartCount, setCartCount] = useState(0);
+  const { t } = useTranslation();
 
   // Load cart count from sessionStorage
   useEffect(() => {
@@ -158,29 +160,35 @@ const Navbar = () => {
           <div className="hidden lg:flex items-center gap-1">
             <Link to="/">
               <Button variant="ghost" className="text-muted-foreground hover:text-foreground">
-                Home
+                {t('nav.home')}
               </Button>
             </Link>
             <Link to="/about">
               <Button variant="ghost" className="text-muted-foreground hover:text-foreground">
-                About Us
+                {t('nav.about')}
               </Button>
             </Link>
             <Link to="/products">
               <Button variant="ghost" className="text-muted-foreground hover:text-foreground">
-                Products
+                {t('nav.products')}
               </Button>
             </Link>
             <Link to="/blogs">
               <Button variant="ghost" className="text-muted-foreground hover:text-foreground">
-                Blogs
+                {t('nav.blogs')}
               </Button>
             </Link>
             <Link to="/contact">
               <Button variant="ghost" className="text-muted-foreground hover:text-foreground">
-                Contact Us
+                {t('nav.contact')}
               </Button>
             </Link>
+            {/* <Link to="/milo">
+              <Button variant="ghost" className="flex items-center gap-2 text-muted-foreground hover:text-foreground">
+                <Mic className="w-4 h-4" />
+                <span>Milo AI</span>
+              </Button>
+            </Link> */}
           </div>
 
           {/* Cart, Language & Mobile Menu */}
@@ -222,20 +230,26 @@ const Navbar = () => {
         {mobileMenuOpen && (
           <div className="lg:hidden py-4 space-y-2 border-t border-border bg-white shadow-inner">
             <Link to="/" onClick={() => setMobileMenuOpen(false)}>
-              <Button variant="ghost" className="w-full justify-start">Home</Button>
+              <Button variant="ghost" className="w-full justify-start">{t('nav.home')}</Button>
             </Link>
             <Link to="/about" onClick={() => setMobileMenuOpen(false)}>
-              <Button variant="ghost" className="w-full justify-start">About Us</Button>
+              <Button variant="ghost" className="w-full justify-start">{t('nav.about')}</Button>
             </Link>
             <Link to="/products" onClick={() => setMobileMenuOpen(false)}>
-              <Button variant="ghost" className="w-full justify-start">Products</Button>
+              <Button variant="ghost" className="w-full justify-start">{t('nav.products')}</Button>
             </Link>
             <Link to="/blogs" onClick={() => setMobileMenuOpen(false)}>
-              <Button variant="ghost" className="w-full justify-start">Blogs</Button>
+              <Button variant="ghost" className="w-full justify-start">{t('nav.blogs')}</Button>
             </Link>
             <Link to="/contact" onClick={() => setMobileMenuOpen(false)}>
-              <Button variant="ghost" className="w-full justify-start">Contact Us</Button>
+              <Button variant="ghost" className="w-full justify-start">{t('nav.contact')}</Button>
             </Link>
+            {/* <Link to="/milo" onClick={() => setMobileMenuOpen(false)}>
+              <Button variant="ghost" className="w-full justify-start flex items-center gap-2">
+                <Mic className="w-4 h-4" />
+                <span>Milo AI</span>
+              </Button>
+            </Link> */}
           </div>
         )}
       </div>

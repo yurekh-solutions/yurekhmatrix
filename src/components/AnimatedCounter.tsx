@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 interface AnimatedCounterProps {
   start?: number;
@@ -21,6 +22,7 @@ const AnimatedCounter = ({
   className = ""
 }: AnimatedCounterProps) => {
   const [count, setCount] = useState(start);
+  const { i18n } = useTranslation();
 
   useEffect(() => {
     const increment = (end - start) / (duration * 60);
@@ -39,7 +41,14 @@ const AnimatedCounter = ({
     return () => clearInterval(timer);
   }, [start, end, duration]);
 
+  // Convert numbers to Hindi (Devanagari) if current language is Hindi
+  const convertToHindiNumbers = (num: number | string): string => {
+    const hindiDigits = ['०', '१', '२', '३', '४', '५', '६', '७', '८', '९'];
+    return String(num).replace(/\d/g, (digit) => hindiDigits[parseInt(digit)]);
+  };
+
   const displayValue = decimals > 0 ? count.toFixed(decimals) : Math.floor(count);
+  const formattedValue = i18n.language === 'hi' ? convertToHindiNumbers(displayValue) : displayValue;
 
   return (
     <motion.span
@@ -48,7 +57,7 @@ const AnimatedCounter = ({
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
-      {prefix}{displayValue}{suffix}
+      {prefix}{formattedValue}{suffix}
     </motion.span>
   );
 };

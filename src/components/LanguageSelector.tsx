@@ -13,6 +13,7 @@ import {
   applyTranslation as applyTranslationUtil,
   resetToEnglish 
 } from "@/lib/translationUtils";
+import { useTranslation } from "react-i18next";
 
 interface Language {
   code: string;
@@ -29,6 +30,7 @@ const LanguageSelector = () => {
   const [currentLanguage, setCurrentLanguage] = useState<string>("en");
   const [showPopup, setShowPopup] = useState(false);
   const [isTranslating, setIsTranslating] = useState(false);
+  const { i18n } = useTranslation();
 
   // Load saved language preference on mount
   useEffect(() => {
@@ -37,7 +39,12 @@ const LanguageSelector = () => {
     
     console.log("📍 Current language on load:", effectiveLang);
     setCurrentLanguage(effectiveLang);
-  }, []);
+    
+    // Sync i18n
+    if (i18n.language !== effectiveLang) {
+      i18n.changeLanguage(effectiveLang);
+    }
+  }, [i18n]);
 
   const applyTranslation = (langCode: string, showAnimation: boolean = true) => {
     if (showAnimation) {
@@ -59,6 +66,9 @@ const LanguageSelector = () => {
     if (langCode === currentLanguage) return;
 
     setCurrentLanguage(langCode);
+    
+    // Change i18n language
+    i18n.changeLanguage(langCode);
     
     if (langCode === "en") {
       // Reset to English using utility

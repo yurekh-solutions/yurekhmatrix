@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { Loader2, CheckCircle2, Languages } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 interface TranslationPopupProps {
   isOpen: boolean;
@@ -12,6 +13,8 @@ export const TranslationPopup = ({
   isTranslating,
   language,
 }: TranslationPopupProps) => {
+  const { t } = useTranslation();
+  
   return (
     <AnimatePresence>
       {isOpen && (
@@ -124,10 +127,10 @@ export const TranslationPopup = ({
                           animate={{ opacity: [1, 0.8, 1] }}
                           transition={{ duration: 1.5, repeat: Infinity }}
                         >
-                          Translating...
+                          {t('common.translating')}
                         </motion.h3>
                         <p className="text-gray-700 text-xl font-medium">
-                          Converting website to{" "}
+                          {t('common.convertingTo')}{" "}
                           <span className="font-bold text-primary text-2xl">{language}</span>
                         </p>
                       </div>
@@ -139,7 +142,7 @@ export const TranslationPopup = ({
                       >
                         <Loader2 className="w-6 h-6 animate-spin text-primary" />
                         <span className="text-base font-semibold text-gray-700">
-                          Please wait...
+                          {t('common.pleaseWait')}
                         </span>
                       </motion.div>
                     </>
@@ -168,10 +171,10 @@ export const TranslationPopup = ({
                         className="space-y-4"
                       >
                         <h3 className="text-4xl font-bold text-green-600">
-                          Translation Complete!
+                          {t('common.translationComplete')}
                         </h3>
                         <p className="text-gray-700 text-xl font-medium">
-                          Website is now in{" "}
+                          {t('common.nowIn')}{" "}
                           <span className="font-bold text-green-600 text-2xl">{language}</span>
                         </p>
                       </motion.div>

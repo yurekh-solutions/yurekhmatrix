@@ -35,6 +35,46 @@
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/favicon.png" />
 
+    <!-- Google Translate - Hidden Implementation -->
+    <meta name="google" content="notranslate" />
+    <meta name="google-translate-customization" content="hide-all-ui" />
+    
+    <!-- Inline Critical CSS to Hide Google Translate UI -->
+    <style>
+      /* CRITICAL: Hide all Google Translate UI elements immediately including loading spinners */
+      .goog-te-banner-frame,
+      .goog-te-banner,
+      .skiptranslate,
+      iframe.skiptranslate,
+      .goog-te-gadget,
+      .goog-te-combo,
+      .goog-te-balloon-frame,
+      .goog-te-menu-frame,
+      .goog-te-spinner-pos,
+      .goog-te-spinner,
+      .goog-te-spinner-animation,
+      .goog-te-spinner-container,
+      .VIpgJd-ZVi9od-aZ2wEe-wOHMyf,
+      .VIpgJd-ZVi9od-aZ2wEe,
+      img[src*="translate.google.com"],
+      img[src*="loading"],
+      [role="progressbar"],
+      body > .skiptranslate {
+        display: none !important;
+        visibility: hidden !important;
+        position: absolute !important;
+        top: -9999px !important;
+        left: -9999px !important;
+        opacity: 0 !important;
+        z-index: -9999 !important;
+      }
+      
+      body {
+        top: 0 !important;
+        position: static !important;
+      }
+    </style>
+
   </head>
 
   <body>

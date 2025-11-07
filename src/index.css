@@ -128,7 +128,7 @@ All colors MUST be HSL.
     scroll-behavior: smooth;
   }
 
-  /* Completely hide Google Translate UI elements */
+  /* Completely hide Google Translate UI elements - MAXIMUM SECURITY */
   .goog-te-banner-frame,
   .goog-te-banner,
   .skiptranslate,
@@ -137,7 +137,28 @@ All colors MUST be HSL.
   .goog-te-combo,
   .goog-te-balloon-frame,
   .goog-te-menu-frame,
-  .goog-logo-link {
+  .goog-logo-link,
+  .goog-te-spinner-pos,
+  .goog-te-ftab,
+  body > .skiptranslate,
+  body > .goog-te-banner-frame,
+  iframe[src*="translate.google.com"],
+  iframe[src*="translate.googleapis.com"],
+  .goog-te-menu-value,
+  .goog-te-gadget-simple,
+  .goog-te-menu2,
+  #google_translate_element > *,
+  #\:1\.container,
+  #\:2\.container,
+  #\:3\.container,
+  .goog-te-spinner,
+  .goog-te-spinner-animation,
+  .goog-te-spinner-pos,
+  .VIpgJd-ZVi9od-aZ2wEe-wOHMyf,
+  .VIpgJd-ZVi9od-aZ2wEe,
+  .goog-te-spinner-container,
+  img[src*="translate.google.com"],
+  img[src*="loading"] {
     display: none !important;
     visibility: hidden !important;
     opacity: 0 !important;
@@ -148,6 +169,8 @@ All colors MUST be HSL.
     left: -9999px !important;
     z-index: -9999 !important;
     pointer-events: none !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
   }
 }
 
