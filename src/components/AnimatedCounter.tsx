@@ -1,6 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { useTranslation } from "react-i18next";
 
 interface AnimatedCounterProps {
   start?: number;
@@ -10,6 +9,7 @@ interface AnimatedCounterProps {
   suffix?: string;
   prefix?: string;
   className?: string;
+  trigger?: boolean;
 }
 
 const AnimatedCounter = ({ 
@@ -19,36 +19,44 @@ const AnimatedCounter = ({
   decimals = 0, 
   suffix = "", 
   prefix = "",
-  className = ""
+  className = "",
+  trigger = true
 }: AnimatedCounterProps) => {
-  const [count, setCount] = useState(start);
-  const { i18n } = useTranslation();
+  const [count, setCount] = useState(end);
+  const hasAnimatedRef = useRef(false);
 
   useEffect(() => {
-    const increment = (end - start) / (duration * 60);
-    let current = start;
+    if (!trigger || hasAnimatedRef.current) {
+      return;
+    }
+
+    // Reset count to start value
+    setCount(start);
+    hasAnimatedRef.current = true;
+
+    // Start animation
+    const totalFrames = duration * 60;
+    const increment = (end - start) / totalFrames;
+    let currentFrame = 0;
     
     const timer = setInterval(() => {
-      current += increment;
-      if (current >= end) {
+      currentFrame++;
+      const newValue = start + (increment * currentFrame);
+      
+      if (currentFrame >= totalFrames) {
         setCount(end);
         clearInterval(timer);
       } else {
-        setCount(current);
+        setCount(newValue);
       }
     }, 1000 / 60);
 
-    return () => clearInterval(timer);
-  }, [start, end, duration]);
-
-  // Convert numbers to Hindi (Devanagari) if current language is Hindi
-  const convertToHindiNumbers = (num: number | string): string => {
-    const hindiDigits = ['०', '१', '२', '३', '४', '५', '६', '७', '८', '९'];
-    return String(num).replace(/\d/g, (digit) => hindiDigits[parseInt(digit)]);
-  };
+    return () => {
+      clearInterval(timer);
+    };
+  }, [start, end, duration, trigger]);
 
   const displayValue = decimals > 0 ? count.toFixed(decimals) : Math.floor(count);
-  const formattedValue = i18n.language === 'hi' ? convertToHindiNumbers(displayValue) : displayValue;
 
   return (
     <motion.span
@@ -57,7 +65,7 @@ const AnimatedCounter = ({
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
-      {prefix}{formattedValue}{suffix}
+      {prefix}{displayValue}{suffix}
     </motion.span>
   );
 };

@@ -45,7 +45,8 @@ import {
   Users,
   Sparkles,Building,Star
 } from "lucide-react";
-import { useState } from "react";
+import { useState, useRef } from "react";
+import { motion, useInView } from "framer-motion";
 import heroImage from "@/assets/hero-construction.jpg";
 import officeBuilding from "@/assets/office-building.jpg";
 import ProcurementHero from "@/components/ProcurementHero";
@@ -106,6 +107,8 @@ import CarouselCard from "@/components/CarouselCards";
 const About = () => {
   const [activeTab, setActiveTab] = useState("ai-solutions");
   const carouselImages = [materialWarehouse, constructionSite, aiDashboard, officeBuilding];
+  const statsRef = useRef(null);
+  const isStatsInView = useInView(statsRef, { once: true, margin: "-50px" });
 
   const tabbedContent = {
     "ai-solutions": [
@@ -625,7 +628,7 @@ const About = () => {
 
     </div>
 
-   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
+   <div ref={statsRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
   {stats.map((stat, index) => (
     <div key={index}>
       <div
@@ -644,6 +647,7 @@ const About = () => {
             duration={2.5}
             prefix={stat.prefix}
             suffix={stat.suffix}
+            trigger={isStatsInView}
           />
         </div>
 

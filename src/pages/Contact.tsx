@@ -469,6 +469,7 @@ const Contact = () => {
                       end={stat.value} 
                       suffix={stat.unit}
                       duration={2}
+                      trigger={isStatsInView}
                     />
                   </div>
                   <p className="text-xs md:text-sm font-medium text-foreground leading-tight">{stat.label}</p>
