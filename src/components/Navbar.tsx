@@ -173,11 +173,11 @@ const Navbar = () => {
                 {t('nav.products')}
               </Button>
             </Link>
-            <Link to="/blogs">
+            {/* <Link to="/blogs">
               <Button variant="ghost" className="text-muted-foreground hover:text-foreground">
                 {t('nav.blogs')}
               </Button>
-            </Link>
+            </Link> */}
             <Link to="/contact">
               <Button variant="ghost" className="text-muted-foreground hover:text-foreground">
                 {t('nav.contact')}
@@ -238,9 +238,9 @@ const Navbar = () => {
             <Link to="/products" onClick={() => setMobileMenuOpen(false)}>
               <Button variant="ghost" className="w-full justify-start">{t('nav.products')}</Button>
             </Link>
-            <Link to="/blogs" onClick={() => setMobileMenuOpen(false)}>
+            {/* <Link to="/blogs" onClick={() => setMobileMenuOpen(false)}>
               <Button variant="ghost" className="w-full justify-start">{t('nav.blogs')}</Button>
-            </Link>
+            </Link> */}
             <Link to="/contact" onClick={() => setMobileMenuOpen(false)}>
               <Button variant="ghost" className="w-full justify-start">{t('nav.contact')}</Button>
             </Link>
