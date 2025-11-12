@@ -33,7 +33,7 @@ const Footer = () => {
               <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center font-bold text-white text-lg">
                 MM
               </div>
-              <span className="text-xl font-bold">MaterialMatrix</span>
+              <span className="text-xl font-bold">Ritzyard</span>
             </Link>
             <p className="text-white/80 text-sm leading-relaxed">
               Your trusted construction procurement platform. Connecting buyers with verified suppliers across India.
@@ -45,8 +45,8 @@ const Footer = () => {
               </div>
               <div className="flex items-center space-x-2 text-sm">
                 <Mail className="h-4 w-4 flex-shrink-0" />
-                <a href="mailto:support@materialmatrix.ai" className="hover:text-primary transition-colors duration-300">
-                  support@materialmatrix.ai
+                <a href="mailto:support@ritzyard.ai" className="hover:text-primary transition-colors duration-300">
+                  support@ritzyard.ai
                 </a>
               </div>
               <div className="flex items-center space-x-2 text-sm">
@@ -112,7 +112,7 @@ const Footer = () => {
 
         <div className="mt-12 pt-8 border-t border-white/20 text-center  text-[#fefefe] text-sm">
         <p>
-  © {new Date().getFullYear()} <span className="font-semibold">MaterialMatrix.</span> All rights reserved. Powered by{" "}
+  © {new Date().getFullYear()} <span className="font-semibold">Ritzyard.</span> All rights reserved. Powered by{" "}
   <a
     href="https://yurekh.com"
     target="_blank"

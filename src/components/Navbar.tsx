@@ -17,7 +17,7 @@
 //               MM
 //             </div>
 //             <span className="text-xl md:text-2xl font-bold text-gradient">
-//               MaterialMatrix
+//               Ritzyard
 //             </span>
 //           </Link>
 
@@ -152,7 +152,7 @@ const Navbar = () => {
               MM
             </div>
             <span className="text-xl md:text-2xl font-bold text-gradient">
-              MaterialMatrix
+              Ritzyard
             </span>
           </Link>
 

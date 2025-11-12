@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Bot, Zap, Shield, Clock, TrendingUp, Globe, CheckCircle2 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { useTranslation } from "react-i18next";
 
 const features = [
   {
@@ -72,44 +73,30 @@ const benefits = [
 ];
 
 const ProcurementFeatures = () => {
+  const { i18n } = useTranslation();
+  
+  // Convert Western numerals to Hindi numerals
+  const toHindiNumerals = (value: string | number): string => {
+    const numStr = String(value);
+    const hindiNumerals: { [key: string]: string } = {
+      '0': '०', '1': '१', '2': '२', '3': '३', '4': '४',
+      '5': '५', '6': '६', '7': '७', '8': '८', '9': '९',
+      '.': '.'
+    };
+    return numStr.split('').map(char => hindiNumerals[char] || char).join('');
+  };
+
+  const localizeNumber = (value: string | number): string => {
+    return i18n.language === 'hi' ? toHindiNumerals(value) : String(value);
+  };
+  
   const half = Math.ceil(features.length / 2);
   const firstColumn = features.slice(0, half);
   const secondColumn = features.slice(half);
 
-  // Dynamic counter states
-  const [deliveryDays, setDeliveryDays] = useState(0);
-  const [companies, setCompanies] = useState(0);
-
-  useEffect(() => {
-    // Counter for delivery days (up to 4.2)
-    let dayValue = 0;
-    const dayInterval = setInterval(() => {
-      dayValue += 0.1;
-      if (dayValue >= 4.2) {
-        clearInterval(dayInterval);
-        setDeliveryDays(4.2);
-      } else {
-        setDeliveryDays(parseFloat(dayValue.toFixed(1)));
-      }
-    }, 50);
-
-    // Counter for companies (up to 100)
-    let companyValue = 0;
-    const companyInterval = setInterval(() => {
-      companyValue += 1;
-      if (companyValue >= 100) {
-        clearInterval(companyInterval);
-        setCompanies(100);
-      } else {
-        setCompanies(companyValue);
-      }
-    }, 30);
-
-    return () => {
-      clearInterval(dayInterval);
-      clearInterval(companyInterval);
-    };
-  }, []);
+  // Static values instead of animated counters
+  const deliveryDays = 4.2;
+  const companies = 100;
 
   return (
    <section className="py-12 sm:py-20 bg-gradient-to-b from-background via-muted/30 to-background overflow-hidden">
@@ -128,7 +115,7 @@ const ProcurementFeatures = () => {
             </span>
           </h2>
           <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
-            MaterialMatrix leverages cutting-edge AI technology to revolutionize how construction businesses source
+            Ritzyard leverages cutting-edge AI technology to revolutionize how construction businesses source
             materials. Say goodbye to manual procurement headaches and hello to intelligent automation.
           </p>
         </div>
@@ -152,13 +139,13 @@ const ProcurementFeatures = () => {
         <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-4">
           <Card className="p-4 sm:p-6 bg-gradient-to-br from-primary/10 to-secondary/10 border-primary/20">
             <div className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent transition-all duration-300">
-              {deliveryDays.toFixed(1)} days
+              {localizeNumber(deliveryDays.toFixed(1))} days
             </div>
             <div className="text-xs sm:text-sm text-muted-foreground mt-1">Average delivery time</div>
           </Card>
           <Card className="p-4 sm:p-6 bg-gradient-to-br from-secondary/10 to-primary/10 border-secondary/20">
             <div className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-secondary to-primary bg-clip-text text-transparent transition-all duration-300">
-              {companies}+
+              {localizeNumber(companies)}+
             </div>
             <div className="text-xs sm:text-sm text-muted-foreground mt-1">Trusted by leading companies</div>
           </Card>
@@ -227,7 +214,7 @@ const ProcurementFeatures = () => {
   </div>
 
   {/* Marquee Animation */}
-  <style jsx>{`
+  <style>{`
     @keyframes marquee {
       0% {
         transform: translateY(0);

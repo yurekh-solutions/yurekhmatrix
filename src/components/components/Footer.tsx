@@ -12,7 +12,7 @@ const Footer = () => {
               <div className="w-10 h-10 rounded-xl bg-gradient-primary flex items-center justify-center shadow-lg">
                 <Package className="w-5 h-5 text-white" />
               </div>
-              <span className="text-xl font-bold text-gradient">MaterialMatrix</span>
+              <span className="text-xl font-bold text-gradient">Ritzyard</span>
             </div>
             <div className="space-y-2 text-sm text-muted-foreground">
               <div className="flex items-center gap-2">
@@ -23,7 +23,7 @@ const Footer = () => {
               </div>
               <div className="flex items-center gap-2">
                 <Mail className="w-4 h-4" />
-                <a href="mailto:construction@materialmatrix.ai" className="hover:text-primary transition-colors">
+                <a href="mailto:construction@ritzyard.ai" className="hover:text-primary transition-colors">
                   construction@materialmatrix.ai
                 </a>
               </div>

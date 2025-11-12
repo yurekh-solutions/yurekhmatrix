@@ -51,7 +51,7 @@ export const Layout = ({ children }: LayoutProps) => {
             <div className="w-10 h-10 rounded-lg gradient-primary flex items-center justify-center">
               <span className="text-white font-bold text-lg">MM</span>
             </div>
-            <span className="font-bold text-xl text-gradient">MaterialMatrix</span>
+            <span className="font-bold text-xl text-gradient">Ritzyard</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -151,7 +151,7 @@ export const Layout = ({ children }: LayoutProps) => {
                 <div className="w-10 h-10 rounded-lg gradient-primary flex items-center justify-center">
                   <span className="text-white font-bold text-lg">MM</span>
                 </div>
-                <span className="font-bold text-xl text-gradient">MaterialMatrix</span>
+                <span className="font-bold text-xl text-gradient">Ritzyard</span>
               </div>
               <p className="text-sm text-muted-foreground">
                 Your trusted construction procurement platform
@@ -206,7 +206,7 @@ export const Layout = ({ children }: LayoutProps) => {
           </div>
 
           <div className="mt-8 pt-8 border-t border-border/40 text-center text-sm text-muted-foreground">
-            <p>&copy; {new Date().getFullYear()} MaterialMatrix. All rights reserved.</p>
+            <p>&copy; {new Date().getFullYear()} Ritzyard. All rights reserved.</p>
           </div>
         </div>
       </footer>

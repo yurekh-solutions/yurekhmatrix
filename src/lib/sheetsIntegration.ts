@@ -14,7 +14,7 @@ interface SheetData {
 }
 
 // Store data locally as fallback
-const STORAGE_KEY = 'materialmatrix_rfq_data';
+const STORAGE_KEY = 'ritzyard_rfq_data';
 
 export const saveToLocalStorage = (data: SheetData): void => {
   try {
@@ -97,7 +97,7 @@ export const downloadCSV = (): void => {
   const url = URL.createObjectURL(blob);
   
   link.setAttribute('href', url);
-  link.setAttribute('download', `materialmatrix_rfq_${new Date().toISOString().split('T')[0]}.csv`);
+  link.setAttribute('download', `ritzyard_rfq_${new Date().toISOString().split('T')[0]}.csv`);
   link.style.visibility = 'hidden';
   
   document.body.appendChild(link);

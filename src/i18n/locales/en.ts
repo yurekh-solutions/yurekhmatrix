@@ -1,7 +1,7 @@
 export const en = {
   // First Visit Modal
   firstVisit: {
-    title: "Welcome to MaterialMatrix",
+    title: "Welcome to Ritzyard",
     subtitle: "Choose Your Preferred Language",
     description: "Select your language to get started. You can change it anytime from the navigation bar.",
     continue: "Continue",

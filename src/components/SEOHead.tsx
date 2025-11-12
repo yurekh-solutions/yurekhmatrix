@@ -8,8 +8,8 @@ interface SEOHeadProps {
 }
 
 const SEOHead: React.FC<SEOHeadProps> = ({
-  title = "MaterialMatrix - AI-Powered Construction Material Procurement",
-  description = "Revolutionize your construction material sourcing with MaterialMatrix. Get instant quotes from 500+ verified suppliers across India.",
+  title = "Ritzyard - AI-Powered Construction Material Procurement",
+  description = "Revolutionize your construction material sourcing with Ritzyard. Get instant quotes from 500+ verified suppliers across India.",
   keywords = "construction materials, procurement, TMT steel, cement, building materials",
   structuredData,
 }) => {

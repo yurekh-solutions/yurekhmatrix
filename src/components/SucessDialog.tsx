@@ -32,7 +32,7 @@ const SuccessDialog = ({ open, onClose }: SuccessDialogProps) => {
           </div>
           <DialogTitle className="text-center text-2xl">Message Sent Successfully!</DialogTitle>
           <DialogDescription className="text-center text-base pt-2">
-            Thank you for reaching out to MaterialMatrix. Our team will contact you shortly to discuss your AI-powered procurement needs.
+            Thank you for reaching out to Ritzyard. Our team will contact you shortly to discuss your AI-powered procurement needs.
           </DialogDescription>
         </DialogHeader>
         <div className="flex justify-center pt-4">

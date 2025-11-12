@@ -33,7 +33,7 @@ const Footer = () => {
               <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center font-bold text-white text-lg">
                 MM
               </div>
-              <span className="text-xl font-bold">MaterialMatrix</span>
+              <span className="text-xl font-bold">Ritzyard</span>
             </Link>
             <p className="text-white/80 text-sm leading-relaxed">
               Your trusted construction procurement platform. Connecting buyers with verified suppliers across India.
@@ -111,7 +111,7 @@ const Footer = () => {
         </div>
 
         <div className="mt-12 pt-8 border-t border-white/20 text-center text-white/60 text-sm">
-          <p>© {new Date().getFullYear()} MaterialMatrix. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Ritzyard. All rights reserved.</p>
         </div>
       </div>
     </footer>

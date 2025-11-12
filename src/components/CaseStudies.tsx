@@ -20,7 +20,7 @@ const CaseStudies = () => {
       ],
       materials: ["Structural Steel", "TMT Bars", "Cement", "Glass Facades"],
       testimonial: "
-MaterialMatrix reduced our procurement time by 45 days and saved us ₹2.8 crores through competitive pricing.",
+Ritzyard reduced our procurement time by 45 days and saved us ₹2.8 crores through competitive pricing.",
       clientName: "Rajesh Menon",
       clientRole: "Project Director"
     },

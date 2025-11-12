@@ -40,7 +40,7 @@ const FloatingActionButtons = () => {
 
       {/* Email */}
       <a 
-        href="mailto:support@materialmatrix.ai" 
+        href="mailto:support@ritzyard.ai" 
         className="group"
         aria-label="Email us"
       >
