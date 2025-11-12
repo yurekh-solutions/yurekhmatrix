@@ -47,10 +47,10 @@ const Header = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2 group">
             <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center font-bold text-white text-lg md:text-xl shadow-lg group-hover:shadow-xl transition-all">
-              MM
+              RY
             </div>
             <span className="text-xl md:text-2xl font-bold text-gradient">
-              Ritzyard
+              RitzYard
             </span>
           </Link>
 

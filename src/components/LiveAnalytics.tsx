@@ -44,7 +44,7 @@ const LiveAnalytics = () => {
       </div>
 
       <p className="text-xs sm:text-sm text-muted-foreground mb-4 sm:mb-6 font-medium leading-relaxed">
-        Real-time Ritzyard platform insights • Refreshes on page load
+        Real-time RitzYard platform insights • Refreshes on page load
       </p>
 
       {/* Top Stats */}

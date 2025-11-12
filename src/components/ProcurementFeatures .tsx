@@ -115,7 +115,7 @@ const ProcurementFeatures = () => {
             </span>
           </h2>
           <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
-            Ritzyard leverages cutting-edge AI technology to revolutionize how construction businesses source
+            RitzYard leverages cutting-edge AI technology to revolutionize how construction businesses source
             materials. Say goodbye to manual procurement headaches and hello to intelligent automation.
           </p>
         </div>

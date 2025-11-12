@@ -89,13 +89,13 @@ const MiloAI = () => {
     };
   }, []);
 
-  // Greeting on mount
+  // Greeting on mount - with language switching support
   useEffect(() => {
     if (!hasGreeted) {
       setTimeout(() => {
         const greetingText = language === "en-IN" 
-          ? "Hello! I'm Milo, your smart procurement assistant at MaterialMatrix. How may I help you today?"
-          : "नमस्ते! मैं मिलो हूं, मटेरियलमैट्रिक्स में आपका स्मार्ट खरीद सहायक। मैं आज आपकी कैसे मदद कर सकता हूं?";
+          ? "Hello! I'm Milo, your smart procurement assistant at RitzYard. How may I help you today?"
+          : "नमस्ते! मैं मिलो हूं, RitzYard में आपका स्मार्ट खरीद सहायक। मैं आज आपकी कैसे मदद कर सकता हूं?";
         
         const greeting: Message = {
           role: "milo",
@@ -107,7 +107,25 @@ const MiloAI = () => {
         setHasGreeted(true);
       }, 1000);
     }
-  }, [hasGreeted, language]);
+  }, [hasGreeted]);
+
+  // Handle language switching - speak confirmation
+  useEffect(() => {
+    if (hasGreeted) {
+      // Stop any current speech when switching language
+      window.speechSynthesis.cancel();
+      setIsSpeaking(false);
+      
+      // Announce language change
+      const langChangeText = language === "en-IN"
+        ? "Switched to English. How can I help you?"
+        : "हिंदी में बदल गया। मैं आपकी कैसे मदद कर सकता हूं?";
+      
+      setTimeout(() => {
+        speakText(langChangeText, language);
+      }, 300);
+    }
+  }, [language]);
 
   // Toggle voice listening
   const toggleListening = () => {
@@ -126,72 +144,103 @@ const MiloAI = () => {
     }
   };
 
-  // Speak text using Web Speech API with MALE voice
+  // Speak text using Web Speech API with MALE voice ONLY
   const speakText = (text: string, lang: string) => {
     if (!soundEnabled) return;
     
+    // Cancel any ongoing speech to prevent looping
     window.speechSynthesis.cancel();
     
     synthesisRef.current = new SpeechSynthesisUtterance(text);
     synthesisRef.current.lang = lang;
-    synthesisRef.current.rate = 0.9;
-    synthesisRef.current.pitch = 0.7; // Even lower pitch for deeper male voice
+    synthesisRef.current.rate = 0.95;
+    synthesisRef.current.pitch = 0.6; // Lower pitch for male voice
     synthesisRef.current.volume = 1.0;
     
-    // Wait for voices to load and FORCE male voice selection
+    // FORCE male voice selection - enhanced for Hindi support
     const setMaleVoice = () => {
       const voices = window.speechSynthesis.getVoices();
-      const langCode = lang.split("-")[0];
+      const langCode = lang.split("-")[0]; // 'en' or 'hi'
       
-      // Aggressive male voice filtering
-      const maleVoice = voices.find(voice => {
+      console.log('Available voices:', voices.map(v => `${v.name} (${v.lang})`));
+      
+      // Priority 1: Find explicit male voice for the language
+      let maleVoice = voices.find(voice => {
         const nameLower = voice.name.toLowerCase();
-        const isRightLang = voice.lang.startsWith(langCode);
+        const langMatch = voice.lang.toLowerCase().startsWith(langCode);
         
-        // Explicitly look for male indicators
+        // Male voice indicators (expanded for Hindi)
         const isMale = nameLower.includes('male') || 
                        nameLower.includes('man') ||
+                       nameLower.includes('rishi') || // Hindi male
                        nameLower.includes('david') ||
                        nameLower.includes('james') ||
                        nameLower.includes('daniel') ||
                        nameLower.includes('tom') ||
-                       nameLower.includes('alex');
+                       nameLower.includes('alex') ||
+                       nameLower.includes('google हिन्दी') || // Google Hindi (usually male)
+                       (langCode === 'hi' && nameLower.includes('hindi') && !nameLower.includes('female'));
         
-        // Exclude any female voices
-        const isFemale = nameLower.includes('female') || 
-                        nameLower.includes('woman') ||
-                        nameLower.includes('samantha') ||
-                        nameLower.includes('victoria') ||
-                        nameLower.includes('kate') ||
-                        nameLower.includes('zira');
-        
-        return isRightLang && (isMale || !isFemale);
+        return langMatch && isMale;
       });
+      
+      // Priority 2: Exclude female voices
+      if (!maleVoice) {
+        maleVoice = voices.find(voice => {
+          const nameLower = voice.name.toLowerCase();
+          const langMatch = voice.lang.toLowerCase().startsWith(langCode);
+          
+          const isFemale = nameLower.includes('female') || 
+                          nameLower.includes('woman') ||
+                          nameLower.includes('lekha') || // Hindi female
+                          nameLower.includes('samantha') ||
+                          nameLower.includes('victoria') ||
+                          nameLower.includes('kate') ||
+                          nameLower.includes('siri') ||
+                          nameLower.includes('zira');
+          
+          return langMatch && !isFemale;
+        });
+      }
+      
+      // Priority 3: Any voice matching language
+      if (!maleVoice) {
+        maleVoice = voices.find(v => v.lang.toLowerCase().startsWith(langCode));
+      }
       
       if (maleVoice) {
         synthesisRef.current!.voice = maleVoice;
-        console.log('Selected male voice:', maleVoice.name);
+        console.log('✅ Selected voice:', maleVoice.name, '(', maleVoice.lang, ')');
       } else {
-        // Fallback: Use first available voice for the language
-        const fallback = voices.find(v => v.lang.startsWith(langCode));
-        if (fallback) {
-          synthesisRef.current!.voice = fallback;
-          console.log('Fallback voice:', fallback.name);
-        }
+        console.warn('⚠️ No suitable voice found for', lang);
       }
     };
 
-    // Handle voice loading
-    if (window.speechSynthesis.getVoices().length > 0) {
+    // Handle voice loading with proper initialization
+    const voices = window.speechSynthesis.getVoices();
+    if (voices.length > 0) {
       setMaleVoice();
     } else {
-      window.speechSynthesis.onvoiceschanged = setMaleVoice;
+      window.speechSynthesis.onvoiceschanged = () => {
+        setMaleVoice();
+      };
     }
 
     synthesisRef.current.onstart = () => setIsSpeaking(true);
-    synthesisRef.current.onend = () => setIsSpeaking(false);
+    synthesisRef.current.onend = () => {
+      setIsSpeaking(false);
+      // Ensure speech is fully stopped
+      window.speechSynthesis.cancel();
+    };
+    synthesisRef.current.onerror = () => {
+      setIsSpeaking(false);
+      window.speechSynthesis.cancel();
+    };
     
-    window.speechSynthesis.speak(synthesisRef.current);
+    // Small delay to ensure voice is set
+    setTimeout(() => {
+      window.speechSynthesis.speak(synthesisRef.current!);
+    }, 100);
   };
 
   // Get AI response using FREE OpenAI-compatible API
@@ -211,7 +260,16 @@ const MiloAI = () => {
             messages: [
               {
                 role: "system",
-                content: "You are Milo, an expert AI procurement assistant for MaterialMatrix, a construction materials sourcing platform in India. You help with: material pricing (cement, steel, TMT bars, bricks, sand, aggregates), supplier recommendations, RFQ creation, delivery logistics, and market intelligence. Provide concise, helpful responses focused on procurement. Always mention MaterialMatrix capabilities when relevant. Keep responses under 100 words unless asked for details."
+                content: `You are Milo, a highly knowledgeable AI procurement expert for RitzYard, India's leading construction materials platform. You have deep expertise in:
+- Material pricing & market rates (cement, steel, TMT bars, bricks, sand, aggregates, wood, paint, electrical, plumbing)
+- 500+ verified suppliers across 28 states with quality certifications
+- RFQ creation & quote comparison
+- Delivery logistics & real-time tracking
+- Market intelligence & price trends
+- GST compliance & documentation
+- Bulk order discounts & payment terms
+
+Provide intelligent, contextual responses. Be conversational yet professional. Ask clarifying questions when needed. Respond in ${language === 'hi-IN' ? 'Hindi' : 'English'} only. Keep answers concise (60-80 words) unless details requested. Always mention specific RitzYard features when relevant.`
               },
               ...messages.slice(-6).map(m => ({
                 role: m.role === "milo" ? "assistant" : "user",
@@ -268,7 +326,7 @@ const MiloAI = () => {
     if (language === "hi-IN") {
       // Hindi responses
       if (lowerMessage.includes("price") || lowerMessage.includes("cost") || lowerMessage.includes("मूल्य") || lowerMessage.includes("कीमत")) {
-        return "मैं निर्माण सामग्री के लिए रीयल-टाइम मूल्य निर्धारण प्रदान कर सकता हूं। MaterialMatrix 500+ सत्यापित आपूर्तिकर्ताओं से प्रतिस्पर्धी उद्धरण प्रदान करता है। आप किन सामग्रियों के लिए मूल्य निर्धारण की आवश्यकता है? (सीमेंट, स्टील, टीएमटी बार, ईंटें, आदि)";
+        return "मैं निर्माण सामग्री के लिए रीयल-टाइम मूल्य निर्धारण प्रदान कर सकता हूं। RitzYard 500+ सत्यापित आपूर्तिकर्ताओं से प्रतिस्पर्धी उद्धरण प्रदान करता है। आप किन सामग्रियों के लिए मूल्य निर्धारण की आवश्यकता है? (सीमेंट, स्टील, टीएमटी बार, ईंटें, आदि)";
       }
       
       if (lowerMessage.includes("cement") || lowerMessage.includes("सीमेंट")) {
@@ -284,7 +342,7 @@ const MiloAI = () => {
       }
 
       if (lowerMessage.includes("supplier") || lowerMessage.includes("आपूर्तिकर्ता")) {
-        return "MaterialMatrix के पास 28 राज्यों में 500+ सत्यापित आपूर्तिकर्ता हैं। सभी गुणवत्ता जांच से गुजरते हैं, सत्यापित जीएसटी हैं, और 98% समय पर डिलीवरी बनाए रखते हैं। आप क्या सामग्री खरीद रहे हैं?";
+        return "RitzYard के पास 28 राज्यों में 500+ सत्यापित आपूर्तिकर्ता हैं। सभी गुणवत्ता जांच से गुजरते हैं, सत्यापित जीएसटी हैं, और 98% समय पर डिलीवरी बनाए रखते हैं। आप क्या सामग्री खरीद रहे हैं?";
       }
 
       if (lowerMessage.includes("rfq") || lowerMessage.includes("quotation") || lowerMessage.includes("अनुरोध")) {
@@ -292,7 +350,7 @@ const MiloAI = () => {
       }
 
       if (lowerMessage.includes("delivery") || lowerMessage.includes("shipping") || lowerMessage.includes("डिलीवरी")) {
-        return "MaterialMatrix पूरे भारत में डिलीवरी प्रदान करता है रीयल-टाइम ट्रैकिंग के साथ। मानक डिलीवरी: 3-7 दिन, एक्सप्रेस: 24-48 घंटे (मेट्रो शहर)। ₹50,000 से ऊपर के ऑर्डर पर मुफ्त डिलीवरी। बीमा और गुणवत्ता जांच शामिल। हमें कहां डिलीवर करना चाहिए?";
+        return "RitzYard पूरे भारत में डिलीवरी प्रदान करता है रीयल-टाइम ट्रैकिंग के साथ। मानक डिलीवरी: 3-7 दिन, एक्सप्रेस: 24-48 घंटे (मेट्रो शहर)। ₹50,000 से ऊपर के ऑर्डर पर मुफ्त डिलीवरी। बीमा और गुणवत्ता जांच शामिल। हमें कहां डिलीवर करना चाहिए?";
       }
 
       if (lowerMessage.includes("hello") || lowerMessage.includes("hi") || lowerMessage.includes("नमस्ते")) {
@@ -307,11 +365,11 @@ const MiloAI = () => {
         return "मैं बिल्कुल ठीक हूं और आपकी सहायता के लिए तैयार हूं! मेरा एआई निर्माण सामग्री और बाजार प्रवृत्तियों के बारे में लगातार सीख रहा है। मैं आपकी खरीद आवश्यकताओं में क्या मदद कर सकता हूं?";
       }
 
-      return `यह एक दिलचस्प सवाल है। MaterialMatrix के एआई सहायक के रूप में, मैं निर्माण सामग्री खरीद में विशेषज्ञता रखता हूं। मैं आपको मूल्य निर्धारण, आपूर्तिकर्ता, RFQ, डिलीवरी लॉजिस्टिक्स, और बाजार बुद्धिमत्ता में सीमेंट, स्टील, टीएमटी बार, ईंटें, रेत, आदि के लिए मदद कर सकता हूं। क्या आप अपकी विशिष्ट आवश्यकताओं के बारे में और बता सकते हैं?`;
+      return `यह एक दिलचस्प सवाल है। RitzYard के एआई सहायक के रूप में, मैं निर्माण सामग्री खरीद में विशेषज्ञता रखता हूं। मैं आपको मूल्य निर्धारण, आपूर्तिकर्ता, RFQ, डिलीवरी लॉजिस्टिक्स, और बाजार बुद्धिमत्ता में सीमेंट, स्टील, टीएमटी बार, ईंटें, रेत, आदि के लिए मदद कर सकता हूं। क्या आप अपकी विशिष्ट आवश्यकताओं के बारे में और बता सकते हैं?`;
     } else {
       // English responses (existing fallback)
       if (lowerMessage.includes("price") || lowerMessage.includes("cost") || lowerMessage.includes("quote")) {
-        return "I can provide real-time pricing for construction materials. MaterialMatrix offers competitive quotes from 500+ verified suppliers. Which materials do you need pricing for? (Cement, Steel, TMT Bars, Bricks, etc.)";
+        return "I can provide real-time pricing for construction materials. RitzYard offers competitive quotes from 500+ verified suppliers. Which materials do you need pricing for? (Cement, Steel, TMT Bars, Bricks, etc.)";
       }
       
       if (lowerMessage.includes("cement")) {
@@ -327,7 +385,7 @@ const MiloAI = () => {
       }
 
       if (lowerMessage.includes("supplier") || lowerMessage.includes("vendor")) {
-        return "MaterialMatrix has 500+ verified suppliers across 28 states. All undergo quality checks, have verified GST, and maintain 98% on-time delivery. I can match you with suppliers based on location, material type, and quantity. What are you sourcing?";
+        return "RitzYard has 500+ verified suppliers across 28 states. All undergo quality checks, have verified GST, and maintain 98% on-time delivery. I can match you with suppliers based on location, material type, and quantity. What are you sourcing?";
       }
 
       if (lowerMessage.includes("rfq") || lowerMessage.includes("request") || lowerMessage.includes("quotation")) {
@@ -335,7 +393,7 @@ const MiloAI = () => {
       }
 
       if (lowerMessage.includes("delivery") || lowerMessage.includes("shipping")) {
-        return "MaterialMatrix offers pan-India delivery with real-time tracking. Standard delivery: 3-7 days, Express: 24-48 hours (metro cities). Free delivery on orders above ₹50,000. Insurance and quality checks included. Where should we deliver?";
+        return "RitzYard offers pan-India delivery with real-time tracking. Standard delivery: 3-7 days, Express: 24-48 hours (metro cities). Free delivery on orders above ₹50,000. Insurance and quality checks included. Where should we deliver?";
       }
 
       if (lowerMessage.includes("hello") || lowerMessage.includes("hi") || lowerMessage.includes("hey")) {
@@ -351,7 +409,7 @@ const MiloAI = () => {
       }
 
       // Generic intelligent response
-      return `That's an interesting question about "${userMessage}". As MaterialMatrix's AI assistant, I specialize in construction material procurement. I can help you with pricing, suppliers, RFQs, delivery logistics, and market intelligence for materials like cement, steel, TMT bars, bricks, sand, and more. Could you tell me more about your specific requirements?`;
+      return `That's an interesting question about "${userMessage}". As RitzYard's AI assistant, I specialize in construction material procurement. I can help you with pricing, suppliers, RFQs, delivery logistics, and market intelligence for materials like cement, steel, TMT bars, bricks, sand, and more. Could you tell me more about your specific requirements?`;
     }
   };
 
@@ -452,7 +510,7 @@ const MiloAI = () => {
                   </div>
                   <div>
                     <h3 className="text-white font-bold text-lg md:text-xl">{language === "en-IN" ? "Milo AI Assistant" : "मिलो एआई सहायक"}</h3>
-                    <p className="text-white/80 text-xs md:text-sm">{language === "en-IN" ? "MaterialMatrix Procurement Expert" : "मटेरियलमैट्रिक्स खरीद विशेषज्ञ"}</p>
+                    <p className="text-white/80 text-xs md:text-sm">{language === "en-IN" ? "RitzYard Procurement Expert" : "RitzYard खरीद विशेषज्ञ"}</p>
                   </div>
                 </div>
                 

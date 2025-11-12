@@ -117,10 +117,10 @@ const Index = () => {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "MaterialMatrix",
+    "name": "RitzYard",
     "description": "AI-powered construction material procurement platform",
-    "url": "https://materialmatrix.ai",
-    "logo": "https://materialmatrix.ai/logo.png",
+    "url": "https://ritzyard.ai",
+    "logo": "https://ritzyard.ai/logo.png",
     "contactPoint": {
       "@type": "ContactPoint",
       "telephone": "+91-91362-42706",
@@ -136,16 +136,16 @@ const Index = () => {
       "addressCountry": "IN"
     },
     "sameAs": [
-      "https://linkedin.com/company/materialmatrix",
-      "https://twitter.com/materialmatrix"
+      "https://linkedin.com/company/ritzyard",
+      "https://twitter.com/ritzyard"
     ]
   };
 
   return (
     <>
       <SEOHead
-        title="MaterialMatrix - AI-Powered Construction Material Procurement Platform | Smart Sourcing Solutions"
-        description="Transform your construction material procurement with MaterialMatrix. Get instant quotes from 500+ verified suppliers, AI-powered price intelligence, and real-time tracking across India. Save 15% on costs with smart sourcing."
+        title="RitzYard - AI-Powered Construction Material Procurement Platform | Smart Sourcing Solutions"
+        description="Transform your construction material procurement with RitzYard. Get instant quotes from 500+ verified suppliers, AI-powered price intelligence, and real-time tracking across India. Save 15% on costs with smart sourcing."
         keywords="construction materials, AI procurement, TMT steel, cement, building materials, supplier network, price intelligence, construction sourcing, material procurement platform, verified suppliers India"
         structuredData={structuredData}
       />

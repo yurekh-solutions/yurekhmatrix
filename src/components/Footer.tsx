@@ -31,9 +31,9 @@ const Footer = () => {
           <div className="space-y-4">
             <Link to="/" className="flex items-center space-x-2">
               <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center font-bold text-white text-lg">
-                MM
+                RY
               </div>
-              <span className="text-xl font-bold">Ritzyard</span>
+              <span className="text-xl font-bold">RitzYard</span>
             </Link>
             <p className="text-white/80 text-sm leading-relaxed">
               Your trusted construction procurement platform. Connecting buyers with verified suppliers across India.
@@ -112,7 +112,7 @@ const Footer = () => {
 
         <div className="mt-12 pt-8 border-t border-white/20 text-center  text-[#fefefe] text-sm">
         <p>
-  © {new Date().getFullYear()} <span className="font-semibold">Ritzyard.</span> All rights reserved. Powered by{" "}
+  © {new Date().getFullYear()} <span className="font-semibold">RitzYard.</span> All rights reserved. Powered by{" "}
   <a
     href="https://yurekh.com"
     target="_blank"

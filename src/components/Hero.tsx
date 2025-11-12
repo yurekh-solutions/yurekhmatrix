@@ -29,7 +29,7 @@ export const Hero = () => {
           </h1>
 
           <p className="text-lg md:text-xl text-ivory/90 max-w-2xl mx-auto">
-            Connect with verified suppliers and get instant quotes for cement, steel, bricks, and more. Build better with Ritzyard.
+            Connect with verified suppliers and get instant quotes for cement, steel, bricks, and more. Build better with RitzYard.
           </p>
 
           {/* Search Bar */}

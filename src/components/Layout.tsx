@@ -49,9 +49,9 @@ export const Layout = ({ children }: LayoutProps) => {
         <div className="container flex h-16 items-center justify-between">
           <Link to="/" className="flex items-center space-x-2">
             <div className="w-10 h-10 rounded-lg gradient-primary flex items-center justify-center">
-              <span className="text-white font-bold text-lg">MM</span>
+              <span className="text-white font-bold text-lg">RY</span>
             </div>
-            <span className="font-bold text-xl text-gradient">Ritzyard</span>
+            <span className="font-bold text-xl text-gradient">RitzYard</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -149,9 +149,9 @@ export const Layout = ({ children }: LayoutProps) => {
             <div className="space-y-4">
               <div className="flex items-center space-x-2">
                 <div className="w-10 h-10 rounded-lg gradient-primary flex items-center justify-center">
-                  <span className="text-white font-bold text-lg">MM</span>
+                  <span className="text-white font-bold text-lg">RY</span>
                 </div>
-                <span className="font-bold text-xl text-gradient">Ritzyard</span>
+                <span className="font-bold text-xl text-gradient">RitzYard</span>
               </div>
               <p className="text-sm text-muted-foreground">
                 Your trusted construction procurement platform
@@ -206,7 +206,7 @@ export const Layout = ({ children }: LayoutProps) => {
           </div>
 
           <div className="mt-8 pt-8 border-t border-border/40 text-center text-sm text-muted-foreground">
-            <p>&copy; {new Date().getFullYear()} Ritzyard. All rights reserved.</p>
+            <p>&copy; {new Date().getFullYear()} RitzYard. All rights reserved.</p>
           </div>
         </div>
       </footer>

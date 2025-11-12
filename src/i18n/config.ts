@@ -5,7 +5,7 @@ import { initReactI18next } from 'react-i18next';
 const en = {
   // First Visit Modal
   firstVisit: {
-    title: "Welcome to Ritzyard",
+    title: "Welcome to RitzYard",
     subtitle: "Choose Your Preferred Language",
     description: "Select your language to get started. You can change it anytime from the navigation bar.",
     continue: "Continue",
@@ -43,7 +43,7 @@ const en = {
 const hi = {
   // First Visit Modal
   firstVisit: {
-    title: "Ritzyard में आपका स्वागत है",
+    title: "RitzYard में आपका स्वागत है",
     subtitle: "अपनी पसंदीदा भाषा चुनें",
     description: "शुरू करने के लिए अपनी भाषा चुनें। आप इसे नेविगेशन बार से कभी भी बदल सकते हैं।",
     continue: "जारी रखें",
