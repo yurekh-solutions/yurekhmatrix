@@ -179,7 +179,7 @@ const Careers = () => {
             Build the Future of <span className="text-gradient bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Construction Tech</span>
           </h1>
           <p className="text-base sm:text-lg text-muted-foreground max-w-3xl mx-auto mb-8 sm:mb-12">
-            Join MaterialMatrix and help revolutionize construction procurement with AI. Work with passionate people solving real-world problems and making a meaningful impact.
+            Join RitzYard and help revolutionize construction procurement with AI. Work with passionate people solving real-world problems and making a meaningful impact.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -279,7 +279,7 @@ const Careers = () => {
                   
                   <div className="flex-shrink-0">
                     <a 
-                      href={`mailto:support@materialmatrix.ai?subject=Application for ${job.title} - ${job.location}&body=Dear MaterialMatrix Team,%0D%0A%0D%0AI am interested in applying for the ${job.title} position in ${job.department} at your ${job.location} office.%0D%0A%0D%0APlease find my resume attached. I look forward to discussing how my ${job.experience} of experience can contribute to MaterialMatrix.%0D%0A%0D%0ABest regards,%0D%0A[Your Name]%0D%0A[Your Phone Number]%0D%0A[Your Current Location]`}
+                      href={`mailto:support@ritzyard.ai?subject=Application for ${job.title} - ${job.location}&body=Dear RitzYard Team,%0D%0A%0D%0AI am interested in applying for the ${job.title} position in ${job.department} at your ${job.location} office.%0D%0A%0D%0APlease find my resume attached. I look forward to discussing how my ${job.experience} of experience can contribute to RitzYard.%0D%0A%0D%0ABest regards,%0D%0A[Your Name]%0D%0A[Your Phone Number]%0D%0A[Your Current Location]`}
                     >
                       <Button className="bg-gradient-to-r from-primary to-secondary text-primary-foreground">
                         Apply Now
@@ -355,10 +355,10 @@ const Careers = () => {
           <Card className="p-8 sm:p-12 text-center border border-primary/10 shadow-lg bg-gradient-to-br from-primary/5 to-secondary/5">
             <h2 className="text-3xl sm:text-4xl font-bold mb-4">Don't See the Right Role?</h2>
             <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-              We're always looking for talented individuals to join our team. Send us your resume and let us know how you'd like to contribute to MaterialMatrix.
+              We're always looking for talented individuals to join our team. Send us your resume and let us know how you'd like to contribute to RitzYard.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href="mailto:careers@materialmatrix.ai">
+              <a href="mailto:careers@ritzyard.ai">
                 <Button className="bg-gradient-to-r from-primary to-secondary text-primary-foreground px-8 py-3 text-lg">
                   <Mail className="mr-2 w-5 h-5" />
                   Send Your Resume

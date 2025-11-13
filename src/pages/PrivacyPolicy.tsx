@@ -153,10 +153,10 @@ const PrivacyPolicy = () => {
               If you have any questions about this Privacy Policy or our data practices, please contact us:
             </p>
             <div className="bg-muted p-4 sm:p-6 rounded-lg">
-              <p className="mb-2"><strong>Email:</strong> privacy@materialmatrix.ai</p>
+              <p className="mb-2"><strong>Email:</strong> privacy@ritzyard.ai</p>
               <p className="mb-2"><strong>Phone:</strong> +91 91362 42706</p>
               <p className="mb-2"><strong>Address:</strong> 01 RR DM Road Vakola Bridge, Santacurz Mumbai 400055, INDIA</p>
-              <p><strong>Data Protection Officer:</strong> dpo@materialmatrix.ai</p>
+              <p><strong>Data Protection Officer:</strong> dpo@ritzyard.ai</p>
             </div>
           </div>
         </Card>

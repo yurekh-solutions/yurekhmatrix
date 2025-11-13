@@ -16,7 +16,7 @@ const Navbar = () => {
             <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-gradient-primary flex items-center justify-center shadow-lg group-hover:shadow-xl transition-shadow">
               <Package className="w-5 h-5 md:w-6 md:h-6 text-white" />
             </div>
-            <span className="text-lg md:text-xl font-bold text-gradient">MaterialMatrix</span>
+            <span className="text-lg md:text-xl font-bold text-gradient">RitzYard</span>
           </Link>
 
           {/* Desktop Navigation */}

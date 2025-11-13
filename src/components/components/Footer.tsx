@@ -24,7 +24,7 @@ const Footer = () => {
               <div className="flex items-center gap-2">
                 <Mail className="w-4 h-4" />
                 <a href="mailto:construction@ritzyard.ai" className="hover:text-primary transition-colors">
-                  construction@materialmatrix.ai
+                  construction@ritzyard.ai
                 </a>
               </div>
               <div className="flex items-start gap-2">
@@ -69,7 +69,7 @@ const Footer = () => {
         </div>
 
         <div className="mt-8 pt-8 border-t border-border text-center text-sm text-muted-foreground">
-          <p>© 2025 MaterialMatrix. All rights reserved.</p>
+          <p>© 2025 RitzYard. All rights reserved.</p>
         </div>
       </div>
     </footer>

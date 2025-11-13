@@ -31,7 +31,7 @@ const Footer = () => {
           <div className="space-y-4">
             <Link to="/" className="flex items-center space-x-2">
               <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center font-bold text-white text-lg">
-                RY
+                MM
               </div>
               <span className="text-xl font-bold">RitzYard</span>
             </Link>

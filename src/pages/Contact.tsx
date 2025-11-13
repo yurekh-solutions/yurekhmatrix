@@ -100,10 +100,10 @@ const Contact = () => {
     {
       icon: Mail,
       title: "Email Support", 
-      value: "support@materialmatrix.ai",
+      value: "support@ritzyard.ai",
       description: "Detailed inquiries and documentation",
       available: "Response within 1 hour",
-      action: "support@materialmatrix.ai"
+      action: "support@ritzyard.ai"
     },
     {
       icon: MapPin,
@@ -157,7 +157,7 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      let whatsappMessage = `*${type} Enquiry - MaterialMatrix*\n\n`;
+      let whatsappMessage = `*${type} Enquiry - RitzYard*\n\n`;
       whatsappMessage += `*Contact Details:*\n`;
       whatsappMessage += `Name: ${formData.firstName} ${formData.lastName}\n`;
       whatsappMessage += `Email: ${formData.email}\n`;
@@ -177,9 +177,9 @@ const Contact = () => {
       const encodedWhatsAppMessage = encodeURIComponent(whatsappMessage);
       const whatsappUrl = `https://wa.me/919136242706?text=${encodedWhatsAppMessage}`;
       
-      const emailSubject = encodeURIComponent(`${type} Enquiry from ${formData.firstName} ${formData.lastName} - MaterialMatrix`);
+      const emailSubject = encodeURIComponent(`${type} Enquiry from ${formData.firstName} ${formData.lastName} - RitzYard`);
       
-      let emailBody = `${type} Enquiry - MaterialMatrix Contact Form\n\n`;
+      let emailBody = `${type} Enquiry - RitzYard Contact Form\n\n`;
       emailBody += `Contact Details:\n`;
       emailBody += `Name: ${formData.firstName} ${formData.lastName}\n`;
       emailBody += `Email: ${formData.email}\n`;
@@ -197,7 +197,7 @@ const Contact = () => {
       emailBody += `Submitted: ${new Date().toLocaleString()}`;
       
       const encodedEmailBody = encodeURIComponent(emailBody);
-      const emailUrl = `mailto:support@materialmatrix.ai?subject=${emailSubject}&body=${encodedEmailBody}`;
+      const emailUrl = `mailto:support@ritzyard.ai?subject=${emailSubject}&body=${encodedEmailBody}`;
       
       window.open(whatsappUrl, '_blank');
       setTimeout(() => {
@@ -236,7 +236,7 @@ const Contact = () => {
         <h3 className="text-xl md:text-2xl font-semibold text-foreground mb-2">{type}</h3>
         <p className="text-muted-foreground text-sm md:text-base leading-relaxed">
           {type === "General Enquiry" && "Have a question? We're here to help with any general inquiries about our platform and services."}
-          {type === "Become a Supplier" && "Join our network of trusted suppliers and grow your business with MaterialMatrix."}
+          {type === "Become a Supplier" && "Join our network of trusted suppliers and grow your business with RitzYard."}
           {type === "Partnership" && "Explore partnership opportunities and collaborate with us to revolutionize construction material procurement."}
           {type === "Investor Relations" && "Learn about investment opportunities and our company's growth trajectory."}
         </p>
@@ -417,8 +417,8 @@ const Contact = () => {
     <>
     <Navbar />
       <SEOHead
-        title="Contact Us | MaterialMatrix"
-        description="Get in touch with MaterialMatrix. We're here to help with your construction material procurement needs."
+        title="Contact Us | RitzYard"
+        description="Get in touch with RitzYard. We're here to help with your construction material procurement needs."
       />
 {/* bg-[#f3f0ec] */}
       <div className="min-h-screen bg-[#f3f0ec]">
@@ -597,7 +597,7 @@ const Contact = () => {
                             Email Support
                           </p>
                           <p className="text-xs md:text-sm text-muted-foreground break-words">
-                            support@materialmatrix.ai
+                            support@ritzyard.ai
                           </p>
                           <Badge variant="outline" className="mt-2 text-xs bg-primary/10 text-primary border-primary/30">
                             Response within 1 hour

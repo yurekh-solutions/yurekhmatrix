@@ -318,7 +318,7 @@ const About = () => {
           {/* Badge */}
           <Badge className="mt-12 sm:mt-16 mb-4 sm:mb-6 flex items-center w-fit space-x-2 border-2 border-primary/30 bg-primary/10 text-primary text-xs sm:text-sm rounded-full px-4 sm:px-5 pr-2 py-2  transition-all duration-300 group">
             <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 text-primary animate-pulse" />
-            <span className="font-medium">About MaterialMatrix</span>
+            <span className="font-medium">About RitzYard</span>
              
           </Badge>
 
@@ -332,7 +332,7 @@ const About = () => {
 
           {/* Description */}
           <p className="mt-4 sm:mt-6 text-center text-muted-foreground max-w-2xl text-sm sm:text-base lg:text-lg leading-relaxed px-4 pt-5">
-            MaterialMatrix is an AI-powered platform connecting builders with verified suppliers across India, 
+            RitzYard is an AI-powered platform connecting builders with verified suppliers across India, 
             transforming how construction materials are sourced with intelligent matching, real-time pricing, 
             and automated procurement workflows.
           </p>
@@ -415,7 +415,7 @@ const About = () => {
           About NaayaConstruction
         </h2> */}
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-[#c15738] to-[#5c2d23] bg-clip-text text-transparent">
-              About <span className="text-gradient bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">MaterialMatrix</span>
+              About <span className="text-gradient bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">RitzYard</span>
             </h2>
 
         <p className="text-base lg:text-lg text-muted-foreground leading-relaxed">
@@ -444,7 +444,7 @@ const About = () => {
             onClick={() => {
               const link = document.createElement("a");
               link.href = "#";
-              link.download = "MaterialMatrix-Brochure.pdf";
+              link.download = "RitzYard-Brochure.pdf";
               link.click();
             }}
           >
@@ -588,7 +588,7 @@ const About = () => {
               <div className="relative overflow-hidden rounded-xl shadow-lg">
                 <img
                   src={officeBuilding}
-                  alt="MaterialMatrix modern office building"
+                  alt="RitzYard modern office building"
                   className="w-full h-32 sm:h-40 md:h-48 object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />

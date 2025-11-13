@@ -49,7 +49,7 @@ export const Layout = ({ children }: LayoutProps) => {
         <div className="container flex h-16 items-center justify-between">
           <Link to="/" className="flex items-center space-x-2">
             <div className="w-10 h-10 rounded-lg gradient-primary flex items-center justify-center">
-              <span className="text-white font-bold text-lg">RY</span>
+              <span className="text-white font-bold text-lg">MM</span>
             </div>
             <span className="font-bold text-xl text-gradient">RitzYard</span>
           </Link>
@@ -149,7 +149,7 @@ export const Layout = ({ children }: LayoutProps) => {
             <div className="space-y-4">
               <div className="flex items-center space-x-2">
                 <div className="w-10 h-10 rounded-lg gradient-primary flex items-center justify-center">
-                  <span className="text-white font-bold text-lg">RY</span>
+                  <span className="text-white font-bold text-lg">MM</span>
                 </div>
                 <span className="font-bold text-xl text-gradient">RitzYard</span>
               </div>

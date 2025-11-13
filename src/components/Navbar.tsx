@@ -17,7 +17,7 @@
 //               MM
 //             </div>
 //             <span className="text-xl md:text-2xl font-bold text-gradient">
-//               Ritzyard
+//               RitzYard
 //             </span>
 //           </Link>
 

@@ -15,12 +15,12 @@ const FAQs = () => {
       category: "Getting Started",
       faqs: [
         {
-          question: "How do I create an account on MaterialMatrix?",
+          question: "How do I create an account on RitzYard?",
           answer: "To create an account, click the 'Sign Up' button on our homepage, fill in your business details, verify your email address, and complete the onboarding process. Our team will review your application within 24 hours."
         },
         {
           question: "What types of construction materials can I find on the platform?",
-          answer: "MaterialMatrix offers a comprehensive range of construction materials including steel products (TMT bars, structural steel, pipes), cement, aggregates, electrical materials, plumbing supplies, and specialized construction equipment."
+          answer: "RitzYard offers a comprehensive range of construction materials including steel products (TMT bars, structural steel, pipes), cement, aggregates, electrical materials, plumbing supplies, and specialized construction equipment."
         },
         {
           question: "Is there a minimum order quantity?",
@@ -53,7 +53,7 @@ const FAQs = () => {
           answer: "All suppliers undergo a rigorous verification process including business license validation, quality certifications review, financial background checks, and on-site audits for premium suppliers."
         },
         {
-          question: "Can I become a supplier on MaterialMatrix?",
+          question: "Can I become a supplier on RitzYard?",
           answer: "Yes! We welcome qualified suppliers to join our network. Apply through our 'Become a Supplier' page, complete the verification process, and start connecting with buyers across India."
         },
         {
@@ -92,7 +92,7 @@ const FAQs = () => {
         },
         {
           question: "How can I contact customer support?",
-          answer: "Our support team is available 24/7 through live chat, phone (+91 91362 42706), email (support@materialmatrix.ai), or through the help center on our platform."
+          answer: "Our support team is available 24/7 through live chat, phone (+91 91362 42706), email (support@ritzyard.ai), or through the help center on our platform."
         }
       ]
     }
@@ -133,7 +133,7 @@ const FAQs = () => {
             Frequently Asked <span className="text-gradient">Questions</span>
           </h1>
           <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto mb-6 sm:mb-8">
-            Find quick answers to common questions about MaterialMatrix platform and services
+            Find quick answers to common questions about RitzYard platform and services
           </p>
 
           {/* Search Bar */}

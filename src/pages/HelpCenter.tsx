@@ -14,7 +14,7 @@ const HelpCenter = () => {
     {
       icon: Book,
       title: "Getting Started",
-      description: "Learn the basics of using MaterialMatrix platform",
+      description: "Learn the basics of using RitzYard platform",
       articles: 12,
       color: "bg-gradient-to-br from-primary to-secondary"
     },
@@ -68,7 +68,7 @@ const HelpCenter = () => {
     {
       icon: Mail,
       title: "Email Support",
-      description: "support@materialmatrix.ai",
+      description: "support@ritzyard.ai",
       availability: "Response within 1 hour",
       action: "Send Email"
     }

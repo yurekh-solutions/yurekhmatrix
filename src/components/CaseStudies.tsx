@@ -19,8 +19,7 @@ const CaseStudies = () => {
         { metric: "Quality Score", value: "98.5%", percentage: "+15%" }
       ],
       materials: ["Structural Steel", "TMT Bars", "Cement", "Glass Facades"],
-      testimonial: "
-RitzYard reduced our procurement time by 45 days and saved us ₹2.8 crores through competitive pricing.",
+      testimonial: "RitzYard reduced our procurement time by 45 days and saved us ₹2.8 crores through competitive pricing.",
       clientName: "Rajesh Menon",
       clientRole: "Project Director"
     },

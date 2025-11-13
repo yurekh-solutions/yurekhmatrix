@@ -25,12 +25,12 @@ const TermsOfService = () => {
           <div className="prose prose-sm sm:prose-base lg:prose-lg max-w-none">
             <h2 className="text-xl sm:text-2xl font-bold mb-4">1. Acceptance of Terms</h2>
             <p className="mb-6">
-              By accessing and using MaterialMatrix ("the Platform"), you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by the above, please do not use this service.
+              By accessing and using RitzYard ("the Platform"), you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by the above, please do not use this service.
             </p>
 
             <h2 className="text-xl sm:text-2xl font-bold mb-4">2. Description of Service</h2>
             <p className="mb-4">
-              MaterialMatrix is a digital platform that connects construction companies with material suppliers, providing:
+              RitzYard is a digital platform that connects construction companies with material suppliers, providing:
             </p>
             <ul className="list-disc pl-6 mb-6 space-y-2">
               <li>AI-powered material procurement solutions</li>
@@ -94,7 +94,7 @@ const TermsOfService = () => {
 
             <h2 className="text-xl sm:text-2xl font-bold mb-4">7. Intellectual Property</h2>
             <p className="mb-6">
-              The Platform and its original content, features, and functionality are owned by MaterialMatrix and are protected by international copyright, trademark, patent, trade secret, and other intellectual property laws.
+              The Platform and its original content, features, and functionality are owned by RitzYard and are protected by international copyright, trademark, patent, trade secret, and other intellectual property laws.
             </p>
 
             <h2 className="text-xl sm:text-2xl font-bold mb-4">8. Privacy Policy</h2>
@@ -109,7 +109,7 @@ const TermsOfService = () => {
 
             <h2 className="text-xl sm:text-2xl font-bold mb-4">10. Limitation of Liability</h2>
             <p className="mb-6">
-              MaterialMatrix shall not be liable for any indirect, incidental, special, consequential, or punitive damages resulting from your use of the Platform.
+              RitzYard shall not be liable for any indirect, incidental, special, consequential, or punitive damages resulting from your use of the Platform.
             </p>
 
             <h2 className="text-xl sm:text-2xl font-bold mb-4">11. Termination</h2>
@@ -132,7 +132,7 @@ const TermsOfService = () => {
               If you have any questions about these Terms of Service, please contact us:
             </p>
             <div className="bg-muted p-4 sm:p-6 rounded-lg">
-              <p className="mb-2"><strong>Email:</strong> support@materialmatrix.ai</p>
+              <p className="mb-2"><strong>Email:</strong> support@ritzyard.ai</p>
               <p className="mb-2"><strong>Phone:</strong> +91 91362 42706</p>
               <p><strong>Address:</strong> 01 RR DM Road Vakola Bridge, Santacurz Mumbai 400055, INDIA</p>
             </div>

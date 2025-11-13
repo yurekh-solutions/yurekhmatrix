@@ -124,7 +124,7 @@ _Please provide quotation at your earliest convenience._`;
   return (
     <>
       <SEOHead
-        title="Material Inquiry - Get Instant Quotes | MaterialMatrix"
+        title="Material Inquiry - Get Instant Quotes | RitzYard"
         description="Submit your construction material inquiry for TMT Bars, MS Hollow Sections, Plywood, Tiles, Sand, Grit, and Bricks. Get instant quotes from verified suppliers."
         keywords="material inquiry, construction materials, TMT bars, MS hollow sections, plywood, tiles, sand, grit, brick, quotation request"
       />
