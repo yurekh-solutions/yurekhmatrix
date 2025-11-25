@@ -24,7 +24,7 @@ export interface RFQSubmission {
 export const submitRFQ = async (rfqData: RFQSubmission): Promise<{ success: boolean; message: string }> => {
   try {
     console.log('🚀 Submitting RFQ:', rfqData);
-    const response = await fetch(`${API_BASE_URL}/rfqs/create`, {
+    const response = await fetch(`${API_BASE_URL}/rfqs`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -32,12 +32,13 @@ export const submitRFQ = async (rfqData: RFQSubmission): Promise<{ success: bool
       body: JSON.stringify(rfqData),
     });
 
+    const data = await response.json();
+    
     if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || `Failed to submit RFQ: ${response.status}`);
+      console.error('❌ Backend error:', data);
+      throw new Error(data.message || `Failed to submit RFQ: ${response.status}`);
     }
 
-    const data = await response.json();
     console.log('✅ RFQ submitted:', data);
 
     return {

@@ -14,6 +14,13 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import {
   ArrowLeft,
   ShoppingCart,
   Sparkles,
@@ -21,7 +28,8 @@ import {
   Package,
   Award,
   Truck,
-  Eye
+  Eye,
+  Send
 } from "lucide-react";
 import { products, categories } from "@/data/products";
 import { toast } from "sonner";
@@ -38,6 +46,13 @@ const ProductDetail = () => {
   const [selectedGrade, setSelectedGrade] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const [showRFQModal, setShowRFQModal] = useState(false);
+  const [rfqData, setRfqData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    company: "",
+  });
 
   if (!product) {
     return (
@@ -124,6 +139,47 @@ const ProductDetail = () => {
   const relatedProducts = products
     .filter((p) => p.category === product.category && p.id !== product.id)
     .slice(0, 4);
+
+  const handleQuickRFQ = async () => {
+    if (!rfqData.name || !rfqData.email || !rfqData.phone) {
+      toast.error("Please fill all required fields");
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:5000/api/rfqs", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          customerName: rfqData.name,
+          email: rfqData.email,
+          phone: rfqData.phone,
+          company: rfqData.company,
+          items: [{
+            productId: product.id,
+            productName: product.name,
+            category: product.category,
+            brand: selectedBrand || "Any",
+            grade: selectedGrade || "Standard",
+            quantity: quantity,
+          }],
+          totalItems: 1,
+          location: "",
+        }),
+      });
+
+      if (response.ok) {
+        toast.success("✅ RFQ submitted! You'll receive updates via WhatsApp");
+        setShowRFQModal(false);
+        setRfqData({ name: "", email: "", phone: "", company: "" });
+      } else {
+        toast.error("Failed to submit RFQ");
+      }
+    } catch (error) {
+      console.error("RFQ submission error:", error);
+      toast.error("Error submitting RFQ");
+    }
+  };
 
   const handleSubmit = () => {
     if (!selectedBrand || !selectedGrade || quantity < 1) {
@@ -354,14 +410,25 @@ const ProductDetail = () => {
           </p>
         </div>
 
-        <Button
-          onClick={handleSubmit}
-          className="w-full bg-gradient-to-br from-primary to-secondary text-primary-foreground hover:opacity-90 h-11 sm:h-12 text-sm sm:text-base font-semibold"
-          disabled={!selectedBrand || !selectedGrade || quantity < 1}
-        >
-          <ShoppingCart className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
-          Add to Cart
-        </Button>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <Button
+            onClick={handleSubmit}
+            className="bg-gradient-to-br from-primary to-secondary text-primary-foreground hover:opacity-90 h-11 sm:h-12 text-sm sm:text-base font-semibold"
+            disabled={!selectedBrand || !selectedGrade || quantity < 1}
+          >
+            <ShoppingCart className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
+            Add to Cart
+          </Button>
+          <Button
+            onClick={() => setShowRFQModal(true)}
+            variant="outline"
+            className="h-11 sm:h-12 text-sm sm:text-base font-semibold"
+            disabled={!selectedBrand || !selectedGrade || quantity < 1}
+          >
+            <Send className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
+            Quick RFQ
+          </Button>
+        </div>
         <p className="text-xs text-center text-muted-foreground">
           Get instant quotes from verified suppliers worldwide
         </p>
@@ -370,6 +437,70 @@ const ProductDetail = () => {
   </div>
 </div>
 
+          {/* Quick RFQ Modal */}
+          <Dialog open={showRFQModal} onOpenChange={setShowRFQModal}>
+            <DialogContent className="sm:max-w-md">
+              <DialogHeader>
+                <DialogTitle>Quick RFQ</DialogTitle>
+                <DialogDescription>
+                  Submit your request for {product.name}
+                </DialogDescription>
+              </DialogHeader>
+              <div className="space-y-4">
+                <div>
+                  <Label htmlFor="name">Full Name *</Label>
+                  <Input
+                    id="name"
+                    placeholder="Your name"
+                    value={rfqData.name}
+                    onChange={(e) => setRfqData({ ...rfqData, name: e.target.value })}
+                    className="mt-2 glass-morphism"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="email">Email *</Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="your@email.com"
+                    value={rfqData.email}
+                    onChange={(e) => setRfqData({ ...rfqData, email: e.target.value })}
+                    className="mt-2 glass-morphism"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="phone">Phone *</Label>
+                  <Input
+                    id="phone"
+                    placeholder="+91 9876543210"
+                    value={rfqData.phone}
+                    onChange={(e) => setRfqData({ ...rfqData, phone: e.target.value })}
+                    className="mt-2 glass-morphism"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="company">Company Name</Label>
+                  <Input
+                    id="company"
+                    placeholder="Your company"
+                    value={rfqData.company}
+                    onChange={(e) => setRfqData({ ...rfqData, company: e.target.value })}
+                    className="mt-2 glass-morphism"
+                  />
+                </div>
+                <Button
+                  onClick={handleQuickRFQ}
+                  className="w-full bg-gradient-to-br from-primary to-secondary text-primary-foreground hover:opacity-90"
+                >
+                  <Send className="w-4 h-4 mr-2" />
+                  Submit RFQ
+                </Button>
+                <p className="text-xs text-center text-muted-foreground mt-3">
+                  📢 You'll receive quote updates via WhatsApp
+                </p>
+              </div>
+            </DialogContent>
+          </Dialog>
 
           {/* Related Products */}
           {relatedProducts.length > 0 && (
