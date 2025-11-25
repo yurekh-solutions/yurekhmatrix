@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -7,19 +7,64 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Search, Eye, Plus, ArrowDown, Package, Shield, Zap, Award } from "lucide-react";
-import { products, categories } from "@/data/products";
+import { categories } from "@/data/products";
 import heroImage from "@/assets/hero-construction.jpg";
 import ScrollToTop from "@/components/ScrollToTop";
 import ProductNotFoundForm from "@/components/ProductNotFoundForm";
 import FloatingActionButtons from "@/components/FloatingActionButtons";
 import AnimatedBackground from "@/components/AnimatedBackground";
 import heroBg from "@/assets/hero-bg-orange.jpg";
+import { fetchProducts, fetchCategories, ApiProduct } from "@/lib/api";
 
 const Products = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [currentPage, setCurrentPage] = useState(1);
+  const [apiProducts, setApiProducts] = useState<ApiProduct[]>([]);
+  const [apiCategories, setApiCategories] = useState(categories);
+  const [loading, setLoading] = useState(true);
   const itemsPerPage = 16;
+
+  // Fetch products from API on mount
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        setLoading(true);
+        const [productsData, categoriesData] = await Promise.all([
+          fetchProducts(),
+          fetchCategories(),
+        ]);
+
+        // Use API data if available, otherwise fall back to local data
+        if (productsData.length > 0) {
+          setApiProducts(productsData);
+        } else {
+          // Fallback to local data
+          const { products: localProducts } = await import("@/data/products");
+          setApiProducts((localProducts as unknown) as ApiProduct[]);
+        }
+
+        if (categoriesData.length > 0) {
+          setApiCategories([
+            { value: "all", label: "All" },
+            ...categoriesData.map((cat) => ({
+              value: cat.slug || cat._id,
+              label: cat.name,
+            })),
+          ]);
+        }
+      } catch (error) {
+        console.error('Error loading data:', error);
+        // Fallback to local data
+        const { products: localProducts } = await import("@/data/products");
+        setApiProducts((localProducts as unknown) as ApiProduct[]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadData();
+  }, []);
 
   // Shuffle function to randomize array
   const shuffleArray = <T,>(array: T[]): T[] => {
@@ -33,7 +78,7 @@ const Products = () => {
 
   // Filter products based on search and category
   const filteredProducts = useMemo(() => {
-    let filtered = products.filter((product) => {
+    let filtered = apiProducts.filter((product) => {
       const matchesSearch =
         product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         product.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -177,9 +222,10 @@ const Products = () => {
     </div>
   </div>
 
- <div className="w-full overflow-x-auto scrollbar-hide">
+          {/* Category Filter - Shows API Categories */}
+        <div className="w-full overflow-x-auto scrollbar-hide">
   <div className="flex gap-5 justify-start px-4 pb-2 min-w-max">
-    {categories.map((category) => (
+    {apiCategories.map((category) => (
       <Button
         key={category.value}
         onClick={() => {
@@ -208,7 +254,7 @@ const Products = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 mb-6 sm:mb-8">
                 {paginatedProducts.map((product, index) => (
                   <Card
-                    key={product.id}
+                    key={product._id}
                     className="group overflow-hidden border border-primary/10 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 animate-scale-in"
                     style={{ animationDelay: `${index * 0.05}s` }}
                   >
@@ -223,7 +269,7 @@ const Products = () => {
                         }}
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500" />
-                      <Link to={`/product/${product.id}`}>
+                      <Link to={`/product/${product._id}`}>
                         <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center">
                           <Button 
                             className="bg-gradient-to-r from-primary to-secondary text-white shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500"
@@ -236,30 +282,13 @@ const Products = () => {
                       </Link>
                     </div>
 
-                    {/* <div className="p-4 sm:p-5">
-                      <Badge className="mb-2 sm:mb-3 bg-primary/10 text-primary border-0 px-2.5 py-0.5 rounded-full text-xs font-medium">
-                        {categories.find((c) => c.value === product.category)?.label}
-                      </Badge>
-                      <h3 className="text-sm sm:text-base font-bold mb-2 line-clamp-2 group-hover:text-primary transition-colors">{product.name}</h3>
-                      <p className="text-xs sm:text-sm text-muted-foreground mb-3 sm:mb-4 line-clamp-2">{product.description}</p>
-                        <Link to={`/rfq?product=${product.id}`}>
-                        <Button 
-                          variant="outline" 
-                          size="sm"
-                          className="w-full border-primary/20 hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:text-white hover:border-transparent transition-all duration-300 text-xs sm:text-sm"
-                        >
-                          <Plus className="w-3 h-3 sm:w-4 sm:h-4 mr-1.5" />
-                          Add to RFQ
-                        </Button>
-                      </Link>
-                    </div> */}
                     <div className="p-4 sm:p-5">
                       <Badge className="mb-2 sm:mb-3 bg-primary/10 text-primary border-0 px-2.5 py-0.5 rounded-full text-xs font-medium">
                         {categories.find((c) => c.value === product.category)?.label}
                       </Badge>
                       <h3 className="text-sm sm:text-base font-bold mb-2 line-clamp-2 group-hover:text-primary transition-colors">{product.name}</h3>
                       <p className="text-xs sm:text-sm text-muted-foreground mb-3 sm:mb-4 line-clamp-2">{product.description}</p>
-                      <Link to={`/product/${product.id}`}>
+                        <Link to={`/rfq?product=${product._id}`}>
                         <Button 
                           variant="outline" 
                           size="sm"
@@ -269,6 +298,17 @@ const Products = () => {
                           Add to RFQ
                         </Button>
                       </Link>
+                      <Link to={`/product/${product._id}`}>
+                        <Button 
+                          variant="outline" 
+                          size="sm"
+                          className="w-full border-primary/20 hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:text-white hover:border-transparent transition-all duration-300 text-xs sm:text-sm"
+                        >
+                          <Plus className="w-3 h-3 sm:w-4 sm:h-4 mr-1.5" />
+                          Add to RFQ
+                        </Button>
+                      </Link>
+
                     </div>
                   </Card>
                 ))}
