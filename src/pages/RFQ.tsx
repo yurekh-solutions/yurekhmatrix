@@ -7,13 +7,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Trash2, Package, ArrowRight, ArrowLeft } from "lucide-react";
-
 import { toast } from "sonner";
 import { sendToWhatsApp } from "@/lib/whatsappIntegration";
 import { saveToLocalStorage } from "@/lib/sheetsIntegration";
 import SuccessAnimation from "@/components/SuccessAnimation";
 import ScrollToTop from "@/components/ScrollToTop";
 import FloatingActionButtons from "@/components/FloatingActionButtons";
+import { submitRFQ as submitRFQToBackend } from "@/lib/api";
 
 interface RFQItem {
   productId: string;
@@ -80,15 +80,30 @@ const RFQ = () => {
     try {
       // Prepare complete RFQ data with cart items
       const rfqData = {
-        type: 'rfq' as const,
         customerName: customerInfo.name,
         company: customerInfo.company,
         location: customerInfo.location,
         email: customerInfo.email,
         phone: customerInfo.phone,
-        cartItems: cartItems,
+        items: cartItems.map(item => ({
+          productId: item.productId,
+          productName: item.productName,
+          category: item.category,
+          brand: item.brand,
+          grade: item.grade,
+          quantity: item.quantity
+        })),
         totalItems: cartItems.length
       };
+
+      // Submit to backend API
+      const backendResponse = await submitRFQToBackend(rfqData);
+      
+      if (!backendResponse.success) {
+        toast.error(backendResponse.message || "Failed to submit RFQ to database");
+        setIsSubmitting(false);
+        return;
+      }
 
       // Save EACH product to localStorage for Excel export
       cartItems.forEach(item => {
@@ -108,9 +123,16 @@ const RFQ = () => {
       });
 
       // Send to WhatsApp with ALL products + customer info
-      sendToWhatsApp(rfqData);
-
-      // Excel download removed - data saved to localStorage for admin access only
+      sendToWhatsApp({
+        type: 'rfq' as const,
+        customerName: customerInfo.name,
+        company: customerInfo.company,
+        location: customerInfo.location,
+        email: customerInfo.email,
+        phone: customerInfo.phone,
+        cartItems: cartItems,
+        totalItems: cartItems.length
+      });
 
       // Clear cart from sessionStorage
       sessionStorage.removeItem('rfq_cart');
