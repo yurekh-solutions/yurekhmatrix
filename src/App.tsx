@@ -29,6 +29,7 @@ import NotFound from "./pages/NotFound";
 import ScrollToTop from "./components/ScrollToTop";
 import GoogleTranslateWidget from "./components/GoogleTranslateWidget";
 import FirstVisitLanguageModal from "./components/FirstVisitLanguageModal";
+import MiloChatAssistant from "./components/MiloChatAssistant";
 import { applyTranslation } from "./lib/translationUtils";
 
 const queryClient = new QueryClient();
@@ -55,6 +56,8 @@ const App = () => {
           <BrowserRouter>
             {/* ✅ Correct placement for ScrollToTop */}
             <ScrollToTop />
+            {/* ✅ Milo AI Assistant - Global Chat */}
+            <MiloChatAssistant />
 
             <Routes>
               <Route path="/" element={<Index />} />
