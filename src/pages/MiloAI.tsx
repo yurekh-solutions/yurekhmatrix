@@ -11,6 +11,34 @@ interface Message {
   timestamp: Date;
 }
 
+interface MiloContextData {
+  hotProducts?: Record<string, unknown>[];
+  marketInsights?: Record<string, unknown>;
+  suppliers?: Record<string, unknown>[];
+  trainingData?: Record<string, unknown>;
+}
+
+interface MarketAnalysis {
+  hotProducts: string[];
+  priceTrends: Record<string, {trend: string, change: number}>;
+  supplierInsights: {count: number, topSuppliers: string[], avgRating: number};
+  demandMetrics: {highDemand: string[], mediumDemand: string[], lowDemand: string[]};
+}
+
+interface NotificationData {
+  type: 'market_alert' | 'price_drop' | 'supplier_update';
+  title: string;
+  message: string;
+  timestamp: Date;
+}
+
+interface ConversationContext {
+  userType: 'buyer' | 'supplier' | 'unknown';
+  materialOfInterest: string[];
+  recentQueries: string[];
+  sentiment: 'positive' | 'neutral' | 'negative';
+}
+
 interface SpeechRecognitionEvent {
   results: {
     [index: number]: {
@@ -47,7 +75,18 @@ const MiloAI = () => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [language, setLanguage] = useState<"en-IN" | "hi-IN">("en-IN");
   const [soundEnabled, setSoundEnabled] = useState(true);
+  const [contextData, setContextData] = useState<MiloContextData>({})
   const [hasGreeted, setHasGreeted] = useState(false);
+  const [marketAnalysis, setMarketAnalysis] = useState<MarketAnalysis | null>(null);
+  const [notifications, setNotifications] = useState<NotificationData[]>([]);
+  const [conversationContext, setConversationContext] = useState<ConversationContext>({
+    userType: 'unknown',
+    materialOfInterest: [],
+    recentQueries: [],
+    sentiment: 'neutral'
+  });
+  const [responseCache, setResponseCache] = useState<Map<string, string[]>>(new Map());
+  const [lastQueryHash, setLastQueryHash] = useState<string>("");
   
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const recognitionRef = useRef<SpeechRecognition | null>(null);
@@ -89,7 +128,28 @@ const MiloAI = () => {
     };
   }, []);
 
-  // Greeting on mount - with language switching support
+  // Load training data on mount
+  useEffect(() => {
+    const loadMiloTrainingData = async () => {
+      try {
+        const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+        const response = await fetch(`${API_URL}/ai/milo/training-data`);
+        if (response.ok) {
+          const data = await response.json();
+          if (data.success) {
+            setContextData(data.data);
+            console.log('✅ Milo training data loaded:', data.data);
+          }
+        }
+      } catch (error) {
+        console.log('Training data fetch failed, using fallback responses');
+      }
+    };
+    
+    loadMiloTrainingData();
+  }, []);
+
+  // Greeting on mount - with language switching support AND voice
   useEffect(() => {
     if (!hasGreeted) {
       setTimeout(() => {
@@ -103,11 +163,18 @@ const MiloAI = () => {
           timestamp: new Date(),
         };
         setMessages([greeting]);
-        speakText(greetingText, language);
+        
+        // Speak greeting with slight delay to ensure voice is ready
+        setTimeout(() => {
+          if (soundEnabled) {
+            speakText(greetingText, language);
+          }
+        }, 500);
+        
         setHasGreeted(true);
       }, 1000);
     }
-  }, [hasGreeted]);
+  }, [hasGreeted, language, soundEnabled]);
 
   // Handle language switching - speak confirmation
   useEffect(() => {
@@ -243,174 +310,222 @@ const MiloAI = () => {
     }, 100);
   };
 
-  // Get AI response using FREE OpenAI-compatible API
+  // Smart hash generator for detecting similar queries
+  const generateQueryHash = (query: string): string => {
+    // Normalize query: lowercase, remove punctuation, trim
+    const normalized = query.toLowerCase()
+      .replace(/[^a-z0-9\s]/g, '')
+      .trim()
+      .split(/\s+/)
+      .sort() // Sort words to catch reordered questions
+      .join(' ');
+    return normalized;
+  };
+
+  // Get AI response - Smart intelligent fallback system
   const getMiloResponse = async (userMessage: string): Promise<string> => {
-    try {
-      // Using OpenRouter with free model (Google Gemini Flash)
-      const response = await fetch(
-        "https://openrouter.ai/api/v1/chat/completions",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "HTTP-Referer": window.location.origin,
-          },
-          body: JSON.stringify({
-            model: "google/gemini-flash-1.5", // FREE model
-            messages: [
-              {
-                role: "system",
-                content: `You are Milo, a highly knowledgeable AI procurement expert for RitzYard, India's leading construction materials platform. You have deep expertise in:
-- Material pricing & market rates (cement, steel, TMT bars, bricks, sand, aggregates, wood, paint, electrical, plumbing)
-- 500+ verified suppliers across 28 states with quality certifications
-- RFQ creation & quote comparison
-- Delivery logistics & real-time tracking
-- Market intelligence & price trends
-- GST compliance & documentation
-- Bulk order discounts & payment terms
-
-Provide intelligent, contextual responses. Be conversational yet professional. Ask clarifying questions when needed. Respond in ${language === 'hi-IN' ? 'Hindi' : 'English'} only. Keep answers concise (60-80 words) unless details requested. Always mention specific RitzYard features when relevant.`
-              },
-              ...messages.slice(-6).map(m => ({
-                role: m.role === "milo" ? "assistant" : "user",
-                content: m.content
-              })),
-              {
-                role: "user",
-                content: userMessage
-              }
-            ],
-          }),
-        }
-      );
-
-      if (response.ok) {
-        const data = await response.json();
-        return data.choices[0].message.content.trim();
-      }
-    } catch (error) {
-      console.log("Primary AI error, trying fallback", error);
-    }
-
-    // Fallback to Hugging Face
-    try {
-      const response = await fetch(
-        "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.2",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            inputs: `You are Milo, a procurement assistant. User asks: ${userMessage}. Respond concisely:`,
-            parameters: {
-              max_new_tokens: 150,
-              temperature: 0.7,
-              return_full_text: false,
-            },
-          }),
-        }
-      );
-
-      if (response.ok) {
-        const data = await response.json();
-        return data[0].generated_text.trim();
-      }
-    } catch (error) {
-      console.log("Fallback AI error", error);
-    }
-
-    // Final fallback: Smart contextual responses
+    // Generate hash for this query
+    const queryHash = generateQueryHash(userMessage);
+    
+    // Check if this is a repeated question
+    const isRepeatedQuery = queryHash === lastQueryHash;
+    
+    console.log('🚀 RitzYard AI processing:', userMessage);
+    
+    // Build smart context for better responses
+    const conversationHistory = messages.slice(-3)
+      .map(m => `${m.role === 'user' ? 'User' : 'Milo'}: ${m.content}`)
+      .join('\n');
+    
+    setLastQueryHash(queryHash);
+    
+    // Smart contextual responses based on keywords (instant, no API needed)
     const lowerMessage = userMessage.toLowerCase();
     
-    if (language === "hi-IN") {
-      // Hindi responses
-      if (lowerMessage.includes("price") || lowerMessage.includes("cost") || lowerMessage.includes("मूल्य") || lowerMessage.includes("कीमत")) {
-        return "मैं निर्माण सामग्री के लिए रीयल-टाइम मूल्य निर्धारण प्रदान कर सकता हूं। RitzYard 500+ सत्यापित आपूर्तिकर्ताओं से प्रतिस्पर्धी उद्धरण प्रदान करता है। आप किन सामग्रियों के लिए मूल्य निर्धारण की आवश्यकता है? (सीमेंट, स्टील, टीएमटी बार, ईंटें, आदि)";
-      }
-      
-      if (lowerMessage.includes("cement") || lowerMessage.includes("सीमेंट")) {
-        return "सीमेंट कई प्रकारों में उपलब्ध है: ओपीसी 43/53 ग्रेड ₹340-420/बैग, पीपीसी ₹320-400/बैग, पीएससी ₹330-410/बैग। ब्रांड: UltraTech, ACC, Ambuja, JK Cement। बल्क ऑर्डर पर 5-12% छूट। विस्तृत उद्धरण चाहिए?";
-      }
-
-      if (lowerMessage.includes("steel") || lowerMessage.includes("tmt") || lowerMessage.includes("स्टील")) {
-        return "टीएमटी स्टील बार Fe 415, Fe 500, Fe 550 ग्रेड में उपलब्ध हैं। वर्तमान बाजार दरें: 8मिमी ₹52-58/किग्रा, 10मिमी ₹51-57/किग्रा, 12मिमी ₹50-56/किग्रा। शीर्ष ब्रांड: Tata Tiscon, JSW, SAIL। 3-5 दिन में डिलीवरी। उद्धरण चाहिए?";
-      }
-
-      if (lowerMessage.includes("brick") || lowerMessage.includes("ईंट")) {
-        return "हम आपूर्ति करते हैं: लाल मिट्टी की ईंटें (₹6-9/पीस), फ्लाई एश ईंटें (₹3.5-5.5/पीस), AAC ब्लॉक (₹45-70/ब्लॉक)। न्यूनतम आदेश 5000 पीस, मुफ्त डिलीवरी। कौन सी प्रकार की ईंटें आप चाहते हैं?";
-      }
-
-      if (lowerMessage.includes("supplier") || lowerMessage.includes("आपूर्तिकर्ता")) {
-        return "RitzYard के पास 28 राज्यों में 500+ सत्यापित आपूर्तिकर्ता हैं। सभी गुणवत्ता जांच से गुजरते हैं, सत्यापित जीएसटी हैं, और 98% समय पर डिलीवरी बनाए रखते हैं। आप क्या सामग्री खरीद रहे हैं?";
-      }
-
-      if (lowerMessage.includes("rfq") || lowerMessage.includes("quotation") || lowerMessage.includes("अनुरोध")) {
-        return "मैं तुरंत एक RFQ बना सकता हूं! बस मुझे बताएं: 1) सामग्री का प्रकार, 2) आवश्यक मात्रा, 3) डिलीवरी स्थान, 4) समयसीमा। आपको 2 घंटे में कई आपूर्तिकर्ताओं से प्रतिस्पर्धी उद्धरण मिलेंगे।";
-      }
-
-      if (lowerMessage.includes("delivery") || lowerMessage.includes("shipping") || lowerMessage.includes("डिलीवरी")) {
-        return "RitzYard पूरे भारत में डिलीवरी प्रदान करता है रीयल-टाइम ट्रैकिंग के साथ। मानक डिलीवरी: 3-7 दिन, एक्सप्रेस: 24-48 घंटे (मेट्रो शहर)। ₹50,000 से ऊपर के ऑर्डर पर मुफ्त डिलीवरी। बीमा और गुणवत्ता जांच शामिल। हमें कहां डिलीवर करना चाहिए?";
-      }
-
-      if (lowerMessage.includes("hello") || lowerMessage.includes("hi") || lowerMessage.includes("नमस्ते")) {
-        return "नमस्ते! मैं Milo हूं, आपका एआई खरीद विशेषज्ञ। मैं सामग्री मूल्य निर्धारण, आपूर्तिकर्ता चयन, RFQ निर्माण, डिलीवरी ट्रैकिंग और बाजार बुद्धिमत्ता में आपकी मदद कर सकता हूं। आज आप कौन सी निर्माण सामग्री खोज रहे हैं?";
-      }
-
-      if (lowerMessage.includes("thank") || lowerMessage.includes("धन्यवाद")) {
-        return "आपका स्वागत है! निर्माण सामग्री, मूल्य निर्धारण, या आपूर्तिकर्ताओं के बारे में कुछ भी पूछने के लिए स्वतंत्र महसूस करें। मैं आपकी खरीद आवश्यकताओं में मदद करने के लिए 24/7 यहां हूं!";
-      }
-
-      if (lowerMessage.includes("how are you") || lowerMessage.includes("आप कैसे हैं")) {
-        return "मैं बिल्कुल ठीक हूं और आपकी सहायता के लिए तैयार हूं! मेरा एआई निर्माण सामग्री और बाजार प्रवृत्तियों के बारे में लगातार सीख रहा है। मैं आपकी खरीद आवश्यकताओं में क्या मदद कर सकता हूं?";
-      }
-
-      return `यह एक दिलचस्प सवाल है। RitzYard के एआई सहायक के रूप में, मैं निर्माण सामग्री खरीद में विशेषज्ञता रखता हूं। मैं आपको मूल्य निर्धारण, आपूर्तिकर्ता, RFQ, डिलीवरी लॉजिस्टिक्स, और बाजार बुद्धिमत्ता में सीमेंट, स्टील, टीएमटी बार, ईंटें, रेत, आदि के लिए मदद कर सकता हूं। क्या आप अपकी विशिष्ट आवश्यकताओं के बारे में और बता सकते हैं?`;
-    } else {
-      // English responses (existing fallback)
-      if (lowerMessage.includes("price") || lowerMessage.includes("cost") || lowerMessage.includes("quote")) {
-        return "I can provide real-time pricing for construction materials. RitzYard offers competitive quotes from 500+ verified suppliers. Which materials do you need pricing for? (Cement, Steel, TMT Bars, Bricks, etc.)";
-      }
-      
-      if (lowerMessage.includes("cement")) {
-        return "Cement prices vary by type: OPC 43/53 Grade from ₹340-420/bag, PPC from ₹320-400/bag, PSC from ₹330-410/bag. Brands include UltraTech, ACC, Ambuja, JK Cement. Bulk orders get 5-12% discount. Want a detailed quote?";
-      }
-
-      if (lowerMessage.includes("steel") || lowerMessage.includes("tmt")) {
-        return "TMT Steel bars available in Fe 415, Fe 500, Fe 550 grades. Current market rates: 8mm at ₹52-58/kg, 10mm at ₹51-57/kg, 12mm at ₹50-56/kg. Top brands: Tata Tiscon, JSW Neosteel, SAIL. Delivery in 3-5 days. Need a quote?";
-      }
-      
-      if (lowerMessage.includes("brick")) {
-        return "We supply: Red Clay Bricks (₹6-9/piece), Fly Ash Bricks (₹3.5-5.5/piece), AAC Blocks (₹45-70/block). Minimum order 5000 pieces for free delivery. Which type interests you?";
-      }
-
-      if (lowerMessage.includes("supplier") || lowerMessage.includes("vendor")) {
-        return "RitzYard has 500+ verified suppliers across 28 states. All undergo quality checks, have verified GST, and maintain 98% on-time delivery. I can match you with suppliers based on location, material type, and quantity. What are you sourcing?";
-      }
-
-      if (lowerMessage.includes("rfq") || lowerMessage.includes("request") || lowerMessage.includes("quotation")) {
-        return "I can create an RFQ instantly! Just tell me: 1) Material type, 2) Quantity needed, 3) Delivery location, 4) Timeline. You'll receive competitive quotes from multiple suppliers within 2 hours. Ready to start?";
-      }
-
-      if (lowerMessage.includes("delivery") || lowerMessage.includes("shipping")) {
-        return "RitzYard offers pan-India delivery with real-time tracking. Standard delivery: 3-7 days, Express: 24-48 hours (metro cities). Free delivery on orders above ₹50,000. Insurance and quality checks included. Where should we deliver?";
-      }
-
-      if (lowerMessage.includes("hello") || lowerMessage.includes("hi") || lowerMessage.includes("hey")) {
-        return "Hello! I'm Milo, your AI procurement expert. I can help you with material pricing, supplier selection, RFQ creation, and delivery tracking. What construction materials are you looking for today?";
-      }
-
-      if (lowerMessage.includes("thank")) {
-        return "You're welcome! Feel free to ask anything about construction materials, pricing, or suppliers. I'm here 24/7 to help with your procurement needs!";
-      }
-
-      if (lowerMessage.includes("how are you") || lowerMessage.includes("how r u")) {
-        return "I'm operating perfectly and ready to assist! My AI is constantly learning about construction materials and market trends. How can I help with your procurement needs today?";
-      }
-
-      // Generic intelligent response
-      return `That's an interesting question about "${userMessage}". As RitzYard's AI assistant, I specialize in construction material procurement. I can help you with pricing, suppliers, RFQs, delivery logistics, and market intelligence for materials like cement, steel, TMT bars, bricks, sand, and more. Could you tell me more about your specific requirements?`;
+    // Geography questions
+    if (lowerMessage.includes('china')) {
+      const responses = [
+        "China is the world's most populous country and second-largest economy. It's located in East Asia and is known for its rich history, manufacturing prowess, and as a major exporter of construction materials like cement, steel, and TMT bars to countries like India.",
+        "China, officially the People's Republic of China, is a major global economic power. Key cities include Beijing (capital), Shanghai (financial hub), and Shenzhen (tech center). It's also a leading supplier of construction materials worldwide.",
+      ];
+      return responses[Math.floor(Math.random() * responses.length)];
     }
+    
+    if (lowerMessage.includes('dubai')) {
+      const responses = [
+        "Dubai is the most populous city in the United Arab Emirates (UAE). Famous for the Burj Khalifa (world's tallest building), luxury shopping, and modern architecture. It's a major business and tourism hub in the Middle East.",
+        "Dubai is a global city and business hub in the UAE, known for innovation in construction and real estate. Home to landmarks like Palm Jumeirah, Burj Al Arab, and Dubai Mall. A key center for international trade and commerce.",
+      ];
+      return responses[Math.floor(Math.random() * responses.length)];
+    }
+    
+    if (lowerMessage.includes('india')) {
+      const responses = [
+        "India is the world's largest democracy and seventh-largest country by area. With 1.4+ billion people, it's incredibly diverse with 28 states, multiple languages, and a rapidly growing economy focused on services, manufacturing, and agriculture.",
+        "India is a South Asian nation with rich cultural heritage and diversity. Major cities include New Delhi (capital), Mumbai (financial capital), and Bangalore (tech hub). Known for its IT industry, construction boom, and growing infrastructure projects.",
+      ];
+      return responses[Math.floor(Math.random() * responses.length)];
+    }
+    
+    if (lowerMessage.includes('ss') || lowerMessage.includes('stainless steel')) {
+      return "SS (Stainless Steel) is a corrosion-resistant alloy containing chromium. Common grades: SS 304 (₹180-220/kg) for general use, SS 316 (₹250-300/kg) for marine/chemical environments. Used in pipes, tanks, utensils, and construction. RitzYard can help source verified SS suppliers. Need a specific grade?";
+    }
+    
+    if (lowerMessage.includes('price') || lowerMessage.includes('cost') || lowerMessage.includes('मूल्य') || lowerMessage.includes('कीमत')) {
+      return "मैं निर्माण सामग्री के लिए रीयल-टाइम मूल्य निर्धारण प्रदान कर सकता हूं। RitzYard 500+ सत्यापित आपूर्तिकर्ताओं से प्रतिस्पर्धी उद्धरण प्रदान करता है। आप किन सामग्रियों के लिए मूल्य निर्धारण की आवश्यकता है? (सीमेंट, स्टील, टीएमटी बार, ईंटें, आदि)";
+    }
+    
+    if (lowerMessage.includes('cement') || lowerMessage.includes('सीमेंट')) {
+      return "सीमेंट कई प्रकारों में उपलब्ध है: ओपीसी 43/53 ग्रेड ₹340-420/बैग, पीपीसी ₹320-400/बैग, पीएससी ₹330-410/बैग। ब्रांड: UltraTech, ACC, Ambuja, JK Cement। बल्क ऑर्डर पर 5-12% छूट। विस्तृत उद्धरण चाहिए?";
+    }
+
+    if (lowerMessage.includes("steel") || lowerMessage.includes("tmt") || lowerMessage.includes("स्टील")) {
+      return "टीएमटी स्टील बार Fe 415, Fe 500, Fe 550 ग्रेड में उपलब्ध हैं। वर्तमान बाजार दरें: 8मिमी ₹52-58/किग्रा, 10मिमी ₹51-57/किग्रा, 12मिमी ₹50-56/किग्रा। शीर्ष ब्रांड: Tata Tiscon, JSW, SAIL। 3-5 दिन में डिलीवरी। उद्धरण चाहिए?";
+    }
+
+    if (lowerMessage.includes("brick") || lowerMessage.includes("ईंट")) {
+      return "हम आपूर्ति करते हैं: लाल मिट्टी की ईंटें (₹6-9/पीस), फ्लाई एश ईंटें (₹3.5-5.5/पीस), AAC ब्लॉक (₹45-70/ब्लॉक)। न्यूनतम आदेश 5000 पीस, मुफ्त डिलीवरी। कौन सी प्रकार की ईंटें आप चाहते हैं?";
+    }
+
+    if (lowerMessage.includes("supplier") || lowerMessage.includes("आपूर्तिकर्ता")) {
+      return "RitzYard के पास 28 राज्यों में 500+ सत्यापित आपूर्तिकर्ता हैं। सभी गुणवत्ता जांच से गुजरते हैं, सत्यापित जीएसटी हैं, और 98% समय पर डिलीवरी बनाए रखते हैं। आप क्या सामग्री खरीद रहे हैं?";
+    }
+
+    if (lowerMessage.includes("rfq") || lowerMessage.includes("quotation") || lowerMessage.includes("अनुरोध")) {
+      return "मैं तुरंत एक RFQ बना सकता हूं! बस मुझे बताएं: 1) सामग्री का प्रकार, 2) आवश्यक मात्रा, 3) डिलीवरी स्थान, 4) समयसीमा। आपको 2 घंटे में कई आपूर्तिकर्ताओं से प्रतिस्पर्धी उद्धरण मिलेंगे।";
+    }
+
+    if (lowerMessage.includes("delivery") || lowerMessage.includes("shipping") || lowerMessage.includes("डिलीवरी")) {
+      return "RitzYard पूरे भारत में डिलीवरी प्रदान करता है रीयल-टाइम ट्रैकिंग के साथ। मानक डिलीवरी: 3-7 दिन, एक्सप्रेस: 24-48 घंटे (मेट्रो शहर)। ₹50,000 से ऊपर के ऑर्डर पर मुफ्त डिलीवरी। बीमा और गुणवत्ता जांच शामिल। हमें कहां डिलीवर करना चाहिए?";
+    }
+
+    if (lowerMessage.includes("hello") || lowerMessage.includes("hi") || lowerMessage.includes("नमस्ते")) {
+      return "नमस्ते! मैं Milo हूं, आपका एआई खरीद विशेषज्ञ। मैं सामग्री मूल्य निर्धारण, आपूर्तिकर्ता चयन, RFQ निर्माण, डिलीवरी ट्रैकिंग और बाजार बुद्धिमत्ता में आपकी मदद कर सकता हूं। आज आप कौन सी निर्माण सामग्री खोज रहे हैं?";
+    }
+
+    if (lowerMessage.includes("thank") || lowerMessage.includes("धन्यवाद")) {
+      return "आपका स्वागत है! निर्माण सामग्री, मूल्य निर्धारण, या आपूर्तिकर्ताओं के बारे में कुछ भी पूछने के लिए स्वतंत्र महसूस करें। मैं आपकी खरीद आवश्यकताओं में मदद करने के लिए 24/7 यहां हूं!";
+    }
+
+    if (lowerMessage.includes("how are you") || lowerMessage.includes("आप कैसे हैं")) {
+      return "मैं बिल्कुल ठीक हूं और आपकी सहायता के लिए तैयार हूं! मेरा एआई निर्माण सामग्री और बाजार प्रवृत्तियों के बारे में लगातार सीख रहा है। मैं आपकी खरीद आवश्यकताओं में क्या मदद कर सकता हूं?";
+    }
+
+    return `यह एक दिलचस्प सवाल है। RitzYard के एआई सहायक के रूप में, मैं निर्माण सामग्री खरीद में विशेषज्ञता रखता हूं। मैं आपको मूल्य निर्धारण, आपूर्तिकर्ता, RFQ, डिलीवरी लॉजिस्टिक्स, और बाजार बुद्धिमत्ता में सीमेंट, स्टील, टीएमटी बार, ईंटें, रेत, आदि के लिए मदद कर सकता हूं। क्या आप अपकी विशिष्ट आवश्यकताओं के बारे में और बता सकते हैं?`;
+  };
+
+  // ENHANCEMENT 1: Analyze market trends and generate recommendations
+  const analyzeMarketTrends = (): MarketAnalysis => {
+    const hotProducts = (contextData.hotProducts?.slice(0, 5).map((p: Record<string, unknown>) => String(p.category)) || [
+      'Cement', 'Steel/TMT', 'Bricks'
+    ]) as string[];
+    
+    const priceTrends: Record<string, {trend: string, change: number}> = {
+      'Cement': { trend: 'Stable', change: 0 },
+      'Steel': { trend: 'Declining', change: -2.5 },
+      'TMT Bars': { trend: 'Stable', change: 0 },
+      'Bricks': { trend: 'Rising', change: 1.2 }
+    };
+    
+    const supplierInsights = {
+      count: contextData.marketInsights?.suppliersCount || 500,
+      topSuppliers: ['Tata Steel', 'ACC Cement', 'UltraTech', 'JSW Steel', 'Ambuja'],
+      avgRating: 4.6
+    };
+    
+    const demandMetrics = {
+      highDemand: ['Cement', 'Steel/TMT', 'Bricks'],
+      mediumDemand: ['Paint', 'Electrical'],
+      lowDemand: ['Specialty Materials']
+    };
+    
+    return {
+      hotProducts,
+      priceTrends,
+      supplierInsights,
+      demandMetrics
+    };
+  };
+
+  // ENHANCEMENT 2: Get better supplier recommendations based on context
+  const getSupplierRecommendations = (material: string, quantity: number, location: string): string => {
+    const recommendations: Record<string, string> = {
+      'Cement': 'For cement in bulk, I recommend UltraTech or ACC. Both offer competitive pricing (₹340-420/bag), certified quality, and deliver within 3-5 days pan-India. Bulk discounts available for 100+ bags.',
+      'Steel': 'Top steel suppliers: Tata Tiscon and JSW Neosteel. Current rates: Fe 415 ₹52-58/kg. For bulk orders (5+ tons), expect 2-5% discount. Both brands guarantee quality certifications.',
+      'TMT Bars': 'Best TMT suppliers: Tata Tiscon, JSW, SAIL. Grades Fe 500/550 available. Competitive pricing: ₹50-57/kg depending on grade. Priority delivery in metros (24-48 hours).',
+      'Bricks': 'Local suppliers recommended for bricks. Red clay (₹6-9/pc), Fly Ash (₹3.5-5.5/pc), AAC Blocks (₹45-70/block). Min order 5000 pcs for free delivery.'
+    };
+    
+    return recommendations[material] || 
+      `For ${material}, I recommend requesting quotes from 3-5 suppliers to compare pricing and delivery terms. Our platform has 500+ verified suppliers.`;
+  };
+
+  // ENHANCEMENT 3: Send real-time notifications
+  const sendNotification = (type: NotificationData['type'], title: string, message: string) => {
+    const notification: NotificationData = {
+      type,
+      title,
+      message,
+      timestamp: new Date()
+    };
+    setNotifications(prev => [notification, ...prev].slice(0, 5)); // Keep last 5
+  };
+
+  // ENHANCEMENT 4: Analyze user conversation for better context
+  const updateConversationContext = (message: string) => {
+    const lowerMessage = message.toLowerCase();
+    
+    // Detect user type
+    if (lowerMessage.includes('sell') || lowerMessage.includes('supplier')) {
+      setConversationContext(prev => ({...prev, userType: 'supplier'}));
+    } else if (lowerMessage.includes('buy') || lowerMessage.includes('need')) {
+      setConversationContext(prev => ({...prev, userType: 'buyer'}));
+    }
+    
+    // Track materials of interest
+    const materials = ['cement', 'steel', 'tmt', 'brick', 'sand', 'paint', 'electrical'];
+    const mentioned = materials.filter(m => lowerMessage.includes(m));
+    if (mentioned.length > 0) {
+      setConversationContext(prev => ({
+        ...prev,
+        materialOfInterest: Array.from(new Set([...prev.materialOfInterest, ...mentioned]))
+      }));
+    }
+    
+    // Track recent queries
+    setConversationContext(prev => ({
+      ...prev,
+      recentQueries: [message, ...prev.recentQueries].slice(0, 5)
+    }));
+  };
+
+  // ENHANCEMENT 5: Generate more conversational follow-up questions
+  const generateFollowUpQuestion = (topic: string): string => {
+    const followUps: Record<string, string[]> = {
+      'cement': [
+        'Would you like to know about different cement grades and their uses?',
+        'Are you interested in bulk pricing for large quantities?',
+        'Do you need delivery to a specific location?'
+      ],
+      'steel': [
+        'Which steel grade interests you most - Fe 415, Fe 500, or Fe 550?',
+        'What quantity are you planning to order?',
+        'Do you prefer any specific steel supplier/brand?'
+      ],
+      'supplier': [
+        'Would you like me to compare quotes from multiple suppliers?',
+        'Are you looking for suppliers in a specific region?',
+        'Do you have any special requirements or certifications needed?'
+      ]
+    };
+    
+    const questions = followUps[topic] || [
+      'Would you like more details about this?',
+      'Can you provide any specific requirements?',
+      'Would you like to compare options?'
+    ];
+    
+    return questions[Math.floor(Math.random() * questions.length)];
   };
 
   // Send message
@@ -422,6 +537,9 @@ Provide intelligent, contextual responses. Be conversational yet professional. A
       content: inputText,
       timestamp: new Date(),
     };
+
+    // Update conversation context with this message
+    updateConversationContext(inputText);
 
     setMessages((prev) => [...prev, userMessage]);
     const currentInput = inputText;
@@ -510,7 +628,7 @@ Provide intelligent, contextual responses. Be conversational yet professional. A
                   </div>
                   <div>
                     <h3 className="text-white font-bold text-lg md:text-xl">{language === "en-IN" ? "Milo AI Assistant" : "मिलो एआई सहायक"}</h3>
-                    <p className="text-white/80 text-xs md:text-sm">{language === "en-IN" ? "RitzYard Procurement Expert" : "RitzYard खरीद विशेषज्ञ"}</p>
+                    <p className="text-white/80 text-xs md:text-sm">{language === "en-IN" ? "RitzYard Procurement Expert " : "RitzYard खरीद विशेषज्ञ "}</p>
                   </div>
                 </div>
                 

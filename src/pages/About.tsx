@@ -419,7 +419,7 @@ const About = () => {
             </h2>
 
         <p className="text-base lg:text-lg text-muted-foreground leading-relaxed">
-          Material Matrix is India's next-generation AI-powered procurement
+          Ritz Yard is India's next-generation AI-powered procurement
           platform for the construction industry, backed by the strength of
           Intelligence. We are revolutionizing the way contractors, builders, and
           enterprises source their construction needs by making procurement

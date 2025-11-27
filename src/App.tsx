@@ -25,11 +25,11 @@ import Careers from "./pages/Careers";
 import RFQ from "./pages/RFQ";
 import MaterialInquiry from "./pages/MaterialInquiry";
 import MiloAI from "./pages/MiloAI";
+import MiloGuideHub from "./pages/MiloGuideHub";
 import NotFound from "./pages/NotFound";
 import ScrollToTop from "./components/ScrollToTop";
 import GoogleTranslateWidget from "./components/GoogleTranslateWidget";
 import FirstVisitLanguageModal from "./components/FirstVisitLanguageModal";
-import MiloChatAssistant from "./components/MiloChatAssistant";
 import { applyTranslation } from "./lib/translationUtils";
 
 const queryClient = new QueryClient();
@@ -56,8 +56,6 @@ const App = () => {
           <BrowserRouter>
             {/* ✅ Correct placement for ScrollToTop */}
             <ScrollToTop />
-            {/* ✅ Milo AI Assistant - Global Chat */}
-            <MiloChatAssistant />
 
             <Routes>
               <Route path="/" element={<Index />} />
@@ -80,6 +78,7 @@ const App = () => {
               <Route path="/rfq" element={<RFQ />} />
               <Route path="/inquiry" element={<MaterialInquiry />} />
               <Route path="/milo" element={<MiloAI />} />
+              <Route path="/milo-guide" element={<MiloGuideHub />} />
               {/* Catch-all route */}
               <Route path="*" element={<NotFound />} />
             </Routes>
