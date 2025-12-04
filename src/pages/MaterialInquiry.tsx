@@ -38,6 +38,12 @@ const getApiUrl = () => {
     const hostname = window.location.hostname;
     console.log('🌐 Current hostname:', hostname);
     
+    // Check if running on localhost (development)
+    if (hostname === 'localhost' || hostname === '127.0.0.1') {
+      console.log('💻 Running locally - using localhost backend');
+      return 'http://localhost:5000/api';
+    }
+    
     // Vercel production domains
     if (hostname.includes('vercel.app') || hostname.includes('ritzyard.com')) {
       console.log('✅ Running on Vercel - using production backend');
@@ -52,7 +58,7 @@ const getApiUrl = () => {
   }
   
   // Default to localhost for development
-  console.log('💻 Using localhost backend');
+  console.log('💻 Defaulting to localhost backend');
   return 'http://localhost:5000/api';
 };
 
