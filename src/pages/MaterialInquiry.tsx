@@ -29,6 +29,9 @@ import {
   Shield,
 } from "lucide-react";
 import SEOHead from "@/components/SEOHead";
+import { toast } from "sonner";
+
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
 const MATERIAL_OPTIONS = [
   { value: "tmt-bars", label: "TMT Bars", icon: "🏗️" },
@@ -44,6 +47,7 @@ const MaterialInquiry = () => {
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [inquiryNumber, setInquiryNumber] = useState('');
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -67,15 +71,58 @@ const MaterialInquiry = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    try {
+      // Get material name
+      const materialName = formData.material === "other" 
+        ? formData.customMaterial 
+        : MATERIAL_OPTIONS.find((m) => m.value === formData.material)?.label || formData.material;
 
-    // Format WhatsApp message
-    const materialName = formData.material === "other" 
-      ? formData.customMaterial 
-      : MATERIAL_OPTIONS.find((m) => m.value === formData.material)?.label || formData.material;
-    
-    const message = `*🏗️ MATERIAL INQUIRY REQUEST*
+      // Prepare data for backend API
+      const submissionData = {
+        customerName: formData.name,
+        companyName: formData.company || '',
+        email: formData.email,
+        phone: formData.phone,
+        materials: [{
+          materialName: materialName,
+          category: 'Construction',
+          grade: '',
+          specification: formData.specifications || '',
+          quantity: parseFloat(formData.quantity.replace(/[^0-9.]/g, '')) || 0,
+          unit: 'units',
+          targetPrice: undefined,
+        }],
+        deliveryLocation: formData.location,
+        deliveryAddress: '',
+        totalEstimatedValue: undefined,
+        paymentTerms: '',
+        additionalRequirements: formData.specifications || '',
+      };
+
+      console.log('📤 Submitting to:', `${API_BASE_URL}/material-inquiries`);
+      console.log('📦 Data:', submissionData);
+
+      // Submit to backend
+      const response = await fetch(`${API_BASE_URL}/material-inquiries`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(submissionData),
+      });
+
+      const data = await response.json();
+      console.log('📥 Response:', data);
+
+      if (data.success) {
+        setInquiryNumber(data.data.inquiryNumber);
+        toast.success('Material inquiry submitted successfully!');
+        console.log('✅ SUCCESS! Inquiry Number:', data.data.inquiryNumber);
+        console.log('🆔 Database ID:', data.data._id);
+
+        // Format WhatsApp message
+        const message = `*MATERIAL INQUIRY REQUEST*
+*Inquiry Number:* ${data.data.inquiryNumber}
 
 *Customer Details:*
 👤 Name: ${formData.name}
@@ -93,32 +140,47 @@ ${formData.specifications || "No additional specifications"}
 
 _Please provide quotation at your earliest convenience._`;
 
-    const whatsappNumber = "919136242706";
-    const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+        const whatsappNumber = "919136242706";
+        const encodedMessage = encodeURIComponent(message);
+        const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
 
-    // Show success animation
-    setShowSuccess(true);
+        // Show success animation
+        setShowSuccess(true);
 
-    // Wait for animation and redirect to WhatsApp
-    setTimeout(() => {
-      window.open(whatsappUrl, "_blank");
-      setShowSuccess(false);
+        // Wait for animation and redirect to WhatsApp
+        setTimeout(() => {
+          window.open(whatsappUrl, "_blank");
+          setShowSuccess(false);
+          setIsSubmitting(false);
+
+          // Reset form
+          setFormData({
+            name: "",
+            email: "",
+            phone: "",
+            company: "",
+            location: "",
+            material: "",
+            customMaterial: "",
+            quantity: "",
+            specifications: "",
+          });
+        }, 2500);
+      } else {
+        throw new Error(data.message || 'Submission failed');
+      }
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
+      console.error('❌ Submission error:', error);
+      toast.error('Failed to submit inquiry: ' + errorMessage);
+      
+      // Show detailed error for debugging
+      if (errorMessage.includes('fetch')) {
+        toast.error('Cannot connect to backend. Make sure backend is running on port 5000');
+        console.error('⚠️ Backend not reachable at:', API_BASE_URL);
+      }
       setIsSubmitting(false);
-
-      // Reset form
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        company: "",
-        location: "",
-        material: "",
-        customMaterial: "",
-        quantity: "",
-        specifications: "",
-      });
-    }, 2500);
+    }
   };
 
   return (
@@ -162,6 +224,12 @@ _Please provide quotation at your earliest convenience._`;
               <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
                 Inquiry Submitted!
               </h3>
+              {inquiryNumber && (
+                <div className="bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200 rounded-2xl p-4 mb-4">
+                  <p className="text-xs text-gray-600 mb-1 font-medium">Inquiry Number:</p>
+                  <p className="text-2xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">{inquiryNumber}</p>
+                </div>
+              )}
               <p className="text-lg text-muted-foreground mb-2">
                 Thank you, <span className="font-semibold text-primary">{formData.name}</span>!
               </p>
@@ -315,7 +383,7 @@ _Please provide quotation at your earliest convenience._`;
                       Personal Information
                     </h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-                      <div className="space-y-2">
+                      <div className="space-y-2 group">
                         <Label htmlFor="name" className="text-sm font-medium flex items-center gap-2">
                           <User className="h-4 w-4 text-primary" />
                           Full Name *
@@ -331,7 +399,7 @@ _Please provide quotation at your earliest convenience._`;
                         />
                       </div>
 
-                      <div className="space-y-2">
+                      <div className="space-y-2 group">
                         <Label htmlFor="email" className="text-sm font-medium flex items-center gap-2">
                           <Mail className="h-4 w-4 text-primary" />
                           Email Address *
@@ -348,7 +416,7 @@ _Please provide quotation at your earliest convenience._`;
                         />
                       </div>
 
-                      <div className="space-y-2">
+                      <div className="space-y-2 group">
                         <Label htmlFor="phone" className="text-sm font-medium flex items-center gap-2">
                           <Phone className="h-4 w-4 text-primary" />
                           Phone Number *
@@ -365,7 +433,7 @@ _Please provide quotation at your earliest convenience._`;
                         />
                       </div>
 
-                      <div className="space-y-2">
+                      <div className="space-y-2 group">
                         <Label htmlFor="company" className="text-sm font-medium flex items-center gap-2">
                           <Building2 className="h-4 w-4 text-primary" />
                           Company Name
@@ -380,7 +448,7 @@ _Please provide quotation at your earliest convenience._`;
                         />
                       </div>
 
-                      <div className="space-y-2 md:col-span-2">
+                      <div className="space-y-2 md:col-span-2 group">
                         <Label htmlFor="location" className="text-sm font-medium flex items-center gap-2">
                           <MapPin className="h-4 w-4 text-primary" />
                           Delivery Location *
@@ -495,7 +563,7 @@ _Please provide quotation at your earliest convenience._`;
                   </div>
 
                   {/* Submit Button */}
-                  <div className="flex justify-center pt-4 sm:pt-6">
+                  <div className="flex justify-center pt-6 sm:pt-8">
                     <Button
                       type="submit"
                       size="lg"
@@ -509,7 +577,7 @@ _Please provide quotation at your earliest convenience._`;
                         </>
                       ) : (
                         <>
-                          <Send className="mr-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                          <Send className="mr-2 h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
                           Submit Inquiry
                         </>
                       )}
