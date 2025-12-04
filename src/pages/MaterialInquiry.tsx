@@ -34,18 +34,30 @@ import { toast } from "sonner";
 // Dynamic API URL based on environment
 const getApiUrl = () => {
   // Check if we're on Vercel (production)
-  if (typeof window !== 'undefined' && window.location.hostname.includes('vercel.app')) {
-    return 'https://backendmatrix.onrender.com/api';
+  if (typeof window !== 'undefined') {
+    const hostname = window.location.hostname;
+    console.log('🌐 Current hostname:', hostname);
+    
+    // Vercel production domains
+    if (hostname.includes('vercel.app') || hostname.includes('ritzyard.com')) {
+      console.log('✅ Running on Vercel - using production backend');
+      return 'https://backendmatrix.onrender.com/api';
+    }
   }
+  
   // Check if VITE_API_URL is set
   if (import.meta.env.VITE_API_URL) {
+    console.log('⚙️ Using VITE_API_URL:', import.meta.env.VITE_API_URL);
     return import.meta.env.VITE_API_URL;
   }
+  
   // Default to localhost for development
+  console.log('💻 Using localhost backend');
   return 'http://localhost:5000/api';
 };
 
 const API_BASE_URL = getApiUrl();
+console.log('📡 API Base URL:', API_BASE_URL);
 
 const MATERIAL_OPTIONS = [
   { value: "tmt-bars", label: "TMT Bars", icon: "🏗️" },
@@ -116,19 +128,25 @@ const MaterialInquiry = () => {
       console.log('📤 Submitting to:', `${API_BASE_URL}/material-inquiries`);
       console.log('📦 Data:', submissionData);
 
-      // Submit to backend
-      const response = await fetch(`${API_BASE_URL}/material-inquiries`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(submissionData),
-      });
+      // Submit to backend with timeout
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
 
-      const data = await response.json();
-      console.log('📥 Response:', data);
+      try {
+        const response = await fetch(`${API_BASE_URL}/material-inquiries`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(submissionData),
+          signal: controller.signal,
+        });
+        clearTimeout(timeoutId);
 
-      if (data.success) {
+        const data = await response.json();
+        console.log('📥 Response:', data);
+
+        if (data.success) {
         setInquiryNumber(data.data.inquiryNumber);
         toast.success('Material inquiry submitted successfully!');
         console.log('✅ SUCCESS! Inquiry Number:', data.data.inquiryNumber);
@@ -180,19 +198,29 @@ _Please provide quotation at your earliest convenience._`;
             specifications: "",
           });
         }, 2500);
-      } else {
-        throw new Error(data.message || 'Submission failed');
+        } else {
+          throw new Error(data.message || 'Submission failed');
+        }
+      } catch (fetchError) {
+        clearTimeout(timeoutId);
+        throw fetchError;
       }
     } catch (error: unknown) {
       const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
       console.error('❌ Submission error:', error);
-      toast.error('Failed to submit inquiry: ' + errorMessage);
       
-      // Show detailed error for debugging
-      if (errorMessage.includes('fetch')) {
-        toast.error('Cannot connect to backend. Make sure backend is running on port 5000');
-        console.error('⚠️ Backend not reachable at:', API_BASE_URL);
+      // Specific error messages
+      if (errorMessage.includes('aborted')) {
+        toast.error('Request timed out. Backend server may be sleeping. Please try again.');
+        console.error('⏱️ Request timeout - Backend not responding');
+      } else if (errorMessage.includes('fetch') || errorMessage.includes('Failed to fetch')) {
+        toast.error('Cannot connect to backend. The server may be waking up. Please wait 30 seconds and try again.');
+        console.error('🔌 Network error - Backend unreachable at:', API_BASE_URL);
+        console.error('💡 Tip: Render free tier sleeps after inactivity. First request may take 30-60 seconds.');
+      } else {
+        toast.error('Failed to submit inquiry: ' + errorMessage);
       }
+      
       setIsSubmitting(false);
     }
   };
