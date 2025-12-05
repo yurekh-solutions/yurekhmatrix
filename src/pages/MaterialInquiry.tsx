@@ -163,15 +163,15 @@ const MaterialInquiry = () => {
 *Inquiry Number:* ${data.data.inquiryNumber}
 
 *Customer Details:*
-👤 Name: ${formData.name}
-🏢 Company: ${formData.company || "Not specified"}
-📧 Email: ${formData.email}
-📱 Phone: ${formData.phone}
-📍 Location: ${formData.location}
+ Name: ${formData.name}
+ Company: ${formData.company || "Not specified"}
+ Email: ${formData.email}
+ Phone: ${formData.phone}
+ Location: ${formData.location}
 
 *Material Requirements:*
-📦 Material: ${materialName}
-📊 Quantity: ${formData.quantity}
+ Material: ${materialName}
+ Quantity: ${formData.quantity}
 
 *Detailed Specifications:*
 ${formData.specifications || "No additional specifications"}

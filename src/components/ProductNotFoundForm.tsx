@@ -8,10 +8,40 @@ import { MessageSquare, User, Phone, Mail, Package, FileText } from "lucide-reac
 import { sendToWhatsApp } from "@/lib/whatsappIntegration";
 import { saveToLocalStorage } from "@/lib/sheetsIntegration";
 import SuccessAnimation from "./SuccessAnimation";
+import { toast } from "sonner";
 
 interface ProductNotFoundFormProps {
   searchQuery: string;
 }
+
+// Dynamic API URL based on environment
+const getApiUrl = () => {
+  if (typeof window !== 'undefined') {
+    const hostname = window.location.hostname;
+    console.log('🌐 Product Inquiry hostname:', hostname);
+    
+    if (hostname === 'localhost' || hostname === '127.0.0.1') {
+      console.log('💻 Product Inquiry running locally - using localhost backend');
+      return 'http://localhost:5000/api';
+    }
+    
+    if (hostname.includes('vercel.app') || hostname.includes('ritzyard.com')) {
+      console.log('✅ Product Inquiry running on Vercel - using production backend');
+      return 'https://backendmatrix.onrender.com/api';
+    }
+  }
+  
+  if (import.meta.env.VITE_API_URL) {
+    console.log('⚙️ Product Inquiry using VITE_API_URL:', import.meta.env.VITE_API_URL);
+    return import.meta.env.VITE_API_URL;
+  }
+  
+  console.log('💻 Product Inquiry defaulting to localhost backend');
+  return 'http://localhost:5000/api';
+};
+
+const API_BASE_URL = getApiUrl();
+console.log('📡 Product Inquiry API Base URL:', API_BASE_URL);
 
 const ProductNotFoundForm = ({ searchQuery }: ProductNotFoundFormProps) => {
   const [formData, setFormData] = useState({
@@ -68,7 +98,41 @@ const ProductNotFoundForm = ({ searchQuery }: ProductNotFoundFormProps) => {
         specifications: formData.specifications
       };
 
-      // Save to local storage
+      // Save to database
+      console.log('📤 Submitting product inquiry to database:', inquiryData);
+      
+      try {
+        const response = await fetch(`${API_BASE_URL}/product-inquiries`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            productName: formData.productName,
+            customerName: formData.customerName,
+            phone: formData.phone,
+            email: formData.email,
+            quantity: formData.quantity,
+            specifications: formData.specifications,
+          }),
+        });
+
+        const data = await response.json();
+        console.log('📥 Database response:', data);
+
+        if (data.success) {
+          console.log('✅ Product inquiry saved to database:', data.data.inquiryNumber);
+          toast.success(`Product inquiry submitted! Inquiry #${data.data.inquiryNumber}`);
+        } else {
+          console.error('❌ Database save failed:', data.message);
+          toast.error('Failed to save to database, but will send via WhatsApp');
+        }
+      } catch (dbError: any) {
+        console.error('❌ Database error:', dbError.message);
+        toast.error('Database connection failed, but will send via WhatsApp');
+      }
+
+      // Save to local storage (fallback)
       saveToLocalStorage({
         source: 'Product Not Found Form',
         productName: formData.productName,
@@ -86,7 +150,7 @@ const ProductNotFoundForm = ({ searchQuery }: ProductNotFoundFormProps) => {
       setShowSuccess(true);
     } catch (error) {
       console.error('Error submitting inquiry:', error);
-      alert('Failed to send inquiry. Please try again.');
+      toast.error('Failed to send inquiry. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
