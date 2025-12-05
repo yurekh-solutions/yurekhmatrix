@@ -30,6 +30,7 @@ import NotFound from "./pages/NotFound";
 import ScrollToTop from "./components/ScrollToTop";
 import GoogleTranslateWidget from "./components/GoogleTranslateWidget";
 import FirstVisitLanguageModal from "./components/FirstVisitLanguageModal";
+import WhatsAppContact from "./components/WhatsAppContact";
 import { applyTranslation } from "./lib/translationUtils";
 
 const queryClient = new QueryClient();
@@ -53,6 +54,7 @@ const App = () => {
           <Sonner />
           <GoogleTranslateWidget />
           <FirstVisitLanguageModal onLanguageSelect={handleLanguageSelect} />
+          <WhatsAppContact />
           <BrowserRouter>
             {/* ✅ Correct placement for ScrollToTop */}
             <ScrollToTop />

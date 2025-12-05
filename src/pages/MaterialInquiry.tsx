@@ -146,8 +146,12 @@ const MaterialInquiry = () => {
           },
           body: JSON.stringify(submissionData),
           signal: controller.signal,
+          mode: 'cors',
+          credentials: 'omit',
         });
-        clearTimeout(timeoutId);
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
 
         const data = await response.json();
         console.log('📥 Response:', data);
