@@ -77,6 +77,8 @@ const App = () => {
               <Route path="/careers" element={<Careers />} />
               <Route path="/rfq" element={<RFQ />} />
               <Route path="/inquiry" element={<MaterialInquiry />} />
+              <Route path="/material-inquiry" element={<MaterialInquiry />} />
+              <Route path="/get-quote" element={<MaterialInquiry />} />
               <Route path="/milo" element={<MiloAI />} />
               <Route path="/milo-guide" element={<MiloGuideHub />} />
               {/* Catch-all route */}
