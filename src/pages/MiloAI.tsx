@@ -4,6 +4,7 @@ import { Mic, MicOff, Send, Volume2, VolumeX, Sparkles } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import ScrollToTop from "@/components/ScrollToTop";
 import { Badge } from "@/components/ui/badge";
+import { getApiUrl } from "@/lib/api"; // Import the API URL helper
 
 interface Message {
   role: "user" | "milo";
@@ -132,17 +133,21 @@ const MiloAI = () => {
   useEffect(() => {
     const loadMiloTrainingData = async () => {
       try {
-        const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
-        const response = await fetch(`${API_URL}/ai/milo/training-data`);
+        const API_URL = getApiUrl(); // Use the API URL helper
+        console.log('📡 Loading Milo training data from:', API_URL);
+        const response = await fetch(`${API_URL}/ai/milo/training-data`, {
+          mode: 'cors',
+          credentials: 'omit',
+        });
         if (response.ok) {
           const data = await response.json();
           if (data.success) {
             setContextData(data.data);
-            console.log('✅ Milo training data loaded:', data.data);
+            console.log('✅ Milo training data loaded successfully');
           }
         }
       } catch (error) {
-        console.log('Training data fetch failed, using fallback responses');
+        console.log('⚠️ Training data fetch failed, using fallback responses');
       }
     };
     

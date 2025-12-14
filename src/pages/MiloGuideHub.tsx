@@ -6,6 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ChevronRight, Download, BookOpen, Users, ShoppingCart, Zap } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import ScrollToTop from "@/components/ScrollToTop";
+import { getApiUrl } from "@/lib/api"; // Import the API URL helper
 
 const MiloGuideHub = () => {
   const [guides, setGuides] = useState<any>(null);
@@ -14,7 +15,7 @@ const MiloGuideHub = () => {
   const [loading, setLoading] = useState(false);
   const [userType, setUserType] = useState<"buyer" | "supplier">("buyer");
 
-  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+  const API_URL = getApiUrl(); // Use the API URL helper
 
   // Load complete guide
   useEffect(() => {
