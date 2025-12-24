@@ -7,23 +7,19 @@ const ScrollToTop = () => {
   const [isVisible, setIsVisible] = useState(false);
   const location = useLocation();
 
-  // Automatically scroll to top on route change - IMMEDIATE
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-    // Also ensure smooth scroll for any delayed content
     setTimeout(() => {
       window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
     }, 0);
   }, [location.pathname]);
 
-  // Additional effect to ensure scroll on mount
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
     document.documentElement.scrollTop = 0;
     document.body.scrollTop = 0;
   }, []);
 
-  // Show/hide scroll to top button
   useEffect(() => {
     const toggleVisibility = () => {
       if (window.pageYOffset > 300) {
@@ -49,11 +45,11 @@ const ScrollToTop = () => {
       {isVisible && (
         <Button
           onClick={scrollToTop}
-          className="fixed bottom-8 right-8 z-50 h-12 w-12 rounded-full bg-gradient-primary shadow-elegant hover:shadow-glow transition-all duration-300 hover:scale-110"
+          className="fixed bottom-6 sm:bottom-8 right-4 sm:right-6 z-40 w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-primary via-primary to-primary-glow hover:from-primary-glow hover:via-primary hover:to-primary shadow-lg hover:shadow-elegant transition-all duration-300 hover:scale-110 p-0"
           size="icon"
           aria-label="Scroll to top"
         >
-          <ArrowUp className="h-5 w-5" />
+          <ArrowUp className="h-5 w-5 sm:h-6 sm:w-6 text-primary-foreground" />
         </Button>
       )}
     </>

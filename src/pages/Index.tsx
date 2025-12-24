@@ -1,6 +1,8 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
+import WhatsAppContact from "@/components/WhatsAppContact";
+import PhoneContact from "@/components/PhoneContact";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
@@ -682,7 +684,8 @@ const Index = () => {
             </div>
           </div>
         </section>
-
+<PhoneContact />
+      <ScrollToTop />
         <Footer />
       </div>
     </>
