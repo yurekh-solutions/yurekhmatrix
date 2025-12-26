@@ -3,5 +3,11 @@
   "outputDirectory": "dist",
   "env": {
     "VITE_API_URL": "https://backendmatrix.onrender.com/api"
-  }
+  },
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
 }
