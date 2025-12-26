@@ -48,7 +48,8 @@ const WhatsAppContact = () => {
     <>
       {/* Centered Modal */}
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+        
+        <div className="fixed inset-0 z-40 flex items-center justify-center p-4">
           <div
             className="absolute inset-0 bg-foreground/60 backdrop-blur-sm animate-in fade-in duration-200"
             onClick={() => setIsOpen(false)}
@@ -136,7 +137,7 @@ const WhatsAppContact = () => {
       {/* Floating WhatsApp Button - Top of stack */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`fixed bottom-40 sm:bottom-44 right-4 sm:right-6 z-40 w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-green-400 via-emerald-400 to-green-500 hover:from-green-500 hover:via-emerald-500 hover:to-green-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center group hover:scale-110 active:scale-95 ${
+        className={`fixed bottom-20 sm:bottom-24 right-4 sm:right-6 z-40 w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-green-400 via-emerald-400 to-green-500 hover:from-green-500 hover:via-emerald-500 hover:to-green-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center group hover:scale-110 active:scale-95 ${
           isOpen ? 'scale-110 shadow-xl shadow-green-500/40' : ''
         }`}
         aria-label="Chat on WhatsApp"
