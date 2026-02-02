@@ -52,7 +52,7 @@ export const Layout = ({ children }: LayoutProps) => {
             <div className="w-10 h-10 rounded-lg gradient-primary flex items-center justify-center overflow-hidden">
               <img src={ritzyardLogo} alt="ritzyard logo" className="w-full h-full object-cover" />
             </div>
-            <span className="font-bold text-xl">
+            <span className="font-bold text-xl notranslate">
               <span className="text-primary">r</span>
               <span className="text-[#452a21]">itz </span>
               <span className="text-[#452a21]">yard</span>
@@ -156,7 +156,7 @@ export const Layout = ({ children }: LayoutProps) => {
                 <div className="w-10 h-10 rounded-lg gradient-primary flex items-center justify-center overflow-hidden">
                   <img src={ritzyardLogo} alt="ritzyard logo" className="w-full h-full object-cover" />
                 </div>
-                <span className="font-bold text-xl">
+                <span className="font-bold text-xl notranslate">
                   <span className="text-primary">r</span>
                   <span className="text-[#452a21]">itz </span>
                   <span className="text-[#452a21]">yard</span>

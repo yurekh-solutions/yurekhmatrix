@@ -57,7 +57,7 @@ const Footer = () => {
               <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center overflow-hidden">
                 <img src={ritzyardLogo} alt="ritzyard logo" className="w-full h-full object-cover" />
               </div>
-              <span className="text-xl font-bold">
+              <span className="text-xl font-bold notranslate">
                 <span className="text-primary">r</span>
                 <span className="text-[#452a21]">itz </span>
                 <span className="text-[#452a21]">yard</span>

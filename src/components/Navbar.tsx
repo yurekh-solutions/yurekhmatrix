@@ -153,12 +153,12 @@ const Navbar = () => {
               <img src={ritzyardLogo} alt="ritzyard logo" className="w-full h-full object-cover" />
             </div>
             <div className="flex flex-col">
-              <span className="text-xl md:text-2xl font-bold leading-tight">
+              <span className="text-xl md:text-2xl font-bold leading-tight notranslate">
                 <span className="text-primary">r</span>
                 <span className="text-[#452a21]">itz </span>
                 <span className="text-[#452a21]">yard</span>
               </span>
-              <span className="text-xs md:text-xs font-medium  text-[#452a21] text-primary">
+              <span className="text-xs md:text-xs font-medium  text-[#452a21] text-primary notranslate">
                 Where Value Meets Velocity
               </span>
             </div>
