@@ -10,6 +10,7 @@ import {
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useEffect } from "react";
+import ritzyardLogo from "@/assets/ritzyard.svg";
 
 interface LayoutProps {
   children: ReactNode;
@@ -48,9 +49,11 @@ export const Layout = ({ children }: LayoutProps) => {
       <header className="sticky top-0 z-50 w-full border-b border-border/40 glass backdrop-blur-xl">
         <div className="container flex h-16 items-center justify-between">
           <Link to="/" className="flex items-center space-x-2">
-            <div className="w-10 h-10 rounded-lg gradient-primary flex items-center justify-center">
-              <span className="text-white font-bold text-lg">ry</span>
-            </div>
+            <img 
+              src={ritzyardLogo} 
+              alt="ritzyard logo" 
+              className="w-10 h-10 rounded-lg"
+            />
             <span className="font-bold text-xl text-gradient">ritzyard</span>
           </Link>
 
@@ -148,10 +151,12 @@ export const Layout = ({ children }: LayoutProps) => {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="space-y-4">
               <div className="flex items-center space-x-2">
-                <div className="w-10 h-10 rounded-lg gradient-primary flex items-center justify-center">
-                  <span className="text-white font-bold text-lg">MM</span>
-                </div>
-                <span className="font-bold text-xl text-gradient">RitzYard</span>
+                <img 
+                  src={ritzyardLogo} 
+                  alt="ritzyard logo" 
+                  className="w-10 h-10 rounded-lg"
+                />
+                <span className="font-bold text-xl text-gradient">ritzyard</span>
               </div>
               <p className="text-sm text-muted-foreground">
                 Your trusted construction procurement platform

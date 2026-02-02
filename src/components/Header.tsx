@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
 import { useCart } from "@/contexts/CartContext";
 import { cn } from "@/lib/utils";
+import ritzyardLogo from "@/assets/ritzyard.svg";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -46,9 +47,11 @@ const Header = () => {
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2 group">
-            <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center font-bold text-white text-lg md:text-xl shadow-lg group-hover:shadow-xl transition-all">
-              ry
-            </div>
+            <img 
+              src={ritzyardLogo} 
+              alt="ritzyard logo" 
+              className="w-10 h-10 md:w-12 md:h-12 rounded-lg shadow-lg group-hover:shadow-xl transition-all"
+            />
             <span className="text-xl md:text-2xl font-bold text-gradient">
               ritzyard
             </span>

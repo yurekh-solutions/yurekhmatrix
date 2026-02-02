@@ -108,6 +108,7 @@ import { ShoppingCart, Menu, X, Mic, Store } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import LanguageSelector from "./LanguageSelector";
+import ritzyardLogo from "@/assets/ritzyard.svg";
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -148,9 +149,11 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2 group">
-            <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center font-bold text-white text-lg md:text-xl shadow-md group-hover:shadow-lg transition-all">
-              ry
-            </div>
+            <img 
+              src={ritzyardLogo} 
+              alt="ritzyard logo" 
+              className="w-10 h-10 md:w-12 md:h-12 rounded-lg shadow-md group-hover:shadow-lg transition-all"
+            />
             <span className="text-xl md:text-2xl font-bold text-gradient">
               ritzyard
             </span>
