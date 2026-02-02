@@ -588,7 +588,7 @@ const Index = () => {
     <div className="text-center mb-10 sm:mb-16">
       <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold mb-4">
         <span className="bg-gradient-to-r from-[#c15738] to-[#5c2d23] bg-clip-text text-transparent">
-          Why Choose RitzYard?
+          Why Choose ritzyard?
         </span>
       </h2>
       <div className="w-20 sm:w-28 h-1 bg-gradient-to-r from-[#c15738] to-[#5c2d23] mx-auto rounded-full mb-4" />
