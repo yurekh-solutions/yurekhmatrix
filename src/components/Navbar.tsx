@@ -104,7 +104,7 @@
 // export default Navbar;
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ShoppingCart, Menu, X, Mic } from "lucide-react";
+import { ShoppingCart, Menu, X, Mic, Store } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import LanguageSelector from "./LanguageSelector";
@@ -183,6 +183,12 @@ const Navbar = () => {
                 {t('nav.contact')}
               </Button>
             </Link>
+            <a href="https://ritzyardseller.com/" target="_blank" rel="noopener noreferrer">
+              <Button variant="ghost" className="text-muted-foreground hover:text-foreground flex items-center gap-2">
+                <Store className="w-4 h-4" />
+                <span>Seller Portal</span>
+              </Button>
+            </a>
             {/* <Link to="/milo">
               <Button variant="ghost" className="flex items-center gap-2 text-muted-foreground hover:text-foreground">
                 <Mic className="w-4 h-4" />
@@ -244,6 +250,12 @@ const Navbar = () => {
             <Link to="/contact" onClick={() => setMobileMenuOpen(false)}>
               <Button variant="ghost" className="w-full justify-start">{t('nav.contact')}</Button>
             </Link>
+            <a href="https://ritzyardseller.com/" target="_blank" rel="noopener noreferrer" onClick={() => setMobileMenuOpen(false)}>
+              <Button variant="ghost" className="w-full justify-start flex items-center gap-2">
+                <Store className="w-4 h-4" />
+                <span>Seller Portal</span>
+              </Button>
+            </a>
             {/* <Link to="/milo" onClick={() => setMobileMenuOpen(false)}>
               <Button variant="ghost" className="w-full justify-start flex items-center gap-2">
                 <Mic className="w-4 h-4" />

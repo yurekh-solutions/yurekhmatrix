@@ -258,12 +258,12 @@ export const products: Product[] = [
   },
   {
     id: "featured-4",
-    name: "Ceramic Floor Tiles",
+    name: "Deck Sheets GI Coated",
     category: "construction",
-    description: "Premium ceramic floor tiles with anti-slip surface and stain resistance. Available in multiple designs, colors, and finishes for residential and commercial spaces.",
-    image: tilesCeramic,
-    applications: ["Floor Tiling", "Wall Cladding", "Bathroom Flooring", "Commercial Spaces"],
-    features: ["Anti-Slip Surface", "Stain Resistant", "Easy Maintenance", "Durable Finish"]
+    description: "Heavy-duty galvanized iron deck sheets for composite flooring and roofing applications. High strength with zinc coating for corrosion protection.",
+    image: galvanizedSheets,
+    applications: ["Composite Floor Decking", "Roof Decking", "Industrial Flooring", "Mezzanine Construction"],
+    features: ["High Load Bearing", "Galvanized Coating", "Easy Installation", "Long Lifespan"]
   },
   {
     id: "featured-5",
@@ -276,12 +276,12 @@ export const products: Product[] = [
   },
   {
     id: "featured-6",
-    name: "Stone Grit (20mm Aggregate)",
+    name: "Profile Sheets Colored",
     category: "construction",
-    description: "Premium quality crushed stone aggregate (20mm) for concrete production. Clean, durable, and conforming to IS 383 standards with uniform grading.",
-    image: stoneGrit,
-    applications: ["RCC Works", "Road Construction", "Concrete Production", "Foundation Works"],
-    features: ["IS 383 Grade", "Uniform Size", "High Strength", "Clean Material"]
+    description: "Color coated profile sheets for roofing and wall cladding. Pre-painted with durable PVDF/PE coating in multiple colors.",
+    image: galvanizedSheets,
+    applications: ["Roofing", "Wall Cladding", "Industrial Sheds", "Warehouse Construction"],
+    features: ["Color Coated", "UV Resistant", "Weather Proof", "Low Maintenance"]
   },
   {
     id: "featured-7",
@@ -845,21 +845,41 @@ export const products: Product[] = [
   },
   {
     id: "55",
-    name: "20mm Aggregates Crushed Stone",
+    name: "CPVC Pipes Hot & Cold",
     category: "construction",
-    description: "Premium 20mm crushed stone aggregates for concrete work. High strength and durability.",
-    image: aggregates,
-    applications: ["Concrete Mix", "Foundation Work", "Road Construction", "RCC Work"],
-    features: ["High Strength", "Angular Shape", "Clean & Washed", "Graded Quality"]
+    description: "Chlorinated Polyvinyl Chloride pipes for hot and cold water plumbing systems. Superior chemical resistance and temperature tolerance up to 93°C.",
+    image: electricalConduits,
+    applications: ["Hot Water Supply", "Cold Water Supply", "Industrial Plumbing", "Chemical Transport"],
+    features: ["Temperature Resistant", "Chemical Resistant", "Lightweight", "Easy Installation"],
+    specifications: {
+      materialStandard: "IS 15778 / ASTM D2846",
+      packaging: "Bundle / Carton",
+      testingCertificate: "ISI Mark & Quality Certificate",
+      brand: ["Ashirvad", "Prince", "Astral", "Supreme", "Finolex"],
+      grades: ["SDR 11", "SDR 13.5", "Schedule 40", "Schedule 80"],
+      delivery: "Pan India",
+      quality: "ISI Certified",
+      availability: "In Stock"
+    }
   },
   {
     id: "56",
-    name: "10mm Aggregates Blue Metal",
+    name: "Gypsum Board False Ceiling",
     category: "construction",
-    description: "Quality 10mm blue metal aggregates for fine concrete work and finishing.",
-    image: aggregates10mmNew,
-    applications: ["Fine Concrete", "Flooring", "Plastering", "Paver Blocks"],
-    features: ["Uniform Size", "High Density", "Low Absorption", "Quality Certified"]
+    description: "Premium gypsum boards for false ceiling and partition walls. Fire resistant with smooth surface finish for painting.",
+    image: concreteBlocks,
+    applications: ["False Ceiling", "Partition Walls", "Interior Design", "Commercial Spaces"],
+    features: ["Fire Resistant", "Sound Insulation", "Smooth Surface", "Moisture Resistant"],
+    specifications: {
+      materialStandard: "IS 2095 / ASTM C1396",
+      packaging: "Pallet / Bundle",
+      testingCertificate: "Quality Certificate",
+      brand: ["Saint Gobain Gyproc", "USG Boral", "Everest", "Armstrong"],
+      grades: ["9.5mm", "12.5mm", "15mm", "Fire Rated", "Moisture Resistant"],
+      delivery: "Pan India",
+      quality: "ISO Certified",
+      availability: "In Stock"
+    }
   },
   {
     id: "57",
@@ -896,15 +916,6 @@ export const products: Product[] = [
     image: concreteSolidBlocksNew,
     applications: ["Load Bearing Walls", "Retaining Walls", "Foundation Work", "Industrial Buildings"],
     features: ["High Strength", "Weather Resistant", "Fire Proof", "Long Lasting"]
-  },
-  {
-    id: "61",
-    name: "Ready Mix Concrete M25 Grade",
-    category: "construction",
-    description: "Pre-mixed M25 grade concrete for beams, columns, and slabs. Quality assured.",
-    image: readyMixConcrete,
-    applications: ["Beams", "Columns", "Slabs", "Foundation"],
-    features: ["Quality Assured", "Consistent Mix", "Timely Delivery", "No Site Mixing"]
   },
   {
     id: "62",
@@ -1201,48 +1212,58 @@ export const products: Product[] = [
   },
   {
     id: "91",
-    name: "LED Bulbs 9W Cool White",
-    category: "electrical",
-    description: "Energy-efficient LED bulbs with cool white light. Long-lasting.",
-    image: ledBulbs,
-    applications: ["Homes", "Offices", "Shops", "Outdoor"],
-    features: ["Energy Efficient", "Long Life", "Bright Light", "Eco-Friendly"]
+    name: "Plywood 4mm MR Grade",
+    category: "construction",
+    description: "4mm MR (Moisture Resistant) grade plywood for light interior applications. Ideal for backing panels and decorative laminates.",
+    image: plywoodNew,
+    applications: ["Backing Panels", "Decorative Work", "Light Furniture", "Laminate Base"],
+    features: ["Moisture Resistant", "Smooth Surface", "Easy Cutting", "Economical"]
   },
   {
     id: "92",
-    name: "LED Tube Lights 4 Feet",
-    category: "electrical",
-    description: "4-feet LED tube lights for commercial and industrial spaces.",
-    image: ledTubes,
-    applications: ["Offices", "Shops", "Factories", "Warehouses"],
-    features: ["High Brightness", "Energy Saving", "Flicker Free", "Easy Installation"]
+    name: "Plywood 6mm MR Grade",
+    category: "construction",
+    description: "6mm MR grade plywood for interior furniture and paneling. Good dimensional stability with moisture protection.",
+    image: plywoodNew,
+    applications: ["Furniture Backing", "Wall Paneling", "Drawer Bottoms", "Interior Decor"],
+    features: ["MR Grade", "Stable Dimensions", "Termite Treated", "Quality Tested"]
   },
   {
     id: "93",
-    name: "LED Panel Lights 2x2 Feet",
-    category: "electrical",
-    description: "Slim LED panel lights for false ceiling installation. Uniform lighting.",
-    image: ledPanelLightsNew,
-    applications: ["False Ceiling", "Offices", "Hospitals", "Commercial Spaces"],
-    features: ["Slim Design", "Uniform Light", "Energy Efficient", "Long Life"]
+    name: "Plywood 9mm BWR Grade",
+    category: "construction",
+    description: "9mm BWR (Boiling Water Resistant) grade plywood for medium-duty furniture applications. Superior bonding for longer life.",
+    image: plywoodNew,
+    applications: ["Furniture Making", "Cabinet Sides", "Shelving", "Interior Work"],
+    features: ["BWR Grade", "Strong Bonding", "Smooth Finish", "ISI Certified"]
   },
   {
     id: "94",
-    name: "LED Downlights COB 7W",
-    category: "electrical",
-    description: "COB LED downlights for focused lighting in homes and offices.",
-    image: ledDownlights,
-    applications: ["Living Rooms", "Bedrooms", "Shops", "Showrooms"],
-    features: ["Focused Light", "High CRI", "Dimmable", "Energy Saving"]
+    name: "Plywood 12mm BWR Grade",
+    category: "construction",
+    description: "12mm BWR grade plywood for general furniture and construction. Versatile thickness suitable for various applications.",
+    image: plywoodNew,
+    applications: ["Modular Furniture", "Kitchen Cabinets", "Wardrobe", "Office Furniture"],
+    features: ["BWR Grade", "High Strength", "Durable", "Multi-Purpose"]
   },
   {
     id: "95",
-    name: "LED Flood Lights 50W",
-    category: "electrical",
-    description: "High-power LED flood lights for outdoor and security lighting.",
-    image: ledFloodlights,
-    applications: ["Outdoor", "Security", "Sports Fields", "Billboards"],
-    features: ["High Brightness", "Waterproof", "Wide Angle", "Long Range"]
+    name: "Plywood 18mm BWP Grade",
+    category: "construction",
+    description: "18mm BWP (Boiling Water Proof) grade plywood for heavy-duty furniture and construction. Marine grade bonding for external use.",
+    image: plywoodNew,
+    applications: ["Heavy Furniture", "Construction Formwork", "Outdoor Furniture", "Kitchen Base"],
+    features: ["BWP Grade", "Waterproof", "High Load Bearing", "Long Lasting"],
+    specifications: {
+      materialStandard: "IS 303 BWP Grade",
+      packaging: "Pallet / Bundle",
+      testingCertificate: "ISI Mark & Test Certificate",
+      brand: ["Century Ply", "Greenply", "Kitply", "National Plywood"],
+      grades: ["18mm"],
+      delivery: "Pan India",
+      quality: "ISI Certified",
+      availability: "In Stock"
+    }
   },
   {
     id: "96",
@@ -1288,5 +1309,24 @@ export const products: Product[] = [
     image: mainPanel3phaseNew,
     applications: ["Industrial", "Commercial Buildings", "Large Complexes", "Power Distribution"],
     features: ["High Capacity", "Safe Design", "Organized", "Bus Bar System"]
+  },
+  {
+    id: "101",
+    name: "Plywood 25mm BWP Marine Grade",
+    category: "construction",
+    description: "25mm BWP marine grade plywood for heavy-duty construction and exterior applications. Maximum thickness for structural support and formwork.",
+    image: plywoodMarineNew,
+    applications: ["Shuttering", "Heavy Construction", "Marine Applications", "Structural Support"],
+    features: ["Marine Grade", "Maximum Strength", "Waterproof", "Heavy Duty"],
+    specifications: {
+      materialStandard: "IS 303 Marine Grade",
+      packaging: "Pallet",
+      testingCertificate: "ISI Mark & Marine Test Certificate",
+      brand: ["Century Ply", "Greenply", "Kitply", "Austin Ply"],
+      grades: ["25mm Marine"],
+      delivery: "Pan India",
+      quality: "ISI Certified",
+      availability: "In Stock"
+    }
   },
 ];

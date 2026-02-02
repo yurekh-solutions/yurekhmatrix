@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin, Store, ExternalLink } from "lucide-react";
 
 const Footer = () => {
   const companyLinks = [
@@ -26,6 +26,29 @@ const Footer = () => {
   return (
     <footer className="bg-gradient-to-br from-secondary to-secondary/90 text-white">
       <div className="container mx-auto px-4 py-12 md:py-16">
+        {/* Seller Portal Banner */}
+        <div className="mb-10 p-6 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-2xl border border-white/10">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-4">
+              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-lg">
+                <Store className="w-7 h-7 text-white" />
+              </div>
+              <div>
+                <h3 className="text-xl font-bold">Become a Seller</h3>
+                <p className="text-white/80 text-sm">Join RitzYard Seller Portal and grow your business</p>
+              </div>
+            </div>
+            <a 
+              href="https://ritzyardseller.com/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary to-secondary rounded-lg font-semibold text-white hover:opacity-90 transition-all shadow-lg hover:shadow-xl"
+            >
+              <span>Visit Seller Portal</span>
+              <ExternalLink className="w-4 h-4" />
+            </a>
+          </div>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
           {/* Brand Column */}
           <div className="space-y-4">

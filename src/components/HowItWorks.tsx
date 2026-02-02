@@ -211,32 +211,6 @@ const HowItWorks = () => {
             ))}
           </div>
         </div>
-
-        {/* CTA Section */}
-        <motion.div
-          className="text-center mt-16"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8, duration: 0.6 }}
-          viewport={{ once: true }}
-        >
-          <GlassCard className="inline-block p-8 w-full sm:w-auto bg-white/80 backdrop-blur-md shadow-lg rounded-2xl">
-            <h3 className="text-2xl font-bold text-[#5c2d23] mb-4">
-              Ready to Streamline Your Procurement?
-            </h3>
-            <p className="text-[#5c2d23]/80 mb-6 max-w-xl mx-auto">
-              Join thousands of builders and suppliers transforming construction
-              procurement.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Link to="/products">
-                <button className="border-2 border-[#c15738] text-[#c15738] px-8 py-3 rounded-full font-semibold bg-transparent hover:bg-gradient-to-r hover:from-[#c15738] hover:to-[#5c2d23] hover:text-white transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg">
-                  Start Your First RFQ
-                </button>
-              </Link>
-            </div>
-          </GlassCard>
-        </motion.div>
       </div>
     </section>
   );
