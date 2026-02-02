@@ -52,7 +52,11 @@ export const Layout = ({ children }: LayoutProps) => {
             <div className="w-10 h-10 rounded-lg gradient-primary flex items-center justify-center overflow-hidden">
               <img src={ritzyardLogo} alt="ritzyard logo" className="w-full h-full object-cover" />
             </div>
-            <span className="font-bold text-xl text-gradient">ritzyard</span>
+            <span className="font-bold text-xl">
+              <span className="text-primary">r</span>
+              <span className="text-[#452a21]">itz </span>
+              <span className="text-[#452a21]">yard</span>
+            </span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -152,7 +156,11 @@ export const Layout = ({ children }: LayoutProps) => {
                 <div className="w-10 h-10 rounded-lg gradient-primary flex items-center justify-center overflow-hidden">
                   <img src={ritzyardLogo} alt="ritzyard logo" className="w-full h-full object-cover" />
                 </div>
-                <span className="font-bold text-xl text-gradient">ritzyard</span>
+                <span className="font-bold text-xl">
+                  <span className="text-primary">r</span>
+                  <span className="text-[#452a21]">itz </span>
+                  <span className="text-[#452a21]">yard</span>
+                </span>
               </div>
               <p className="text-sm text-muted-foreground">
                 Your trusted construction procurement platform

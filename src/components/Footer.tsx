@@ -57,7 +57,11 @@ const Footer = () => {
               <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center overflow-hidden">
                 <img src={ritzyardLogo} alt="ritzyard logo" className="w-full h-full object-cover" />
               </div>
-              <span className="text-xl font-bold">ritzyard</span>
+              <span className="text-xl font-bold">
+                <span className="text-primary">r</span>
+                <span className="text-[#452a21]">itz </span>
+                <span className="text-[#452a21]">yard</span>
+              </span>
             </Link>
             <p className="text-white/80 text-sm leading-relaxed">
               Your trusted construction procurement platform. Connecting buyers with verified suppliers across India.

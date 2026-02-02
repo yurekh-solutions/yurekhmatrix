@@ -50,8 +50,10 @@ const Header = () => {
             <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all overflow-hidden">
               <img src={ritzyardLogo} alt="ritzyard logo" className="w-full h-full object-cover" />
             </div>
-            <span className="text-xl md:text-2xl font-bold text-gradient">
-              ritzyard
+            <span className="text-xl md:text-2xl font-bold">
+              <span className="text-primary">r</span>
+              <span className="text-[#452a21]">itz </span>
+              <span className="text-[#452a21]">yard</span>
             </span>
           </Link>
 
