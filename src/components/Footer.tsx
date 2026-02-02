@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, Store, ExternalLink } from "lucide-react";
-import ritzyardLogo from "@/assets/ritzyard.svg";
+import ritzyardLogo from "@/assets/RITZYARD3.svg";
 
 const Footer = () => {
   const companyLinks = [
@@ -54,12 +54,8 @@ const Footer = () => {
           {/* Brand Column */}
           <div className="space-y-4">
             <Link to="/" className="flex items-center space-x-2">
-              <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-[#D4A574] to-[#E8C9A8] p-1.5 shadow-md border border-white/20">
-                <img 
-                  src={ritzyardLogo} 
-                  alt="ritzyard logo" 
-                  className="w-full h-full object-contain"
-                />
+              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center overflow-hidden">
+                <img src={ritzyardLogo} alt="ritzyard logo" className="w-full h-full object-cover" />
               </div>
               <span className="text-xl font-bold">ritzyard</span>
             </Link>
