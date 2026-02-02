@@ -54,11 +54,13 @@ const Footer = () => {
           {/* Brand Column */}
           <div className="space-y-4">
             <Link to="/" className="flex items-center space-x-2">
-              <img 
-                src={ritzyardLogo} 
-                alt="ritzyard logo" 
-                className="w-10 h-10 rounded-lg"
-              />
+              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#8B4513] to-[#CD5C5C] p-2">
+                <img 
+                  src={ritzyardLogo} 
+                  alt="ritzyard logo" 
+                  className="w-full h-full object-contain"
+                />
+              </div>
               <span className="text-xl font-bold">ritzyard</span>
             </Link>
             <p className="text-white/80 text-sm leading-relaxed">

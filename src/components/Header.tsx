@@ -47,11 +47,13 @@ const Header = () => {
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2 group">
-            <img 
-              src={ritzyardLogo} 
-              alt="ritzyard logo" 
-              className="w-10 h-10 md:w-12 md:h-12 rounded-lg shadow-lg group-hover:shadow-xl transition-all"
-            />
+            <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-gradient-to-br from-[#8B4513] to-[#CD5C5C] p-2 shadow-lg group-hover:shadow-xl transition-all">
+              <img 
+                src={ritzyardLogo} 
+                alt="ritzyard logo" 
+                className="w-full h-full object-contain"
+              />
+            </div>
             <span className="text-xl md:text-2xl font-bold text-gradient">
               ritzyard
             </span>
