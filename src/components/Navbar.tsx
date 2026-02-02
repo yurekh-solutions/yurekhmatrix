@@ -149,10 +149,10 @@ const Navbar = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2 group">
             <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center font-bold text-white text-lg md:text-xl shadow-md group-hover:shadow-lg transition-all">
-              RY
+              ry
             </div>
             <span className="text-xl md:text-2xl font-bold text-gradient">
-              RitzYard
+              ritzyard
             </span>
           </Link>
 

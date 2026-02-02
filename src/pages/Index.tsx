@@ -119,7 +119,7 @@ const Index = () => {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "RitzYard",
+    "name": "ritzyard",
     "description": "AI-powered construction material procurement platform",
     "url": "https://ritzyard.ai",
     "logo": "https://ritzyard.ai/logo.png",
@@ -146,8 +146,8 @@ const Index = () => {
   return (
     <>
       <SEOHead
-        title="RitzYard - AI-Powered Construction Material Procurement Platform | Smart Sourcing Solutions"
-        description="Transform your construction material procurement with RitzYard. Get instant quotes from 500+ verified suppliers, AI-powered price intelligence, and real-time tracking across India. Save 15% on costs with smart sourcing."
+        title="ritzyard - AI-Powered Construction Material Procurement Platform | Smart Sourcing Solutions"
+        description="Transform your construction material procurement with ritzyard. Get instant quotes from 500+ verified suppliers, AI-powered price intelligence, and real-time tracking across India. Save 15% on costs with smart sourcing."
         keywords="construction materials, AI procurement, TMT steel, cement, building materials, supplier network, price intelligence, construction sourcing, material procurement platform, verified suppliers India"
         structuredData={structuredData}
       />
