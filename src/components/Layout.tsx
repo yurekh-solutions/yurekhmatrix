@@ -49,7 +49,7 @@ export const Layout = ({ children }: LayoutProps) => {
       <header className="sticky top-0 z-50 w-full border-b border-border/40 glass backdrop-blur-xl">
         <div className="container flex h-16 items-center justify-between">
           <Link to="/" className="flex items-center space-x-2">
-            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#8B4513] to-[#CD5C5C] p-2">
+            <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-[#D4A574] to-[#E8C9A8] p-1.5 shadow-md border border-white/20">
               <img 
                 src={ritzyardLogo} 
                 alt="ritzyard logo" 
@@ -153,7 +153,7 @@ export const Layout = ({ children }: LayoutProps) => {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="space-y-4">
               <div className="flex items-center space-x-2">
-                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#8B4513] to-[#CD5C5C] p-2">
+                <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-[#D4A574] to-[#E8C9A8] p-1.5 shadow-md border border-white/20">
                   <img 
                     src={ritzyardLogo} 
                     alt="ritzyard logo" 

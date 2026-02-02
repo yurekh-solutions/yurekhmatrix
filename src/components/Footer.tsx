@@ -54,7 +54,7 @@ const Footer = () => {
           {/* Brand Column */}
           <div className="space-y-4">
             <Link to="/" className="flex items-center space-x-2">
-              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#8B4513] to-[#CD5C5C] p-2">
+              <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-[#D4A574] to-[#E8C9A8] p-1.5 shadow-md border border-white/20">
                 <img 
                   src={ritzyardLogo} 
                   alt="ritzyard logo" 

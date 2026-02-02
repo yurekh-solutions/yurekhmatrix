@@ -149,7 +149,7 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2 group">
-            <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-gradient-to-br from-[#8B4513] to-[#CD5C5C] p-2 shadow-md group-hover:shadow-lg transition-all">
+            <div className="w-11 h-11 md:w-14 md:h-14 rounded-xl bg-gradient-to-br from-[#D4A574] to-[#E8C9A8] p-1.5 shadow-md group-hover:shadow-lg transition-all border border-white/20">
               <img 
                 src={ritzyardLogo} 
                 alt="ritzyard logo" 
