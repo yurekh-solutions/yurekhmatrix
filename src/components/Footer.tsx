@@ -59,8 +59,8 @@ const Footer = () => {
               </div>
               <span className="text-xl font-bold notranslate">
                 <span className="text-primary">r</span>
-                <span className="text-[#452a21]">itz </span>
-                <span className="text-[#452a21]">yard</span>
+                <span className="text-white">itz </span>
+                <span className="text-white">yard</span>
               </span>
             </Link>
             <p className="text-white/80 text-sm leading-relaxed">

@@ -158,8 +158,8 @@ const Navbar = () => {
                 <span className="text-[#452a21]">itz </span>
                 <span className="text-[#452a21]">yard</span>
               </span>
-              <span className="text-xs md:text-xs font-medium  text-[#452a21] text-primary notranslate">
-                Where Value Meets Velocity
+              <span className="text-xs md:text-xs font-medium  text-[#452a21]  notranslate">
+                Where Value Meets Velocity 
               </span>
             </div>
           </Link>
