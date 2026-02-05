@@ -1,5 +1,5 @@
-import { useState, useMemo } from "react";
-import { Link } from "react-router-dom";
+import { useState, useMemo, useEffect } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -13,13 +13,24 @@ import ScrollToTop from "@/components/ScrollToTop";
 import ProductNotFoundForm from "@/components/ProductNotFoundForm";
 import FloatingActionButtons from "@/components/FloatingActionButtons";
 import AnimatedBackground from "@/components/AnimatedBackground";
+import SEOHead from "@/components/SEOHead";
 import heroBg from "@/assets/hero-bg-orange.jpg";
 
 const Products = () => {
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchParams] = useSearchParams();
+  const initialSearch = searchParams.get("search") || "";
+  const [searchQuery, setSearchQuery] = useState(initialSearch);
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 16;
+
+  // Update search query when URL params change
+  useEffect(() => {
+    const urlSearch = searchParams.get("search") || "";
+    if (urlSearch) {
+      setSearchQuery(urlSearch);
+    }
+  }, [searchParams]);
 
   // Shuffle function to randomize array
   const shuffleArray = <T,>(array: T[]): T[] => {
@@ -89,6 +100,13 @@ const Products = () => {
   ];
 
   return (
+    <>
+      <SEOHead
+        title="Construction Materials Catalog | TMT Steel, Cement, Bricks, Sand - ritzyard"
+        description="Browse 1000+ construction materials at best prices. TMT steel bars Fe500 Fe550, OPC PPC cement, red bricks, AAC blocks, river sand, M sand, aggregates, tiles, plywood from 500+ verified suppliers across India."
+        keywords="construction materials catalog India, TMT steel bars online, TMT Fe500 price, TMT Fe550 rate, cement price per bag today, OPC cement rate, PPC cement wholesale, red bricks price per 1000, AAC blocks cost, fly ash bricks, river sand rate, M sand price per unit, stone aggregates suppliers, 20mm aggregates, construction tiles online, ceramic tiles wholesale, vitrified tiles price, plywood sheets price, marine plywood cost, BWR plywood, MS pipes price, MS angles rate, steel channels, binding wire price, construction hardware India"
+        canonicalUrl="https://ritzyard.com/products"
+      />
     <div className="min-h-screen bg-[#f4f0ec]">
       <Navbar />
 
@@ -364,6 +382,7 @@ const Products = () => {
       <ScrollToTop />
       <FloatingActionButtons />
     </div>
+    </>
   );
 };
 

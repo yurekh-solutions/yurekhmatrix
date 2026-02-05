@@ -1,10 +1,18 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SEOHead from "@/components/SEOHead";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 
 const TermsOfService = () => {
   return (
+    <>
+      <SEOHead
+        title="Terms of Service | User Agreement - ritzyard"
+        description="ritzyard terms of service and user agreement. Read our terms and conditions for using ritzyard construction material procurement platform."
+        keywords="ritzyard terms of service, user agreement, terms and conditions, platform usage rules, construction procurement terms, legal agreement India"
+        canonicalUrl="https://ritzyard.com/terms"
+      />
     <div className="min-h-screen bg-[#f4f0ec]">
       <Navbar />
 
@@ -142,6 +150,7 @@ const TermsOfService = () => {
 
       <Footer />
     </div>
+    </>
   );
 };
 

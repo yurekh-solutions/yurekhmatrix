@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SEOHead from "@/components/SEOHead";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, Clock, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -72,6 +73,13 @@ const blogs = [
 
 const Blogs = () => {
   return (
+    <>
+      <SEOHead
+        title="Construction Industry Blog | Building Materials Guide & Expert Insights - ritzyard"
+        description="Expert insights on construction materials, procurement best practices & industry trends. Learn about TMT steel grades, cement types, sustainable materials, AI in construction & cost optimization tips."
+        keywords="construction blog India, building materials guide, TMT steel grades explained, cement types comparison, construction procurement tips, AI in construction industry, sustainable construction materials, cost optimization construction, construction industry trends India, material selection guide, building materials news, construction technology updates, infrastructure development India"
+        canonicalUrl="https://ritzyard.com/blogs"
+      />
     <div className="min-h-screen bg-[#f4f0ec]">
       <Navbar />
 
@@ -142,6 +150,7 @@ const Blogs = () => {
 
       <Footer />
     </div>
+    </>
   );
 };
 

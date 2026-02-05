@@ -6,6 +6,7 @@ import WhatsAppContact from "@/components/WhatsAppContact";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
+
 import { Link } from "react-router-dom";
 import {
   ArrowRight,
@@ -36,6 +37,7 @@ Sparkles ,
   MapPin,
 } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import heroImage from "@/assets/hero-construction.jpg";
 import constructionSite from "@/assets/construction-site.jpg";
 import constructionSites from "@/assets/construction-sites.jpg";
@@ -60,6 +62,7 @@ import Section from "./Section";
 import ProcurementGrid from "@/components/ProcurementGrid";
 
 const Index = () => {
+  const navigate = useNavigate();
   const [stats, setStats] = useState({
     activeQuotes: 108,
     processing: 52,
@@ -146,9 +149,10 @@ const Index = () => {
   return (
     <>
       <SEOHead
-        title="ritzyard - AI-Powered Construction Material Procurement Platform | Smart Sourcing Solutions"
-        description="Transform your construction material procurement with ritzyard. Get instant quotes from 500+ verified suppliers, AI-powered price intelligence, and real-time tracking across India. Save 15% on costs with smart sourcing."
-        keywords="construction materials, AI procurement, TMT steel, cement, building materials, supplier network, price intelligence, construction sourcing, material procurement platform, verified suppliers India"
+        title="ritzyard | AI-Powered Construction Material Procurement Platform India"
+        description="ritzyard is India's #1 AI-powered construction material procurement platform. Get instant quotes from 500+ verified suppliers for TMT steel, cement, bricks, sand & aggregates. 98% on-time delivery across 28 states. Save up to 15% on bulk orders."
+        keywords="ritzyard, construction materials India, TMT steel bars price today, cement rate per bag, building materials online India, construction material suppliers near me, TMT bars Fe500 Fe550 price, OPC PPC cement wholesale, AAC blocks manufacturers, red bricks rate, river sand M sand price, construction aggregates suppliers, steel rods wholesale India, cement bags bulk order, verified construction suppliers, AI procurement platform, instant material quotes, construction material delivery, B2B construction marketplace, building materials wholesale, infrastructure materials India, real estate construction supplies, bulk construction materials order, material sourcing platform India"
+        canonicalUrl="https://ritzyard.com/"
         structuredData={structuredData}
       />
       <div className="min-h-screen bg-[#f4f0ec]">
@@ -588,7 +592,12 @@ const Index = () => {
     <div className="text-center mb-10 sm:mb-16">
       <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold mb-4">
         <span className="bg-gradient-to-r from-[#c15738] to-[#5c2d23] bg-clip-text text-transparent">
-          Why Choose ritzyard?
+          Why Choose 
+          <span className="  ml-4 text-2xl sm:text-4xl lg:text-5xl notranslate">
+                <span className="text-primary">r</span>
+                <span className="text-[#452a21]">itz</span>
+                <span className="text-[#452a21]">yard?</span>
+              </span>
         </span>
       </h2>
       <div className="w-20 sm:w-28 h-1 bg-gradient-to-r from-[#c15738] to-[#5c2d23] mx-auto rounded-full mb-4" />

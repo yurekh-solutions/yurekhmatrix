@@ -13,6 +13,7 @@ import { saveToLocalStorage } from "@/lib/sheetsIntegration";
 import SuccessAnimation from "@/components/SuccessAnimation";
 import ScrollToTop from "@/components/ScrollToTop";
 import FloatingActionButtons from "@/components/FloatingActionButtons";
+import SEOHead from "@/components/SEOHead";
 import { submitRFQ as submitRFQToBackend } from "@/lib/api";
 
 interface RFQItem {
@@ -158,6 +159,13 @@ const RFQ = () => {
     return <SuccessAnimation message="RFQ submitted successfully! Opening WhatsApp..." duration={3000} />;
   }
  return (
+    <>
+      <SEOHead
+        title="Request for Quotation (RFQ) | Bulk Construction Material Orders - ritzyard"
+        description="Submit your RFQ for bulk construction materials. Get competitive quotes for TMT steel, cement, bricks, sand & more from multiple verified suppliers. Best prices guaranteed."
+        keywords="construction RFQ India, request for quotation building materials, bulk order construction, competitive material quotes, TMT steel bulk order, cement wholesale RFQ, construction tender quotes, material bidding platform, supplier quotation request, bulk procurement India"
+        canonicalUrl="https://ritzyard.com/rfq"
+      />
     <div className="min-h-screen relative">
       <Navbar />
 
@@ -420,6 +428,7 @@ const RFQ = () => {
       <ScrollToTop />
       <FloatingActionButtons />
     </div>
+    </>
   );
 };
 

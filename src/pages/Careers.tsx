@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SEOHead from "@/components/SEOHead";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -159,6 +160,13 @@ const Careers = () => {
   ];
 
   return (
+    <>
+      <SEOHead
+        title="Careers at ritzyard | Join India's Leading Construction Tech Startup"
+        description="Join ritzyard and transform India's construction industry. Exciting careers in AI/ML, full stack development, product management & operations. Competitive salary, equity & great culture. Apply now!"
+        keywords="ritzyard careers, construction tech jobs India, AI ML engineer jobs Bangalore, full stack developer Mumbai, product manager startup India, operations manager construction, tech startup jobs India, B2B startup careers, construction industry jobs, supply chain careers, procurement jobs India, startup equity jobs, remote work construction tech"
+        canonicalUrl="https://ritzyard.com/careers"
+      />
     <div className="min-h-screen bg-[#f4f0ec]">
       <Navbar />
 
@@ -376,6 +384,7 @@ const Careers = () => {
 
       <Footer />
     </div>
+    </>
   );
 };
 

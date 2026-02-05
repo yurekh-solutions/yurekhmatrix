@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SEOHead from "@/components/SEOHead";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -75,6 +76,13 @@ const HelpCenter = () => {
   ];
 
   return (
+    <>
+      <SEOHead
+        title="Help Center | FAQs & Support Guide - ritzyard"
+        description="Get help with ritzyard platform. Find answers to FAQs, user guides, account management, ordering process, supplier verification & more. 24/7 support available."
+        keywords="ritzyard help center, construction material FAQs, platform support guide, how to order materials, supplier verification help, account setup guide, procurement support India"
+        canonicalUrl="https://ritzyard.com/help"
+      />
     <div className="min-h-screen bg-[#f4f0ec]">
       <Navbar />
 
@@ -161,6 +169,7 @@ const HelpCenter = () => {
 
       <Footer />
     </div>
+    </>
   );
 };
 

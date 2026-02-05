@@ -3,8 +3,10 @@ import { Button } from "@/components/ui/button";
 import { Mic, MicOff, Send, Volume2, VolumeX, Sparkles } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import ScrollToTop from "@/components/ScrollToTop";
+import SEOHead from "@/components/SEOHead";
 import { Badge } from "@/components/ui/badge";
 import { getApiUrl } from "@/lib/api"; // Import the API URL helper
+import { getKnowledgeResponse, searchKnowledge } from "@/lib/miloKnowledgeBase"; // Import knowledge base
 
 interface Message {
   role: "user" | "milo";
@@ -159,8 +161,8 @@ const MiloAI = () => {
     if (!hasGreeted) {
       setTimeout(() => {
         const greetingText = language === "en-IN" 
-          ? "Hello! I'm Milo, your smart procurement assistant at RitzYard. How may I help you today?"
-          : "नमस्ते! मैं मिलो हूं, RitzYard में आपका स्मार्ट खरीद सहायक। मैं आज आपकी कैसे मदद कर सकता हूं?";
+          ? "Hello! I'm Milo, your smart procurement assistant at ritzyard. How may I help you today?"
+          : "नमस्ते! मैं मिलो हूं, ritzyard में आपका स्मार्ट खरीद सहायक। मैं आज आपकी कैसे मदद कर सकता हूं?";
         
         const greeting: Message = {
           role: "milo",
@@ -327,96 +329,193 @@ const MiloAI = () => {
     return normalized;
   };
 
-  // Get AI response - Smart intelligent fallback system
+  // External AI API for random questions
+  const getExternalAIResponse = async (query: string): Promise<string | null> => {
+    try {
+      // Use DuckDuckGo Instant Answer API (free, no API key needed)
+      const searchQuery = encodeURIComponent(query);
+      const response = await fetch(`https://api.duckduckgo.com/?q=${searchQuery}&format=json&no_html=1&skip_disambig=1`);
+      
+      if (response.ok) {
+        const data = await response.json();
+        
+        // Check for abstract answer
+        if (data.AbstractText && data.AbstractText.length > 20) {
+          return data.AbstractText;
+        }
+        
+        // Check for answer
+        if (data.Answer && data.Answer.length > 5) {
+          return data.Answer;
+        }
+        
+        // Check for definition
+        if (data.Definition && data.Definition.length > 10) {
+          return data.Definition;
+        }
+        
+        // Check for related topics
+        if (data.RelatedTopics && data.RelatedTopics.length > 0) {
+          const topic = data.RelatedTopics[0];
+          if (topic.Text && topic.Text.length > 20) {
+            return topic.Text;
+          }
+        }
+      }
+      return null;
+    } catch (error) {
+      console.log('External AI fallback failed:', error);
+      return null;
+    }
+  };
+
+  // Get AI response - Smart intelligent fallback system with Knowledge Base
   const getMiloResponse = async (userMessage: string): Promise<string> => {
     // Generate hash for this query
     const queryHash = generateQueryHash(userMessage);
     
-    // Check if this is a repeated question
-    const isRepeatedQuery = queryHash === lastQueryHash;
-    
-    console.log('🚀 RitzYard AI processing:', userMessage);
-    
-    // Build smart context for better responses
-    const conversationHistory = messages.slice(-3)
-      .map(m => `${m.role === 'user' ? 'User' : 'Milo'}: ${m.content}`)
-      .join('\n');
+    console.log('🚀 ritzyard AI (Milo) processing:', userMessage);
     
     setLastQueryHash(queryHash);
     
-    // Smart contextual responses based on keywords (instant, no API needed)
     const lowerMessage = userMessage.toLowerCase();
     
-    // Geography questions
-    if (lowerMessage.includes('china')) {
-      const responses = [
-        "China is the world's most populous country and second-largest economy. It's located in East Asia and is known for its rich history, manufacturing prowess, and as a major exporter of construction materials like cement, steel, and TMT bars to countries like India.",
-        "China, officially the People's Republic of China, is a major global economic power. Key cities include Beijing (capital), Shanghai (financial hub), and Shenzhen (tech center). It's also a leading supplier of construction materials worldwide.",
-      ];
-      return responses[Math.floor(Math.random() * responses.length)];
+    // STEP 1: Check Knowledge Base first for comprehensive answers
+    const knowledgeResult = getKnowledgeResponse(userMessage);
+    const knowledgeMatch = searchKnowledge(userMessage);
+    
+    if (knowledgeMatch) {
+      console.log('✅ Knowledge base match found:', knowledgeMatch.category);
+      let response = knowledgeResult.response;
+      if (knowledgeResult.followUp) {
+        response += "\n\n" + knowledgeResult.followUp;
+      }
+      return response;
     }
     
-    if (lowerMessage.includes('dubai')) {
-      const responses = [
-        "Dubai is the most populous city in the United Arab Emirates (UAE). Famous for the Burj Khalifa (world's tallest building), luxury shopping, and modern architecture. It's a major business and tourism hub in the Middle East.",
-        "Dubai is a global city and business hub in the UAE, known for innovation in construction and real estate. Home to landmarks like Palm Jumeirah, Burj Al Arab, and Dubai Mall. A key center for international trade and commerce.",
-      ];
-      return responses[Math.floor(Math.random() * responses.length)];
+    // STEP 2: Handle common conversational patterns
+    
+    // Who/What is Milo
+    if (lowerMessage.includes('who are you') || lowerMessage.includes('what are you') || lowerMessage.includes('your name') || lowerMessage.includes('introduce yourself')) {
+      return "I'm Milo, your AI-powered procurement assistant at ritzyard! 🤖 I can help you with:\n\n• Real-time material pricing (cement, steel, TMT, bricks, sand)\n• Supplier recommendations from 500+ verified suppliers\n• Creating instant RFQs\n• Delivery tracking and logistics\n• Market intelligence and trends\n• Construction tips and advice\n• Material specifications and quality standards\n\nI'm available 24/7 in English and Hindi. What can I help you with today?";
     }
     
-    if (lowerMessage.includes('india')) {
-      const responses = [
-        "India is the world's largest democracy and seventh-largest country by area. With 1.4+ billion people, it's incredibly diverse with 28 states, multiple languages, and a rapidly growing economy focused on services, manufacturing, and agriculture.",
-        "India is a South Asian nation with rich cultural heritage and diversity. Major cities include New Delhi (capital), Mumbai (financial capital), and Bangalore (tech hub). Known for its IT industry, construction boom, and growing infrastructure projects.",
-      ];
-      return responses[Math.floor(Math.random() * responses.length)];
+    // Greetings
+    if (/^(hi|hello|hey|good morning|good afternoon|good evening|namaste|हाय|हेलो|नमस्ते)[!.,]?$/i.test(userMessage.trim())) {
+      return "Hello! 👋 I'm Milo, your AI procurement expert at ritzyard. I can help you find the best construction materials at competitive prices. What are you looking for today? You can ask me about:\n\n• Material prices (cement, steel, bricks, sand)\n• Supplier recommendations\n• Quotes and RFQs\n• Delivery information\n• Or anything else!";
     }
     
-    if (lowerMessage.includes('ss') || lowerMessage.includes('stainless steel')) {
-      return "SS (Stainless Steel) is a corrosion-resistant alloy containing chromium. Common grades: SS 304 (₹180-220/kg) for general use, SS 316 (₹250-300/kg) for marine/chemical environments. Used in pipes, tanks, utensils, and construction. RitzYard can help source verified SS suppliers. Need a specific grade?";
+    // Thank you responses
+    if (lowerMessage.includes('thank') || lowerMessage.includes('thanks') || lowerMessage.includes('धन्यवाद') || lowerMessage.includes('शुक्रिया')) {
+      return "You're welcome! 😊 I'm always happy to help. Feel free to ask me anything about construction materials, pricing, suppliers, or any other questions. I'm here 24/7 to assist you with your procurement needs!";
     }
     
-    if (lowerMessage.includes('price') || lowerMessage.includes('cost') || lowerMessage.includes('मूल्य') || lowerMessage.includes('कीमत')) {
-      return "मैं निर्माण सामग्री के लिए रीयल-टाइम मूल्य निर्धारण प्रदान कर सकता हूं। RitzYard 500+ सत्यापित आपूर्तिकर्ताओं से प्रतिस्पर्धी उद्धरण प्रदान करता है। आप किन सामग्रियों के लिए मूल्य निर्धारण की आवश्यकता है? (सीमेंट, स्टील, टीएमटी बार, ईंटें, आदि)";
+    // How are you
+    if (lowerMessage.includes('how are you') || lowerMessage.includes('how do you do') || lowerMessage.includes('आप कैसे हैं')) {
+      return "I'm doing great, thank you for asking! 😊 As an AI assistant, I'm always ready to help. My knowledge is continuously updated with the latest construction material prices and market trends. How can I assist you with your procurement needs today?";
     }
     
+    // Goodbye
+    if (lowerMessage.includes('bye') || lowerMessage.includes('goodbye') || lowerMessage.includes('see you') || lowerMessage.includes('अलविदा')) {
+      return "Goodbye! 👋 Thank you for chatting with me. Remember, I'm available 24/7 whenever you need help with construction materials or procurement. Visit ritzyard.com anytime for the best deals. Take care and happy building!";
+    }
+    
+    // STEP 3: Construction material queries (detailed responses)
+    
+    // Cement queries
     if (lowerMessage.includes('cement') || lowerMessage.includes('सीमेंट')) {
-      return "सीमेंट कई प्रकारों में उपलब्ध है: ओपीसी 43/53 ग्रेड ₹340-420/बैग, पीपीसी ₹320-400/बैग, पीएससी ₹330-410/बैग। ब्रांड: UltraTech, ACC, Ambuja, JK Cement। बल्क ऑर्डर पर 5-12% छूट। विस्तृत उद्धरण चाहिए?";
+      return "🏗️ **Cement Types & Prices:**\n\n• **OPC 43 Grade:** ₹340-380/bag - General construction\n• **OPC 53 Grade:** ₹360-420/bag - High strength work\n• **PPC (Pozzolana):** ₹320-400/bag - Plastering, waterproofing\n• **PSC (Slag):** ₹330-410/bag - Mass concreting\n• **White Cement:** ₹550-700/bag - Decorative work\n\n**Top Brands:** UltraTech, ACC, Ambuja, JK Cement, Shree, Dalmia\n\n💡 **Bulk discount:** 5-12% off on 100+ bags\n\nWould you like a quote for a specific type?";
     }
-
-    if (lowerMessage.includes("steel") || lowerMessage.includes("tmt") || lowerMessage.includes("स्टील")) {
-      return "टीएमटी स्टील बार Fe 415, Fe 500, Fe 550 ग्रेड में उपलब्ध हैं। वर्तमान बाजार दरें: 8मिमी ₹52-58/किग्रा, 10मिमी ₹51-57/किग्रा, 12मिमी ₹50-56/किग्रा। शीर्ष ब्रांड: Tata Tiscon, JSW, SAIL। 3-5 दिन में डिलीवरी। उद्धरण चाहिए?";
+    
+    // Steel/TMT queries
+    if (lowerMessage.includes('steel') || lowerMessage.includes('tmt') || lowerMessage.includes('rebar') || lowerMessage.includes('स्टील') || lowerMessage.includes('सरिया')) {
+      return "🔩 **TMT Steel Bars - Current Prices:**\n\n**By Grade:**\n• Fe 415: ₹48-54/kg\n• Fe 500: ₹50-56/kg (Most Popular)\n• Fe 500D: ₹52-58/kg (Earthquake Resistant)\n• Fe 550: ₹54-60/kg\n\n**By Size (Fe 500):**\n• 8mm: ₹52-58/kg\n• 10mm: ₹51-57/kg\n• 12mm: ₹50-56/kg\n• 16mm: ₹49-55/kg\n\n**Top Brands:** Tata Tiscon, JSW Neosteel, SAIL, Vizag Steel, Kamdhenu\n\n💡 **Bulk discount:** 2-5% off on 5+ tons\n\nWhat grade and size do you need?";
     }
-
-    if (lowerMessage.includes("brick") || lowerMessage.includes("ईंट")) {
-      return "हम आपूर्ति करते हैं: लाल मिट्टी की ईंटें (₹6-9/पीस), फ्लाई एश ईंटें (₹3.5-5.5/पीस), AAC ब्लॉक (₹45-70/ब्लॉक)। न्यूनतम आदेश 5000 पीस, मुफ्त डिलीवरी। कौन सी प्रकार की ईंटें आप चाहते हैं?";
+    
+    // Brick queries
+    if (lowerMessage.includes('brick') || lowerMessage.includes('block') || lowerMessage.includes('ईंट')) {
+      return "🧱 **Bricks & Blocks - Prices:**\n\n• **Red Clay Bricks:** ₹6-9/piece - Traditional, good insulation\n• **Fly Ash Bricks:** ₹3.5-5.5/piece - Lightweight, eco-friendly\n• **AAC Blocks:** ₹45-70/block - Best for modern construction\n• **Concrete Blocks:** ₹25-45/block - Strong, durable\n• **Hollow Blocks:** ₹30-50/block - Thermal insulation\n\n**Min Order:** 5000 pieces\n**Free Delivery:** On 10,000+ orders\n\n💡 AAC blocks offer 50% faster construction!\n\nWhich type would you prefer?";
     }
-
-    if (lowerMessage.includes("supplier") || lowerMessage.includes("आपूर्तिकर्ता")) {
-      return "RitzYard के पास 28 राज्यों में 500+ सत्यापित आपूर्तिकर्ता हैं। सभी गुणवत्ता जांच से गुजरते हैं, सत्यापित जीएसटी हैं, और 98% समय पर डिलीवरी बनाए रखते हैं। आप क्या सामग्री खरीद रहे हैं?";
+    
+    // Sand queries
+    if (lowerMessage.includes('sand') || lowerMessage.includes('m sand') || lowerMessage.includes('रेत')) {
+      return "🏖️ **Sand Types & Prices:**\n\n• **River Sand:** ₹45-65/cft - Natural, limited availability\n• **M Sand (Zone II):** ₹35-45/cft - For concrete\n• **M Sand (Zone III):** ₹40-50/cft - For plastering\n• **Pit Sand:** ₹30-45/cft - For foundations\n\n💡 **Why M Sand?**\n- Consistent quality\n- Zero impurities\n- Eco-friendly\n- Better availability\n\nM Sand is increasingly preferred due to river sand restrictions.\n\nHow much quantity do you need?";
     }
-
-    if (lowerMessage.includes("rfq") || lowerMessage.includes("quotation") || lowerMessage.includes("अनुरोध")) {
-      return "मैं तुरंत एक RFQ बना सकता हूं! बस मुझे बताएं: 1) सामग्री का प्रकार, 2) आवश्यक मात्रा, 3) डिलीवरी स्थान, 4) समयसीमा। आपको 2 घंटे में कई आपूर्तिकर्ताओं से प्रतिस्पर्धी उद्धरण मिलेंगे।";
+    
+    // Price queries
+    if (lowerMessage.includes('price') || lowerMessage.includes('cost') || lowerMessage.includes('rate') || lowerMessage.includes('कीमत') || lowerMessage.includes('मूल्य')) {
+      return "💰 I can provide real-time pricing for all construction materials! Here's a quick overview:\n\n• **Cement:** ₹320-420/bag\n• **TMT Steel:** ₹48-60/kg\n• **Bricks:** ₹4-9/piece\n• **Sand:** ₹35-65/cft\n• **Aggregates:** ₹50-80/cft\n• **Paint:** ₹250-800/litre\n• **Tiles:** ₹25-200/sq.ft\n• **Plywood:** ₹45-150/sq.ft\n\nWhich material do you need specific pricing for? I'll get you the latest rates!";
     }
-
-    if (lowerMessage.includes("delivery") || lowerMessage.includes("shipping") || lowerMessage.includes("डिलीवरी")) {
-      return "RitzYard पूरे भारत में डिलीवरी प्रदान करता है रीयल-टाइम ट्रैकिंग के साथ। मानक डिलीवरी: 3-7 दिन, एक्सप्रेस: 24-48 घंटे (मेट्रो शहर)। ₹50,000 से ऊपर के ऑर्डर पर मुफ्त डिलीवरी। बीमा और गुणवत्ता जांच शामिल। हमें कहां डिलीवर करना चाहिए?";
+    
+    // Supplier queries
+    if (lowerMessage.includes('supplier') || lowerMessage.includes('vendor') || lowerMessage.includes('आपूर्तिकर्ता')) {
+      return "🏢 **ritzyard Supplier Network:**\n\n✅ 500+ Verified Suppliers\n✅ 28 Indian States Coverage\n✅ 98% On-time Delivery\n✅ 4.6+ Average Rating\n\n**Verification Process:**\n• GST verification\n• Quality certifications (ISO, BIS)\n• Business documentation\n• Track record assessment\n\n**Top Partners:**\nTata Steel, UltraTech, ACC, JSW, Ambuja\n\nWhat material supplier are you looking for?";
     }
-
-    if (lowerMessage.includes("hello") || lowerMessage.includes("hi") || lowerMessage.includes("नमस्ते")) {
-      return "नमस्ते! मैं Milo हूं, आपका एआई खरीद विशेषज्ञ। मैं सामग्री मूल्य निर्धारण, आपूर्तिकर्ता चयन, RFQ निर्माण, डिलीवरी ट्रैकिंग और बाजार बुद्धिमत्ता में आपकी मदद कर सकता हूं। आज आप कौन सी निर्माण सामग्री खोज रहे हैं?";
+    
+    // RFQ/Quote queries
+    if (lowerMessage.includes('quote') || lowerMessage.includes('quotation') || lowerMessage.includes('rfq') || lowerMessage.includes('कोटेशन')) {
+      return "📋 **Get Instant Quotes!**\n\nI can create an RFQ for you right now! Just tell me:\n\n1️⃣ **Material Type:** (cement, steel, bricks, etc.)\n2️⃣ **Quantity:** (with unit - bags, kg, pieces)\n3️⃣ **Location:** (city/state for delivery)\n4️⃣ **Timeline:** (when do you need it?)\n\n✨ **Benefits:**\n• Get 3-5 competitive quotes\n• Within 2 hours response\n• Best prices guaranteed\n\nJust provide the details and I'll handle the rest!";
     }
-
-    if (lowerMessage.includes("thank") || lowerMessage.includes("धन्यवाद")) {
-      return "आपका स्वागत है! निर्माण सामग्री, मूल्य निर्धारण, या आपूर्तिकर्ताओं के बारे में कुछ भी पूछने के लिए स्वतंत्र महसूस करें। मैं आपकी खरीद आवश्यकताओं में मदद करने के लिए 24/7 यहां हूं!";
+    
+    // Delivery queries
+    if (lowerMessage.includes('delivery') || lowerMessage.includes('shipping') || lowerMessage.includes('डिलीवरी')) {
+      return "🚚 **ritzyard Delivery Services:**\n\n**Timeline:**\n• Standard: 3-7 business days\n• Express (Metros): 24-48 hours\n\n**Coverage:** Pan-India (28 states)\n\n**Features:**\n✅ Real-time tracking\n✅ Insurance coverage\n✅ Quality inspection at delivery\n✅ FREE delivery on orders ₹50,000+\n\n**Payment:** Cash on Delivery available under ₹50,000\n\nWhere do you need delivery?";
     }
-
-    if (lowerMessage.includes("how are you") || lowerMessage.includes("आप कैसे हैं")) {
-      return "मैं बिल्कुल ठीक हूं और आपकी सहायता के लिए तैयार हूं! मेरा एआई निर्माण सामग्री और बाजार प्रवृत्तियों के बारे में लगातार सीख रहा है। मैं आपकी खरीद आवश्यकताओं में क्या मदद कर सकता हूं?";
+    
+    // STEP 4: General knowledge & miscellaneous
+    
+    // Math/calculations
+    if (lowerMessage.includes('calculate') || lowerMessage.includes('estimation') || lowerMessage.includes('how much') || lowerMessage.includes('quantity')) {
+      return "🧮 **Material Calculator:**\n\nI can help estimate material quantities! Common formulas:\n\n• **Cement:** 1 bag = 50kg, covers ~1.25 sq.m plaster\n• **Steel:** 1% of concrete for slabs, 2.5% for columns\n• **Bricks:** ~500 bricks per 100 sq.ft wall\n• **Sand:** 1 cft per 3 bags cement\n• **Paint:** 1L covers ~100-120 sq.ft (2 coats)\n\nTell me your project dimensions (length × width × height) and what you're building, I'll calculate exact quantities!";
     }
+    
+    // Weather/climate related
+    if (lowerMessage.includes('weather') || lowerMessage.includes('monsoon') || lowerMessage.includes('rain')) {
+      return "🌧️ **Weather & Construction Tips:**\n\nWeather affects material selection:\n\n• **Rainy Season:** Use quick-setting cement, waterproof additives\n• **Hot Climate:** PPC cement (less heat generation)\n• **Coastal Areas:** SS 316 steel, marine plywood\n• **Cold Regions:** Frost-resistant concrete\n\n**Storage Tips:**\n• Keep cement off ground, covered\n• Store steel under shed\n• Use materials within 3 months\n\nWhat's your location? I can suggest suitable materials.";
+    }
+    
+    // STEP 5: Try external AI for general/random questions
+    console.log('🔍 Checking external AI for general knowledge...');
+    const externalAnswer = await getExternalAIResponse(userMessage);
+    
+    if (externalAnswer) {
+      console.log('✅ External AI response found');
+      // Brand the response as from RitzYard/Milo
+      return `Great question! Here's what I found:\n\n${externalAnswer}\n\n---\n💡 *As your ritzyard AI assistant, I can also help with construction materials, pricing, and procurement. Feel free to ask!*`;
+    }
+    
+    // STEP 6: Smart contextual fallback responses for random questions
+    const randomResponses = [
+      `That's an interesting question! 🤔 While I'm primarily a construction materials expert at ritzyard, I love learning new things!
 
-    return `यह एक दिलचस्प सवाल है। RitzYard के एआई सहायक के रूप में, मैं निर्माण सामग्री खरीद में विशेषज्ञता रखता हूं। मैं आपको मूल्य निर्धारण, आपूर्तिकर्ता, RFQ, डिलीवरी लॉजिस्टिक्स, और बाजार बुद्धिमत्ता में सीमेंट, स्टील, टीएमटी बार, ईंटें, रेत, आदि के लिए मदद कर सकता हूं। क्या आप अपकी विशिष्ट आवश्यकताओं के बारे में और बता सकते हैं?`;
+Could you tell me more about what you're curious about? I might be able to help or point you in the right direction.
+
+**Meanwhile, I can definitely help with:**
+• Material prices & specifications
+• Supplier recommendations
+• RFQ creation
+• Construction advice`,
+      
+      `Interesting! 😊 As Milo from ritzyard, my specialty is construction and procurement, but I enjoy all kinds of questions!
+
+If you have any construction-related queries - materials, pricing, suppliers, or building advice - I'm your expert!
+
+**Quick tip:** Try asking me about cement, steel, bricks, or any building material!`,
+      
+      `Good question! 🌟 I'm Milo, ritzyard's AI assistant focused on construction materials.
+
+While that's outside my main expertise, I'm always happy to chat! For the best answers on that topic, you might want to search online.
+
+**But for construction needs, I'm here 24/7:**
+• Real-time material pricing
+• 500+ verified suppliers
+• Instant quotes & RFQs`,
+      
+      `That's a thoughtful question! 💭 I'm specialized in construction and procurement at ritzyard, so that's a bit outside my wheelhouse.\n\nHowever, I'd love to help you with:\n• Material specifications\n• Best prices for cement, steel, bricks\n• Supplier comparisons\n• Delivery estimates\n\nWhat construction material can I assist you with?`
+    ];
+    
+    // Return a random response to keep conversations fresh
+    return randomResponses[Math.floor(Math.random() * randomResponses.length)];
   };
 
   // ENHANCEMENT 1: Analyze market trends and generate recommendations
@@ -433,7 +532,7 @@ const MiloAI = () => {
     };
     
     const supplierInsights = {
-      count: contextData.marketInsights?.suppliersCount || 500,
+      count: (contextData.marketInsights?.suppliersCount as number) || 500,
       topSuppliers: ['Tata Steel', 'ACC Cement', 'UltraTech', 'JSW Steel', 'Ambuja'],
       avgRating: 4.6
     };
@@ -606,6 +705,13 @@ const MiloAI = () => {
   };
 
   return (
+    <>
+      <SEOHead
+        title="Milo AI - Voice Assistant for Construction Materials | AI Chatbot - ritzyard"
+        description="Meet Milo - India's first AI voice assistant for construction materials. Get instant answers about material prices, specifications, supplier recommendations & procurement guidance. Voice & text support."
+        keywords="Milo AI assistant, construction AI chatbot India, voice assistant building materials, AI material pricing, construction chatbot, smart procurement assistant, material specification AI, supplier recommendation AI, construction voice search, AI procurement guide, instant material answers, construction industry AI, building materials AI assistant"
+        canonicalUrl="https://ritzyard.com/milo"
+      />
     <div className="min-h-screen bg-gradient-to-br from-[#faf8f6] via-background to-[#f5f1ed] flex flex-col">
       <Navbar />
       <ScrollToTop />
@@ -633,7 +739,7 @@ const MiloAI = () => {
                   </div>
                   <div>
                     <h3 className="text-white font-bold text-lg md:text-xl">{language === "en-IN" ? "Milo AI Assistant" : "मिलो एआई सहायक"}</h3>
-                    <p className="text-white/80 text-xs md:text-sm">{language === "en-IN" ? "RitzYard Procurement Expert " : "RitzYard खरीद विशेषज्ञ "}</p>
+                    <p className="text-white/80 text-xs md:text-sm">{language === "en-IN" ? "ritzyard Procurement Expert " : "ritzyard खरीद विशेषज्ञ "}</p>
                   </div>
                 </div>
                 
@@ -835,6 +941,7 @@ const MiloAI = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

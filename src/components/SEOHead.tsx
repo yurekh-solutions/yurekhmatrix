@@ -4,13 +4,17 @@ interface SEOHeadProps {
   title?: string;
   description?: string;
   keywords?: string;
+  canonicalUrl?: string;
+  ogImage?: string;
   structuredData?: object;
 }
 
 const SEOHead: React.FC<SEOHeadProps> = ({
-  title = "RitzYard - AI-Powered Construction Material Procurement",
-  description = "Revolutionize your construction material sourcing with RitzYard. Get instant quotes from 500+ verified suppliers across India.",
-  keywords = "construction materials, procurement, TMT steel, cement, building materials",
+  title = "ritzyard - AI-Powered Construction Material Procurement India",
+  description = "India's leading AI-powered procurement platform for construction materials. Get instant quotes from 500+ verified suppliers for TMT steel, cement, bricks & more.",
+  keywords = "ritzyard, construction materials India, TMT steel price, cement suppliers, building materials online, verified suppliers, AI procurement, bulk construction materials, steel bars wholesale, cement bags delivery",
+  canonicalUrl,
+  ogImage = "https://ritzyard.com/og-image.png",
   structuredData,
 }) => {
   useEffect(() => {
@@ -23,6 +27,12 @@ const SEOHead: React.FC<SEOHeadProps> = ({
       metaDescription.setAttribute("content", description);
     }
 
+    // Set meta title
+    let metaTitle = document.querySelector('meta[name="title"]');
+    if (metaTitle) {
+      metaTitle.setAttribute("content", title);
+    }
+
     // Set meta keywords
     let metaKeywords = document.querySelector('meta[name="keywords"]');
     if (!metaKeywords) {
@@ -31,6 +41,17 @@ const SEOHead: React.FC<SEOHeadProps> = ({
       document.head.appendChild(metaKeywords);
     }
     metaKeywords.setAttribute("content", keywords);
+
+    // Set canonical URL
+    if (canonicalUrl) {
+      let canonical = document.querySelector('link[rel="canonical"]');
+      if (!canonical) {
+        canonical = document.createElement("link");
+        canonical.setAttribute("rel", "canonical");
+        document.head.appendChild(canonical);
+      }
+      canonical.setAttribute("href", canonicalUrl);
+    }
 
     // Set Open Graph tags
     const ogTitle = document.querySelector('meta[property="og:title"]');
@@ -43,17 +64,44 @@ const SEOHead: React.FC<SEOHeadProps> = ({
       ogDescription.setAttribute("content", description);
     }
 
+    const ogImageMeta = document.querySelector('meta[property="og:image"]');
+    if (ogImageMeta && ogImage) {
+      ogImageMeta.setAttribute("content", ogImage);
+    }
+
+    const ogUrl = document.querySelector('meta[property="og:url"]');
+    if (ogUrl && canonicalUrl) {
+      ogUrl.setAttribute("content", canonicalUrl);
+    }
+
+    // Set Twitter tags
+    const twitterTitle = document.querySelector('meta[name="twitter:title"]');
+    if (twitterTitle) {
+      twitterTitle.setAttribute("content", title);
+    }
+
+    const twitterDescription = document.querySelector('meta[name="twitter:description"]');
+    if (twitterDescription) {
+      twitterDescription.setAttribute("content", description);
+    }
+
+    const twitterImage = document.querySelector('meta[name="twitter:image"]');
+    if (twitterImage && ogImage) {
+      twitterImage.setAttribute("content", ogImage);
+    }
+
     // Add structured data if provided
     if (structuredData) {
-      let script = document.querySelector('script[type="application/ld+json"]');
+      let script = document.querySelector('script[type="application/ld+json"][data-seo="page"]');
       if (!script) {
         script = document.createElement("script");
         script.setAttribute("type", "application/ld+json");
+        script.setAttribute("data-seo", "page");
         document.head.appendChild(script);
       }
       script.textContent = JSON.stringify(structuredData);
     }
-  }, [title, description, keywords, structuredData]);
+  }, [title, description, keywords, canonicalUrl, ogImage, structuredData]);
 
   return null;
 };

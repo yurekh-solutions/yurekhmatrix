@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
 import FloatingActionButtons from "@/components/FloatingActionButtons";
+import SEOHead from "@/components/SEOHead";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -304,6 +305,13 @@ const About = () => {
   // ];
 
   return (
+    <>
+      <SEOHead
+        title="About ritzyard | India's #1 AI Construction Material Procurement Platform"
+        description="ritzyard is revolutionizing India's construction industry with AI-powered procurement. Connecting builders, contractors & enterprises with 500+ verified suppliers across 28 states. Trusted by 1000+ businesses."
+        keywords="about ritzyard, construction material company India, AI procurement startup, building materials platform India, verified suppliers network, construction tech company, B2B construction marketplace, construction industry disruptor, smart procurement solutions, construction supply chain India, material sourcing innovation, construction digitization India"
+        canonicalUrl="https://ritzyard.com/about"
+      />
     <div className="min-h-screen bg-[#f1eee9]">
       <Navbar />
 
@@ -318,7 +326,14 @@ const About = () => {
           {/* Badge */}
           <Badge className="mt-12 sm:mt-16 mb-4 sm:mb-6 flex items-center w-fit space-x-2 border-2 border-primary/30 bg-primary/10 text-primary text-xs sm:text-sm rounded-full px-4 sm:px-5 pr-2 py-2  transition-all duration-300 group">
             <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 text-primary animate-pulse" />
-            <span className="font-medium">About RitzYard</span>
+            <span className="font-medium">About 
+            </span>
+             <span className="   notranslate">
+                <span className="text-primary">r</span>
+                <span className="text-[#452a21]">itz</span>
+                <span className="text-[#452a21]">yard</span>
+              </span>
+        
              
           </Badge>
 
@@ -415,7 +430,13 @@ const About = () => {
           About NaayaConstruction
         </h2> */}
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-[#c15738] to-[#5c2d23] bg-clip-text text-transparent">
-              About <span className="text-gradient bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">RitzYard</span>
+              About 
+              <span className="text-gradient bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"> <span className="  ml-4 text-2xl sm:text-4xl lg:text-5xl notranslate">
+                <span className="text-primary">r</span>
+                <span className="text-[#452a21]">itz</span>
+                <span className="text-[#452a21]">yard</span>
+              </span>
+        </span>
             </h2>
 
         <p className="text-base lg:text-lg text-muted-foreground leading-relaxed">
@@ -830,6 +851,7 @@ const About = () => {
       <ScrollToTop />
       <FloatingActionButtons />
     </div>
+    </>
   );
 };
 

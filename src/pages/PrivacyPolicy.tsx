@@ -1,10 +1,18 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SEOHead from "@/components/SEOHead";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 
 const PrivacyPolicy = () => {
   return (
+    <>
+      <SEOHead
+        title="Privacy Policy | Data Protection & Security - ritzyard"
+        description="ritzyard privacy policy. Learn how we collect, use and protect your personal data. Your privacy is our priority. GDPR compliant."
+        keywords="ritzyard privacy policy, data protection construction, user data security, privacy terms India, GDPR compliance, personal information protection"
+        canonicalUrl="https://ritzyard.com/privacy"
+      />
     <div className="min-h-screen bg-[#f4f0ec]">
       <Navbar />
 
@@ -164,6 +172,7 @@ const PrivacyPolicy = () => {
 
       <Footer />
     </div>
+    </>
   );
 };
 

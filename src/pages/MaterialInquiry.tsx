@@ -238,9 +238,10 @@ _Please provide quotation at your earliest convenience._`;
   return (
     <>
       <SEOHead
-        title="Material Inquiry - Get Instant Quotes | RitzYard"
-        description="Submit your construction material inquiry for TMT Bars, MS Hollow Sections, Plywood, Tiles, Sand, Grit, and Bricks. Get instant quotes from verified suppliers."
-        keywords="material inquiry, construction materials, TMT bars, MS hollow sections, plywood, tiles, sand, grit, brick, quotation request"
+        title="Get Instant Quotes for Construction Materials | Material Inquiry - ritzyard"
+        description="Submit your construction material inquiry and get instant quotes from verified suppliers. Request quotes for TMT steel, cement, bricks, sand, tiles, plywood, pipes & more. Free quotation within 24 hours."
+        keywords="construction material inquiry, get material quotes online, TMT steel quotation, cement price quote, bulk material order India, construction supplier quotes, building material RFQ, request for quotation construction, instant material pricing, wholesale construction quotes, project material estimation, construction cost calculator, bulk order inquiry, material procurement request, free construction quotes India"
+        canonicalUrl="https://ritzyard.com/inquiry"
       />
 
       <div className="min-h-screen bg-[#f4f0ec]">

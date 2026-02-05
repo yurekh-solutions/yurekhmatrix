@@ -53,15 +53,21 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
           {/* Brand Column */}
           <div className="space-y-4">
-            <Link to="/" className="flex items-center space-x-2">
+            <Link to="/" className="flex items-center space-x-3">
               <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center overflow-hidden">
                 <img src={ritzyardLogo} alt="ritzyard logo" className="w-full h-full object-cover" />
               </div>
-              <span className="text-xl font-bold notranslate">
-                <span className="text-primary">r</span>
-                <span className="text-white">itz </span>
-                <span className="text-white">yard</span>
-              </span>
+              
+              <div className="flex flex-col">
+                <span className="text-xl font-bold notranslate leading-tight">
+                  <span className="text-primary">r</span>
+                  <span className="text-white">itz </span>
+                  <span className="text-white">yard</span>
+                </span>
+                <span className="text-xs font-medium text-white notranslate">
+                  Where Value Meets Velocity 
+                </span>
+              </div>
             </Link>
             <p className="text-white/80 text-sm leading-relaxed">
               Your trusted construction procurement platform. Connecting buyers with verified suppliers across India.
@@ -73,7 +79,7 @@ const Footer = () => {
               </div>
               <div className="flex items-center space-x-2 text-sm">
                 <Mail className="h-4 w-4 flex-shrink-0" />
-                <a href="mailto:support@ritzyard.ai" className="hover:text-primary transition-colors duration-300">
+                <a href="mailto:support@ritzyard.com" className="hover:text-primary transition-colors duration-300">
                   support@ritzyard.ai
                 </a>
               </div>

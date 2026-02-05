@@ -417,8 +417,10 @@ const Contact = () => {
     <>
     <Navbar />
       <SEOHead
-        title="Contact Us | RitzYard"
-        description="Get in touch with RitzYard. We're here to help with your construction material procurement needs."
+        title="Contact ritzyard | Construction Material Support & Inquiry India"
+        description="Contact ritzyard for construction material procurement support. Get help with quotes, supplier inquiries, bulk orders & material sourcing. 24/7 customer support. WhatsApp & phone support available."
+        keywords="contact ritzyard, construction material support India, procurement help, supplier inquiry contact, bulk order support, material sourcing assistance, customer support construction, WhatsApp support construction, construction helpline India, building material inquiry, quote assistance, order tracking support"
+        canonicalUrl="https://ritzyard.com/contact"
       />
 {/* bg-[#f3f0ec] */}
       <div className="min-h-screen bg-[#f3f0ec]">
