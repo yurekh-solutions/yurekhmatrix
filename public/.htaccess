@@ -2,6 +2,10 @@
   RewriteEngine On
   RewriteBase /
 
+  # Serve static files directly (sitemap, robots, images)
+  RewriteCond %{REQUEST_URI} ^/(sitemap\.xml|robots\.txt|.*\.(png|jpg|jpeg|gif|svg|ico))$ [NC]
+  RewriteRule ^ - [L]
+
   # Remove .html extension from URLs
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
@@ -18,11 +22,15 @@
     Header set Cache-Control "public, max-age=31536000, immutable"
   </FilesMatch>
 
-  # Set proper encoding for text files
+  # Set proper MIME types
   AddType text/html .html
   AddCharset UTF-8 .html
   AddType application/javascript .js
   AddType text/css .css
+  AddType application/xml .xml
+  AddType text/xml .xml
+  AddCharset UTF-8 .xml
+  AddType text/plain .txt
 
   # Enable gzip compression
   <IfModule mod_deflate.c>
