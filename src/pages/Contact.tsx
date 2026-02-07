@@ -92,10 +92,10 @@ const Contact = () => {
     {
       icon: Phone,
       title: "Phone Support",
-      value: "+91 91362 42706",
+      value: "+91 9559262525",
       description: "Direct line to our support team",
       available: "24/7 Available",
-      action: "tel:+919136242706"
+      action: "tel:+919559262525"
     },
     {
       icon: Mail,
@@ -157,6 +157,7 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
+      // Prepare WhatsApp message
       let whatsappMessage = `*${type} Enquiry - RitzYard*\n\n`;
       whatsappMessage += `*Contact Details:*\n`;
       whatsappMessage += `Name: ${formData.firstName} ${formData.lastName}\n`;
@@ -175,37 +176,9 @@ const Contact = () => {
       whatsappMessage += `_Submitted: ${new Date().toLocaleString()}_`;
       
       const encodedWhatsAppMessage = encodeURIComponent(whatsappMessage);
-      const whatsappUrl = `https://wa.me/919136242706?text=${encodedWhatsAppMessage}`;
+      const whatsappUrl = `https://wa.me/919559262525?text=${encodedWhatsAppMessage}`;
       
-      const emailSubject = encodeURIComponent(`${type} Enquiry from ${formData.firstName} ${formData.lastName} - RitzYard`);
-      
-      let emailBody = `${type} Enquiry - RitzYard Contact Form\n\n`;
-      emailBody += `Contact Details:\n`;
-      emailBody += `Name: ${formData.firstName} ${formData.lastName}\n`;
-      emailBody += `Email: ${formData.email}\n`;
-      emailBody += `Phone: ${formData.phone}\n`;
-      emailBody += `Company: ${formData.company}\n\n`;
-      
-      if (formData.additionalInfo) {
-        const fieldName = type === "Supplier" ? "Product Categories" : 
-                         type === "Partnership" ? "Partnership Type" : "Additional Info";
-        emailBody += `${fieldName}: ${formData.additionalInfo}\n\n`;
-      }
-      
-      emailBody += `Message:\n${formData.message}\n\n`;
-      emailBody += `Enquiry Type: ${type}\n`;
-      emailBody += `Submitted: ${new Date().toLocaleString()}`;
-      
-      const encodedEmailBody = encodeURIComponent(emailBody);
-      const emailUrl = `mailto:support@ritzyard.ai?subject=${emailSubject}&body=${encodedEmailBody}`;
-      
-      window.open(whatsappUrl, '_blank');
-      setTimeout(() => {
-        window.open(emailUrl, '_blank');
-      }, 500);
-      
-      setShowSuccess(true);
-
+      // Clear form
       setFormData({
         firstName: "",
         lastName: "",
@@ -217,10 +190,15 @@ const Contact = () => {
       });
       setAgreedToPrivacy(false);
       setFormErrors({});
+      setIsSubmitting(false);
       
+      // Open WhatsApp directly
+      window.open(whatsappUrl, '_blank');
+      
+      // Show toast notification
+      toast.success("Opening WhatsApp...");
     } catch (error) {
       toast.error("There was an issue preparing your message. Please try again or contact us directly.");
-    } finally {
       setIsSubmitting(false);
     }
   };
@@ -566,7 +544,7 @@ const Contact = () => {
                   <div className="space-y-3 md:space-y-4">
                     <div
                       className="group cursor-pointer"
-                      onClick={() => window.open('tel:+917021341409')}
+                      onClick={() => window.open('tel:+919559262525')}
                     >
                       <div className="flex items-start space-x-3 md:space-x-4 p-3 md:p-4 rounded-xl glass-morphism group-hover:bg-primary/5 transition-all duration-300">
                         <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300 flex-shrink-0 shadow-md">
@@ -577,7 +555,7 @@ const Contact = () => {
                             Phone Support
                           </p>
                           <p className="text-xs md:text-sm text-muted-foreground truncate">
-                            +91 917021341409
+                            +91 9559262525
                           </p>
                           <Badge variant="outline" className="mt-2 text-xs bg-primary/10 text-primary border-primary/30">
                             24/7 Available

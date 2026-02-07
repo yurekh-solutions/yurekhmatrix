@@ -1,7 +1,7 @@
 import { Phone } from 'lucide-react';
 
 const PhoneContact = () => {
-  const phoneNumber = "+919136242706";
+  const phoneNumber = "+919559262525";
 
   const handleCall = () => {
     window.location.href = `tel:${phoneNumber}`;

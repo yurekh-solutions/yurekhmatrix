@@ -62,7 +62,7 @@ const HelpCenter = () => {
     {
       icon: Phone,
       title: "Phone Support",
-      description: "+91 91362 42706",
+      description: "+91 9559262525",
       availability: "Mon-Fri: 9AM-6PM",
       action: "Call Now"
     },

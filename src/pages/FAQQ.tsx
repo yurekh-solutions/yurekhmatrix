@@ -92,7 +92,7 @@ const FAQs = () => {
         },
         {
           question: "How can I contact customer support?",
-          answer: "Our support team is available 24/7 through live chat, phone (+91 91362 42706), email (support@ritzyard.ai), or through the help center on our platform."
+          answer: "Our support team is available 24/7 through live chat, phone (+91 9559262525), email (support@ritzyard.ai), or through the help center on our platform."
         }
       ]
     }

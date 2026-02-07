@@ -182,7 +182,7 @@ ${formData.specifications || "No additional specifications"}
 
 _Please provide quotation at your earliest convenience._`;
 
-        const whatsappNumber = "919136242706";
+        const whatsappNumber = "919559434242";
         const encodedMessage = encodeURIComponent(message);
         const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
 
@@ -644,14 +644,14 @@ _Please provide quotation at your earliest convenience._`;
                     </p>
                     <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
                       <a
-                        href="tel:+919136242706"
+                        href="tel:+919559262525"
                         className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
                       >
                         <Phone className="h-4 w-4" />
-                        <span className="font-medium">+91 91362 42706</span>
+                        <span className="font-medium">+91 9559262525</span>
                       </a>
                       <a
-                        href="https://wa.me/919136242706"
+                        href="https://wa.me/919559262525"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center gap-2 text-green-600 hover:text-green-700 transition-colors"

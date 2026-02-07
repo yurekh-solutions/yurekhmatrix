@@ -162,7 +162,7 @@ const PrivacyPolicy = () => {
             </p>
             <div className="bg-muted p-4 sm:p-6 rounded-lg">
               <p className="mb-2"><strong>Email:</strong> privacy@ritzyard.ai</p>
-              <p className="mb-2"><strong>Phone:</strong> +91 91362 42706</p>
+              <p className="mb-2"><strong>Phone:</strong> +91 9559262525</p>
               <p className="mb-2"><strong>Address:</strong> 01 RR DM Road Vakola Bridge, Santacurz Mumbai 400055, INDIA</p>
               <p><strong>Data Protection Officer:</strong> dpo@ritzyard.ai</p>
             </div>

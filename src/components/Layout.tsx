@@ -209,7 +209,7 @@ export const Layout = ({ children }: LayoutProps) => {
               <ul className="space-y-2 text-sm text-muted-foreground">
                 <li>Pune, Maharashtra, India</li>
                 <li>soniajaiseal2222@gmail.com</li>
-                <li>+91 91362 42706</li>
+                <li>+91 9559262525</li>
               </ul>
             </div>
           </div>

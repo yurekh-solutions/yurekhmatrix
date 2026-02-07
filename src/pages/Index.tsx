@@ -128,7 +128,7 @@ const Index = () => {
     "logo": "https://ritzyard.ai/logo.png",
     "contactPoint": {
       "@type": "ContactPoint",
-      "telephone": "+91-91362-42706",
+      "telephone": "+91-9559262525",
       "contactType": "customer service",
       "availableLanguage": "English"
     },
