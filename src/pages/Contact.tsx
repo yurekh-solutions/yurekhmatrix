@@ -36,7 +36,7 @@ const contactFormSchema = z.object({
     .trim()
     .min(10, "Phone number must be at least 10 digits")
     .max(15, "Phone number must be less than 15 digits")
-    .regex(/^[\+]?[0-9\s\-\(\)]+$/, "Please enter a valid phone number"),
+    .regex(/^[+]?[0-9\s\-()]+$/, "Please enter a valid phone number"),
   company: z.string()
     .trim()
     .min(1, "Company name is required")
@@ -116,7 +116,7 @@ const Contact = () => {
   ];
   const validateForm = (type: string) => {
     try {
-      let dataToValidate = { ...formData };
+      const dataToValidate = { ...formData };
       
       if ((type === "Supplier" || type === "Partnership") && !formData.additionalInfo?.trim()) {
         const fieldName = type === "Supplier" ? "Product Categories" : "Partnership Type";
