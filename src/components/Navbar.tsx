@@ -102,9 +102,10 @@
 // };
 
 // export default Navbar;
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ShoppingCart, Menu, X, Mic, Store } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { ShoppingCart, Menu, X, Mic, Store, Search } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import LanguageSelector from "./LanguageSelector";
@@ -113,7 +114,10 @@ import ritzyardLogo from "@/assets/RITZYARD3.svg";
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [cartCount, setCartCount] = useState(0);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [showSearch, setShowSearch] = useState(false);
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   // Load cart count from sessionStorage
   useEffect(() => {
@@ -142,6 +146,16 @@ const Navbar = () => {
       window.removeEventListener('cartUpdated', handleCartUpdate);
     };
   }, []);
+
+  // Handle search
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/products?search=${encodeURIComponent(searchQuery.trim())}`);
+      setSearchQuery("");
+      setShowSearch(false);
+    }
+  };
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-border shadow-sm">
@@ -181,11 +195,6 @@ const Navbar = () => {
                 {t('nav.products')}
               </Button>
             </Link>
-            {/* <Link to="/blogs">
-              <Button variant="ghost" className="text-muted-foreground hover:text-foreground">
-                {t('nav.blogs')}
-              </Button>
-            </Link> */}
             <Link to="/contact">
               <Button variant="ghost" className="text-muted-foreground hover:text-foreground">
                 {t('nav.contact')}
@@ -197,16 +206,41 @@ const Navbar = () => {
                 <span>Seller Portal</span>
               </Button>
             </a>
-            {/* <Link to="/milo">
-              <Button variant="ghost" className="flex items-center gap-2 text-muted-foreground hover:text-foreground">
-                <Mic className="w-4 h-4" />
-                <span>Milo AI</span>
+          </div>
+
+          {/* Search Bar - Desktop */}
+          <div className="hidden lg:flex items-center">
+            <form onSubmit={handleSearch} className="relative">
+              <Input
+                type="text"
+                placeholder="Search products..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-64 pr-10 border-[#b8907d]/30 focus:border-[#b8907d] bg-white/80"
+              />
+              <Button
+                type="submit"
+                size="sm"
+                variant="ghost"
+                className="absolute right-0 top-0 h-full hover:bg-transparent"
+              >
+                <Search className="w-4 h-4 text-[#452a21]" />
               </Button>
-            </Link> */}
+            </form>
           </div>
 
           {/* Cart, Language & Mobile Menu */}
           <div className="flex items-center gap-2 md:gap-3">
+            {/* Mobile Search Button */}
+            <Button
+              variant="ghost"
+              size="icon"
+              className="lg:hidden hover:bg-primary/10"
+              onClick={() => setShowSearch(!showSearch)}
+            >
+              <Search className="w-5 h-5" />
+            </Button>
+
             {/* Language Selector */}
             <LanguageSelector />
 
@@ -239,6 +273,30 @@ const Navbar = () => {
             </Button>
           </div>
         </div>
+
+        {/* Mobile Search Bar */}
+        {showSearch && (
+          <div className="lg:hidden py-3 px-4 border-t border-border bg-white">
+            <form onSubmit={handleSearch} className="relative">
+              <Input
+                type="text"
+                placeholder="Search products..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pr-10 border-[#b8907d]/30 focus:border-[#b8907d]"
+                autoFocus
+              />
+              <Button
+                type="submit"
+                size="sm"
+                variant="ghost"
+                className="absolute right-0 top-0 h-full hover:bg-transparent"
+              >
+                <Search className="w-4 h-4 text-[#452a21]" />
+              </Button>
+            </form>
+          </div>
+        )}
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (

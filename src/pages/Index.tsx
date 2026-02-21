@@ -75,6 +75,26 @@ const Index = () => {
   });
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  
+  // Shuffle products on component mount for AI recommendations
+  const [recommendedProducts, setRecommendedProducts] = useState(() => {
+    const shuffled = [...products].sort(() => Math.random() - 0.5);
+    return shuffled.slice(0, 4);
+  });
+
+  // Get most inquired products - different from AI recommended
+  const [mostInquiredProducts, setMostInquiredProducts] = useState(() => {
+    const recommendedIds = new Set(recommendedProducts.map(p => p.id));
+    const nonRecommended = products.filter(p => !recommendedIds.has(p.id));
+    const categoryCount: Record<string, number> = {};
+    nonRecommended.forEach(p => {
+      categoryCount[p.category] = (categoryCount[p.category] || 0) + 1;
+    });
+    const sorted = [...nonRecommended].sort((a, b) => 
+      (categoryCount[b.category] || 0) - (categoryCount[a.category] || 0)
+    );
+    return sorted.slice(0, 4);
+  });
 
   // Background images array
   const backgroundImages = [
@@ -268,6 +288,158 @@ const Index = () => {
   </div>
 </section>
 
+                <ProcurementFeatures />
+
+{/* Products Section - Side by Side Layout */}
+<section className="py-12 bg-[#f9f7f6] sm:py-16 md:py-20 relative">
+  {/* Background Pattern */}
+  <div className="absolute inset-0 opacity-05">
+    <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-secondary/10" />
+  </div>
+
+  <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    {/* Section Header */}
+    <div className="text-center mb-8 sm:mb-12 md:mb-16 animate-slide-up">
+      <Badge className="mb-4 bg-primary/10 text-primary border-0">
+        <Sparkles className="w-4 h-4 mr-2 inline" />
+        Smart Recommendations
+      </Badge>
+      <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-[#c15738] to-[#5c2d23] bg-clip-text text-transparent">
+        What Customers Are Looking For
+      </h2>
+      <div className="w-16 sm:w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto mb-4"></div>
+      <p className="text-base sm:text-lg text-muted-foreground max-w-3xl mx-auto px-4">
+        Explore our most popular products and AI-powered recommendations tailored for your needs.
+      </p>
+    </div>
+
+    {/* Side by Side Layout */}
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+      
+      {/* Left Side - AI Recommended */}
+      <div>
+        <div className="flex items-center gap-3 mb-6">
+          <div className="w-10 h-10 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-lg flex items-center justify-center">
+            <Sparkles className="w-5 h-5 text-white" />
+          </div>
+          <div>
+            <h3 className="text-xl font-bold text-gray-900">AI Recommended</h3>
+            <p className="text-sm text-gray-600">Personalized for you</p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 gap-4">
+          {recommendedProducts.map((product, index) => (
+            <Link key={product.id} to={`/product/${product.id}`}>
+              <Card
+                className="group overflow-hidden border-2 border-transparent hover:border-[#c15738] shadow-lg transition-all duration-300"
+              >
+                <div className="relative aspect-[4/3] overflow-hidden bg-gray-100">
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.src = "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400&h=300&fit=crop";
+                    }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center pb-6">
+                    <Button
+                      className="bg-gradient-to-r from-[#c15738] to-[#5c2d23] text-white text-xs font-semibold px-6"
+                      size="sm"
+                    >
+                      <Eye className="w-3 h-3 mr-1" />
+                      View Details
+                    </Button>
+                  </div>
+                </div>
+                <div className="p-3">
+                  <Badge className="mb-1 bg-[#c15738]/10 text-[#c15738] border-0 text-[10px] font-semibold">
+                    {product.category.replace("-", " ").toUpperCase()}
+                  </Badge>
+                  <h4 className="text-sm font-bold text-gray-900 line-clamp-1 mb-1">
+                    {product.name}
+                  </h4>
+                  <p className="text-xs text-gray-600 line-clamp-2">{product.description}</p>
+                </div>
+              </Card>
+            </Link>
+          ))}
+        </div>
+      </div>
+
+      {/* Right Side - Most Inquired */}
+      <div>
+        <div className="flex items-center gap-3 mb-6">
+          <div className="w-10 h-10 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-lg flex items-center justify-center">
+            <TrendingUp className="w-5 h-5 text-white" />
+          </div>
+          <div>
+            <h3 className="text-xl font-bold text-gray-900">Most Inquired</h3>
+            <p className="text-sm text-gray-600">Popular this month</p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 gap-4">
+          {mostInquiredProducts.map((product, index) => (
+            <Link key={product.id} to={`/product/${product.id}`}>
+              <Card
+                className="group overflow-hidden border-2 border-transparent hover:border-[#c15738] shadow-lg transition-all duration-300"
+              >
+                <div className="relative aspect-[4/3] overflow-hidden bg-gray-100">
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.src = "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400&h=300&fit=crop";
+                    }}
+                  />
+                  {/* Inquiry Badge */}
+                  <div className="absolute top-2 right-2 bg-[#c15738] text-white text-[10px] font-bold px-2 py-1 rounded-full">
+                    <TrendingUp className="w-3 h-3 inline mr-1" />
+                    Trending
+                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center pb-6">
+                    <Button
+                      className="bg-gradient-to-r from-[#c15738] to-[#5c2d23] text-white text-xs font-semibold px-6"
+                      size="sm"
+                    >
+                      <Eye className="w-3 h-3 mr-1" />
+                      View Details
+                    </Button>
+                  </div>
+                </div>
+                <div className="p-3">
+                  <Badge className="mb-1 bg-[#c15738]/10 text-[#c15738] border-0 text-[10px] font-semibold">
+                    {product.category.replace("-", " ").toUpperCase()}
+                  </Badge>
+                  <h4 className="text-sm font-bold text-gray-900 line-clamp-1 mb-1">
+                    {product.name}
+                  </h4>
+                  <p className="text-xs text-gray-600 line-clamp-2">{product.description}</p>
+                </div>
+              </Card>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    {/* View All Button */}
+    <div className="text-center mt-10">
+      <Link to="/products">
+        <Button size="lg" className="bg-gradient-to-r from-primary to-secondary text-white shadow-lg">
+          View All Products
+          <ArrowRight className="ml-2 w-4 h-4" />
+        </Button>
+      </Link>
+    </div>
+  </div>
+</section>
+
 
 <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-primary/5 to-secondary/5">
   <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -372,89 +544,8 @@ const Index = () => {
   </div>
 </section>
 
-                <ProcurementFeatures />
                       <ProcurementGrid  />
 
-  <section className="py-12 sm:py-16 md:py-20 bg-[#f9f7f6]">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-8 sm:mb-12 md:mb-16">
-              <Badge className="mb-4 bg-primary/10 text-primary border-0">
-                Technology
-              </Badge>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-[#c15738] to-[#5c2d23] bg-clip-text text-transparent">
-                Powered by <span className="text-gradient bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Advanced AI</span>
-              </h2>
-              <div className="w-16 sm:w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto mb-4"></div>
-              <p className="text-base sm:text-lg text-muted-foreground max-w-3xl mx-auto px-4">
-                Cutting-edge technology stack ensuring seamless, intelligent, and secure procurement experiences
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-              {[
-                {
-                  icon: BarChart3,
-                  title: "AI Price Intelligence",
-                  description: "Machine learning algorithms analyze market trends and predict optimal pricing strategies",
-                  features: ["Real-time market analysis", "Price prediction models", "Cost optimization"]
-                },
-                {
-                  icon: Shield,
-                  title: "Blockchain Verification",
-                  description: "Immutable supplier verification and transaction records for complete transparency",
-                  features: ["Supplier authentication", "Transaction security", "Quality assurance"]
-                },
-                {
-                  icon: Smartphone,
-                  title: "Multi-Platform Access",
-                  description: "Seamless experience across all devices with responsive design and native apps",
-                  features: ["Mobile-first design", "Cross-platform sync", "Offline capabilities"]
-                },
-              ].map((tech, index) => (
-                <div key={index} className="group perspective-1000">
-                  <Card className="relative p-6 sm:p-8 border-0 shadow-2xl hover:shadow-xs transition-all duration-700 transform hover:scale-105 hover:-translate-y-3 bg-gradient-to-br from-white via-white to-primary/5 backdrop-blur-md preserve-3d hover:rotate-y-6 overflow-hidden">
-                    {/* Animated background gradient */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-
-                    {/* Floating elements */}
-                    <div className="absolute top-4 right-4 w-3 h-3 bg-primary/20 rounded-full animate-pulse"></div>
-                    <div className="absolute bottom-6 left-4 w-2 h-2 bg-secondary/30 rounded-full animate-bounce" style={{ animationDelay: '0.5s' }}></div>
-                    <div className="absolute top-1/2 right-6 w-1 h-1 bg-primary/40 rounded-full animate-ping" style={{ animationDelay: '1s' }}></div>
-
-                    {/* Icon with consistent styling */}
-                    <div className="w-16 h-16 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-2xl flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform duration-300">
-                      <tech.icon className="h-8 w-8 text-white" />
-                    </div>
-
-                    {/* Title with enhanced styling */}
-                    <h3 className="relative text-lg sm:text-xl font-bold mb-3 text-foreground group-hover:text-primary transition-colors duration-300 ">{tech.title}</h3>
-
-                    {/* Description */}
-                    <p className="relative text-sm sm:text-base text-muted-foreground mb-4 leading-relaxed group-hover:text-foreground/80 transition-colors duration-300 ">{tech.description}</p>
-
-                    {/* Features list with enhanced styling */}
-                    <ul className="relative space-y-2">
-                      {tech.features.map((feature, idx) => (
-                        <li key={idx} className="flex items-center text-xs sm:text-sm text-muted-foreground group-hover:text-foreground/70 transition-colors duration-300">
-                          <div className="w-4 h-4 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-full flex items-center justify-center mr-3 flex-shrink-0">
-                            <CheckCircle className="w-2.5 h-2.5 text-white" />
-                          </div>
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
-
-                    {/* Bottom accent with animation */}
-                    <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-secondary to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-
-                    {/* Side accent */}
-                    <div className="absolute top-0 bottom-0 left-0 w-1 bg-gradient-to-b from-primary to-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  </Card>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
         {/* Featured Products with Images */}
         <section className="py-12 bg-[#f9f7f6] sm:py-16 md:py-20 relative">
           {/* Background Pattern */}
@@ -520,7 +611,7 @@ const Index = () => {
 
             <div className="text-center">
               <Link to="/products">
-                <Button size="lg" className="bg-gradient-to-r from-primary to-secondary text-primary-foreground shadow-lg">
+                <Button size="lg" className="bg-gradient-to-r from-primary to-secondary text-white shadow-lg">
                   View All Products
                   <ArrowRight className="ml-2 w-4 h-4" />
                 </Button>
