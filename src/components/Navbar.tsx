@@ -231,16 +231,6 @@ const Navbar = () => {
 
           {/* Cart, Language & Mobile Menu */}
           <div className="flex items-center gap-2 md:gap-3">
-            {/* Mobile Search Button */}
-            <Button
-              variant="ghost"
-              size="icon"
-              className="lg:hidden hover:bg-primary/10"
-              onClick={() => setShowSearch(!showSearch)}
-            >
-              <Search className="w-5 h-5" />
-            </Button>
-
             {/* Language Selector */}
             <LanguageSelector />
 
@@ -301,6 +291,28 @@ const Navbar = () => {
         {/* Mobile Menu */}
         {mobileMenuOpen && (
           <div className="lg:hidden py-4 space-y-2 border-t border-border bg-white shadow-inner">
+            {/* Mobile Search Bar - Inside Menu */}
+            <div className="px-4 pb-3 border-b border-border">
+              <form onSubmit={handleSearch} className="relative">
+                <Input
+                  type="text"
+                  placeholder="Search products..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full pr-10 border-[#b8907d]/30 focus:border-[#b8907d]"
+                  autoFocus
+                />
+                <Button
+                  type="submit"
+                  size="sm"
+                  variant="ghost"
+                  className="absolute right-0 top-0 h-full hover:bg-transparent"
+                >
+                  <Search className="w-4 h-4 text-[#452a21]\" />
+                </Button>
+              </form>
+            </div>
+
             <Link to="/" onClick={() => setMobileMenuOpen(false)}>
               <Button variant="ghost" className="w-full justify-start">{t('nav.home')}</Button>
             </Link>
@@ -310,9 +322,6 @@ const Navbar = () => {
             <Link to="/products" onClick={() => setMobileMenuOpen(false)}>
               <Button variant="ghost" className="w-full justify-start">{t('nav.products')}</Button>
             </Link>
-            {/* <Link to="/blogs" onClick={() => setMobileMenuOpen(false)}>
-              <Button variant="ghost" className="w-full justify-start">{t('nav.blogs')}</Button>
-            </Link> */}
             <Link to="/contact" onClick={() => setMobileMenuOpen(false)}>
               <Button variant="ghost" className="w-full justify-start">{t('nav.contact')}</Button>
             </Link>
@@ -322,12 +331,6 @@ const Navbar = () => {
                 <span>Seller Portal</span>
               </Button>
             </a>
-            {/* <Link to="/milo" onClick={() => setMobileMenuOpen(false)}>
-              <Button variant="ghost" className="w-full justify-start flex items-center gap-2">
-                <Mic className="w-4 h-4" />
-                <span>Milo AI</span>
-              </Button>
-            </Link> */}
           </div>
         )}
       </div>
