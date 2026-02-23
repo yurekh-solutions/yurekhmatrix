@@ -102,10 +102,9 @@
 // };
 
 // export default Navbar;
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { ShoppingCart, Menu, X, Mic, Store, Search } from "lucide-react";
+import { ShoppingCart, Menu, X, Store } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import LanguageSelector from "./LanguageSelector";
@@ -114,10 +113,7 @@ import ritzyardLogo from "@/assets/RITZYARD3.svg";
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [cartCount, setCartCount] = useState(0);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [showSearch, setShowSearch] = useState(false);
   const { t } = useTranslation();
-  const navigate = useNavigate();
 
   // Load cart count from sessionStorage
   useEffect(() => {
@@ -146,16 +142,6 @@ const Navbar = () => {
       window.removeEventListener('cartUpdated', handleCartUpdate);
     };
   }, []);
-
-  // Handle search
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (searchQuery.trim()) {
-      navigate(`/products?search=${encodeURIComponent(searchQuery.trim())}`);
-      setSearchQuery("");
-      setShowSearch(false);
-    }
-  };
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-border shadow-sm">
@@ -208,27 +194,6 @@ const Navbar = () => {
             </a>
           </div>
 
-          {/* Search Bar - Desktop */}
-          <div className="hidden lg:flex items-center">
-            <form onSubmit={handleSearch} className="relative">
-              <Input
-                type="text"
-                placeholder="Search products..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-64 pr-10 border-[#b8907d]/30 focus:border-[#b8907d] bg-white/80"
-              />
-              <Button
-                type="submit"
-                size="sm"
-                variant="ghost"
-                className="absolute right-0 top-0 h-full hover:bg-transparent"
-              >
-                <Search className="w-4 h-4 text-[#452a21]" />
-              </Button>
-            </form>
-          </div>
-
           {/* Cart, Language & Mobile Menu */}
           <div className="flex items-center gap-2 md:gap-3">
             {/* Language Selector */}
@@ -264,55 +229,9 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* Mobile Search Bar */}
-        {showSearch && (
-          <div className="lg:hidden py-3 px-4 border-t border-border bg-white">
-            <form onSubmit={handleSearch} className="relative">
-              <Input
-                type="text"
-                placeholder="Search products..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pr-10 border-[#b8907d]/30 focus:border-[#b8907d]"
-                autoFocus
-              />
-              <Button
-                type="submit"
-                size="sm"
-                variant="ghost"
-                className="absolute right-0 top-0 h-full hover:bg-transparent"
-              >
-                <Search className="w-4 h-4 text-[#452a21]" />
-              </Button>
-            </form>
-          </div>
-        )}
-
         {/* Mobile Menu */}
         {mobileMenuOpen && (
           <div className="lg:hidden py-4 space-y-2 border-t border-border bg-white shadow-inner">
-            {/* Mobile Search Bar - Inside Menu */}
-            <div className="px-4 pb-3 border-b border-border">
-              <form onSubmit={handleSearch} className="relative">
-                <Input
-                  type="text"
-                  placeholder="Search products..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pr-10 border-[#b8907d]/30 focus:border-[#b8907d]"
-                  autoFocus
-                />
-                <Button
-                  type="submit"
-                  size="sm"
-                  variant="ghost"
-                  className="absolute right-0 top-0 h-full hover:bg-transparent"
-                >
-                  <Search className="w-4 h-4 text-[#452a21]\" />
-                </Button>
-              </form>
-            </div>
-
             <Link to="/" onClick={() => setMobileMenuOpen(false)}>
               <Button variant="ghost" className="w-full justify-start">{t('nav.home')}</Button>
             </Link>

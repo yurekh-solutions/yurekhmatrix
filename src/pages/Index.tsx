@@ -35,6 +35,7 @@ Sparkles ,
   Phone,
   Mail,
   MapPin,
+  Search,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -75,6 +76,16 @@ const Index = () => {
   });
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [searchQuery, setSearchQuery] = useState("");
+  
+  // Filter products based on search
+  const searchResults = searchQuery.trim() 
+    ? products.filter(p => 
+        p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        p.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        p.description.toLowerCase().includes(searchQuery.toLowerCase())
+      ).slice(0, 8)
+    : [];
   
   // Shuffle products on component mount for AI recommendations
   const [recommendedProducts, setRecommendedProducts] = useState(() => {
@@ -289,6 +300,109 @@ const Index = () => {
 </section>
 
                 <ProcurementFeatures />
+
+{/* Explore a Wide Range of Categories */}
+<section className="py-12 bg-[#f4f0ec]">
+  <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    {/* Section Header */}
+    <div className="text-center mb-10">
+      <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+        Explore a Wide Range of <span className="text-[#c15738]">Categories</span>
+      </h2>
+      <p className="text-gray-600 max-w-2xl mx-auto">Find the right materials for your project from our extensive catalog</p>
+    </div>
+
+    {/* Search Bar */}
+    <div className="max-w-lg mx-auto mb-10 relative">
+      <input
+        type="text"
+        placeholder="Search for products... (e.g., Steel, Cement, Plywood)"
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        className="w-full px-5 py-4 pr-14 border-2 border-[#c15738]/30 rounded-full focus:border-[#c15738] focus:outline-none text-gray-800 bg-white shadow-md text-sm"
+      />
+      <div className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-full flex items-center justify-center">
+        <Search className="w-5 h-5 text-white" />
+      </div>
+    </div>
+
+    {/* Search Results - Show when searching */}
+    {searchQuery.trim() && (
+      <div className="mb-10 bg-white rounded-2xl p-6 shadow-lg">
+        <h3 className="text-lg font-bold text-gray-900 mb-4">
+          {searchResults.length > 0 
+            ? `Found ${searchResults.length} products for "${searchQuery}"` 
+            : `No products found for "${searchQuery}"`
+          }
+        </h3>
+        {searchResults.length > 0 ? (
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+            {searchResults.map((product) => (
+              <Link key={product.id} to={`/product/${product.id}`}>
+                <Card className="group overflow-hidden border-2 border-transparent hover:border-[#c15738] shadow-md transition-all duration-300">
+                  <div className="relative aspect-[4/3] overflow-hidden bg-gray-100">
+                    <img src={product.image} alt={product.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center pb-4">
+                      <Button className="bg-gradient-to-r from-[#c15738] to-[#5c2d23] text-white text-xs px-4" size="sm">
+                        <Eye className="w-3 h-3 mr-1" /> View
+                      </Button>
+                    </div>
+                  </div>
+                  <div className="p-3">
+                    <Badge className="mb-1 bg-[#c15738]/10 text-[#c15738] border-0 text-[10px] font-semibold">
+                      {product.category.replace("-", " ").toUpperCase()}
+                    </Badge>
+                    <h4 className="text-sm font-bold text-gray-900 line-clamp-1">{product.name}</h4>
+                    <p className="text-xs text-gray-600 line-clamp-1">{product.description}</p>
+                  </div>
+                </Card>
+              </Link>
+            ))}
+          </div>
+        ) : (
+          <p className="text-gray-500 text-center py-4">Try searching for "TMT", "Cement", "Steel" or browse categories below</p>
+        )}
+      </div>
+    )}
+
+    {/* Circular Category Grid */}
+    <div className="flex flex-wrap justify-center gap-6 sm:gap-8">
+      {[
+        { name: 'TMT Steel Bars', product: products.find(p => p.name.includes('TMT')) },
+        { name: 'MS Hollow Sections', product: products.find(p => p.name.includes('Hollow')) },
+        { name: 'Plywood & Boards', product: products.find(p => p.name.includes('Plywood')) },
+        { name: 'Cement Products', product: products.find(p => p.name.includes('Cement')) },
+        { name: 'Bricks & Blocks', product: products.find(p => p.name.includes('Brick')) },
+        { name: 'Pipes & Fittings', product: products.find(p => p.name.includes('Pipe')) },
+        { name: 'Roofing Materials', product: products.find(p => p.name.includes('Sheet') || p.name.includes('Deck')) },
+        { name: 'Electrical Items', product: products.find(p => p.category === 'electrical') },
+      ].map((cat, index) => (
+        <Link key={index} to={cat.product ? `/product/${cat.product.id}` : '/products'} className="group flex flex-col items-center">
+          <div className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-full overflow-hidden border-4 border-white shadow-lg group-hover:border-[#c15738] transition-all duration-300 group-hover:shadow-xl group-hover:scale-105">
+            <img 
+              src={cat.product?.image || 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=200&h=200&fit=crop'} 
+              alt={cat.name}
+              className="w-full h-full object-cover"
+            />
+          </div>
+          <span className="mt-3 text-xs sm:text-sm font-medium text-gray-800 text-center max-w-[100px] group-hover:text-[#c15738] transition-colors">
+            {cat.name}
+          </span>
+        </Link>
+      ))}
+    </div>
+
+    {/* View All Categories Button */}
+    <div className="text-center mt-10">
+      <Link to="/products">
+        <Button className="bg-gradient-to-r from-[#c15738] to-[#5c2d23] text-white px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition-all">
+          View All Products
+          <ArrowRight className="w-4 h-4 ml-2" />
+        </Button>
+      </Link>
+    </div>
+  </div>
+</section>
 
 {/* Products Section - Side by Side Layout */}
 <section className="py-12 bg-[#f9f7f6] sm:py-16 md:py-20 relative">
