@@ -14,6 +14,7 @@ import ProductNotFoundForm from "@/components/ProductNotFoundForm";
 import FloatingActionButtons from "@/components/FloatingActionButtons";
 import AnimatedBackground from "@/components/AnimatedBackground";
 import SEOHead from "@/components/SEOHead";
+import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import heroBg from "@/assets/hero-bg-orange.jpg";
 
 const Products = () => {
@@ -106,6 +107,12 @@ const Products = () => {
         description="Browse 1000+ construction materials at best prices. TMT steel bars Fe500 Fe550, OPC PPC cement, red bricks, AAC blocks, river sand, M sand, aggregates, tiles, plywood from 500+ verified suppliers across India."
         keywords="construction materials catalog India, TMT steel bars online, TMT Fe500 price, TMT Fe550 rate, cement price per bag today, OPC cement rate, PPC cement wholesale, red bricks price per 1000, AAC blocks cost, fly ash bricks, river sand rate, M sand price per unit, stone aggregates suppliers, 20mm aggregates, construction tiles online, ceramic tiles wholesale, vitrified tiles price, plywood sheets price, marine plywood cost, BWR plywood, MS pipes price, MS angles rate, steel channels, binding wire price, construction hardware India"
         canonicalUrl="https://ritzyard.com/products"
+      />
+      <BreadcrumbSchema 
+        items={[
+          { name: "Home", url: "https://ritzyard.com/" },
+          { name: "Products", url: "https://ritzyard.com/products" }
+        ]}
       />
     <div className="min-h-screen bg-[#f4f0ec]">
       <Navbar />

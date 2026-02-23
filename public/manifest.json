@@ -1,0 +1,29 @@
+{
+  "name": "ritzyard - Construction Material Procurement Platform",
+  "short_name": "ritzyard",
+  "description": "India's leading AI-powered construction material procurement platform. Get instant quotes from 500+ verified suppliers.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#c15738",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/ritzlogo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/ritzlogo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "productivity", "utilities"],
+  "lang": "en-IN",
+  "dir": "ltr",
+  "scope": "/",
+  "prefer_related_applications": false
+}

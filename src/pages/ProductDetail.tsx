@@ -36,6 +36,9 @@ import { toast } from "sonner";
 import ScrollToTop from "@/components/ScrollToTop";
 import AIBadge from "@/components/AIBadge";
 import FloatingActionButtons from "@/components/FloatingActionButtons";
+import SEOHead from "@/components/SEOHead";
+import BreadcrumbSchema from "@/components/BreadcrumbSchema";
+import ProductSchema from "@/components/ProductSchema";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -207,6 +210,26 @@ const ProductDetail = () => {
   };
 
   return (
+    <>
+      <SEOHead
+        title={`${product.name} - Buy Online at Best Price | ritzyard`}
+        description={`${product.description} Available from verified suppliers. Get instant quotes and best prices for ${product.name}. Quality assured with fast delivery across India.`}
+        keywords={`${product.name}, ${product.name} price, ${product.name} online, ${product.category}, construction materials, building materials India, ${product.name} suppliers`}
+        canonicalUrl={`https://ritzyard.com/product/${product.id}`}
+      />
+      <BreadcrumbSchema 
+        items={[
+          { name: "Home", url: "https://ritzyard.com/" },
+          { name: "Products", url: "https://ritzyard.com/products" },
+          { name: product.name, url: `https://ritzyard.com/product/${product.id}` }
+        ]}
+      />
+      <ProductSchema
+        name={product.name}
+        description={product.description}
+        category={product.category}
+        sku={product.id}
+      />
     <div className="min-h-screen">
       <Navbar />
 
@@ -560,6 +583,7 @@ Products
       <ScrollToTop />
       <FloatingActionButtons />
     </div>
+    </>
   );
 };
 
