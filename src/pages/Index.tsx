@@ -48,6 +48,9 @@ import smartWarehouse from "@/assets/smart-warehouse.jpg";
 import globalNetwork from "@/assets/global-network.jpg";
 import aiDashboard from "@/assets/ai-dashboard.jpg";
 import aiSourcing from "@/assets/ai-sourcing-optimization.jpg";
+import banner from "@/assets/banner.png";
+import banner1 from "@/assets/banner1.png";
+import banner2 from "@/assets/banner2.png";
 import { products } from "@/data/products";
 import AnimatedBackground from "@/components/AnimatedBackground";
 import MarqueeSection from "@/components/MarqueeSection";
@@ -77,6 +80,9 @@ const Index = () => {
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
+  
+  // Banner images array
+  const bannerImages = [banner, banner1, banner2];
   
   // Filter products based on search
   const searchResults = searchQuery.trim() 
@@ -143,11 +149,11 @@ const Index = () => {
   // Background image rotation
   useEffect(() => {
     const imageInterval = setInterval(() => {
-      setCurrentImageIndex((prev) => (prev + 1) % backgroundImages.length);
+      setCurrentImageIndex((prev) => (prev + 1) % bannerImages.length);
     }, 4000);
 
     return () => clearInterval(imageInterval);
-  }, [backgroundImages.length]);
+  }, [bannerImages.length]);
 
   // SEO structured data
   const structuredData = {
@@ -189,120 +195,42 @@ const Index = () => {
       <div className="min-h-screen bg-[#f4f0ec]">
         <Navbar />
         <ScrollToTop />
-        {/* Hero Section */}
-     <section className="relative pt-16 sm:pt-20 md:pt-28 pb-10 sm:pb-14 md:pb-20 overflow-hidden">
-  {/* Animated Background Elements */}
-  <div className="absolute inset-0">
-    <div className="absolute top-20 left-10 w-32 h-32 sm:w-48 sm:h-48 bg-primary/10 rounded-full blur-[30px] animate-pulse" />
-    <div className="absolute bottom-20 right-10 w-40 h-40 sm:w-56 sm:h-56 bg-secondary/10 rounded-full blur-[80px] animate-pulse delay-1000" />
-    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 sm:w-80 sm:h-80 bg-primary/5 rounded-full blur-[20px] animate-pulse delay-2000" />
-  </div>
-
-  <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-    <div className="grid lg:grid-cols-2 items-center gap-8 lg:gap-12 xl:gap-16 lg:mt-20">
-      
-      {/* Left Column */}
-      <div className="space-y-6 md:space-y-8 animate-slide-up mt-12 sm:mt-20 md:mt-0">
-        <Badge className="flex items-center w-fit bg-primary/10 text-primary border-primary/30 px-4 md:px-6 py-1.5 md:py-2 text-xs sm:text-sm">
-          <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 text-primary animate-pulse mr-2" />
-          Next-Gen Procurement Platform
-        </Badge>
-
-        <div className="space-y-4 sm:space-y-5">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-            Smart Material
-            <span className="block bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mt-1.5 sm:mt-2">
-              Procurement
-            </span>
-          </h1>
-
-          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-xl leading-relaxed">
-            AI-powered procurement platform revolutionizing how businesses source construction materials.
-            Get instant quotes, verify suppliers, and track deliveries with intelligent automation.
-          </p>
-        </div>
-
-        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2">
-          <Link to="/inquiry" className="w-full sm:w-auto">
-            <Button
-              size="lg"
-              className="bg-gradient-to-r from-primary to-secondary text-primary-foreground shadow-lg rounded-xl w-full sm:w-auto group"
-            >
-              Material Inquiry
-              <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </Button>
-          </Link>
-
-          <Link to="/milo" className="w-full sm:w-auto">
-            <Button
-              size="lg"
-              variant="outline"
-              className="border-primary text-primary rounded-xl w-full sm:w-auto"
-            >
-              Voice AI
-                          <Mic className="w-5 h-5" />
-
-            </Button>
-            
-          </Link>
-        </div>
-
-        {/* Stats */}
-        <div className="grid grid-cols-3 gap-3 sm:gap-4 md:gap-6 pt-4 sm:pt-6">
-          {[
-            { value: "500+", label: "Suppliers" },
-            { value: "98%", label: "On-time" },
-            { value: "28", label: "States" },
-          ].map((item, index) => (
-            <Card
+        
+        {/* Banner Carousel */}
+        <section className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden">
+          {/* Banner Images */}
+          {bannerImages.map((image, index) => (
+            <div
               key={index}
-              className="text-center p-3 sm:p-4 border border-primary/10 shadow-md bg-white/60 backdrop-blur-sm rounded-xl"
+              className={`absolute inset-0 transition-opacity duration-1000 ${
+                index === currentImageIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'
+              }`}
             >
-              <div className="text-xl sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                {item.value}
-              </div>
-              <div className="text-xs sm:text-sm text-muted-foreground">{item.label}</div>
-            </Card>
+              <img
+                src={image}
+                alt={`Banner ${index + 1}`}
+                className="w-full h-full object-cover"
+              />
+            </div>
           ))}
-        </div>
-      </div>
-
-      {/* Right Column - Analytics */}
-      <div className="relative animate-scale-in mt-10 lg:mt-0">
-        {/* Background transition layers */}
-        <div
-          className={`absolute inset-0 rounded-2xl transition-opacity duration-1000 ${
-            currentImageIndex % 2 === 0 ? "opacity-10" : "opacity-0"
-          }`}
-          style={{
-            backgroundImage: `url(${aiDashboard})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        />
-        <div
-          className={`absolute inset-0 rounded-2xl transition-opacity duration-1000 ${
-            currentImageIndex % 2 === 1 ? "opacity-10" : "opacity-0"
-          }`}
-          style={{
-            backgroundImage: `url(${aiSourcing})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        />
-
-        <div className="relative z-10">
-          <LiveAnalytics />
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-                <ProcurementFeatures />
-
-{/* Explore a Wide Range of Categories */}
-<section className="py-12 bg-[#f4f0ec]">
+          
+          {/* Dots Indicator */}
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+            {bannerImages.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentImageIndex(index)}
+                className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-all ${
+                  index === currentImageIndex 
+                    ? 'bg-white w-6 sm:w-8' 
+                    : 'bg-white/50 hover:bg-white/75'
+                }`}
+                aria-label={`Go to banner ${index + 1}`}
+              />
+            ))}
+          </div>
+        </section>
+        <section className="py-12 bg-[#f4f0ec]">
   <div className="container mx-auto px-4 sm:px-6 lg:px-8">
     {/* Section Header */}
     <div className="text-center mb-10">
@@ -402,9 +330,8 @@ const Index = () => {
       </Link>
     </div>
   </div>
-</section>
 
-{/* Products Section - Side by Side Layout */}
+</section>
 <section className="py-12 bg-[#f9f7f6] sm:py-16 md:py-20 relative">
   {/* Background Pattern */}
   <div className="absolute inset-0 opacity-05">
@@ -553,6 +480,196 @@ const Index = () => {
     </div>
   </div>
 </section>
+        {/* Hero Section */}
+     <section className="relative pt-16 sm:pt-20 md:pt-28 pb-10 sm:pb-14 md:pb-20 overflow-hidden">
+  {/* Animated Background Elements */}
+  <div className="absolute inset-0">
+    <div className="absolute top-20 left-10 w-32 h-32 sm:w-48 sm:h-48 bg-primary/10 rounded-full blur-[30px] animate-pulse" />
+    <div className="absolute bottom-20 right-10 w-40 h-40 sm:w-56 sm:h-56 bg-secondary/10 rounded-full blur-[80px] animate-pulse delay-1000" />
+    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 sm:w-80 sm:h-80 bg-primary/5 rounded-full blur-[20px] animate-pulse delay-2000" />
+  </div>
+
+  <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <div className="grid lg:grid-cols-2 items-center gap-8 lg:gap-12 xl:gap-16 lg:mt-20">
+      
+      {/* Left Column */}
+      <div className="space-y-6 md:space-y-8 animate-slide-up mt-12 sm:mt-20 md:mt-0">
+        <Badge className="flex items-center w-fit bg-primary/10 text-primary border-primary/30 px-4 md:px-6 py-1.5 md:py-2 text-xs sm:text-sm">
+          <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 text-primary animate-pulse mr-2" />
+          Next-Gen Procurement Platform
+        </Badge>
+
+        <div className="space-y-4 sm:space-y-5">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+            Smart Material
+            <span className="block bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mt-1.5 sm:mt-2">
+              Procurement
+            </span>
+          </h1>
+
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-xl leading-relaxed">
+            AI-powered procurement platform revolutionizing how businesses source construction materials.
+            Get instant quotes, verify suppliers, and track deliveries with intelligent automation.
+          </p>
+        </div>
+
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2">
+          <Link to="/inquiry" className="w-full sm:w-auto">
+            <Button
+              size="lg"
+              className="bg-gradient-to-r from-primary to-secondary text-primary-foreground shadow-lg rounded-xl w-full sm:w-auto group"
+            >
+              Material Inquiry
+              <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Button>
+          </Link>
+
+          <Link to="/milo" className="w-full sm:w-auto">
+            <Button
+              size="lg"
+              variant="outline"
+              className="border-primary text-primary rounded-xl w-full sm:w-auto"
+            >
+              Voice AI
+                          <Mic className="w-5 h-5" />
+
+            </Button>
+            
+          </Link>
+        </div>
+
+        {/* Stats */}
+        <div className="grid grid-cols-3 gap-3 sm:gap-4 md:gap-6 pt-4 sm:pt-6">
+          {[
+            { value: "500+", label: "Suppliers" },
+            { value: "98%", label: "On-time" },
+            { value: "28", label: "States" },
+          ].map((item, index) => (
+            <Card
+              key={index}
+              className="text-center p-3 sm:p-4 border border-primary/10 shadow-md bg-white/60 backdrop-blur-sm rounded-xl"
+            >
+              <div className="text-xl sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                {item.value}
+              </div>
+              <div className="text-xs sm:text-sm text-muted-foreground">{item.label}</div>
+            </Card>
+          ))}
+        </div>
+      </div>
+
+      {/* Right Column - Analytics */}
+      <div className="relative animate-scale-in mt-10 lg:mt-0">
+        {/* Background transition layers */}
+        <div
+          className={`absolute inset-0 rounded-2xl transition-opacity duration-1000 ${
+            currentImageIndex % 2 === 0 ? "opacity-10" : "opacity-0"
+          }`}
+          style={{
+            backgroundImage: `url(${aiDashboard})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        />
+        <div
+          className={`absolute inset-0 rounded-2xl transition-opacity duration-1000 ${
+            currentImageIndex % 2 === 1 ? "opacity-10" : "opacity-0"
+          }`}
+          style={{
+            backgroundImage: `url(${aiSourcing})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        />
+
+        <div className="relative z-10">
+          <LiveAnalytics />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{/* Featured Products with Images */}
+        <section className="py-12 bg-[#f9f7f6] sm:py-16 md:py-20 relative">
+          {/* Background Pattern */}
+          <div className="absolute inset-0 opacity-5">
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-secondary/10" />
+          </div>
+
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div className="text-center mb-8 sm:mb-12 md:mb-16 animate-slide-up">
+              <Badge className="mb-4 bg-primary/10 text-primary border-0">Featured Products</Badge>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-[#c15738] to-[#5c2d23] bg-clip-text text-transparent mb">
+                Premium <span className="text-gradient bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Materials</span>
+              </h2>
+              <div className="w-16 sm:w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto mb-4"></div>
+              <p className="text-base sm:text-lg text-muted-foreground max-w-3xl mx-auto px-4">
+                Premium construction materials from verified suppliers with instant quotes and real-time tracking
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6 sm:mb-8">
+              {products.slice(0, 4).map((product, index) => (
+                <Link key={product.id} to={`/product/${product.id}`}>
+                  <Card
+                    className="group overflow-hidden border border-primary/10 shadow-lg transition-all duration-300 animate-scale-in"
+                    style={{ animationDelay: `${index * 0.1}s` }}
+                  >
+                    <div className="relative aspect-[4/3] overflow-hidden bg-muted">
+                      <img
+                        src={product.image}
+                        alt={product.name}
+                        className="w-full h-full object-cover transition-transform duration-500"
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          target.src =
+                            "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400&h=300&fit=crop";
+                        }}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+                        <div className="absolute top-20 left-20 right-20 items-center">
+                          <Button
+                            className="bg-gradient-to-r from-primary to-secondary text-white shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500"
+                            size="sm"
+                          >
+                            <Eye className="w-4 h-4 mr-2" />
+                            View Details
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="p-4">
+                      <Badge className="mb-2 bg-primary/10 text-primary border-0 text-xs">
+                        {product.category.replace("-", " ").toUpperCase()}
+                      </Badge>
+                      <h3 className="text-sm sm:text-base lg:text-lg font-bold mb-2 line-clamp-2">
+                        {product.name}
+                      </h3>
+                      <p className="text-xs sm:text-sm text-muted-foreground line-clamp-2">{product.description}</p>
+                    </div>
+                  </Card>
+                </Link>
+              ))}
+            </div>
+
+            <div className="text-center">
+              <Link to="/products">
+                <Button size="lg" className="bg-gradient-to-r from-primary to-secondary text-white shadow-lg">
+                  View All Products
+                  <ArrowRight className="ml-2 w-4 h-4" />
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </section>
+
+                <ProcurementFeatures />
+
+{/* Explore a Wide Range of Categories */}
+
+
+{/* Products Section - Side by Side Layout */}
+
 
 
 <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-primary/5 to-secondary/5">
@@ -660,79 +777,7 @@ const Index = () => {
 
                       <ProcurementGrid  />
 
-        {/* Featured Products with Images */}
-        <section className="py-12 bg-[#f9f7f6] sm:py-16 md:py-20 relative">
-          {/* Background Pattern */}
-          <div className="absolute inset-0 opacity-5">
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-secondary/10" />
-          </div>
-
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div className="text-center mb-8 sm:mb-12 md:mb-16 animate-slide-up">
-              <Badge className="mb-4 bg-primary/10 text-primary border-0">Featured Products</Badge>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-[#c15738] to-[#5c2d23] bg-clip-text text-transparent mb">
-                Premium <span className="text-gradient bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Materials</span>
-              </h2>
-              <div className="w-16 sm:w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto mb-4"></div>
-              <p className="text-base sm:text-lg text-muted-foreground max-w-3xl mx-auto px-4">
-                Premium construction materials from verified suppliers with instant quotes and real-time tracking
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6 sm:mb-8">
-              {products.slice(0, 4).map((product, index) => (
-                <Link key={product.id} to={`/product/${product.id}`}>
-                  <Card
-                    className="group overflow-hidden border border-primary/10 shadow-lg transition-all duration-300 animate-scale-in"
-                    style={{ animationDelay: `${index * 0.1}s` }}
-                  >
-                    <div className="relative aspect-[4/3] overflow-hidden bg-muted">
-                      <img
-                        src={product.image}
-                        alt={product.name}
-                        className="w-full h-full object-cover transition-transform duration-500"
-                        onError={(e) => {
-                          const target = e.target as HTMLImageElement;
-                          target.src =
-                            "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400&h=300&fit=crop";
-                        }}
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
-                        <div className="absolute top-20 left-20 right-20 items-center">
-                          <Button
-                            className="bg-gradient-to-r from-primary to-secondary text-white shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500"
-                            size="sm"
-                          >
-                            <Eye className="w-4 h-4 mr-2" />
-                            View Details
-                          </Button>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="p-4">
-                      <Badge className="mb-2 bg-primary/10 text-primary border-0 text-xs">
-                        {product.category.replace("-", " ").toUpperCase()}
-                      </Badge>
-                      <h3 className="text-sm sm:text-base lg:text-lg font-bold mb-2 line-clamp-2">
-                        {product.name}
-                      </h3>
-                      <p className="text-xs sm:text-sm text-muted-foreground line-clamp-2">{product.description}</p>
-                    </div>
-                  </Card>
-                </Link>
-              ))}
-            </div>
-
-            <div className="text-center">
-              <Link to="/products">
-                <Button size="lg" className="bg-gradient-to-r from-primary to-secondary text-white shadow-lg">
-                  View All Products
-                  <ArrowRight className="ml-2 w-4 h-4" />
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </section>
+        
 <Section />
 
         {/* <MarqueeSection /> */}
