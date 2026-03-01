@@ -113,6 +113,22 @@ const Index = () => {
     return sorted.slice(0, 4);
   });
 
+  // Shuffle products for New & Popular sections on every refresh
+  const [newArrivals, setNewArrivals] = useState(() => {
+    const shuffled = [...products].sort(() => Math.random() - 0.5);
+    return shuffled.slice(0, 3);
+  });
+
+  const [bestSelling, setBestSelling] = useState(() => {
+    const shuffled = [...products].sort(() => Math.random() - 0.5);
+    return shuffled.slice(0, 3);
+  });
+
+  const [popularDeals, setPopularDeals] = useState(() => {
+    const shuffled = [...products].sort(() => Math.random() - 0.5);
+    return shuffled.slice(0, 3);
+  });
+
   // Background images array
   const backgroundImages = [
     constructionSite,
@@ -196,14 +212,14 @@ const Index = () => {
         <Navbar />
         <ScrollToTop />
         
-        {/* Banner Carousel */}
-        <section className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden">
+        {/* Banner Carousel with Explore Categories Overlay */}
+        <section className="relative w-full min-h-[600px] sm:min-h-[650px] md:min-h-[700px] overflow-hidden">
           {/* Banner Images */}
           {bannerImages.map((image, index) => (
             <div
               key={index}
               className={`absolute inset-0 transition-opacity duration-1000 ${
-                index === currentImageIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'
+                index === currentImageIndex ? 'opacity-100 z-0' : 'opacity-0 z-0'
               }`}
             >
               <img
@@ -211,127 +227,277 @@ const Index = () => {
                 alt={`Banner ${index + 1}`}
                 className="w-full h-full object-cover"
               />
+              {/* Black Opacity Overlay */}
+              <div className="absolute inset-0 bg-black/60"></div>
             </div>
           ))}
           
-          {/* Dots Indicator */}
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex gap-2">
-            {bannerImages.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentImageIndex(index)}
-                className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-all ${
-                  index === currentImageIndex 
-                    ? 'bg-white w-6 sm:w-8' 
-                    : 'bg-white/50 hover:bg-white/75'
-                }`}
-                aria-label={`Go to banner ${index + 1}`}
+          {/* Explore a Wide Range of Categories - Overlay Content */}
+          <div className="relative z-10 h-full flex items-center py-8 sm:py-12">
+          <div className="container mx-auto mt-40 px-4 sm:px-6 lg:px-8">
+            {/* Section Header */}
+            <div className="text-center mb-6 sm:mb-8">
+              <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-2 sm:mb-3">
+                Explore a Wide Range of <span className="text-white">Categories</span>
+              </h2>
+              <p className="text-sm sm:text-base text-white/90 max-w-2xl mx-auto">Find the right materials for your project from our extensive catalog</p>
+            </div>
+
+            {/* Search Bar */}
+            <div className="max-w-lg mx-auto mb-6 sm:mb-8 relative">
+              <input
+                type="text"
+                placeholder="Search for products... (e.g., Steel, Cement, Plywood)"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full px-5 py-4 pr-14 border-2 border-[#c15738]/30 rounded-full focus:border-[#c15738] focus:outline-none text-gray-800 bg-white shadow-md text-sm"
               />
-            ))}
+              <div className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-full flex items-center justify-center">
+                <Search className="w-5 h-5 text-white" />
+              </div>
+            </div>
+
+            {/* Search Results - Show when searching */}
+            {searchQuery.trim() && (
+              <div className="mb-10 bg-white rounded-2xl p-6 shadow-lg">
+                <h3 className="text-lg font-bold text-gray-900 mb-4">
+                  {searchResults.length > 0 
+                    ? `Found ${searchResults.length} products for "${searchQuery}"` 
+                    : `No products found for "${searchQuery}"`
+                  }
+                </h3>
+                {searchResults.length > 0 ? (
+                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+                    {searchResults.map((product) => (
+                      <Link key={product.id} to={`/product/${product.id}`}>
+                        <Card className="group overflow-hidden border-2 border-transparent hover:border-[#c15738] shadow-md transition-all duration-300">
+                          <div className="relative aspect-[4/3] overflow-hidden bg-gray-100">
+                            <img src={product.image} alt={product.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center pb-4">
+                              <Button className="bg-gradient-to-r from-[#c15738] to-[#5c2d23] text-white text-xs px-4" size="sm">
+                                <Eye className="w-3 h-3 mr-1" /> View
+                              </Button>
+                            </div>
+                          </div>
+                          <div className="p-3">
+                            <Badge className="mb-1 bg-[#c15738]/10 text-[#c15738] border-0 text-[10px] font-semibold">
+                              {product.category.replace("-", " ").toUpperCase()}
+                            </Badge>
+                            <h4 className="text-sm font-bold text-gray-900 line-clamp-1">{product.name}</h4>
+                            <p className="text-xs text-gray-600 line-clamp-1">{product.description}</p>
+                          </div>
+                        </Card>
+                      </Link>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-gray-500 text-center py-4">Try searching for "TMT", "Cement", "Steel" or browse categories below</p>
+                )}
+              </div>
+            )}
+
+            {/* Circular Category Grid */}
+            <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
+              {[
+                { name: 'TMT Steel Bars', product: products.find(p => p.name.includes('TMT')) },
+                { name: 'MS Hollow Sections', product: products.find(p => p.name.includes('Hollow')) },
+                { name: 'Plywood & Boards', product: products.find(p => p.name.includes('Plywood')) },
+                { name: 'Cement Products', product: products.find(p => p.name.includes('Cement')) },
+                { name: 'Bricks & Blocks', product: products.find(p => p.name.includes('Brick')) },
+                { name: 'Pipes & Fittings', product: products.find(p => p.name.includes('Pipe')) },
+                { name: 'Roofing Materials', product: products.find(p => p.name.includes('Sheet') || p.name.includes('Deck')) },
+                { name: 'Electrical Items', product: products.find(p => p.category === 'electrical') },
+              ].map((cat, index) => (
+                <Link key={index} to={cat.product ? `/product/${cat.product.id}` : '/products'} className="group flex flex-col items-center">
+                  <div className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-full overflow-hidden border-4 border-white shadow-lg group-hover:border-[#c15738] transition-all duration-300 group-hover:shadow-xl group-hover:scale-105 relative">
+                    <img 
+                      src={cat.product?.image || 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=200&h=200&fit=crop'} 
+                      alt={cat.name}
+                      className="w-full h-full object-cover"
+                    />
+                    {/* Centered Black Opacity Overlay */}
+                    <div className="absolute inset-0 bg-black/30 flex items-center justify-center"></div>
+                  </div>
+                  <span className="mt-3 text-xs sm:text-sm font-medium text-white text-center max-w-[100px] group-hover:text-orange-300 transition-colors">
+                    {cat.name}
+                  </span>
+                </Link>
+              ))}
+            </div>
+
+            {/* View All Categories Button */}
+            <div className="text-center mt-6 sm:mt-8">
+              <Link to="/products">
+                <Button className="bg-gradient-to-r from-[#c15738] to-[#5c2d23] text-white px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition-all">
+                  View All Products
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Button>
+              </Link>
+            </div>
+          </div>
           </div>
         </section>
-        <section className="py-12 bg-[#f4f0ec]">
-  <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-    {/* Section Header */}
-    <div className="text-center mb-10">
-      <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-        Explore a Wide Range of <span className="text-[#c15738]">Categories</span>
-      </h2>
-      <p className="text-gray-600 max-w-2xl mx-auto">Find the right materials for your project from our extensive catalog</p>
-    </div>
 
-    {/* Search Bar */}
-    <div className="max-w-lg mx-auto mb-10 relative">
-      <input
-        type="text"
-        placeholder="Search for products... (e.g., Steel, Cement, Plywood)"
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-        className="w-full px-5 py-4 pr-14 border-2 border-[#c15738]/30 rounded-full focus:border-[#c15738] focus:outline-none text-gray-800 bg-white shadow-md text-sm"
-      />
-      <div className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-full flex items-center justify-center">
-        <Search className="w-5 h-5 text-white" />
-      </div>
-    </div>
+        {/* New & Popular: Deals You Can't Miss */}
+        <section className="py-12 sm:py-16 md:py-20 bg-[#f4f0ec]">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            {/* Section Header */}
+            <div className="text-center mb-10 sm:mb-12">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
+                <span className="bg-gradient-to-r from-[#c15738] to-[#5c2d23] bg-clip-text text-transparent">
+                  New & Popular: Deals You Can't Miss
+                </span>
+              </h2>
+              <div className="w-20 sm:w-28 h-1 bg-gradient-to-r from-[#c15738] to-[#5c2d23] mx-auto rounded-full"></div>
+            </div>
 
-    {/* Search Results - Show when searching */}
-    {searchQuery.trim() && (
-      <div className="mb-10 bg-white rounded-2xl p-6 shadow-lg">
-        <h3 className="text-lg font-bold text-gray-900 mb-4">
-          {searchResults.length > 0 
-            ? `Found ${searchResults.length} products for "${searchQuery}"` 
-            : `No products found for "${searchQuery}"`
-          }
-        </h3>
-        {searchResults.length > 0 ? (
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-            {searchResults.map((product) => (
-              <Link key={product.id} to={`/product/${product.id}`}>
-                <Card className="group overflow-hidden border-2 border-transparent hover:border-[#c15738] shadow-md transition-all duration-300">
-                  <div className="relative aspect-[4/3] overflow-hidden bg-gray-100">
-                    <img src={product.image} alt={product.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center pb-4">
-                      <Button className="bg-gradient-to-r from-[#c15738] to-[#5c2d23] text-white text-xs px-4" size="sm">
-                        <Eye className="w-3 h-3 mr-1" /> View
-                      </Button>
-                    </div>
+            {/* Three Column Layout */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-6">
+              
+              {/* New Arrivals */}
+              <div className="bg-white rounded-2xl shadow-lg p-6 border border-[#c15738]/10">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-10 h-10 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-lg flex items-center justify-center">
+                    <Sparkles className="w-5 h-5 text-white" />
                   </div>
-                  <div className="p-3">
-                    <Badge className="mb-1 bg-[#c15738]/10 text-[#c15738] border-0 text-[10px] font-semibold">
-                      {product.category.replace("-", " ").toUpperCase()}
-                    </Badge>
-                    <h4 className="text-sm font-bold text-gray-900 line-clamp-1">{product.name}</h4>
-                    <p className="text-xs text-gray-600 line-clamp-1">{product.description}</p>
+                  <div>
+                    <h3 className="text-lg sm:text-xl font-bold text-gray-900">New Arrivals</h3>
+                    <p className="text-xs sm:text-sm text-gray-600">Fresh stock</p>
                   </div>
-                </Card>
-              </Link>
-            ))}
+                </div>
+
+                <div className="space-y-4">
+                  {newArrivals.map((product) => (
+                    <Link key={product.id} to={`/product/${product.id}`}>
+                      <Card className="group overflow-hidden border border-[#c15738]/20 hover:border-[#c15738] transition-all duration-300 hover:shadow-md">
+                        <div className="flex gap-3 p-3">
+                          <div className="relative w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden bg-gray-100">
+                            <img
+                              src={product.image}
+                              alt={product.name}
+                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                            />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <Badge className="mb-1 bg-[#c15738]/10 text-[#c15738] border-0 text-[9px] font-semibold">
+                              {product.category.replace("-", " ").toUpperCase()}
+                            </Badge>
+                            <h4 className="text-xs sm:text-sm font-bold text-gray-900 line-clamp-1 mb-1">
+                              {product.name}
+                            </h4>
+                            <p className="text-[10px] sm:text-xs text-gray-600 line-clamp-2">{product.description}</p>
+                          </div>
+                        </div>
+                      </Card>
+                    </Link>
+                  ))}
+                </div>
+
+                <Link to="/products" className="block mt-4">
+                  <Button className="w-full bg-gradient-to-r from-[#c15738] to-[#5c2d23] text-white text-sm">
+                    View All New Arrivals
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </Button>
+                </Link>
+              </div>
+
+              {/* Best Selling */}
+              <div className="bg-white rounded-2xl shadow-lg p-6 border border-[#c15738]/10">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-10 h-10 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-lg flex items-center justify-center">
+                    <TrendingUp className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg sm:text-xl font-bold text-gray-900">Best Selling</h3>
+                    <p className="text-xs sm:text-sm text-gray-600">Top products</p>
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  {bestSelling.map((product) => (
+                    <Link key={product.id} to={`/product/${product.id}`}>
+                      <Card className="group overflow-hidden border border-[#c15738]/20 hover:border-[#c15738] transition-all duration-300 hover:shadow-md">
+                        <div className="flex gap-3 p-3">
+                          <div className="relative w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden bg-gray-100">
+                            <img
+                              src={product.image}
+                              alt={product.name}
+                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                            />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <Badge className="mb-1 bg-[#c15738]/10 text-[#c15738] border-0 text-[9px] font-semibold">
+                              {product.category.replace("-", " ").toUpperCase()}
+                            </Badge>
+                            <h4 className="text-xs sm:text-sm font-bold text-gray-900 line-clamp-1 mb-1">
+                              {product.name}
+                            </h4>
+                            <p className="text-[10px] sm:text-xs text-gray-600 line-clamp-2">{product.description}</p>
+                          </div>
+                        </div>
+                      </Card>
+                    </Link>
+                  ))}
+                </div>
+
+                <Link to="/products" className="block mt-4">
+                  <Button className="w-full bg-gradient-to-r from-[#c15738] to-[#5c2d23] text-white text-sm">
+                    View All Best Sellers
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </Button>
+                </Link>
+              </div>
+
+              {/* Popular Deals */}
+              <div className="bg-white rounded-2xl shadow-lg p-6 border border-[#c15738]/10">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-10 h-10 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-lg flex items-center justify-center">
+                    <Zap className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg sm:text-xl font-bold text-gray-900">Popular Deals</h3>
+                    <p className="text-xs sm:text-sm text-gray-600">Hot offers</p>
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  {popularDeals.map((product) => (
+                    <Link key={product.id} to={`/product/${product.id}`}>
+                      <Card className="group overflow-hidden border border-[#c15738]/20 hover:border-[#c15738] transition-all duration-300 hover:shadow-md">
+                        <div className="flex gap-3 p-3">
+                          <div className="relative w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden bg-gray-100">
+                            <img
+                              src={product.image}
+                              alt={product.name}
+                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                            />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <Badge className="mb-1 bg-[#c15738]/10 text-[#c15738] border-0 text-[9px] font-semibold">
+                              {product.category.replace("-", " ").toUpperCase()}
+                            </Badge>
+                            <h4 className="text-xs sm:text-sm font-bold text-gray-900 line-clamp-1 mb-1">
+                              {product.name}
+                            </h4>
+                            <p className="text-[10px] sm:text-xs text-gray-600 line-clamp-2">{product.description}</p>
+                          </div>
+                        </div>
+                      </Card>
+                    </Link>
+                  ))}
+                </div>
+
+                <Link to="/products" className="block mt-4">
+                  <Button className="w-full bg-gradient-to-r from-[#c15738] to-[#5c2d23] text-white text-sm">
+                    View All Deals
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </Button>
+                </Link>
+              </div>
+            </div>
           </div>
-        ) : (
-          <p className="text-gray-500 text-center py-4">Try searching for "TMT", "Cement", "Steel" or browse categories below</p>
-        )}
-      </div>
-    )}
+        </section>
 
-    {/* Circular Category Grid */}
-    <div className="flex flex-wrap justify-center gap-6 sm:gap-8">
-      {[
-        { name: 'TMT Steel Bars', product: products.find(p => p.name.includes('TMT')) },
-        { name: 'MS Hollow Sections', product: products.find(p => p.name.includes('Hollow')) },
-        { name: 'Plywood & Boards', product: products.find(p => p.name.includes('Plywood')) },
-        { name: 'Cement Products', product: products.find(p => p.name.includes('Cement')) },
-        { name: 'Bricks & Blocks', product: products.find(p => p.name.includes('Brick')) },
-        { name: 'Pipes & Fittings', product: products.find(p => p.name.includes('Pipe')) },
-        { name: 'Roofing Materials', product: products.find(p => p.name.includes('Sheet') || p.name.includes('Deck')) },
-        { name: 'Electrical Items', product: products.find(p => p.category === 'electrical') },
-      ].map((cat, index) => (
-        <Link key={index} to={cat.product ? `/product/${cat.product.id}` : '/products'} className="group flex flex-col items-center">
-          <div className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-full overflow-hidden border-4 border-white shadow-lg group-hover:border-[#c15738] transition-all duration-300 group-hover:shadow-xl group-hover:scale-105">
-            <img 
-              src={cat.product?.image || 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=200&h=200&fit=crop'} 
-              alt={cat.name}
-              className="w-full h-full object-cover"
-            />
-          </div>
-          <span className="mt-3 text-xs sm:text-sm font-medium text-gray-800 text-center max-w-[100px] group-hover:text-[#c15738] transition-colors">
-            {cat.name}
-          </span>
-        </Link>
-      ))}
-    </div>
-
-    {/* View All Categories Button */}
-    <div className="text-center mt-10">
-      <Link to="/products">
-        <Button className="bg-gradient-to-r from-[#c15738] to-[#5c2d23] text-white px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition-all">
-          View All Products
-          <ArrowRight className="w-4 h-4 ml-2" />
-        </Button>
-      </Link>
-    </div>
-  </div>
-
-</section>
 <section className="py-12 bg-[#f9f7f6] sm:py-16 md:py-20 relative">
   {/* Background Pattern */}
   <div className="absolute inset-0 opacity-05">
@@ -664,8 +830,6 @@ const Index = () => {
         </section>
 
                 <ProcurementFeatures />
-
-{/* Explore a Wide Range of Categories */}
 
 
 {/* Products Section - Side by Side Layout */}
