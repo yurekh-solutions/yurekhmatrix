@@ -36,6 +36,8 @@ Sparkles ,
   Mail,
   MapPin,
   Search,
+  MessageSquare,
+  User,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -81,6 +83,18 @@ const Index = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
   
+  // Inquiry form state for home page search
+  const [inquiryForm, setInquiryForm] = useState({
+    productName: "",
+    specifications: "",
+    name: "",
+    phone: "",
+    email: "",
+    quantity: "",
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  
   // Banner images array
   const bannerImages = [banner, banner1, banner2];
   
@@ -92,6 +106,38 @@ const Index = () => {
         p.description.toLowerCase().includes(searchQuery.toLowerCase())
       ).slice(0, 8)
     : [];
+  
+  // Update inquiry form product name when search query changes
+  useEffect(() => {
+    if (searchQuery.trim()) {
+      setInquiryForm(prev => ({ ...prev, productName: searchQuery }));
+    }
+  }, [searchQuery]);
+
+  // Handle inquiry form submission
+  const handleInquirySubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      const message = `Product Inquiry from Home Search:\n\nProduct: ${inquiryForm.productName}\nSpecifications: ${inquiryForm.specifications || 'N/A'}\nName: ${inquiryForm.name}\nPhone: ${inquiryForm.phone}\nEmail: ${inquiryForm.email || 'N/A'}\nQuantity: ${inquiryForm.quantity || 'N/A'}`;
+      const whatsappNumber = "919559262525";
+      const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+      
+      window.open(whatsappUrl, "_blank");
+      setSubmitSuccess(true);
+      
+      setTimeout(() => {
+        setSubmitSuccess(false);
+        setSearchQuery("");
+        setInquiryForm({ productName: "", specifications: "", name: "", phone: "", email: "", quantity: "" });
+      }, 2000);
+    } catch (error) {
+      console.error("Error submitting inquiry:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
   
   // Shuffle products on component mount for AI recommendations
   const [recommendedProducts, setRecommendedProducts] = useState(() => {
@@ -116,17 +162,17 @@ const Index = () => {
   // Shuffle products for New & Popular sections on every refresh
   const [newArrivals, setNewArrivals] = useState(() => {
     const shuffled = [...products].sort(() => Math.random() - 0.5);
-    return shuffled.slice(0, 3);
+    return shuffled.slice(0, 4);
   });
 
   const [bestSelling, setBestSelling] = useState(() => {
     const shuffled = [...products].sort(() => Math.random() - 0.5);
-    return shuffled.slice(0, 3);
+    return shuffled.slice(0, 4);
   });
 
   const [popularDeals, setPopularDeals] = useState(() => {
     const shuffled = [...products].sort(() => Math.random() - 0.5);
-    return shuffled.slice(0, 3);
+    return shuffled.slice(0, 4);
   });
 
   // Background images array
@@ -291,7 +337,131 @@ const Index = () => {
                     ))}
                   </div>
                 ) : (
-                  <p className="text-gray-500 text-center py-4">Try searching for "TMT", "Cement", "Steel" or browse categories below</p>
+                  <div className="max-w-md mx-auto">
+                    <div className="flex flex-col items-center mb-6">
+                      <div className="w-16 h-16 bg-[#c15738]/10 rounded-full flex items-center justify-center mb-4">
+                        <MessageSquare className="w-8 h-8 text-[#c15738]" />
+                      </div>
+                      <h4 className="text-xl font-bold text-gray-900 mb-2">Product Not Found?</h4>
+                      <p className="text-sm text-gray-600 text-center">Don't worry! Tell us what you're looking for and we'll get back to you with the best options.</p>
+                    </div>
+
+                    {submitSuccess ? (
+                      <div className="text-center py-6">
+                        <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                          <CheckCircle className="w-8 h-8 text-green-600" />
+                        </div>
+                        <h3 className="text-lg font-bold text-gray-900 mb-2">Thank You!</h3>
+                        <p className="text-gray-600">We'll contact you shortly with the best options.</p>
+                      </div>
+                    ) : (
+                      <form onSubmit={handleInquirySubmit} className="space-y-4">
+                        <div>
+                          <label className="flex items-center text-sm font-medium text-gray-700 mb-2">
+                            <MessageSquare className="w-4 h-4 mr-2 text-[#c15738]" />
+                            What product are you looking for? <span className="text-red-500 ml-1">*</span>
+                          </label>
+                          <input
+                            type="text"
+                            value={inquiryForm.productName}
+                            onChange={(e) => setInquiryForm({ ...inquiryForm, productName: e.target.value })}
+                            placeholder="e.g., TMT Bars, Cement, Steel Pipes"
+                            required
+                            className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-[#c15738] focus:outline-none text-sm"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="text-sm font-medium text-gray-700 mb-2 block">
+                            Additional Specifications
+                          </label>
+                          <textarea
+                            value={inquiryForm.specifications}
+                            onChange={(e) => setInquiryForm({ ...inquiryForm, specifications: e.target.value })}
+                            placeholder="Describe size, grade, brand preference, or any other requirements..."
+                            rows={3}
+                            className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-[#c15738] focus:outline-none text-sm resize-none"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="flex items-center text-sm font-medium text-gray-700 mb-2">
+                            <User className="w-4 h-4 mr-2 text-[#c15738]" />
+                            Your Name <span className="text-red-500 ml-1">*</span>
+                          </label>
+                          <input
+                            type="text"
+                            value={inquiryForm.name}
+                            onChange={(e) => setInquiryForm({ ...inquiryForm, name: e.target.value })}
+                            placeholder="Enter your full name"
+                            required
+                            className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-[#c15738] focus:outline-none text-sm"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="flex items-center text-sm font-medium text-gray-700 mb-2">
+                            <Phone className="w-4 h-4 mr-2 text-[#c15738]" />
+                            Phone Number <span className="text-red-500 ml-1">*</span>
+                          </label>
+                          <input
+                            type="tel"
+                            value={inquiryForm.phone}
+                            onChange={(e) => setInquiryForm({ ...inquiryForm, phone: e.target.value })}
+                            placeholder="+91 XXXXX XXXXX"
+                            required
+                            pattern="[0-9+\\s-]+"
+                            className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-[#c15738] focus:outline-none text-sm"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="flex items-center text-sm font-medium text-gray-700 mb-2">
+                            <Mail className="w-4 h-4 mr-2 text-[#c15738]" />
+                            Email Address
+                          </label>
+                          <input
+                            type="email"
+                            value={inquiryForm.email}
+                            onChange={(e) => setInquiryForm({ ...inquiryForm, email: e.target.value })}
+                            placeholder="your.email@example.com"
+                            className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-[#c15738] focus:outline-none text-sm"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="text-sm font-medium text-gray-700 mb-2 block">
+                            Quantity Required
+                          </label>
+                          <input
+                            type="text"
+                            value={inquiryForm.quantity}
+                            onChange={(e) => setInquiryForm({ ...inquiryForm, quantity: e.target.value })}
+                            placeholder="e.g., 100 MT, 50 bags, 10 tons"
+                            className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-[#c15738] focus:outline-none text-sm"
+                          />
+                        </div>
+
+                        <Button
+                          type="submit"
+                          disabled={isSubmitting}
+                          className="w-full bg-gradient-to-r from-[#c15738] to-[#5c2d23] text-white py-3 rounded-lg font-semibold hover:shadow-lg transition-all"
+                        >
+                          {isSubmitting ? (
+                            <span className="flex items-center justify-center">
+                              <span className="animate-spin mr-2">⏳</span>
+                              Submitting...
+                            </span>
+                          ) : (
+                            <span className="flex items-center justify-center">
+                              Send Inquiry via WhatsApp
+                              <ArrowRight className="w-4 h-4 ml-2" />
+                            </span>
+                          )}
+                        </Button>
+                      </form>
+                    )}
+                  </div>
                 )}
               </div>
             )}
@@ -351,148 +521,129 @@ const Index = () => {
               <div className="w-20 sm:w-28 h-1 bg-gradient-to-r from-[#c15738] to-[#5c2d23] mx-auto rounded-full"></div>
             </div>
 
-            {/* Three Column Layout */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-6">
-              
-              {/* New Arrivals */}
-              <div className="bg-white rounded-2xl shadow-lg p-6 border border-[#c15738]/10">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-10 h-10 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-lg flex items-center justify-center">
+            {/* New Arrivals Row */}
+            <div className="mb-12">
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-full flex items-center justify-center">
                     <Sparkles className="w-5 h-5 text-white" />
                   </div>
-                  <div>
-                    <h3 className="text-lg sm:text-xl font-bold text-gray-900">New Arrivals</h3>
-                    <p className="text-xs sm:text-sm text-gray-600">Fresh stock</p>
-                  </div>
+                  <h3 className="text-xl sm:text-2xl font-bold text-gray-900">New Arrivals</h3>
                 </div>
-
-                <div className="space-y-4">
-                  {newArrivals.map((product) => (
-                    <Link key={product.id} to={`/product/${product.id}`}>
-                      <Card className="group overflow-hidden border border-[#c15738]/20 hover:border-[#c15738] transition-all duration-300 hover:shadow-md">
-                        <div className="flex gap-3 p-3">
-                          <div className="relative w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden bg-gray-100">
-                            <img
-                              src={product.image}
-                              alt={product.name}
-                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                            />
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <Badge className="mb-1 bg-[#c15738]/10 text-[#c15738] border-0 text-[9px] font-semibold">
-                              {product.category.replace("-", " ").toUpperCase()}
-                            </Badge>
-                            <h4 className="text-xs sm:text-sm font-bold text-gray-900 line-clamp-1 mb-1">
-                              {product.name}
-                            </h4>
-                            <p className="text-[10px] sm:text-xs text-gray-600 line-clamp-2">{product.description}</p>
-                          </div>
-                        </div>
-                      </Card>
-                    </Link>
-                  ))}
-                </div>
-
-                <Link to="/products" className="block mt-4">
-                  <Button className="w-full bg-gradient-to-r from-[#c15738] to-[#5c2d23] text-white text-sm">
-                    View All New Arrivals
-                    <ArrowRight className="w-4 h-4 ml-2" />
-                  </Button>
+                <Link to="/products" className="text-[#c15738] hover:text-[#5c2d23] text-sm font-semibold flex items-center gap-1 hover:underline">
+                  See All <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+                {newArrivals.map((product) => (
+                  <Link key={product.id} to={`/product/${product.id}`}>
+                    <div className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 group border border-gray-100 hover:border-[#c15738]/40 h-full">
+                      <div className="relative aspect-[4/3] overflow-hidden">
+                        <img
+                          src={product.image}
+                          alt={product.name}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <div className="absolute top-3 left-3">
+                          <span className="bg-[#c15738] text-white text-[10px] font-bold px-3 py-1 rounded-full">
+                            NEW
+                          </span>
+                        </div>
+                      </div>
+                      <div className="p-4">
+                        <span className="text-[10px] font-semibold text-[#c15738] uppercase tracking-wide">
+                          {product.category.replace("-", " ")}
+                        </span>
+                        <h4 className="text-sm font-bold text-gray-900 mt-1 line-clamp-1">{product.name}</h4>
+                        <p className="text-xs text-gray-500 mt-2 line-clamp-2">{product.description}</p>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
 
-              {/* Best Selling */}
-              <div className="bg-white rounded-2xl shadow-lg p-6 border border-[#c15738]/10">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-10 h-10 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-lg flex items-center justify-center">
+            {/* Best Selling Row */}
+            <div className="mb-12">
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-full flex items-center justify-center">
                     <TrendingUp className="w-5 h-5 text-white" />
                   </div>
-                  <div>
-                    <h3 className="text-lg sm:text-xl font-bold text-gray-900">Best Selling</h3>
-                    <p className="text-xs sm:text-sm text-gray-600">Top products</p>
-                  </div>
+                  <h3 className="text-xl sm:text-2xl font-bold text-gray-900">Best Selling</h3>
                 </div>
-
-                <div className="space-y-4">
-                  {bestSelling.map((product) => (
-                    <Link key={product.id} to={`/product/${product.id}`}>
-                      <Card className="group overflow-hidden border border-[#c15738]/20 hover:border-[#c15738] transition-all duration-300 hover:shadow-md">
-                        <div className="flex gap-3 p-3">
-                          <div className="relative w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden bg-gray-100">
-                            <img
-                              src={product.image}
-                              alt={product.name}
-                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                            />
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <Badge className="mb-1 bg-[#c15738]/10 text-[#c15738] border-0 text-[9px] font-semibold">
-                              {product.category.replace("-", " ").toUpperCase()}
-                            </Badge>
-                            <h4 className="text-xs sm:text-sm font-bold text-gray-900 line-clamp-1 mb-1">
-                              {product.name}
-                            </h4>
-                            <p className="text-[10px] sm:text-xs text-gray-600 line-clamp-2">{product.description}</p>
-                          </div>
-                        </div>
-                      </Card>
-                    </Link>
-                  ))}
-                </div>
-
-                <Link to="/products" className="block mt-4">
-                  <Button className="w-full bg-gradient-to-r from-[#c15738] to-[#5c2d23] text-white text-sm">
-                    View All Best Sellers
-                    <ArrowRight className="w-4 h-4 ml-2" />
-                  </Button>
+                <Link to="/products" className="text-[#c15738] hover:text-[#5c2d23] text-sm font-semibold flex items-center gap-1 hover:underline">
+                  See All <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+                {bestSelling.map((product) => (
+                  <Link key={product.id} to={`/product/${product.id}`}>
+                    <div className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 group border border-gray-100 hover:border-[#c15738]/40 h-full">
+                      <div className="relative aspect-[4/3] overflow-hidden">
+                        <img
+                          src={product.image}
+                          alt={product.name}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <div className="absolute top-3 left-3">
+                          <span className="bg-orange-500 text-white text-[10px] font-bold px-2 py-1 rounded-full flex items-center gap-1">
+                            <TrendingUp className="w-3 h-3" /> TRENDING
+                          </span>
+                        </div>
+                      </div>
+                      <div className="p-4">
+                        <span className="text-[10px] font-semibold text-[#c15738] uppercase tracking-wide">
+                          {product.category.replace("-", " ")}
+                        </span>
+                        <h4 className="text-sm font-bold text-gray-900 mt-1 line-clamp-1">{product.name}</h4>
+                        <p className="text-xs text-gray-500 mt-2 line-clamp-2">{product.description}</p>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
 
-              {/* Popular Deals */}
-              <div className="bg-white rounded-2xl shadow-lg p-6 border border-[#c15738]/10">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-10 h-10 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-lg flex items-center justify-center">
+            {/* Popular Deals Row */}
+            <div>
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-full flex items-center justify-center">
                     <Zap className="w-5 h-5 text-white" />
                   </div>
-                  <div>
-                    <h3 className="text-lg sm:text-xl font-bold text-gray-900">Popular Deals</h3>
-                    <p className="text-xs sm:text-sm text-gray-600">Hot offers</p>
-                  </div>
+                  <h3 className="text-xl sm:text-2xl font-bold text-gray-900">Popular Deals</h3>
                 </div>
-
-                <div className="space-y-4">
-                  {popularDeals.map((product) => (
-                    <Link key={product.id} to={`/product/${product.id}`}>
-                      <Card className="group overflow-hidden border border-[#c15738]/20 hover:border-[#c15738] transition-all duration-300 hover:shadow-md">
-                        <div className="flex gap-3 p-3">
-                          <div className="relative w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden bg-gray-100">
-                            <img
-                              src={product.image}
-                              alt={product.name}
-                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                            />
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <Badge className="mb-1 bg-[#c15738]/10 text-[#c15738] border-0 text-[9px] font-semibold">
-                              {product.category.replace("-", " ").toUpperCase()}
-                            </Badge>
-                            <h4 className="text-xs sm:text-sm font-bold text-gray-900 line-clamp-1 mb-1">
-                              {product.name}
-                            </h4>
-                            <p className="text-[10px] sm:text-xs text-gray-600 line-clamp-2">{product.description}</p>
-                          </div>
-                        </div>
-                      </Card>
-                    </Link>
-                  ))}
-                </div>
-
-                <Link to="/products" className="block mt-4">
-                  <Button className="w-full bg-gradient-to-r from-[#c15738] to-[#5c2d23] text-white text-sm">
-                    View All Deals
-                    <ArrowRight className="w-4 h-4 ml-2" />
-                  </Button>
+                <Link to="/products" className="text-[#c15738] hover:text-[#5c2d23] text-sm font-semibold flex items-center gap-1 hover:underline">
+                  See All <ArrowRight className="w-4 h-4" />
                 </Link>
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+                {popularDeals.map((product) => (
+                  <Link key={product.id} to={`/product/${product.id}`}>
+                    <div className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 group border border-gray-100 hover:border-[#c15738]/40 h-full">
+                      <div className="relative aspect-[4/3] overflow-hidden">
+                        <img
+                          src={product.image}
+                          alt={product.name}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <div className="absolute top-3 left-3">
+                          <span className="bg-green-500 text-white text-[10px] font-bold px-2 py-1 rounded-full flex items-center gap-1">
+                            <Zap className="w-3 h-3" /> HOT DEAL
+                          </span>
+                        </div>
+                      </div>
+                      <div className="p-4">
+                        <span className="text-[10px] font-semibold text-[#c15738] uppercase tracking-wide">
+                          {product.category.replace("-", " ")}
+                        </span>
+                        <h4 className="text-sm font-bold text-gray-900 mt-1 line-clamp-1">{product.name}</h4>
+                        <p className="text-xs text-gray-500 mt-2 line-clamp-2">{product.description}</p>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
               </div>
             </div>
           </div>
