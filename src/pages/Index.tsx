@@ -403,159 +403,35 @@ const Index = () => {
             </div>
 
             {/* View All Categories Button */}
-            <div className="text-center mt-6 sm:mt-8">
-              <Link to="/products">
-                <Button className="bg-gradient-to-r from-[#c15738] to-[#5c2d23] text-white px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition-all">
-                  View All Products
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Button>
-              </Link>
+            <div className="text-center mt-4">
+             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2 justify-center">
+          <Link to="/inquiry" className="w-full sm:w-auto">
+            <Button
+              size="lg"
+              className="bg-gradient-to-r from-primary to-secondary text-primary-foreground shadow-lg rounded-xl w-full sm:w-auto group"
+            >
+              Material Inquiry
+              <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Button>
+          </Link>
+
+          <Link to="/milo" className="w-full sm:w-auto">
+            <Button
+              size="lg"
+              variant="outline"
+              className="border-primary text-primary rounded-xl w-full sm:w-auto"
+            >
+              Voice AI
+                          <Mic className="w-5 h-5" />
+
+            </Button>
+            
+          </Link>
+        </div>
             </div>
           </div>
           </div>
         </section>
-
-        {/* New & Popular: Deals You Can't Miss */}
-        <section className="py-12 sm:py-16 md:py-20 bg-[#f4f0ec]">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            {/* Section Header */}
-            <div className="text-center mb-10 sm:mb-12">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
-                <span className="bg-gradient-to-r from-[#c15738] to-[#5c2d23] bg-clip-text text-transparent">
-                  New & Popular: Deals You Can't Miss
-                </span>
-              </h2>
-              <div className="w-20 sm:w-28 h-1 bg-gradient-to-r from-[#c15738] to-[#5c2d23] mx-auto rounded-full"></div>
-            </div>
-
-            {/* New Arrivals Row */}
-            <div className="mb-12">
-              <div className="flex items-center justify-between mb-6">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-full flex items-center justify-center">
-                    <Sparkles className="w-5 h-5 text-white" />
-                  </div>
-                  <h3 className="text-xl sm:text-2xl font-bold text-gray-900">New Arrivals</h3>
-                </div>
-                <Link to="/products" className="text-[#c15738] hover:text-[#5c2d23] text-sm font-semibold flex items-center gap-1 hover:underline">
-                  See All <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
-                {newArrivals.map((product) => (
-                  <Link key={product.id} to={`/product/${product.id}`}>
-                    <div className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 group border border-gray-100 hover:border-[#c15738]/40 h-full">
-                      <div className="relative aspect-[4/3] overflow-hidden">
-                        <img
-                          src={product.image}
-                          alt={product.name}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        />
-                        <div className="absolute top-3 left-3">
-                          <span className="bg-[#c15738] text-white text-[10px] font-bold px-3 py-1 rounded-full">
-                            NEW
-                          </span>
-                        </div>
-                      </div>
-                      <div className="p-4">
-                        <span className="text-[10px] font-semibold text-[#c15738] uppercase tracking-wide">
-                          {product.category.replace("-", " ")}
-                        </span>
-                        <h4 className="text-sm font-bold text-gray-900 mt-1 line-clamp-1">{product.name}</h4>
-                        <p className="text-xs text-gray-500 mt-2 line-clamp-2">{product.description}</p>
-                      </div>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            </div>
-
-            {/* Best Selling Row */}
-            <div className="mb-12">
-              <div className="flex items-center justify-between mb-6">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-full flex items-center justify-center">
-                    <TrendingUp className="w-5 h-5 text-white" />
-                  </div>
-                  <h3 className="text-xl sm:text-2xl font-bold text-gray-900">Best Selling</h3>
-                </div>
-                <Link to="/products" className="text-[#c15738] hover:text-[#5c2d23] text-sm font-semibold flex items-center gap-1 hover:underline">
-                  See All <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
-                {bestSelling.map((product) => (
-                  <Link key={product.id} to={`/product/${product.id}`}>
-                    <div className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 group border border-gray-100 hover:border-[#c15738]/40 h-full">
-                      <div className="relative aspect-[4/3] overflow-hidden">
-                        <img
-                          src={product.image}
-                          alt={product.name}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        />
-                        <div className="absolute top-3 left-3">
-                          <span className="bg-orange-500 text-white text-[10px] font-bold px-2 py-1 rounded-full flex items-center gap-1">
-                            <TrendingUp className="w-3 h-3" /> TRENDING
-                          </span>
-                        </div>
-                      </div>
-                      <div className="p-4">
-                        <span className="text-[10px] font-semibold text-[#c15738] uppercase tracking-wide">
-                          {product.category.replace("-", " ")}
-                        </span>
-                        <h4 className="text-sm font-bold text-gray-900 mt-1 line-clamp-1">{product.name}</h4>
-                        <p className="text-xs text-gray-500 mt-2 line-clamp-2">{product.description}</p>
-                      </div>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            </div>
-
-            {/* Popular Deals Row */}
-            <div>
-              <div className="flex items-center justify-between mb-6">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-full flex items-center justify-center">
-                    <Zap className="w-5 h-5 text-white" />
-                  </div>
-                  <h3 className="text-xl sm:text-2xl font-bold text-gray-900">Popular Deals</h3>
-                </div>
-                <Link to="/products" className="text-[#c15738] hover:text-[#5c2d23] text-sm font-semibold flex items-center gap-1 hover:underline">
-                  See All <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
-                {popularDeals.map((product) => (
-                  <Link key={product.id} to={`/product/${product.id}`}>
-                    <div className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 group border border-gray-100 hover:border-[#c15738]/40 h-full">
-                      <div className="relative aspect-[4/3] overflow-hidden">
-                        <img
-                          src={product.image}
-                          alt={product.name}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        />
-                        <div className="absolute top-3 left-3">
-                          <span className="bg-green-500 text-white text-[10px] font-bold px-2 py-1 rounded-full flex items-center gap-1">
-                            <Zap className="w-3 h-3" /> HOT DEAL
-                          </span>
-                        </div>
-                      </div>
-                      <div className="p-4">
-                        <span className="text-[10px] font-semibold text-[#c15738] uppercase tracking-wide">
-                          {product.category.replace("-", " ")}
-                        </span>
-                        <h4 className="text-sm font-bold text-gray-900 mt-1 line-clamp-1">{product.name}</h4>
-                        <p className="text-xs text-gray-500 mt-2 line-clamp-2">{product.description}</p>
-                      </div>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
 <section className="py-12 bg-[#f9f7f6] sm:py-16 md:py-20 relative">
   {/* Background Pattern */}
   <div className="absolute inset-0 opacity-05">
@@ -704,241 +580,146 @@ const Index = () => {
     </div>
   </div>
 </section>
-<section className="py-20" >
-  <div className="container mx-auto px-4">
-    <div className="text-center mb-16">
-      {/* <h2 className="text-4xl font-bold text-foreground mb-6">Trusted by Industry Leaders</h2> */}
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-[#c15738] to-[#5c2d23] bg-clip-text text-transparent mb">
-                Trusted  <span className="text-gradient bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"> by Industry Leaders</span>
+        {/* New & Popular: Deals You Can't Miss */}
+        <section className="py-12 sm:py-16 md:py-20 bg-[#f4f0ec]">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            {/* Section Header */}
+            <div className="text-center mb-10 sm:mb-12">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
+                <span className="bg-gradient-to-r from-[#c15738] to-[#5c2d23] bg-clip-text text-transparent">
+                  New & Popular: Deals You Can't Miss
+                </span>
               </h2>
-      <div className="w-32 h-1 bg-gradient-primary mx-auto rounded-full mb-6" />
-      <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-        Join our network of verified suppliers and grow your business with reliable partnerships across India.
-      </p>
-    </div>
-
-    {/* Scrolling Supplier Names - Forward */}
-    <div className="relative overflow-hidden mb-8">
-      <div className="flex animate-scroll space-x-8">
-        {[...suppliers, ...suppliers].map((supplier, index) => (
-          <div
-            key={index}
-            className="flex-shrink-0 px-6 py-4 glass-morphism backdrop-blur-xl rounded-xl border border-glass-border group hover:border-primary/50 transition-all duration-300"
-          >
-            <span className="text-foreground font-medium whitespace-nowrap group-hover:text-primary transition-colors duration-300">
-              {supplier}
-            </span>
-          </div>
-        ))}
-      </div>
-    </div>
-
-    {/* Scrolling Supplier Names - Reverse */}
-    <div className="relative overflow-hidden">
-      <div className="flex animate-scroll-reverse space-x-8">
-        {[...suppliers.slice().reverse(), ...suppliers.slice().reverse()].map((supplier, index) => (
-          <div
-            key={index}
-            className="flex-shrink-0 px-6 py-4 glass-morphism backdrop-blur-xl rounded-xl border border-glass-border group hover:border-primary/50 transition-all duration-300"
-          >
-            <span className="text-foreground font-medium whitespace-nowrap group-hover:text-primary transition-colors duration-300">
-              {supplier}
-            </span>
-          </div>
-        ))}
-      </div>
-    </div>
-  </div>
-</section>
-        {/* Hero Section */}
-     <section className="relative pt-16 sm:pt-20 md:pt-28 pb-10 sm:pb-14 md:pb-20 overflow-hidden">
-  {/* Animated Background Elements */}
-  <div className="absolute inset-0">
-    <div className="absolute top-20 left-10 w-32 h-32 sm:w-48 sm:h-48 bg-primary/10 rounded-full blur-[30px] animate-pulse" />
-    <div className="absolute bottom-20 right-10 w-40 h-40 sm:w-56 sm:h-56 bg-secondary/10 rounded-full blur-[80px] animate-pulse delay-1000" />
-    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 sm:w-80 sm:h-80 bg-primary/5 rounded-full blur-[20px] animate-pulse delay-2000" />
-  </div>
-
-  <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-    <div className="grid lg:grid-cols-2 items-center gap-8 lg:gap-12 xl:gap-16 lg:mt-20">
-      
-      {/* Left Column */}
-      <div className="space-y-6 md:space-y-8 animate-slide-up mt-12 sm:mt-20 md:mt-0">
-        <Badge className="flex items-center w-fit bg-primary/10 text-primary border-primary/30 px-4 md:px-6 py-1.5 md:py-2 text-xs sm:text-sm">
-          <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 text-primary animate-pulse mr-2" />
-          Next-Gen Procurement Platform
-        </Badge>
-
-        <div className="space-y-4 sm:space-y-5">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-            Smart Material
-            <span className="block bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mt-1.5 sm:mt-2">
-              Procurement
-            </span>
-          </h1>
-
-          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-xl leading-relaxed">
-            AI-powered procurement platform revolutionizing how businesses source construction materials.
-            Get instant quotes, verify suppliers, and track deliveries with intelligent automation.
-          </p>
-        </div>
-
-        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2">
-          <Link to="/inquiry" className="w-full sm:w-auto">
-            <Button
-              size="lg"
-              className="bg-gradient-to-r from-primary to-secondary text-primary-foreground shadow-lg rounded-xl w-full sm:w-auto group"
-            >
-              Material Inquiry
-              <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </Button>
-          </Link>
-
-          <Link to="/milo" className="w-full sm:w-auto">
-            <Button
-              size="lg"
-              variant="outline"
-              className="border-primary text-primary rounded-xl w-full sm:w-auto"
-            >
-              Voice AI
-                          <Mic className="w-5 h-5" />
-
-            </Button>
-            
-          </Link>
-        </div>
-
-        {/* Stats */}
-        <div className="grid grid-cols-3 gap-3 sm:gap-4 md:gap-6 pt-4 sm:pt-6">
-          {[
-            { value: "500+", label: "Suppliers" },
-            { value: "98%", label: "On-time" },
-            { value: "28", label: "States" },
-          ].map((item, index) => (
-            <Card
-              key={index}
-              className="text-center p-3 sm:p-4 border border-primary/10 shadow-md bg-white/60 backdrop-blur-sm rounded-xl"
-            >
-              <div className="text-xl sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                {item.value}
-              </div>
-              <div className="text-xs sm:text-sm text-muted-foreground">{item.label}</div>
-            </Card>
-          ))}
-        </div>
-      </div>
-
-      {/* Right Column - Analytics */}
-      <div className="relative animate-scale-in mt-10 lg:mt-0">
-        {/* Background transition layers */}
-        <div
-          className={`absolute inset-0 rounded-2xl transition-opacity duration-1000 ${
-            currentImageIndex % 2 === 0 ? "opacity-10" : "opacity-0"
-          }`}
-          style={{
-            backgroundImage: `url(${aiDashboard})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        />
-        <div
-          className={`absolute inset-0 rounded-2xl transition-opacity duration-1000 ${
-            currentImageIndex % 2 === 1 ? "opacity-10" : "opacity-0"
-          }`}
-          style={{
-            backgroundImage: `url(${aiSourcing})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        />
-
-        <div className="relative z-10">
-          <LiveAnalytics />
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-{/* Featured Products with Images */}
-        <section className="py-12 bg-[#f9f7f6] sm:py-16 md:py-20 relative">
-          {/* Background Pattern */}
-          <div className="absolute inset-0 opacity-5">
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-secondary/10" />
-          </div>
-
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div className="text-center mb-8 sm:mb-12 md:mb-16 animate-slide-up">
-              <Badge className="mb-4 bg-primary/10 text-primary border-0">Featured Products</Badge>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-[#c15738] to-[#5c2d23] bg-clip-text text-transparent mb">
-                Premium <span className="text-gradient bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Materials</span>
-              </h2>
-              <div className="w-16 sm:w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto mb-4"></div>
-              <p className="text-base sm:text-lg text-muted-foreground max-w-3xl mx-auto px-4">
-                Premium construction materials from verified suppliers with instant quotes and real-time tracking
-              </p>
+              <div className="w-20 sm:w-28 h-1 bg-gradient-to-r from-[#c15738] to-[#5c2d23] mx-auto rounded-full"></div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6 sm:mb-8">
-              {products.slice(0, 4).map((product, index) => (
-                <Link key={product.id} to={`/product/${product.id}`}>
-                  <Card
-                    className="group overflow-hidden border border-primary/10 shadow-lg transition-all duration-300 animate-scale-in"
-                    style={{ animationDelay: `${index * 0.1}s` }}
-                  >
-                    <div className="relative aspect-[4/3] overflow-hidden bg-muted">
-                      <img
-                        src={product.image}
-                        alt={product.name}
-                        className="w-full h-full object-cover transition-transform duration-500"
-                        onError={(e) => {
-                          const target = e.target as HTMLImageElement;
-                          target.src =
-                            "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400&h=300&fit=crop";
-                        }}
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
-                        <div className="absolute top-20 left-20 right-20 items-center">
-                          <Button
-                            className="bg-gradient-to-r from-primary to-secondary text-white shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500"
-                            size="sm"
-                          >
-                            <Eye className="w-4 h-4 mr-2" />
-                            View Details
-                          </Button>
+            {/* New Arrivals Row */}
+            <div className="mb-12">
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-full flex items-center justify-center">
+                    <Sparkles className="w-5 h-5 text-white" />
+                  </div>
+                  <h3 className="text-xl sm:text-2xl font-bold text-gray-900">New Arrivals</h3>
+                </div>
+                <Link to="/products" className="text-[#c15738] hover:text-[#5c2d23] text-sm font-semibold flex items-center gap-1 hover:underline">
+                  See All <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+                {newArrivals.map((product) => (
+                  <Link key={product.id} to={`/product/${product.id}`}>
+                    <div className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 group border border-gray-100 hover:border-[#c15738]/40 h-full">
+                      <div className="relative aspect-[4/3] overflow-hidden">
+                        <img
+                          src={product.image}
+                          alt={product.name}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <div className="absolute top-3 left-3">
+                          <span className="bg-[#c15738] text-white text-[10px] font-bold px-3 py-1 rounded-full">
+                            NEW
+                          </span>
                         </div>
                       </div>
+                      <div className="p-4">
+                        <span className="text-[10px] font-semibold text-[#c15738] uppercase tracking-wide">
+                          {product.category.replace("-", " ")}
+                        </span>
+                        <h4 className="text-sm font-bold text-gray-900 mt-1 line-clamp-1">{product.name}</h4>
+                        <p className="text-xs text-gray-500 mt-2 line-clamp-2">{product.description}</p>
+                      </div>
                     </div>
-                    <div className="p-4">
-                      <Badge className="mb-2 bg-primary/10 text-primary border-0 text-xs">
-                        {product.category.replace("-", " ").toUpperCase()}
-                      </Badge>
-                      <h3 className="text-sm sm:text-base lg:text-lg font-bold mb-2 line-clamp-2">
-                        {product.name}
-                      </h3>
-                      <p className="text-xs sm:text-sm text-muted-foreground line-clamp-2">{product.description}</p>
-                    </div>
-                  </Card>
-                </Link>
-              ))}
+                  </Link>
+                ))}
+              </div>
             </div>
 
-            <div className="text-center">
-              <Link to="/products">
-                <Button size="lg" className="bg-gradient-to-r from-primary to-secondary text-white shadow-lg">
-                  View All Products
-                  <ArrowRight className="ml-2 w-4 h-4" />
-                </Button>
-              </Link>
+            {/* Best Selling Row */}
+            <div className="mb-12">
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-full flex items-center justify-center">
+                    <TrendingUp className="w-5 h-5 text-white" />
+                  </div>
+                  <h3 className="text-xl sm:text-2xl font-bold text-gray-900">Best Selling</h3>
+                </div>
+                <Link to="/products" className="text-[#c15738] hover:text-[#5c2d23] text-sm font-semibold flex items-center gap-1 hover:underline">
+                  See All <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+                {bestSelling.map((product) => (
+                  <Link key={product.id} to={`/product/${product.id}`}>
+                    <div className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 group border border-gray-100 hover:border-[#c15738]/40 h-full">
+                      <div className="relative aspect-[4/3] overflow-hidden">
+                        <img
+                          src={product.image}
+                          alt={product.name}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <div className="absolute top-3 left-3">
+                          <span className="bg-orange-500 text-white text-[10px] font-bold px-2 py-1 rounded-full flex items-center gap-1">
+                            <TrendingUp className="w-3 h-3" /> TRENDING
+                          </span>
+                        </div>
+                      </div>
+                      <div className="p-4">
+                        <span className="text-[10px] font-semibold text-[#c15738] uppercase tracking-wide">
+                          {product.category.replace("-", " ")}
+                        </span>
+                        <h4 className="text-sm font-bold text-gray-900 mt-1 line-clamp-1">{product.name}</h4>
+                        <p className="text-xs text-gray-500 mt-2 line-clamp-2">{product.description}</p>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            {/* Popular Deals Row */}
+            <div>
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-full flex items-center justify-center">
+                    <Zap className="w-5 h-5 text-white" />
+                  </div>
+                  <h3 className="text-xl sm:text-2xl font-bold text-gray-900">Popular Deals</h3>
+                </div>
+                <Link to="/products" className="text-[#c15738] hover:text-[#5c2d23] text-sm font-semibold flex items-center gap-1 hover:underline">
+                  See All <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+                {popularDeals.map((product) => (
+                  <Link key={product.id} to={`/product/${product.id}`}>
+                    <div className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 group border border-gray-100 hover:border-[#c15738]/40 h-full">
+                      <div className="relative aspect-[4/3] overflow-hidden">
+                        <img
+                          src={product.image}
+                          alt={product.name}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <div className="absolute top-3 left-3">
+                          <span className="bg-green-500 text-white text-[10px] font-bold px-2 py-1 rounded-full flex items-center gap-1">
+                            <Zap className="w-3 h-3" /> HOT DEAL
+                          </span>
+                        </div>
+                      </div>
+                      <div className="p-4">
+                        <span className="text-[10px] font-semibold text-[#c15738] uppercase tracking-wide">
+                          {product.category.replace("-", " ")}
+                        </span>
+                        <h4 className="text-sm font-bold text-gray-900 mt-1 line-clamp-1">{product.name}</h4>
+                        <p className="text-xs text-gray-500 mt-2 line-clamp-2">{product.description}</p>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
             </div>
           </div>
         </section>
-
-                <ProcurementFeatures />
-
-
-{/* Products Section - Side by Side Layout */}
-
-
 
 <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-primary/5 to-secondary/5">
   <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -1042,11 +823,223 @@ const Index = () => {
     </div>
   </div>
 </section>
+        <HowItWorks />
+                <ProcurementFeatures />
+  <section className="py-12 bg-[#f9f7f6] sm:py-16 md:py-20 relative">
+          {/* Background Pattern */}
+          <div className="absolute inset-0 opacity-5">
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-secondary/10" />
+          </div>
+
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div className="text-center mb-8 sm:mb-12 md:mb-16 animate-slide-up">
+              <Badge className="mb-4 bg-primary/10 text-primary border-0">Featured Products</Badge>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-[#c15738] to-[#5c2d23] bg-clip-text text-transparent mb">
+                Premium <span className="text-gradient bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Materials</span>
+              </h2>
+              <div className="w-16 sm:w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto mb-4"></div>
+              <p className="text-base sm:text-lg text-muted-foreground max-w-3xl mx-auto px-4">
+                Premium construction materials from verified suppliers with instant quotes and real-time tracking
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6 sm:mb-8">
+              {products.slice(0, 4).map((product, index) => (
+                <Link key={product.id} to={`/product/${product.id}`}>
+                  <Card
+                    className="group overflow-hidden border border-primary/10 shadow-lg transition-all duration-300 animate-scale-in"
+                    style={{ animationDelay: `${index * 0.1}s` }}
+                  >
+                    <div className="relative aspect-[4/3] overflow-hidden bg-muted">
+                      <img
+                        src={product.image}
+                        alt={product.name}
+                        className="w-full h-full object-cover transition-transform duration-500"
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          target.src =
+                            "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400&h=300&fit=crop";
+                        }}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+                        <div className="absolute top-20 left-20 right-20 items-center">
+                          <Button
+                            className="bg-gradient-to-r from-primary to-secondary text-white shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500"
+                            size="sm"
+                          >
+                            <Eye className="w-4 h-4 mr-2" />
+                            View Details
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="p-4">
+                      <Badge className="mb-2 bg-primary/10 text-primary border-0 text-xs">
+                        {product.category.replace("-", " ").toUpperCase()}
+                      </Badge>
+                      <h3 className="text-sm sm:text-base lg:text-lg font-bold mb-2 line-clamp-2">
+                        {product.name}
+                      </h3>
+                      <p className="text-xs sm:text-sm text-muted-foreground line-clamp-2">{product.description}</p>
+                    </div>
+                  </Card>
+                </Link>
+              ))}
+            </div>
+
+            <div className="text-center">
+              <Link to="/products">
+                <Button size="lg" className="bg-gradient-to-r from-primary to-secondary text-white shadow-lg">
+                  View All Products
+                  <ArrowRight className="ml-2 w-4 h-4" />
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </section>
+        <Section />
+
+<section className="py-20" >
+  <div className="container mx-auto px-4">
+    <div className="text-center mb-16">
+      {/* <h2 className="text-4xl font-bold text-foreground mb-6">Trusted by Industry Leaders</h2> */}
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-[#c15738] to-[#5c2d23] bg-clip-text text-transparent mb">
+                Trusted  <span className="text-gradient bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"> by Industry Leaders</span>
+              </h2>
+      <div className="w-32 h-1 bg-gradient-primary mx-auto rounded-full mb-6" />
+      <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+        Join our network of verified suppliers and grow your business with reliable partnerships across India.
+      </p>
+    </div>
+
+    {/* Scrolling Supplier Names - Forward */}
+    <div className="relative overflow-hidden mb-8">
+      <div className="flex animate-scroll space-x-8">
+        {[...suppliers, ...suppliers].map((supplier, index) => (
+          <div
+            key={index}
+            className="flex-shrink-0 px-6 py-4 glass-morphism backdrop-blur-xl rounded-xl border border-glass-border group hover:border-primary/50 transition-all duration-300"
+          >
+            <span className="text-foreground font-medium whitespace-nowrap group-hover:text-primary transition-colors duration-300">
+              {supplier}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    {/* Scrolling Supplier Names - Reverse */}
+    <div className="relative overflow-hidden">
+      <div className="flex animate-scroll-reverse space-x-8">
+        {[...suppliers.slice().reverse(), ...suppliers.slice().reverse()].map((supplier, index) => (
+          <div
+            key={index}
+            className="flex-shrink-0 px-6 py-4 glass-morphism backdrop-blur-xl rounded-xl border border-glass-border group hover:border-primary/50 transition-all duration-300"
+          >
+            <span className="text-foreground font-medium whitespace-nowrap group-hover:text-primary transition-colors duration-300">
+              {supplier}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+        {/* Hero Section */}
+     {/* <section className="relative pt-16 sm:pt-20 md:pt-28 pb-10 sm:pb-14 md:pb-20 overflow-hidden">
+  <div className="absolute inset-0">
+    <div className="absolute top-20 left-10 w-32 h-32 sm:w-48 sm:h-48 bg-primary/10 rounded-full blur-[30px] animate-pulse" />
+    <div className="absolute bottom-20 right-10 w-40 h-40 sm:w-56 sm:h-56 bg-secondary/10 rounded-full blur-[80px] animate-pulse delay-1000" />
+    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 sm:w-80 sm:h-80 bg-primary/5 rounded-full blur-[20px] animate-pulse delay-2000" />
+  </div>
+
+  <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <div className="grid lg:grid-cols-2 items-center gap-8 lg:gap-12 xl:gap-16 lg:mt-20">
+      
+      <div className="space-y-6 md:space-y-8 animate-slide-up mt-12 sm:mt-20 md:mt-0">
+        <Badge className="flex items-center w-fit bg-primary/10 text-primary border-primary/30 px-4 md:px-6 py-1.5 md:py-2 text-xs sm:text-sm">
+          <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 text-primary animate-pulse mr-2" />
+          Next-Gen Procurement Platform
+        </Badge>
+
+        <div className="space-y-4 sm:space-y-5">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+            Smart Material
+            <span className="block bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mt-1.5 sm:mt-2">
+              Procurement
+            </span>
+          </h1>
+
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-xl leading-relaxed">
+            AI-powered procurement platform revolutionizing how businesses source construction materials.
+            Get instant quotes, verify suppliers, and track deliveries with intelligent automation.
+          </p>
+        </div>
+
+        
+
+        <div className="grid grid-cols-3 gap-3 sm:gap-4 md:gap-6 pt-4 sm:pt-6">
+          {[
+            { value: "500+", label: "Suppliers" },
+            { value: "98%", label: "On-time" },
+            { value: "28", label: "States" },
+          ].map((item, index) => (
+            <Card
+              key={index}
+              className="text-center p-3 sm:p-4 border border-primary/10 shadow-md bg-white/60 backdrop-blur-sm rounded-xl"
+            >
+              <div className="text-xl sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                {item.value}
+              </div>
+              <div className="text-xs sm:text-sm text-muted-foreground">{item.label}</div>
+            </Card>
+          ))}
+        </div>
+      </div>
+
+      <div className="relative animate-scale-in mt-10 lg:mt-0">
+        <div
+          className={`absolute inset-0 rounded-2xl transition-opacity duration-1000 ${
+            currentImageIndex % 2 === 0 ? "opacity-10" : "opacity-0"
+          }`}
+          style={{
+            backgroundImage: `url(${aiDashboard})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        />
+        <div
+          className={`absolute inset-0 rounded-2xl transition-opacity duration-1000 ${
+            currentImageIndex % 2 === 1 ? "opacity-10" : "opacity-0"
+          }`}
+          style={{
+            backgroundImage: `url(${aiSourcing})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        />
+
+        <div className="relative z-10">
+          <LiveAnalytics />
+        </div>
+      </div>
+    </div>
+  </div>
+</section> */}
+{/* Featured Products with Images */}
+      
+
+
+
+{/* Products Section - Side by Side Layout */}
+
+
+
 
                       {/* <ProcurementGrid  /> */}
 
         
-<Section />
 
         {/* <MarqueeSection /> */}
 
@@ -1059,7 +1052,6 @@ const Index = () => {
       
 
 
-        <HowItWorks />
       {/* <section className="py-16 sm:py-20 bg-[#f7f5f2]">
   <div className="container mx-auto px-4 sm:px-6 lg:px-12">
     <div className="text-center mb-10 sm:mb-16">
