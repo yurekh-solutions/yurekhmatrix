@@ -943,91 +943,11 @@ const Index = () => {
   </div>
 </section>
 
-        {/* Hero Section */}
-     {/* <section className="relative pt-16 sm:pt-20 md:pt-28 pb-10 sm:pb-14 md:pb-20 overflow-hidden">
-  <div className="absolute inset-0">
-    <div className="absolute top-20 left-10 w-32 h-32 sm:w-48 sm:h-48 bg-primary/10 rounded-full blur-[30px] animate-pulse" />
-    <div className="absolute bottom-20 right-10 w-40 h-40 sm:w-56 sm:h-56 bg-secondary/10 rounded-full blur-[80px] animate-pulse delay-1000" />
-    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 sm:w-80 sm:h-80 bg-primary/5 rounded-full blur-[20px] animate-pulse delay-2000" />
-  </div>
-
-  <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-    <div className="grid lg:grid-cols-2 items-center gap-8 lg:gap-12 xl:gap-16 lg:mt-20">
-      
-      <div className="space-y-6 md:space-y-8 animate-slide-up mt-12 sm:mt-20 md:mt-0">
-        <Badge className="flex items-center w-fit bg-primary/10 text-primary border-primary/30 px-4 md:px-6 py-1.5 md:py-2 text-xs sm:text-sm">
-          <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 text-primary animate-pulse mr-2" />
-          Next-Gen Procurement Platform
-        </Badge>
-
-        <div className="space-y-4 sm:space-y-5">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-            Smart Material
-            <span className="block bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mt-1.5 sm:mt-2">
-              Procurement
-            </span>
-          </h1>
-
-          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-xl leading-relaxed">
-            AI-powered procurement platform revolutionizing how businesses source construction materials.
-            Get instant quotes, verify suppliers, and track deliveries with intelligent automation.
-          </p>
-        </div>
-
-        
-
-        <div className="grid grid-cols-3 gap-3 sm:gap-4 md:gap-6 pt-4 sm:pt-6">
-          {[
-            { value: "500+", label: "Suppliers" },
-            { value: "98%", label: "On-time" },
-            { value: "28", label: "States" },
-          ].map((item, index) => (
-            <Card
-              key={index}
-              className="text-center p-3 sm:p-4 border border-primary/10 shadow-md bg-white/60 backdrop-blur-sm rounded-xl"
-            >
-              <div className="text-xl sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                {item.value}
-              </div>
-              <div className="text-xs sm:text-sm text-muted-foreground">{item.label}</div>
-            </Card>
-          ))}
-        </div>
-      </div>
-
-      <div className="relative animate-scale-in mt-10 lg:mt-0">
-        <div
-          className={`absolute inset-0 rounded-2xl transition-opacity duration-1000 ${
-            currentImageIndex % 2 === 0 ? "opacity-10" : "opacity-0"
-          }`}
-          style={{
-            backgroundImage: `url(${aiDashboard})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        />
-        <div
-          className={`absolute inset-0 rounded-2xl transition-opacity duration-1000 ${
-            currentImageIndex % 2 === 1 ? "opacity-10" : "opacity-0"
-          }`}
-          style={{
-            backgroundImage: `url(${aiSourcing})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        />
-
-        <div className="relative z-10">
-          <LiveAnalytics />
-        </div>
-      </div>
-    </div>
-  </div>
-</section> */}
+   
 {/* Featured Products with Images */}
       
 
-
+ 
 
 {/* Products Section - Side by Side Layout */}
 
@@ -1049,61 +969,7 @@ const Index = () => {
       
 
 
-      {/* <section className="py-16 sm:py-20 bg-[#f7f5f2]">
-  <div className="container mx-auto px-4 sm:px-6 lg:px-12">
-    <div className="text-center mb-10 sm:mb-16">
-      <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold mb-4">
-        <span className="bg-gradient-to-r from-[#c15738] to-[#5c2d23] bg-clip-text text-transparent">
-          Why Choose 
-          <span className="  ml-4 text-2xl sm:text-4xl lg:text-5xl notranslate">
-                <span className="text-primary">r</span>
-                <span className="text-[#452a21]">itz</span>
-                <span className="text-[#452a21]">yard?</span>
-              </span>
-        </span>
-      </h2>
-      <div className="w-20 sm:w-28 h-1 bg-gradient-to-r from-[#c15738] to-[#5c2d23] mx-auto rounded-full mb-4" />
-      <p className="text-sm sm:text-lg text-muted-foreground max-w-2xl mx-auto px-2">
-        Experience the future of construction material procurement.
-      </p>
-    </div>
 
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-      {[FileText, Settings, Clock, Headphones].map((Icon, index) => (
-        <div key={index} className="group perspective-1000">
-          <Card className="relative p-6 sm:p-8 border-0 shadow-2xl hover:shadow-xs transition-all duration-700 transform hover:scale-105 hover:-translate-y-3 preserve-3d hover:rotate-y-6 overflow-hidden text-center">
-            <div className="absolute inset-0 opacity-0 transition-opacity duration-700"></div>
-
-            <div className="absolute top-4 right-4 w-2 h-2 bg-primary/30 rounded-full animate-pulse"></div>
-            <div
-              className="absolute bottom-6 left-4 w-1.5 h-1.5 bg-secondary/40 rounded-full animate-bounce"
-              style={{ animationDelay: "0.3s" }}
-            ></div>
-
-            <div className="w-16 h-16 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-2xl flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform duration-300">
-              <Icon className="h-8 w-8 text-white" />
-            </div>
-
-            <h3 className="relative text-lg sm:text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors duration-300">
-              {["Bulk Orders", "Custom Solutions", "Just-in-Time Delivery", "24/7 Support"][index]}
-            </h3>
-            <p className="relative text-sm sm:text-base text-muted-foreground leading-relaxed group-hover:text-foreground/80 transition-colors duration-300 mx-auto">
-              {[
-                "Special pricing for large-scale projects.",
-                "Tailored packages for your large-scale needs.",
-                "Scheduled deliveries with competitive pricing and tracking.",
-                "Always-on support from our experts.",
-              ][index]}
-            </p>
-
-            <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-primary to-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-            <div className="absolute top-0 bottom-0 left-0 w-1 bg-gradient-to-b from-primary to-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-          </Card>
-        </div>
-      ))}
-    </div>
-  </div>
-</section> */}
 
         {/* Product Categories */}
 
