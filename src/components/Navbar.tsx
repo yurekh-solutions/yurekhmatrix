@@ -109,6 +109,7 @@ import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import LanguageSelector from "./LanguageSelector";
 import ritzyardLogo from "@/assets/RITZYARD3.svg";
+import { Mic } from "lucide-react";
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -181,6 +182,12 @@ const Navbar = () => {
                 {t('nav.products')}
               </Button>
             </Link>
+            <Link to="/milo">
+              <Button variant="ghost" className="text-muted-foreground hover:text-foreground flex items-center gap-2">
+                <Mic className="w-4 h-4" />
+                <span>Voice AI</span>
+              </Button>
+            </Link>
             <Link to="/contact">
               <Button variant="ghost" className="text-muted-foreground hover:text-foreground">
                 {t('nav.contact')}
@@ -240,6 +247,12 @@ const Navbar = () => {
             </Link>
             <Link to="/products" onClick={() => setMobileMenuOpen(false)}>
               <Button variant="ghost" className="w-full justify-start">{t('nav.products')}</Button>
+            </Link>
+            <Link to="/milo" onClick={() => setMobileMenuOpen(false)}>
+              <Button variant="ghost" className="w-full justify-start flex items-center gap-2">
+                <Mic className="w-4 h-4" />
+                <span>Voice AI</span>
+              </Button>
             </Link>
             <Link to="/contact" onClick={() => setMobileMenuOpen(false)}>
               <Button variant="ghost" className="w-full justify-start">{t('nav.contact')}</Button>

@@ -414,19 +414,16 @@ const Index = () => {
               <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Button>
           </Link>
-
-          <Link to="/milo" className="w-full sm:w-auto">
-            <Button
+            <Link to="/products">
+             <Button
               size="lg"
               variant="outline"
               className="border-primary text-primary rounded-xl w-full sm:w-auto"
             >
-              Voice AI
-                          <Mic className="w-5 h-5" />
-
-            </Button>
-            
-          </Link>
+                  View All Products
+                  <ArrowRight className="ml-2 w-4 h-4" />
+                </Button>
+              </Link>
         </div>
             </div>
           </div>
