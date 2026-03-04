@@ -437,7 +437,7 @@ const About = () => {
         <div className="space-y-4 sm:space-y-5">
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
             Smart Material
-            <span className="block bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mt-1.5 sm:mt-2">
+            <span className="block bg-gradient-to-r from-[#c15738] to-[#5c2d23] bg-clip-text text-transparent mt-1.5 sm:mt-2">
               Procurement
             </span>
           </h1>
@@ -524,61 +524,7 @@ const About = () => {
     </div>
   </div>
 </section>
-        <section className="py-16 sm:py-20 bg-[#f7f5f2]">
-  <div className="container mx-auto px-4 sm:px-6 lg:px-12">
-    <div className="text-center mb-10 sm:mb-16">
-      <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold mb-4">
-        <span className="bg-gradient-to-r from-[#c15738] to-[#5c2d23] bg-clip-text text-transparent">
-          Why Choose 
-          <span className="  ml-4 text-2xl sm:text-4xl lg:text-5xl notranslate">
-                <span className="text-primary">r</span>
-                <span className="text-[#452a21]">itz</span>
-                <span className="text-[#452a21]">yard?</span>
-              </span>
-        </span>
-      </h2>
-      <div className="w-20 sm:w-28 h-1 bg-gradient-to-r from-[#c15738] to-[#5c2d23] mx-auto rounded-full mb-4" />
-      <p className="text-sm sm:text-lg text-muted-foreground max-w-2xl mx-auto px-2">
-        Experience the future of construction material procurement.
-      </p>
-    </div>
-
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-      {[FileText, Settings, Clock, Headphones].map((Icon, index) => (
-        <div key={index} className="group perspective-1000">
-          <Card className="relative p-6 sm:p-8 border-0 shadow-2xl hover:shadow-xs transition-all duration-700 transform hover:scale-105 hover:-translate-y-3 preserve-3d hover:rotate-y-6 overflow-hidden text-center">
-            <div className="absolute inset-0 opacity-0 transition-opacity duration-700"></div>
-
-            <div className="absolute top-4 right-4 w-2 h-2 bg-primary/30 rounded-full animate-pulse"></div>
-            <div
-              className="absolute bottom-6 left-4 w-1.5 h-1.5 bg-secondary/40 rounded-full animate-bounce"
-              style={{ animationDelay: "0.3s" }}
-            ></div>
-
-            <div className="w-16 h-16 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-2xl flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform duration-300">
-              <Icon className="h-8 w-8 text-white" />
-            </div>
-
-            <h3 className="relative text-lg sm:text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors duration-300">
-              {["Bulk Orders", "Custom Solutions", "Just-in-Time Delivery", "24/7 Support"][index]}
-            </h3>
-            <p className="relative text-sm sm:text-base text-muted-foreground leading-relaxed group-hover:text-foreground/80 transition-colors duration-300 mx-auto">
-              {[
-                "Special pricing for large-scale projects.",
-                "Tailored packages for your large-scale needs.",
-                "Scheduled deliveries with competitive pricing and tracking.",
-                "Always-on support from our experts.",
-              ][index]}
-            </p>
-
-            <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-primary to-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-            <div className="absolute top-0 bottom-0 left-0 w-1 bg-gradient-to-b from-primary to-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-          </Card>
-        </div>
-      ))}
-    </div>
-  </div>
-</section> 
+      
       <section className="py-16 lg:py-20 overflow-hidden">
   <div className="container mx-auto px-4">
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -686,8 +632,8 @@ const About = () => {
                       <Target className="text-white h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8" />
                     </div>
                     <div className="flex-1">
-                      <h3 className="text-xl sm:text-2xl font-bold mb-2 sm:mb-3 text-gray-900">Our Mission</h3>
-                      <p className="text-gray-600 leading-relaxed text-sm sm:text-base">
+                      <h3 className="text-xl sm:text-2xl md:text-3xl font-bold mb-2 sm:mb-3 bg-gradient-to-r from-[#c15738] to-[#5c2d23] bg-clip-text text-transparent">Our Mission</h3>
+                      <p className="text-gray-600 leading-relaxed text-sm sm:text-base md:text-lg">
                         Transform raw material procurement for the construction industry by leveraging advanced AI and digital innovation to create a transparent, reliable, and cost-efficient marketplace.
                       </p>
                     </div>
@@ -722,8 +668,8 @@ const About = () => {
                       <Lightbulb className="text-white h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8" />
                     </div>
                     <div className="flex-1">
-                      <h3 className="text-xl sm:text-2xl font-bold mb-2 sm:mb-3 text-gray-900">Our Approach</h3>
-                      <p className="text-gray-600 leading-relaxed mb-4 sm:mb-6 text-sm sm:text-base">
+                      <h3 className="text-xl sm:text-2xl md:text-3xl font-bold mb-2 sm:mb-3 bg-gradient-to-r from-[#c15738] to-[#5c2d23] bg-clip-text text-transparent">Our Approach</h3>
+                      <p className="text-gray-600 leading-relaxed mb-4 sm:mb-6 text-sm sm:text-base md:text-lg">
                         We combine cutting-edge AI technology with deep industry expertise to deliver unmatched procurement solutions. Our data-driven approach ensures optimal supplier matching and cost efficiency.
                       </p>
 
@@ -751,8 +697,8 @@ const About = () => {
                   <TrendingUp className="text-white h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-xl sm:text-2xl font-bold mb-2 sm:mb-3 text-gray-900">Vision 2030</h3>
-                  <p className="text-gray-600 leading-relaxed text-sm sm:text-base">
+                  <h3 className="text-xl sm:text-2xl md:text-3xl font-bold mb-2 sm:mb-3 bg-gradient-to-r from-[#c15738] to-[#5c2d23] bg-clip-text text-transparent">Vision 2030</h3>
+                  <p className="text-gray-600 leading-relaxed text-sm sm:text-base md:text-lg">
                     Become the world's leading digital marketplace for construction trade, enabling
                     billions in transactions and fostering a fully digital, efficient ecosystem.
                   </p>
@@ -801,7 +747,61 @@ const About = () => {
         </div>
       </section>
       {/* Mission, Vision & Approach Section */}
-     
+       <section className="py-16 sm:py-20 bg-[#f1eee9]">
+  <div className="container mx-auto px-4 sm:px-6 lg:px-12">
+    <div className="text-center mb-10 sm:mb-16">
+      <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold mb-4">
+        <span className="bg-gradient-to-r from-[#c15738] to-[#5c2d23] bg-clip-text text-transparent">
+          Why Choose 
+          <span className="  ml-4 text-2xl sm:text-4xl lg:text-5xl notranslate">
+                <span className="text-primary">r</span>
+                <span className="text-[#452a21]">itz</span>
+                <span className="text-[#452a21]">yard?</span>
+              </span>
+        </span>
+      </h2>
+      <div className="w-20 sm:w-28 h-1 bg-gradient-to-r from-[#c15738] to-[#5c2d23] mx-auto rounded-full mb-4" />
+      <p className="text-sm sm:text-lg text-muted-foreground max-w-2xl mx-auto px-2">
+        Experience the future of construction material procurement.
+      </p>
+    </div>
+
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {[FileText, Settings, Clock, Headphones].map((Icon, index) => (
+        <div key={index} className="group perspective-1000">
+          <Card className="relative p-6 sm:p-8 border-0 shadow-2xl hover:shadow-xs transition-all duration-700 transform hover:scale-105 hover:-translate-y-3 preserve-3d hover:rotate-y-6 overflow-hidden text-center">
+            <div className="absolute inset-0 opacity-0 transition-opacity duration-700"></div>
+
+            <div className="absolute top-4 right-4 w-2 h-2 bg-primary/30 rounded-full animate-pulse"></div>
+            <div
+              className="absolute bottom-6 left-4 w-1.5 h-1.5 bg-secondary/40 rounded-full animate-bounce"
+              style={{ animationDelay: "0.3s" }}
+            ></div>
+
+            <div className="w-16 h-16 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-2xl flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform duration-300">
+              <Icon className="h-8 w-8 text-white" />
+            </div>
+
+            <h3 className="relative text-lg sm:text-xl md:text-2xl font-bold mb-2 bg-gradient-to-r from-[#c15738] to-[#5c2d23] bg-clip-text text-transparent group-hover:text-primary transition-colors duration-300">
+              {["Bulk Orders", "Custom Solutions", "Just-in-Time Delivery", "24/7 Support"][index]}
+            </h3>
+            <p className="relative text-sm sm:text-base md:text-lg text-gray-600 leading-relaxed group-hover:text-gray-700 transition-colors duration-300 mx-auto">
+              {[
+                "Special pricing for large-scale projects.",
+                "Tailored packages for your large-scale needs.",
+                "Scheduled deliveries with competitive pricing.",
+                "Always-on support from our experts.",
+              ][index]}
+            </p>
+
+            <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[#c15738] to-[#5c2d23] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <div className="absolute top-0 bottom-0 left-0 w-1 bg-gradient-to-b from-[#c15738] to-[#5c2d23] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          </Card>
+        </div>
+      ))}
+    </div>
+  </div>
+</section> 
 <section className="py-16 ">
   <div className="container mx-auto px-4">
     <div className="text-center mb-12">
@@ -901,13 +901,13 @@ const About = () => {
 
             {/* Title and description */}
   <h3
-  className="relative text-lg sm:text-xl font-bold mb-3 text-gray-900 group-hover:text-primary transition-colors duration-300 z-10 text-center"
+  className="relative text-lg sm:text-xl md:text-2xl font-bold mb-3 bg-gradient-to-r from-[#c15738] to-[#5c2d23] bg-clip-text text-transparent group-hover:text-primary transition-colors duration-300 z-10 text-center"
 >
   {value.title}
 </h3>
 
 <p
-  className="relative text-sm sm:text-base text-gray-600 mb-4 leading-relaxed group-hover:text-gray-700 transition-colors duration-300 z-10 text-center"
+  className="relative text-sm sm:text-base md:text-lg text-gray-600 mb-4 leading-relaxed group-hover:text-gray-700 transition-colors duration-300 z-10 text-center"
 >
   {value.description}
 </p>
@@ -974,7 +974,7 @@ const About = () => {
         </div> */}
 
         {/* Title */}
-        <h3 className="relative text-lg sm:text-xl font-bold mb-4 text-foreground group-hover:text-primary transition-colors duration-300">
+        <h3 className="relative text-lg sm:text-xl md:text-2xl font-bold mb-4 bg-gradient-to-r from-[#c15738] to-[#5c2d23] bg-clip-text text-transparent group-hover:text-primary transition-colors duration-300">
           {achievement.title}
         </h3>
 
@@ -988,7 +988,7 @@ const About = () => {
               <div className="w-3 h-3 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
                 <CheckCircle className="w-2 h-2 text-white" />
               </div>
-              <span className="text-sm font-medium text-gray-700">{item}</span>
+              <span className="text-sm md:text-base font-medium text-gray-700">{item}</span>
             </div>
           ))}
         </div>
