@@ -197,6 +197,7 @@ const ProductDetail = () => {
       brand: selectedBrand,
       grade: selectedGrade,
       quantity: quantity,
+      image: product.image,
     };
 
     const existingCart = sessionStorage.getItem("rfq_cart");

@@ -23,6 +23,7 @@ interface RFQItem {
   brand: string;
   grade: string;
   quantity: number;
+  image?: string;
 }
 
 const RFQ = () => {
@@ -230,7 +231,17 @@ const RFQ = () => {
                       className="glass-card p-4 rounded-2xl flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4"
                     >
                       <div className="flex items-center gap-3">
-                        <Package className="w-6 h-6 sm:w-8 sm:h-8 text-primary" />
+                        <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl overflow-hidden bg-primary/5 flex items-center justify-center">
+                          {item.image ? (
+                            <img
+                              src={item.image}
+                              alt={item.productName}
+                              className="w-full h-full object-cover"
+                            />
+                          ) : (
+                            <Package className="w-6 h-6 sm:w-8 sm:h-8 text-primary" />
+                          )}
+                        </div>
                         <div>
                           <h2 className="font-semibold text-sm sm:text-base text-muted-foreground">
                             {item.productName}

@@ -26,6 +26,8 @@ import RFQ from "./pages/RFQ";
 import MaterialInquiry from "./pages/MaterialInquiry";
 import MiloAI from "./pages/MiloAI";
 import MiloGuideHub from "./pages/MiloGuideHub";
+import MyOrders from "./pages/MyOrders";
+import OrderTracking from "./pages/OrderTracking";
 import NotFound from "./pages/NotFound";
 import ScrollToTop from "./components/ScrollToTop";
 import GoogleTranslateWidget from "./components/GoogleTranslateWidget";
@@ -83,6 +85,8 @@ const App = () => {
               <Route path="/get-quote" element={<MaterialInquiry />} />
               <Route path="/milo" element={<MiloAI />} />
               <Route path="/milo-guide" element={<MiloGuideHub />} />
+              <Route path="/my-orders" element={<MyOrders />} />
+              <Route path="/track/:orderId" element={<OrderTracking />} />
               {/* Catch-all route */}
               <Route path="*" element={<NotFound />} />
             </Routes>

@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -23,13 +23,22 @@ const Products = () => {
   const [searchQuery, setSearchQuery] = useState(initialSearch);
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [currentPage, setCurrentPage] = useState(1);
+  const [searchHighlight, setSearchHighlight] = useState(false);
   const itemsPerPage = 16;
+  const catalogRef = useRef<HTMLElement>(null);
 
-  // Update search query when URL params change
+  // Update search query when URL params change and scroll to results
   useEffect(() => {
     const urlSearch = searchParams.get("search") || "";
     if (urlSearch) {
       setSearchQuery(urlSearch);
+      // Scroll to the catalog/results section
+      setTimeout(() => {
+        catalogRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // Briefly highlight the cards
+        setSearchHighlight(true);
+        setTimeout(() => setSearchHighlight(false), 1500);
+      }, 100);
     }
   }, [searchParams]);
 
@@ -173,7 +182,7 @@ const Products = () => {
       </section>
 
       {/* Products Catalog */}
-      <section id="catalog" className="py-12">
+      <section id="catalog" ref={catalogRef} className="py-12">
         <div className="container mx-auto px-4">
           <div className="text-center mb-10">
             <h2 className="text-3xl md:text-4xl font-bold mb-3 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
@@ -230,11 +239,15 @@ const Products = () => {
           {/* Products Grid */}
           {paginatedProducts.length > 0 ? (
             <>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 mb-6 sm:mb-8">
+              <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 mb-6 sm:mb-8 transition-all duration-700 ${searchHighlight ? 'ring-2 ring-primary/30 rounded-2xl p-2' : ''}`}>
                 {paginatedProducts.map((product, index) => (
                   <Card
                     key={product.id}
-                    className="group overflow-hidden border border-primary/10 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 animate-scale-in"
+                    className={`group overflow-hidden border shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 animate-scale-in ${
+                      searchHighlight
+                        ? 'border-primary/50 shadow-primary/20'
+                        : 'border-primary/10'
+                    }`}
                     style={{ animationDelay: `${index * 0.05}s` }}
                   >
                     <div className="relative aspect-square overflow-hidden bg-muted">

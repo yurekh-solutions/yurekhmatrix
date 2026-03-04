@@ -39,7 +39,7 @@ Sparkles ,
   MessageSquare,
   User,
 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import heroImage from "@/assets/hero-construction.jpg";
 import constructionSite from "@/assets/construction-site.jpg";
@@ -82,7 +82,20 @@ const Index = () => {
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
-  
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const searchContainerRef = useRef<HTMLDivElement>(null);
+
+  // Close suggestions on outside click
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (searchContainerRef.current && !searchContainerRef.current.contains(e.target as Node)) {
+        setShowSuggestions(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
   // Inquiry form state for home page search
   const [inquiryForm, setInquiryForm] = useState({
     productName: "",
@@ -290,181 +303,75 @@ const Index = () => {
             </div>
 
             {/* Search Bar */}
-            <div className="max-w-lg mx-auto mb-6 sm:mb-8 relative">
-              <input
-                type="text"
-                placeholder="Search for products... (e.g., Steel, Cement, Plywood)"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full px-5 py-4 pr-14 border-2 border-[#c15738]/30 rounded-full focus:border-[#c15738] focus:outline-none text-gray-800 bg-white shadow-md text-sm"
-              />
-              <div className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-full flex items-center justify-center">
-                <Search className="w-5 h-5 text-white" />
-              </div>
-            </div>
+            <div ref={searchContainerRef} className="max-w-lg mx-auto mb-6 sm:mb-8 relative">
+              <form onSubmit={(e) => { e.preventDefault(); if (searchQuery.trim()) { setShowSuggestions(false); navigate(`/products?search=${encodeURIComponent(searchQuery.trim())}`); } }}>
+                <input
+                  type="text"
+                  placeholder="Search for products... (e.g., Steel, Cement, Plywood)"
+                  value={searchQuery}
+                  onChange={(e) => { setSearchQuery(e.target.value); setShowSuggestions(true); }}
+                  onFocus={() => setShowSuggestions(true)}
+                  className="w-full px-5 py-4 pr-14 border-2 border-[#c15738]/30 rounded-full focus:border-[#c15738] focus:outline-none text-gray-800 bg-white shadow-md text-sm"
+                />
+                <button type="submit" className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-gradient-to-r from-[#c15738] to-[#5c2d23] rounded-full flex items-center justify-center">
+                  <Search className="w-5 h-5 text-white" />
+                </button>
+              </form>
 
-            {/* Search Results - Show when searching */}
-            {searchQuery.trim() && (
-              <div className="mb-10 bg-white rounded-2xl p-6 shadow-lg">
-                <h3 className="text-lg font-bold text-gray-900 mb-4">
-                  {searchResults.length > 0 
-                    ? `Found ${searchResults.length} products for "${searchQuery}"` 
-                    : `No products found for "${searchQuery}"`
-                  }
-                </h3>
-                {searchResults.length > 0 ? (
-                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-                    {searchResults.map((product) => (
-                      <Link key={product.id} to={`/product/${product.id}`}>
-                        <Card className="group overflow-hidden border-2 border-transparent hover:border-[#c15738] shadow-md transition-all duration-300">
-                          <div className="relative aspect-[4/3] overflow-hidden bg-gray-100">
-                            <img src={product.image} alt={product.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center pb-4">
-                              <Button className="bg-gradient-to-r from-[#c15738] to-[#5c2d23] text-white text-xs px-4" size="sm">
-                                <Eye className="w-3 h-3 mr-1" /> View
-                              </Button>
-                            </div>
-                          </div>
-                          <div className="p-3">
-                            <Badge className="mb-1 bg-[#c15738]/10 text-[#c15738] border-0 text-[10px] font-semibold">
-                              {product.category.replace("-", " ").toUpperCase()}
-                            </Badge>
-                            <h4 className="text-sm font-bold text-gray-900 line-clamp-1">{product.name}</h4>
-                            <p className="text-xs text-gray-600 line-clamp-1">{product.description}</p>
-                          </div>
-                        </Card>
-                      </Link>
-                    ))}
-                  </div>
-                ) : (
-                  <div className="max-w-md mx-auto">
-                    <div className="flex flex-col items-center mb-6">
-                      <div className="w-16 h-16 bg-[#c15738]/10 rounded-full flex items-center justify-center mb-4">
-                        <MessageSquare className="w-8 h-8 text-[#c15738]" />
-                      </div>
-                      <h4 className="text-xl font-bold text-gray-900 mb-2">Product Not Found?</h4>
-                      <p className="text-sm text-gray-600 text-center">Don't worry! Tell us what you're looking for and we'll get back to you with the best options.</p>
-                    </div>
-
-                    {submitSuccess ? (
-                      <div className="text-center py-6">
-                        <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                          <CheckCircle className="w-8 h-8 text-green-600" />
-                        </div>
-                        <h3 className="text-lg font-bold text-gray-900 mb-2">Thank You!</h3>
-                        <p className="text-gray-600">We'll contact you shortly with the best options.</p>
-                      </div>
-                    ) : (
-                      <form onSubmit={handleInquirySubmit} className="space-y-4">
-                        <div>
-                          <label className="flex items-center text-sm font-medium text-gray-700 mb-2">
-                            <MessageSquare className="w-4 h-4 mr-2 text-[#c15738]" />
-                            What product are you looking for? <span className="text-red-500 ml-1">*</span>
-                          </label>
-                          <input
-                            type="text"
-                            value={inquiryForm.productName}
-                            onChange={(e) => setInquiryForm({ ...inquiryForm, productName: e.target.value })}
-                            placeholder="e.g., TMT Bars, Cement, Steel Pipes"
-                            required
-                            className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-[#c15738] focus:outline-none text-sm"
-                          />
-                        </div>
-
-                        <div>
-                          <label className="text-sm font-medium text-gray-700 mb-2 block">
-                            Additional Specifications
-                          </label>
-                          <textarea
-                            value={inquiryForm.specifications}
-                            onChange={(e) => setInquiryForm({ ...inquiryForm, specifications: e.target.value })}
-                            placeholder="Describe size, grade, brand preference, or any other requirements..."
-                            rows={3}
-                            className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-[#c15738] focus:outline-none text-sm resize-none"
-                          />
-                        </div>
-
-                        <div>
-                          <label className="flex items-center text-sm font-medium text-gray-700 mb-2">
-                            <User className="w-4 h-4 mr-2 text-[#c15738]" />
-                            Your Name <span className="text-red-500 ml-1">*</span>
-                          </label>
-                          <input
-                            type="text"
-                            value={inquiryForm.name}
-                            onChange={(e) => setInquiryForm({ ...inquiryForm, name: e.target.value })}
-                            placeholder="Enter your full name"
-                            required
-                            className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-[#c15738] focus:outline-none text-sm"
-                          />
-                        </div>
-
-                        <div>
-                          <label className="flex items-center text-sm font-medium text-gray-700 mb-2">
-                            <Phone className="w-4 h-4 mr-2 text-[#c15738]" />
-                            Phone Number <span className="text-red-500 ml-1">*</span>
-                          </label>
-                          <input
-                            type="tel"
-                            value={inquiryForm.phone}
-                            onChange={(e) => setInquiryForm({ ...inquiryForm, phone: e.target.value })}
-                            placeholder="+91 XXXXX XXXXX"
-                            required
-                            pattern="[0-9+\\s-]+"
-                            className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-[#c15738] focus:outline-none text-sm"
-                          />
-                        </div>
-
-                        <div>
-                          <label className="flex items-center text-sm font-medium text-gray-700 mb-2">
-                            <Mail className="w-4 h-4 mr-2 text-[#c15738]" />
-                            Email Address
-                          </label>
-                          <input
-                            type="email"
-                            value={inquiryForm.email}
-                            onChange={(e) => setInquiryForm({ ...inquiryForm, email: e.target.value })}
-                            placeholder="your.email@example.com"
-                            className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-[#c15738] focus:outline-none text-sm"
-                          />
-                        </div>
-
-                        <div>
-                          <label className="text-sm font-medium text-gray-700 mb-2 block">
-                            Quantity Required
-                          </label>
-                          <input
-                            type="text"
-                            value={inquiryForm.quantity}
-                            onChange={(e) => setInquiryForm({ ...inquiryForm, quantity: e.target.value })}
-                            placeholder="e.g., 100 MT, 50 bags, 10 tons"
-                            className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-[#c15738] focus:outline-none text-sm"
-                          />
-                        </div>
-
-                        <Button
-                          type="submit"
-                          disabled={isSubmitting}
-                          className="w-full bg-gradient-to-r from-[#c15738] to-[#5c2d23] text-white py-3 rounded-lg font-semibold hover:shadow-lg transition-all"
+              {/* Autocomplete Dropdown — one row per suggestion */}
+              {showSuggestions && searchQuery.trim().length > 0 && (
+                <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-100 rounded-2xl shadow-2xl z-50 overflow-hidden">
+                  {searchResults.length > 0 ? (
+                    <>
+                      {searchResults.map((product) => (
+                        <Link
+                          key={product.id}
+                          to={`/product/${product.id}`}
+                          onClick={() => { setShowSuggestions(false); setSearchQuery(''); }}
+                          className="flex items-center gap-3 px-4 py-3 hover:bg-[#c15738]/5 border-b border-gray-50 last:border-0 transition-colors group"
                         >
-                          {isSubmitting ? (
-                            <span className="flex items-center justify-center">
-                              <span className="animate-spin mr-2">⏳</span>
-                              Submitting...
-                            </span>
-                          ) : (
-                            <span className="flex items-center justify-center">
-                              Send Inquiry via WhatsApp
-                              <ArrowRight className="w-4 h-4 ml-2" />
-                            </span>
-                          )}
-                        </Button>
-                      </form>
-                    )}
-                  </div>
-                )}
-              </div>
-            )}
+                          <div className="w-10 h-10 rounded-lg overflow-hidden bg-gray-100 shrink-0">
+                            {product.image ? (
+                              <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
+                            ) : (
+                              <div className="w-full h-full bg-[#c15738]/10 flex items-center justify-center">
+                                <Package className="w-4 h-4 text-[#c15738]" />
+                              </div>
+                            )}
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className="text-sm font-semibold text-gray-900 truncate group-hover:text-[#c15738] transition-colors">{product.name}</p>
+                            <p className="text-xs text-gray-400 capitalize">{product.category.replace('-', ' ')}</p>
+                          </div>
+                          <ArrowRight className="w-4 h-4 text-gray-300 group-hover:text-[#c15738] shrink-0 transition-colors" />
+                        </Link>
+                      ))}
+                      <button
+                        onClick={() => { setShowSuggestions(false); navigate(`/products?search=${encodeURIComponent(searchQuery.trim())}`); }}
+                        className="w-full flex items-center justify-center gap-2 px-4 py-3 text-sm font-semibold text-[#c15738] hover:bg-[#c15738]/5 transition-colors border-t border-gray-100"
+                      >
+                        <Search className="w-4 h-4" />
+                        See all results for "{searchQuery}"
+                      </button>
+                    </>
+                  ) : (
+                    <div className="px-4 py-6 text-center">
+                      <div className="w-12 h-12 bg-[#c15738]/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <Search className="w-6 h-6 text-[#c15738]" />
+                      </div>
+                      <p className="text-sm font-semibold text-gray-900 mb-1">No products found for "{searchQuery}"</p>
+                      <p className="text-xs text-gray-500 mb-3">Can't find what you need? Submit an inquiry!</p>
+                      <button
+                        onClick={() => { setShowSuggestions(false); navigate(`/products?search=${encodeURIComponent(searchQuery.trim())}`); }}
+                        className="inline-flex items-center gap-1 text-xs font-semibold text-[#c15738] hover:underline"
+                      >
+                        Browse all products <ArrowRight className="w-3 h-3" />
+                      </button>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
 
             {/* Circular Category Grid */}
             <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
