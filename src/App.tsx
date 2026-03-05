@@ -29,6 +29,7 @@ import MiloGuideHub from "./pages/MiloGuideHub";
 import MyOrders from "./pages/MyOrders";
 import OrderTracking from "./pages/OrderTracking";
 import NotFound from "./pages/NotFound";
+import IntellectualPropertyPolicy from "./pages/IntellectualPropertyPolicy";
 import ScrollToTop from "./components/ScrollToTop";
 import GoogleTranslateWidget from "./components/GoogleTranslateWidget";
 import FirstVisitLanguageModal from "./components/FirstVisitLanguageModal";
@@ -78,6 +79,7 @@ const App = () => {
               <Route path="/terms" element={<TermsOfService />} />
               <Route path="/privacy" element={<PrivacyPolicy />} />
               <Route path="/faqs" element={<FAQs />} />
+              <Route path="/intellectual-property" element={<IntellectualPropertyPolicy />} />
               <Route path="/careers" element={<Careers />} />
               <Route path="/rfq" element={<RFQ />} />
               <Route path="/inquiry" element={<MaterialInquiry />} />

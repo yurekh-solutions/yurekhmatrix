@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -56,6 +56,11 @@ const ProductDetail = () => {
     phone: "",
     company: "",
   });
+  const rfqSectionRef = useRef<HTMLDivElement>(null);
+
+  const scrollToRFQ = () => {
+    rfqSectionRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+  };
 
   if (!product) {
     return (
@@ -381,7 +386,7 @@ const ProductDetail = () => {
     </div>
 
     {/* Request Quote */}
-    <div className="glass-card p-5 sm:p-6 rounded-xl">
+    <div ref={rfqSectionRef} className="glass-card p-5 sm:p-6 rounded-xl">
       <h3 className="text-lg sm:text-xl font-bold mb-6 flex items-center gap-2">
         <ShoppingCart className="w-5 h-5 text-primary" />
         Request Quote
@@ -577,6 +582,25 @@ Products
               </div>
             </div>
           )}
+        </div>
+      </div>
+
+      {/* Sticky Bottom Bar - Mobile & Tablet Only */}
+      <div className="fixed bottom-0 left-0 right-0 z-40 lg:hidden">
+        <div className="bg-white/95 backdrop-blur-md border-t border-gray-200 shadow-[0_-4px_20px_rgba(0,0,0,0.1)] px-4 py-3">
+          <div className="flex items-center gap-3 max-w-lg mx-auto">
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-bold text-gray-900 truncate">{product.name}</p>
+              <p className="text-xs text-muted-foreground">Min. order: 1 MT</p>
+            </div>
+            <Button
+              onClick={scrollToRFQ}
+              className="bg-gradient-to-r from-[#c15738] to-[#5c2d23] text-white hover:opacity-90 h-11 px-6 text-sm font-semibold rounded-xl shadow-lg flex-shrink-0"
+            >
+              <ShoppingCart className="w-4 h-4 mr-2" />
+              Request Quote
+            </Button>
+          </div>
         </div>
       </div>
 
