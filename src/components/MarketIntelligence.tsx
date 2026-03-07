@@ -78,7 +78,7 @@ const MarketIntelligence = () => {
     { city: "Bangalore", demand: 91, supply: 85, price: "High" },
     { city: "Chennai", demand: 86, supply: 89, price: "Medium" },
     { city: "Hyderabad", demand: 89, supply: 83, price: "Medium" },
-    { city: "Pune", demand: 92, supply: 88, price: "High" }
+    { city: "Mumbai", demand: 92, supply: 88, price: "High" }
   ];
 
   return (

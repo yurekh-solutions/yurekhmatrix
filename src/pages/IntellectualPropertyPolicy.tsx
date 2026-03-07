@@ -243,7 +243,7 @@ const IntellectualPropertyPolicy = () => {
 
             <h2 className="text-xl sm:text-2xl font-bold mb-4">9. Governing Law & Jurisdiction</h2>
             <p className="mb-6">
-              This Policy shall be governed by and construed in accordance with the laws of India. Any disputes arising under or in connection with this Policy shall be subject to the exclusive jurisdiction of the courts located in <strong>Pune, Maharashtra, India</strong>. For international IP disputes, parties may agree to arbitration under the rules of the Indian Arbitration and Conciliation Act, 1996.
+              This Policy shall be governed by and construed in accordance with the laws of India. Any disputes arising under or in connection with this Policy shall be subject to the exclusive jurisdiction of the courts located in <strong>Mumbai, Maharashtra, India</strong>. For international IP disputes, parties may agree to arbitration under the rules of the Indian Arbitration and Conciliation Act, 1996.
             </p>
 
             <h2 className="text-xl sm:text-2xl font-bold mb-4">10. Amendments</h2>

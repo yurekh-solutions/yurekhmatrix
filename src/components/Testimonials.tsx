@@ -19,7 +19,7 @@ const Testimonials = () => {
       name: "Priya Sharma",
       role: "Supply Chain Director",
       company: "JSW Steel Solutions",
-      location: "Pune, Maharashtra",
+      location: "Mumbai, Maharashtra",
       rating: 4,
       text: "The platform's escrow system gave us confidence to work with new builders. Our sales increased 40% in the first quarter, and payment disputes are now zero.",
       avatar: "PS",

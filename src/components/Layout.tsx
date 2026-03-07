@@ -207,7 +207,7 @@ export const Layout = ({ children }: LayoutProps) => {
             <div>
               <h3 className="font-semibold mb-4">Contact</h3>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li>Pune, Maharashtra, India</li>
+                <li>Mumbai, Maharashtra, India</li>
                 <li>soniajaiseal2222@gmail.com</li>
                 <li>+91 9559262525</li>
               </ul>

@@ -26,7 +26,7 @@ const CaseStudies = () => {
     {
       title: "Smart City Infrastructure",
       company: "L&T Construction",
-      location: "Pune, Maharashtra",
+      location: "Mumbai, Maharashtra",
       projectValue: "₹500 Crores",
       timeline: "24 Months",
       image: "🌆",

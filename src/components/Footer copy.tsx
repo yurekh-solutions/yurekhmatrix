@@ -41,7 +41,7 @@ const Footer = () => {
             <div className="space-y-2">
               <div className="flex items-center space-x-2 text-sm">
                 <MapPin className="h-4 w-4 flex-shrink-0" />
-                <span>Pune, Maharashtra, India</span>
+                <span>Mumbai, Maharashtra, India</span>
               </div>
               <div className="flex items-center space-x-2 text-sm">
                 <Mail className="h-4 w-4 flex-shrink-0" />
