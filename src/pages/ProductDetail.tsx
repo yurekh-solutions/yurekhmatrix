@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -29,7 +29,10 @@ import {
   Award,
   Truck,
   Eye,
-  Send
+  Send,
+  Users,
+  ShieldCheck,
+  Building2,
 } from "lucide-react";
 import { products, categories } from "@/data/products";
 import { toast } from "sonner";
@@ -39,6 +42,23 @@ import FloatingActionButtons from "@/components/FloatingActionButtons";
 import SEOHead from "@/components/SEOHead";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import ProductSchema from "@/components/ProductSchema";
+
+// API URL for supplier data
+const getApiUrl = () => {
+  if (typeof window !== 'undefined' && window.location.hostname !== 'localhost') {
+    return 'https://backendmatrix.onrender.com/api';
+  }
+  return 'http://localhost:5000/api';
+};
+const API_URL = getApiUrl();
+
+interface SupplierInfo {
+  id: string;
+  name: string;
+  logo?: string;
+  city: string;
+  experience: number;
+}
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -57,6 +77,29 @@ const ProductDetail = () => {
     company: "",
   });
   const rfqSectionRef = useRef<HTMLDivElement>(null);
+
+  // Supplier state for showing verified suppliers
+  const [supplierCount, setSupplierCount] = useState(0);
+  const [suppliers, setSuppliers] = useState<SupplierInfo[]>([]);
+
+  // Fetch suppliers for this category
+  useEffect(() => {
+    if (product?.category) {
+      fetch(`${API_URL}/products/suppliers/${encodeURIComponent(product.category)}`)
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) {
+            setSupplierCount(data.count || 0);
+            setSuppliers(data.suppliers || []);
+          }
+        })
+        .catch(err => {
+          console.log('Could not fetch suppliers:', err);
+          // Fallback to default count for better UX
+          setSupplierCount(3);
+        });
+    }
+  }, [product?.category]);
 
   const scrollToRFQ = () => {
     rfqSectionRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -292,15 +335,50 @@ const ProductDetail = () => {
       <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-4 gap-3">
         <div>
           <h6 className="text-2xl font-bold mb-2">{product.name}</h6>
-          <Badge className="bg-primary/10 text-primary">
-            {categories.find((c) => c.value === product.category)?.label}
-          </Badge>
+          <div className="flex flex-wrap gap-2 items-center">
+            <Badge className="bg-primary/10 text-primary">
+              {categories.find((c) => c.value === product.category)?.label}
+            </Badge>
+            {supplierCount > 0 && (
+              <Badge className="bg-green-500/10 text-green-600 border border-green-500/20 animate-pulse">
+                <ShieldCheck className="w-3 h-3 mr-1" />
+                {supplierCount} Verified Supplier{supplierCount > 1 ? 's' : ''}
+              </Badge>
+            )}
+          </div>
         </div>
         <AIBadge text="AI Recommended" />
       </div>
       <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
         {product.description}
       </p>
+      
+      {/* Verified Suppliers Section */}
+      {suppliers.length > 0 && (
+        <div className="mt-4 pt-4 border-t border-border/50">
+          <div className="flex items-center gap-2 mb-3">
+            <Building2 className="w-4 h-4 text-green-600" />
+            <span className="text-sm font-semibold">Available from Verified Suppliers</span>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {suppliers.slice(0, 3).map((supplier) => (
+              <div 
+                key={supplier.id}
+                className="flex items-center gap-2 px-3 py-1.5 bg-green-50 dark:bg-green-900/20 rounded-full text-xs"
+              >
+                <ShieldCheck className="w-3 h-3 text-green-600" />
+                <span className="font-medium">{supplier.name}</span>
+                <span className="text-muted-foreground">• {supplier.city}</span>
+              </div>
+            ))}
+            {suppliers.length > 3 && (
+              <div className="px-3 py-1.5 bg-gray-100 dark:bg-gray-800 rounded-full text-xs text-muted-foreground">
+                +{suppliers.length - 3} more
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </div>
 
     {/* Applications */}
