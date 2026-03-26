@@ -102,19 +102,23 @@
 // };
 
 // export default Navbar;
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ShoppingCart, Menu, X, Store } from "lucide-react";
+import { ShoppingCart, Menu, X, Store, User, LogOut, LayoutDashboard } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import LanguageSelector from "./LanguageSelector";
 import ritzyardLogo from "@/assets/RITZYARD3.svg";
 import { Mic } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [cartCount, setCartCount] = useState(0);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
   const { t } = useTranslation();
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
 
   // Load cart count from sessionStorage
   useEffect(() => {
@@ -206,6 +210,38 @@ const Navbar = () => {
             {/* Language Selector */}
             <LanguageSelector />
 
+            {/* My Account / User Menu */}
+            {user ? (
+              <div className="relative hidden lg:block">
+                <button
+                  onClick={() => setUserMenuOpen(!userMenuOpen)}
+                  className="flex items-center gap-2 bg-primary/10 hover:bg-primary/20 text-primary rounded-full px-3 py-1.5 text-sm font-medium transition-colors"
+                >
+                  <User className="w-4 h-4" />
+                  <span className="max-w-[90px] truncate">{user.name.split(' ')[0]}</span>
+                </button>
+                {userMenuOpen && (
+                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border z-50 py-1">
+                    <Link to="/dashboard" onClick={() => setUserMenuOpen(false)}
+                      className="flex items-center gap-2 px-4 py-2.5 text-sm hover:bg-gray-50 transition-colors">
+                      <LayoutDashboard className="w-4 h-4 text-primary" /> My Inquiries
+                    </Link>
+                    <button onClick={() => { logout(); navigate('/'); setUserMenuOpen(false); }}
+                      className="flex items-center gap-2 w-full px-4 py-2.5 text-sm hover:bg-gray-50 transition-colors text-red-600">
+                      <LogOut className="w-4 h-4" /> Logout
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <Link to="/login" className="hidden lg:block">
+                <Button size="sm" className="bg-primary text-white hover:bg-primary/90 flex items-center gap-1.5">
+                  <User className="w-4 h-4" />
+                  My Account
+                </Button>
+              </Link>
+            )}
+
             {/* Cart */}
             <Link to="/rfq" className="relative inline-block">
               <Button
@@ -263,6 +299,29 @@ const Navbar = () => {
                 <span>Seller Portal</span>
               </Button>
             </a>
+            {/* Mobile My Account */}
+            <div className="border-t border-border pt-2 mt-2">
+              {user ? (
+                <>
+                  <Link to="/dashboard" onClick={() => setMobileMenuOpen(false)}>
+                    <Button variant="ghost" className="w-full justify-start flex items-center gap-2">
+                      <LayoutDashboard className="w-4 h-4 text-primary" />
+                      <span>My Inquiries ({user.name.split(' ')[0]})</span>
+                    </Button>
+                  </Link>
+                  <button onClick={() => { logout(); navigate('/'); setMobileMenuOpen(false); }}
+                    className="flex items-center gap-2 w-full px-4 py-2 text-sm text-red-600 hover:bg-gray-50">
+                    <LogOut className="w-4 h-4" /> Logout
+                  </button>
+                </>
+              ) : (
+                <Link to="/login" onClick={() => setMobileMenuOpen(false)}>
+                  <Button className="w-full bg-primary text-white flex items-center gap-2">
+                    <User className="w-4 h-4" /> My Account / Login
+                  </Button>
+                </Link>
+              )}
+            </div>
           </div>
         )}
       </div>

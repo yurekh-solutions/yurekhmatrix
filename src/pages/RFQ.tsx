@@ -6,11 +6,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
-import { Trash2, Package, ArrowRight, ArrowLeft } from "lucide-react";
+import { Trash2, Package, ArrowRight, ArrowLeft, CheckCircle2, Shield } from "lucide-react";
 import { toast } from "sonner";
 import { sendToWhatsApp } from "@/lib/whatsappIntegration";
 import { saveToLocalStorage } from "@/lib/sheetsIntegration";
-import SuccessAnimation from "@/components/SuccessAnimation";
 import ScrollToTop from "@/components/ScrollToTop";
 import FloatingActionButtons from "@/components/FloatingActionButtons";
 import SEOHead from "@/components/SEOHead";
@@ -54,6 +53,7 @@ const RFQ = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [rfqNumber, setRfqNumber] = useState('');
 
   const handleRemoveItem = (index: number) => {
     const updatedCart = cartItems.filter((_, i) => i !== index);
@@ -107,6 +107,11 @@ const RFQ = () => {
         return;
       }
 
+      // Capture RFQ number for tracking
+      if (backendResponse.rfqNumber) {
+        setRfqNumber(backendResponse.rfqNumber);
+      }
+
       // Save EACH product to localStorage for Excel export
       cartItems.forEach(item => {
         saveToLocalStorage({
@@ -139,15 +144,10 @@ const RFQ = () => {
       // Clear cart from sessionStorage
       sessionStorage.removeItem('rfq_cart');
 
-      // Show success animation AFTER all operations
+      // Show success screen
       setTimeout(() => {
         setShowSuccess(true);
-      }, 1500);
-
-      // Navigate after animation
-      setTimeout(() => {
-        navigate("/");
-      }, 4500);
+      }, 500);
     } catch (error) {
       console.error('Error submitting RFQ:', error);
       toast.error("Failed to submit RFQ. Please try again.");
@@ -157,9 +157,81 @@ const RFQ = () => {
   };
 
   if (showSuccess) {
-    return <SuccessAnimation message="RFQ submitted successfully! Opening WhatsApp..." duration={3000} />;
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 to-emerald-50 p-4">
+        <div className="bg-white/95 backdrop-blur-md rounded-3xl shadow-2xl p-8 max-w-md w-full text-center animate-scale-in">
+          <div className="relative mb-6">
+            {[...Array(12)].map((_, i) => (
+              <div
+                key={i}
+                className="absolute w-2 h-2 rounded-full"
+                style={{
+                  left: "50%",
+                  top: "50%",
+                  background: `hsl(${i * 30}, 70%, 60%)`,
+                  animationDelay: `${i * 0.1}s`,
+                  transform: `rotate(${i * 30}deg) translateY(-100px)`,
+                }}
+              />
+            ))}
+            <div className="relative z-10 w-24 h-24 mx-auto bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center shadow-lg shadow-green-500/50">
+              <CheckCircle2 className="w-14 h-14 text-white" />
+            </div>
+          </div>
+
+          <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
+            RFQ Submitted!
+          </h3>
+
+          {rfqNumber && (
+            <div className="bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200 rounded-2xl p-4 mb-4">
+              <p className="text-xs text-gray-600 mb-1 font-medium">Your RFQ Number:</p>
+              <p className="text-2xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">{rfqNumber}</p>
+              <p className="text-xs text-gray-500 mt-2">Save this number to track your RFQ status</p>
+            </div>
+          )}
+
+          <p className="text-lg text-muted-foreground mb-2">
+            Thank you, <span className="font-semibold text-primary">{customerInfo.name}</span>!
+          </p>
+          <p className="text-sm text-muted-foreground mb-4">
+            Our team will review your request and contact you shortly.
+          </p>
+
+          {rfqNumber && (
+            <a
+              href={`/track-inquiry?email=${encodeURIComponent(customerInfo.email)}&inquiry=${encodeURIComponent(rfqNumber)}`}
+              className="inline-flex items-center gap-2 text-sm text-green-600 font-medium bg-green-50 border border-green-200 rounded-lg px-4 py-2 mb-4 hover:bg-green-100 transition-colors w-full justify-center"
+            >
+              Track RFQ Status
+            </a>
+          )}
+
+          <div className="flex items-center justify-center gap-2 text-xs text-muted-foreground mb-4">
+            <Shield className="w-3 h-3" />
+            <span>A supplier will be matched to your RFQ. Chat securely through RitzYard.</span>
+          </div>
+
+          <div className="flex gap-3 mt-4">
+            <button
+              onClick={() => navigate("/products")}
+              className="flex-1 py-2.5 px-4 rounded-xl border border-gray-200 text-sm font-medium hover:bg-gray-50 transition-colors"
+            >
+              Browse More Products
+            </button>
+            <button
+              onClick={() => navigate("/")}
+              className="flex-1 py-2.5 px-4 rounded-xl bg-gradient-to-br from-green-500 to-emerald-600 text-white text-sm font-medium hover:opacity-90 transition-opacity"
+            >
+              Go Home
+            </button>
+          </div>
+        </div>
+      </div>
+    );
   }
- return (
+
+  return (
     <>
       <SEOHead
         title="Request for Quotation (RFQ) | Bulk Construction Material Orders - ritzyard"

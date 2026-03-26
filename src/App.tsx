@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { I18nextProvider } from "react-i18next";
 import i18n from "./i18n/config";
+import { AuthProvider } from "./contexts/AuthContext";
 import Index from "./pages/Index";
 import Products from "./pages/Products";
 import ProductDetail from "./pages/ProductDetail";
@@ -28,6 +29,10 @@ import MiloAI from "./pages/MiloAI";
 import MiloGuideHub from "./pages/MiloGuideHub";
 import MyOrders from "./pages/MyOrders";
 import OrderTracking from "./pages/OrderTracking";
+import TrackInquiry from "./pages/TrackInquiry";
+import BuyerChat from "./pages/BuyerChat";
+import BuyerLogin from "./pages/BuyerLogin";
+import BuyerDashboard from "./pages/BuyerDashboard";
 import NotFound from "./pages/NotFound";
 import IntellectualPropertyPolicy from "./pages/IntellectualPropertyPolicy";
 import ScrollToTop from "./components/ScrollToTop";
@@ -51,6 +56,7 @@ const App = () => {
 
   return (
     <I18nextProvider i18n={i18n}>
+      <AuthProvider>
       <QueryClientProvider client={queryClient}>
         <TooltipProvider>
           <Toaster />
@@ -89,12 +95,17 @@ const App = () => {
               <Route path="/milo-guide" element={<MiloGuideHub />} />
               <Route path="/my-orders" element={<MyOrders />} />
               <Route path="/track/:orderId" element={<OrderTracking />} />
+              <Route path="/track-inquiry" element={<TrackInquiry />} />
+              <Route path="/chat/:inquiryId" element={<BuyerChat />} />
+              <Route path="/login" element={<BuyerLogin />} />
+              <Route path="/dashboard" element={<BuyerDashboard />} />
               {/* Catch-all route */}
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
         </TooltipProvider>
       </QueryClientProvider>
+      </AuthProvider>
     </I18nextProvider>
   );
 };

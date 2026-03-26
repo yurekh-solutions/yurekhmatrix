@@ -189,25 +189,10 @@ _Please provide quotation at your earliest convenience._`;
         // Show success animation
         setShowSuccess(true);
 
-        // Wait for animation and redirect to WhatsApp
-        setTimeout(() => {
-          window.open(whatsappUrl, "_blank");
-          setShowSuccess(false);
-          setIsSubmitting(false);
+        // Send WhatsApp in background (non-blocking), keep user on success screen
+        window.open(whatsappUrl, "_blank");
 
-          // Reset form
-          setFormData({
-            name: "",
-            email: "",
-            phone: "",
-            company: "",
-            location: "",
-            material: "",
-            customMaterial: "",
-            quantity: "",
-            specifications: "",
-          });
-        }, 2500);
+        setIsSubmitting(false);
         } else {
           throw new Error(data.message || 'Submission failed');
         }
@@ -279,30 +264,33 @@ _Please provide quotation at your earliest convenience._`;
               </h3>
               {inquiryNumber && (
                 <div className="bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200 rounded-2xl p-4 mb-4">
-                  <p className="text-xs text-gray-600 mb-1 font-medium">Inquiry Number:</p>
+                  <p className="text-xs text-gray-600 mb-1 font-medium">Your Inquiry Number:</p>
                   <p className="text-2xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">{inquiryNumber}</p>
+                  <p className="text-xs text-gray-500 mt-2">Save this number to track your inquiry status</p>
                 </div>
               )}
               <p className="text-lg text-muted-foreground mb-2">
                 Thank you, <span className="font-semibold text-primary">{formData.name}</span>!
               </p>
-              <p className="text-sm text-muted-foreground mb-6">
+              <p className="text-sm text-muted-foreground mb-4">
                 Our team will connect with you shortly within an hour.
               </p>
-
-              <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
-                <div className="flex items-center gap-1">
-                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                  <span>Redirecting to WhatsApp...</span>
+              {inquiryNumber && (
+                <div className="space-y-3">
+                  <a
+                    href={`/track-inquiry?email=${encodeURIComponent(formData.email)}&inquiry=${encodeURIComponent(inquiryNumber)}`}
+                    className="inline-flex items-center gap-2 text-sm text-green-600 font-medium bg-green-50 border border-green-200 rounded-lg px-4 py-2 hover:bg-green-100 transition-colors w-full justify-center"
+                  >
+                    Track Inquiry Status
+                  </a>
                 </div>
-              </div>
+              )}
 
-              {/* Progress bar */}
-              <div className="w-full h-1.5 bg-muted rounded-full overflow-hidden mt-6">
-                <div
-                  className="h-full bg-gradient-to-r from-green-500 to-emerald-600 animate-progress"
-                  style={{ animationDuration: "2500ms" }}
-                />
+              <div className="flex items-center justify-center gap-2 text-xs text-muted-foreground mt-4">
+                <div className="flex items-center gap-1">
+                  <Shield className="w-3 h-3" />
+                  <span>A supplier will be matched to your inquiry. You can chat with them securely through RitzYard.</span>
+                </div>
               </div>
             </Card>
 

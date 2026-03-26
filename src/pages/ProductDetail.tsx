@@ -32,7 +32,6 @@ import {
   Send,
   Users,
   ShieldCheck,
-  Building2,
 } from "lucide-react";
 import { products, categories } from "@/data/products";
 import { toast } from "sonner";
@@ -52,14 +51,6 @@ const getApiUrl = () => {
 };
 const API_URL = getApiUrl();
 
-interface SupplierInfo {
-  id: string;
-  name: string;
-  logo?: string;
-  city: string;
-  experience: number;
-}
-
 const ProductDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -78,28 +69,19 @@ const ProductDetail = () => {
   });
   const rfqSectionRef = useRef<HTMLDivElement>(null);
 
-  // Supplier state for showing verified suppliers
+  // Supplier count badge only
   const [supplierCount, setSupplierCount] = useState(0);
-  const [suppliers, setSuppliers] = useState<SupplierInfo[]>([]);
 
-  // Fetch suppliers for this category
   useEffect(() => {
     if (product?.category) {
-      fetch(`${API_URL}/products/suppliers/${encodeURIComponent(product.category)}`)
+      const params = new URLSearchParams();
+      if (product.name) params.set('productName', product.name);
+      fetch(`${API_URL}/products/suppliers/${encodeURIComponent(product.category)}?${params.toString()}`)
         .then(res => res.json())
-        .then(data => {
-          if (data.success) {
-            setSupplierCount(data.count || 0);
-            setSuppliers(data.suppliers || []);
-          }
-        })
-        .catch(err => {
-          console.log('Could not fetch suppliers:', err);
-          // Fallback to default count for better UX
-          setSupplierCount(3);
-        });
+        .then(data => { if (data.success) setSupplierCount(data.count || 0); })
+        .catch(() => setSupplierCount(0));
     }
-  }, [product?.category]);
+  }, [product?.category, product?.name]);
 
   const scrollToRFQ = () => {
     rfqSectionRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -353,32 +335,6 @@ const ProductDetail = () => {
         {product.description}
       </p>
       
-      {/* Verified Suppliers Section */}
-      {suppliers.length > 0 && (
-        <div className="mt-4 pt-4 border-t border-border/50">
-          <div className="flex items-center gap-2 mb-3">
-            <Building2 className="w-4 h-4 text-green-600" />
-            <span className="text-sm font-semibold">Available from Verified Suppliers</span>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {suppliers.slice(0, 3).map((supplier) => (
-              <div 
-                key={supplier.id}
-                className="flex items-center gap-2 px-3 py-1.5 bg-green-50 dark:bg-green-900/20 rounded-full text-xs"
-              >
-                <ShieldCheck className="w-3 h-3 text-green-600" />
-                <span className="font-medium">{supplier.name}</span>
-                <span className="text-muted-foreground">• {supplier.city}</span>
-              </div>
-            ))}
-            {suppliers.length > 3 && (
-              <div className="px-3 py-1.5 bg-gray-100 dark:bg-gray-800 rounded-full text-xs text-muted-foreground">
-                +{suppliers.length - 3} more
-              </div>
-            )}
-          </div>
-        </div>
-      )}
     </div>
 
     {/* Applications */}

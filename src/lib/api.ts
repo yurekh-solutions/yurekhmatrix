@@ -59,7 +59,7 @@ export interface RFQSubmission {
 }
 
 // Submit RFQ (Request for Quote)
-export const submitRFQ = async (rfqData: RFQSubmission): Promise<{ success: boolean; message: string }> => {
+export const submitRFQ = async (rfqData: RFQSubmission): Promise<{ success: boolean; message: string; rfqNumber?: string }> => {
   try {
     console.log('🚀 Submitting RFQ to:', `${API_BASE_URL}/rfqs`);
     console.log('📦 RFQ Data:', rfqData);
@@ -86,6 +86,7 @@ export const submitRFQ = async (rfqData: RFQSubmission): Promise<{ success: bool
     return {
       success: data.success || true,
       message: data.message || 'RFQ submitted successfully. Admin will contact you soon.',
+      rfqNumber: data.rfqNumber || undefined,
     };
   } catch (error) {
     console.error('❌ Error submitting RFQ:', error);
