@@ -1,42 +1,26 @@
 // API Integration Service for yurekhmatrix
 // Connects to backendmatrix for RFQ submissions
 
+const NEW_BACKEND = 'https://backendmatrix-cox3.onrender.com/api';
+
 /**
  * Get the appropriate API URL based on the current environment
- * - Localhost: Uses http://localhost:5000/api
- * - Vercel Production: Uses https://backendmatrix.onrender.com/api
- * - Fallback: Uses VITE_API_URL or defaults to localhost
  */
 const getApiUrl = (): string => {
-  if (typeof window === 'undefined') {
-    // Server-side rendering fallback
-    return import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
-  }
-
-  const hostname = window.location.hostname;
-  console.log('🌐 Current hostname:', hostname);
-
-  // Development: localhost
-  if (hostname === 'localhost' || hostname === '127.0.0.1') {
-    console.log('💻 Development mode: Using localhost backend');
-    return 'http://localhost:5000/api';
-  }
-
-  // Production: Vercel deployments
-  if (hostname.includes('vercel.app') || hostname === 'ritzyard.com' || hostname === 'www.ritzyard.com') {
-    console.log('✅ Production mode: Using Render backend');
-    return 'https://backendmatrix.onrender.com/api';
-  }
-
-  // Fallback to environment variable
+  // Always prefer the env var if set
   if (import.meta.env.VITE_API_URL) {
-    console.log('⚙️ Using VITE_API_URL:', import.meta.env.VITE_API_URL);
     return import.meta.env.VITE_API_URL;
   }
 
-  // Last resort: localhost
-  console.log('⚠️ Defaulting to localhost backend');
-  return 'http://localhost:5000/api';
+  if (typeof window !== 'undefined') {
+    const hostname = window.location.hostname;
+    if (hostname === 'localhost' || hostname === '127.0.0.1') {
+      return 'http://localhost:5000/api';
+    }
+  }
+
+  // Production fallback
+  return NEW_BACKEND;
 };
 
 const API_BASE_URL = getApiUrl();

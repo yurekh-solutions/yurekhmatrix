@@ -46,8 +46,7 @@ const getApiUrl = () => {
     
     // Vercel production domains
     if (hostname.includes('vercel.app') || hostname.includes('ritzyard.com')) {
-      console.log('✅ Running on Vercel - using production backend');
-      return 'https://backendmatrix.onrender.com/api';
+      return 'https://backendmatrix-cox3.onrender.com/api';
     }
   }
   

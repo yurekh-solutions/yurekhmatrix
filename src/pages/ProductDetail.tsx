@@ -44,8 +44,9 @@ import ProductSchema from "@/components/ProductSchema";
 
 // API URL for supplier data
 const getApiUrl = () => {
+  if (import.meta.env.VITE_API_URL) return import.meta.env.VITE_API_URL;
   if (typeof window !== 'undefined' && window.location.hostname !== 'localhost') {
-    return 'https://backendmatrix.onrender.com/api';
+    return 'https://backendmatrix-cox3.onrender.com/api';
   }
   return 'http://localhost:5000/api';
 };
