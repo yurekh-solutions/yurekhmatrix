@@ -98,16 +98,14 @@ const RFQ = () => {
         totalItems: cartItems.length
       };
 
-      // Submit to backend API
+      // Submit to backend API (best-effort — Render free tier may be waking up)
       const backendResponse = await submitRFQToBackend(rfqData);
       
       if (!backendResponse.success) {
-        toast.error(backendResponse.message || "Failed to submit RFQ to database");
-        setIsSubmitting(false);
-        return;
+        toast.warning("Backend is waking up — your RFQ is being sent via WhatsApp instead.");
       }
 
-      // Capture RFQ number for tracking
+      // Capture RFQ number for tracking (if backend was reachable)
       if (backendResponse.rfqNumber) {
         setRfqNumber(backendResponse.rfqNumber);
       }
@@ -129,7 +127,8 @@ const RFQ = () => {
         });
       });
 
-      // Send to WhatsApp with ALL products + customer info
+      // Always send to WhatsApp — this ensures the lead is captured
+      // even if the backend is still waking up from Render free tier sleep
       sendToWhatsApp({
         type: 'rfq' as const,
         customerName: customerInfo.name,
