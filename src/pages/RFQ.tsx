@@ -52,9 +52,8 @@ const RFQ = () => {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitted, setSubmitted]         = useState(false);
-  const [showSuccess, setShowSuccess]     = useState(false);
-  const [rfqNumber, setRfqNumber]         = useState('');
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [rfqNumber, setRfqNumber] = useState('');
 
   const handleRemoveItem = (index: number) => {
     const updatedCart = cartItems.filter((_, i) => i !== index);
@@ -77,7 +76,6 @@ const RFQ = () => {
       toast.error("Please fill in all required fields");
       return;
     }
-    if (isSubmitting || submitted) return; // prevent duplicate submissions
 
     setIsSubmitting(true);
 
@@ -145,7 +143,6 @@ const RFQ = () => {
 
       // Clear cart from sessionStorage
       sessionStorage.removeItem('rfq_cart');
-      setSubmitted(true); // lock against re-submission
 
       // Show success screen
       setTimeout(() => {

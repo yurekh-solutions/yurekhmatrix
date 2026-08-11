@@ -33,14 +33,17 @@ import { toast } from "sonner";
 
 // Dynamic API URL based on environment
 const getApiUrl = () => {
+  // Always prefer env var if set
+  if (import.meta.env.VITE_API_URL) {
+    return import.meta.env.VITE_API_URL;
+  }
+  
   // Check if we're on Vercel (production)
   if (typeof window !== 'undefined') {
     const hostname = window.location.hostname;
-    console.log('🌐 Current hostname:', hostname);
     
     // Check if running on localhost (development)
     if (hostname === 'localhost' || hostname === '127.0.0.1') {
-      console.log('💻 Running locally - using localhost backend');
       return 'http://localhost:5000/api';
     }
     
@@ -50,15 +53,8 @@ const getApiUrl = () => {
     }
   }
   
-  // Check if VITE_API_URL is set
-  if (import.meta.env.VITE_API_URL) {
-    console.log('⚙️ Using VITE_API_URL:', import.meta.env.VITE_API_URL);
-    return import.meta.env.VITE_API_URL;
-  }
-  
-  // Default to localhost for development
-  console.log('💻 Defaulting to localhost backend');
-  return 'http://localhost:5000/api';
+  // Default to production backend
+  return 'https://backendmatrix-cox3.onrender.com/api';
 };
 
 const API_BASE_URL = getApiUrl();
