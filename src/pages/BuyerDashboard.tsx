@@ -225,14 +225,11 @@ const BuyerDashboard = () => {
 
   // ── Data ─────────────────────────────────────────────────────────────────
   const fetchInquiries = async () => {
-    console.log('🔍 Fetching inquiries from:', `${API_URL}/buyer/inquiries`);
-    console.log('🔑 Token exists:', !!token);
+    // Fetch inquiries
     setLoading(true);
     try {
       const res  = await fetch(`${API_URL}/buyer/inquiries`, { headers: { Authorization: `Bearer ${token}` } });
-      console.log('📡 Response status:', res.status);
       const data = await res.json();
-      console.log('📦 Response data:', data);
       if (data.success) { setInquiries(data.inquiries || []); setError(''); }
       else setError(data.message || 'Failed to load inquiries');
     } catch (err) { 

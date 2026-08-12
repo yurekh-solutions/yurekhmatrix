@@ -28,7 +28,6 @@ const API_BASE_URL = getApiUrl();
 // Wake up the Render free tier server (it sleeps after 15 min of inactivity)
 const wakeUpServer = async (): Promise<boolean> => {
   try {
-    console.log('⏳ Waking up server...');
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 60000);
     await fetch(`${API_BASE_URL}/health`, {
@@ -36,10 +35,8 @@ const wakeUpServer = async (): Promise<boolean> => {
       signal: controller.signal,
     });
     clearTimeout(timeout);
-    console.log('✅ Server is awake');
     return true;
   } catch {
-    console.log('⚠️ Wake-up ping failed, server may still be booting...');
     return false;
   }
 };
@@ -81,9 +78,6 @@ export const submitRFQ = async (rfqData: RFQSubmission): Promise<{ success: bool
   const body = JSON.stringify(rfqData);
   const headers = { 'Content-Type': 'application/json' };
 
-  console.log('🚀 Submitting RFQ to:', url);
-  console.log('📦 RFQ Data:', rfqData);
-
   // Step 1: Wake up the server (Render free tier sleeps after 15 min)
   await wakeUpServer();
 
@@ -91,7 +85,6 @@ export const submitRFQ = async (rfqData: RFQSubmission): Promise<{ success: bool
   const maxAttempts = 2;
   for (let attempt = 1; attempt <= maxAttempts; attempt++) {
     try {
-      console.log(`📡 Attempt ${attempt}/${maxAttempts}...`);
       // 90 second timeout — Render cold start can take 30-60s
       const response = await fetchWithTimeout(url, {
         method: 'POST',
@@ -104,11 +97,9 @@ export const submitRFQ = async (rfqData: RFQSubmission): Promise<{ success: bool
       const data = await response.json();
 
       if (!response.ok) {
-        console.error('❌ Backend error:', data);
         throw new Error(data.message || `Failed to submit RFQ: ${response.status}`);
       }
 
-      console.log('✅ RFQ submitted successfully:', data);
       return {
         success: data.success || true,
         message: data.message || 'RFQ submitted successfully. Admin will contact you soon.',
@@ -116,11 +107,8 @@ export const submitRFQ = async (rfqData: RFQSubmission): Promise<{ success: bool
       };
     } catch (error) {
       const isLastAttempt = attempt === maxAttempts;
-      const msg = error instanceof Error ? error.message : 'Unknown error';
-      console.error(`❌ Attempt ${attempt} failed:`, msg);
 
       if (isLastAttempt) {
-        console.error('❌ All attempts exhausted. Backend may still be waking up.');
         return {
           success: false,
           message: 'Backend is waking up — please wait 30 seconds and try again. Your WhatsApp message will still be sent.',
@@ -128,7 +116,6 @@ export const submitRFQ = async (rfqData: RFQSubmission): Promise<{ success: bool
       }
 
       // Wait 5 seconds before retry (give server more time to boot)
-      console.log('⏳ Waiting 5s before retry...');
       await new Promise(resolve => setTimeout(resolve, 5000));
     }
   }

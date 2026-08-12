@@ -58,7 +58,6 @@ const getApiUrl = () => {
 };
 
 const API_BASE_URL = getApiUrl();
-console.log('📡 API Base URL:', API_BASE_URL);
 
 const MATERIAL_OPTIONS = [
   { value: "tmt-bars", label: "TMT Bars", icon: "🏗️" },
@@ -126,9 +125,6 @@ const MaterialInquiry = () => {
         additionalRequirements: formData.specifications || '',
       };
 
-      console.log('📤 Submitting to:', `${API_BASE_URL}/material-inquiries`);
-      console.log('📦 Data:', submissionData);
-
       // Submit to backend with timeout
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
@@ -149,13 +145,10 @@ const MaterialInquiry = () => {
         }
 
         const data = await response.json();
-        console.log('📥 Response:', data);
 
         if (data.success) {
         setInquiryNumber(data.data.inquiryNumber);
         toast.success('Material inquiry submitted successfully!');
-        console.log('✅ SUCCESS! Inquiry Number:', data.data.inquiryNumber);
-        console.log('🆔 Database ID:', data.data._id);
 
         // Format WhatsApp message
         const message = `*MATERIAL INQUIRY REQUEST*
@@ -202,11 +195,8 @@ _Please provide quotation at your earliest convenience._`;
       // Specific error messages
       if (errorMessage.includes('aborted')) {
         toast.error('Request timed out. Backend server may be sleeping. Please try again.');
-        console.error('⏱️ Request timeout - Backend not responding');
       } else if (errorMessage.includes('fetch') || errorMessage.includes('Failed to fetch')) {
         toast.error('Cannot connect to backend. The server may be waking up. Please wait 30 seconds and try again.');
-        console.error('🔌 Network error - Backend unreachable at:', API_BASE_URL);
-        console.error('💡 Tip: Render free tier sleeps after inactivity. First request may take 30-60 seconds.');
       } else {
         toast.error('Failed to submit inquiry: ' + errorMessage);
       }

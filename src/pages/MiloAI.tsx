@@ -136,7 +136,7 @@ const MiloAI = () => {
     const loadMiloTrainingData = async () => {
       try {
         const API_URL = getApiUrl(); // Use the API URL helper
-        console.log('📡 Loading Milo training data from:', API_URL);
+        // Load training data
         const response = await fetch(`${API_URL}/ai/milo/training-data`, {
           mode: 'cors',
           credentials: 'omit',
@@ -145,11 +145,11 @@ const MiloAI = () => {
           const data = await response.json();
           if (data.success) {
             setContextData(data.data);
-            console.log('✅ Milo training data loaded successfully');
+            // Training data loaded
           }
         }
       } catch (error) {
-        console.log('⚠️ Training data fetch failed, using fallback responses');
+        // Training data fallback
       }
     };
     
@@ -364,7 +364,7 @@ const MiloAI = () => {
       }
       return null;
     } catch (error) {
-      console.log('External AI fallback failed:', error);
+      // External AI fallback
       return null;
     }
   };
@@ -373,8 +373,6 @@ const MiloAI = () => {
   const getMiloResponse = async (userMessage: string): Promise<string> => {
     // Generate hash for this query
     const queryHash = generateQueryHash(userMessage);
-    
-    console.log('🚀 ritzyard AI (Milo) processing:', userMessage);
     
     setLastQueryHash(queryHash);
     
@@ -385,7 +383,7 @@ const MiloAI = () => {
     const knowledgeMatch = searchKnowledge(userMessage);
     
     if (knowledgeMatch) {
-      console.log('✅ Knowledge base match found:', knowledgeMatch.category);
+      // Knowledge match
       let response = knowledgeResult.response;
       if (knowledgeResult.followUp) {
         response += "\n\n" + knowledgeResult.followUp;
