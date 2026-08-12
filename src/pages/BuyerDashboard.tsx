@@ -18,7 +18,7 @@ const TC = '#c1482b'; // terracotta accent color
 const getApiUrl = () => {
   if (import.meta.env.VITE_API_URL) return import.meta.env.VITE_API_URL;
   if (typeof window !== 'undefined' && window.location.hostname !== 'localhost') {
-    return 'https://backendmatrix-cox3.onrender.com/api';
+    return 'https://backendmatrix-9q18.onrender.com/api';
   }
   return 'http://localhost:5000/api';
 };

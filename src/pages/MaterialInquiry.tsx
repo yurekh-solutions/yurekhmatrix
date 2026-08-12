@@ -49,12 +49,12 @@ const getApiUrl = () => {
     
     // Vercel production domains
     if (hostname.includes('vercel.app') || hostname.includes('ritzyard.com')) {
-      return 'https://backendmatrix-cox3.onrender.com/api';
+      return 'https://backendmatrix-9q18.onrender.com/api';
     }
   }
   
   // Default to production backend
-  return 'https://backendmatrix-cox3.onrender.com/api';
+  return 'https://backendmatrix-9q18.onrender.com/api';
 };
 
 const API_BASE_URL = getApiUrl();
