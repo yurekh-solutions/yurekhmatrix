@@ -1,7 +1,7 @@
 // API Integration Service for yurekhmatrix
 // Connects to backendmatrix for RFQ submissions
 
-const NEW_BACKEND = 'https://backendmatrix-cox3.onrender.com/api';
+const NEW_BACKEND = 'https://backendmatrix-9q18.onrender.com/api';
 
 /**
  * Get the appropriate API URL based on the current environment
