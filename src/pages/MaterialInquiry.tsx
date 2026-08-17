@@ -150,36 +150,11 @@ const MaterialInquiry = () => {
         setInquiryNumber(data.data.inquiryNumber);
         toast.success('Material inquiry submitted successfully!');
 
-        // Format WhatsApp message
-        const message = `*MATERIAL INQUIRY REQUEST*
-*Inquiry Number:* ${data.data.inquiryNumber}
-
-*Customer Details:*
- Name: ${formData.name}
- Company: ${formData.company || "Not specified"}
- Email: ${formData.email}
- Phone: ${formData.phone}
- Location: ${formData.location}
-
-*Material Requirements:*
- Material: ${materialName}
- Quantity: ${formData.quantity}
-
-*Detailed Specifications:*
-${formData.specifications || "No additional specifications"}
-
-_Please provide quotation at your earliest convenience._`;
-
-        const whatsappNumber = "919559434242";
-        const encodedMessage = encodeURIComponent(message);
-        const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
-
-        // Show success animation
+        // Show success animation — the backend already handles
+        // admin notification, supplier routing, and the buyer
+        // confirmation email, so no client-side WhatsApp popup
+        // is needed.
         setShowSuccess(true);
-
-        // Send WhatsApp in background (non-blocking), keep user on success screen
-        window.open(whatsappUrl, "_blank");
-
         setIsSubmitting(false);
         } else {
           throw new Error(data.message || 'Submission failed');
@@ -258,7 +233,7 @@ _Please provide quotation at your earliest convenience._`;
                 Thank you, <span className="font-semibold text-primary">{formData.name}</span>!
               </p>
               <p className="text-sm text-muted-foreground mb-4">
-                Our team will connect with you shortly within an hour.
+                A confirmation email is on its way. We'll assign a verified supplier and notify you once quotes are in.
               </p>
               {inquiryNumber && (
                 <div className="space-y-3">
@@ -274,7 +249,7 @@ _Please provide quotation at your earliest convenience._`;
               <div className="flex items-center justify-center gap-2 text-xs text-muted-foreground mt-4">
                 <div className="flex items-center gap-1">
                   <Shield className="w-3 h-3" />
-                  <span>A supplier will be matched to your inquiry. You can chat with them securely through RitzYard.</span>
+                  <span>Your inquiry is queued for supplier matching. Track progress anytime using your inquiry number.</span>
                 </div>
               </div>
             </Card>

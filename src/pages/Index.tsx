@@ -8,6 +8,8 @@ import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 
 import { Link } from "react-router-dom";
+import { toast } from "sonner";
+import { API_BASE_URL } from "@/lib/api";
 import {
   ArrowRight,
   TrendingUp,
@@ -133,13 +135,39 @@ const Index = () => {
     setIsSubmitting(true);
 
     try {
-      const message = `Product Inquiry from Home Search:\n\nProduct: ${inquiryForm.productName}\nSpecifications: ${inquiryForm.specifications || 'N/A'}\nName: ${inquiryForm.name}\nPhone: ${inquiryForm.phone}\nEmail: ${inquiryForm.email || 'N/A'}\nQuantity: ${inquiryForm.quantity || 'N/A'}`;
-      const whatsappNumber = "919559262525";
-      const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-      
-      window.open(whatsappUrl, "_blank");
+      // Submit to backend Material Inquiry endpoint — the backend handles
+      // admin notification, supplier routing, and the buyer confirmation
+      // email. No client-side WhatsApp popup needed.
+      const qty = Number(inquiryForm.quantity) || 1;
+      const payload = {
+        customerName: inquiryForm.name,
+        email: inquiryForm.email || `${inquiryForm.phone}@ritzyard.placeholder`,
+        phone: inquiryForm.phone,
+        deliveryLocation: 'Not specified',
+        materials: [
+          {
+            materialName: inquiryForm.productName,
+            category: 'Home Search Inquiry',
+            specification: inquiryForm.specifications || undefined,
+            quantity: qty,
+            unit: 'piece',
+          },
+        ],
+        additionalRequirements: inquiryForm.specifications || undefined,
+      };
+
+      const response = await fetch(`${API_BASE_URL}/material-inquiries`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Server error: ${response.status}`);
+      }
+
       setSubmitSuccess(true);
-      
+
       setTimeout(() => {
         setSubmitSuccess(false);
         setSearchQuery("");
@@ -147,6 +175,7 @@ const Index = () => {
       }, 2000);
     } catch (error) {
       console.error("Error submitting inquiry:", error);
+      toast.error("Failed to submit. Please try again.");
     } finally {
       setIsSubmitting(false);
     }

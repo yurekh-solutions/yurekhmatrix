@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { I18nextProvider } from "react-i18next";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 import i18n from "./i18n/config";
 import { AuthProvider } from "./contexts/AuthContext";
 import Index from "./pages/Index";
@@ -32,6 +33,8 @@ import OrderTracking from "./pages/OrderTracking";
 import TrackInquiry from "./pages/TrackInquiry";
 import BuyerChat from "./pages/BuyerChat";
 import BuyerLogin from "./pages/BuyerLogin";
+import BuyerForgotPassword from "./pages/ForgotPassword";
+import BuyerResetPassword from "./pages/ResetPassword";
 import BuyerDashboard from "./pages/BuyerDashboard";
 import NotFound from "./pages/NotFound";
 import IntellectualPropertyPolicy from "./pages/IntellectualPropertyPolicy";
@@ -43,20 +46,23 @@ import { applyTranslation } from "./lib/translationUtils";
 
 const queryClient = new QueryClient();
 
+const GOOGLE_CLIENT_ID = (import.meta.env.VITE_GOOGLE_CLIENT_ID as string | undefined) || '';
+
 const App = () => {
   const handleLanguageSelect = (langCode: string) => {
     // Change i18n language
     i18n.changeLanguage(langCode);
-    
+
     // Apply Google Translate for full site translation
     if (langCode !== "en") {
       applyTranslation(langCode, true);
     }
   };
 
-  return (
-    <I18nextProvider i18n={i18n}>
-      <AuthProvider>
+  // Only mount the GoogleOAuthProvider if a Client ID is configured. This lets
+  // the app still run locally with Google sign-in disabled.
+  const authTree = (
+    <AuthProvider>
       <QueryClientProvider client={queryClient}>
         <TooltipProvider>
           <Toaster />
@@ -98,6 +104,8 @@ const App = () => {
               <Route path="/track-inquiry" element={<TrackInquiry />} />
               <Route path="/chat/:inquiryId" element={<BuyerChat />} />
               <Route path="/login" element={<BuyerLogin />} />
+              <Route path="/forgot-password" element={<BuyerForgotPassword />} />
+              <Route path="/reset-password" element={<BuyerResetPassword />} />
               <Route path="/dashboard" element={<BuyerDashboard />} />
               {/* Catch-all route */}
               <Route path="*" element={<NotFound />} />
@@ -105,7 +113,18 @@ const App = () => {
           </BrowserRouter>
         </TooltipProvider>
       </QueryClientProvider>
-      </AuthProvider>
+    </AuthProvider>
+  );
+
+  return (
+    <I18nextProvider i18n={i18n}>
+      {GOOGLE_CLIENT_ID ? (
+        <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
+          {authTree}
+        </GoogleOAuthProvider>
+      ) : (
+        authTree
+      )}
     </I18nextProvider>
   );
 };

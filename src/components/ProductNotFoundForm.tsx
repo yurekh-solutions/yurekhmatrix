@@ -4,10 +4,10 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { MessageSquare, User, Phone, Mail, Package, FileText } from "lucide-react";
-import { sendToWhatsApp } from "@/lib/whatsappIntegration";
-import { saveToLocalStorage } from "@/lib/sheetsIntegration";
+import { MessageSquare, User, Phone, Mail, Package, FileText, MapPin } from "lucide-react";
 import SuccessAnimation from "./SuccessAnimation";
+import { toast } from "sonner";
+import { API_BASE_URL } from "@/lib/api";
 
 interface ProductNotFoundFormProps {
   searchQuery: string;
@@ -20,10 +20,12 @@ const ProductNotFoundForm = ({ searchQuery }: ProductNotFoundFormProps) => {
     phone: "",
     email: "",
     quantity: "",
+    location: "",
     specifications: ""
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [inquiryNumber, setInquiryNumber] = useState('');
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const validateForm = () => {
@@ -58,35 +60,44 @@ const ProductNotFoundForm = ({ searchQuery }: ProductNotFoundFormProps) => {
     setIsSubmitting(true);
 
     try {
-      const inquiryData = {
-        type: 'inquiry' as const,
-        productName: formData.productName,
+      // Submit to backend Material Inquiry endpoint — the backend handles
+      // admin notification, supplier routing, and the buyer confirmation
+      // email. No client-side WhatsApp popup needed.
+      const qty = Number(formData.quantity) || 1;
+      const payload = {
         customerName: formData.customerName,
+        email: formData.email || `${formData.phone}@ritzyard.placeholder`,
         phone: formData.phone,
-        email: formData.email,
-        quantity: formData.quantity,
-        specifications: formData.specifications
+        deliveryLocation: formData.location || 'Not specified',
+        materials: [
+          {
+            materialName: formData.productName,
+            category: 'Custom Request',
+            specification: formData.specifications || undefined,
+            quantity: qty,
+            unit: 'piece',
+          },
+        ],
+        additionalRequirements: formData.specifications || undefined,
       };
 
-      // Save to local storage
-      saveToLocalStorage({
-        source: 'Product Not Found Form',
-        productName: formData.productName,
-        customerName: formData.customerName,
-        customerPhone: formData.phone,
-        customerEmail: formData.email,
-        quantity: formData.quantity,
-        specifications: formData.specifications
+      const response = await fetch(`${API_BASE_URL}/material-inquiries`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
       });
 
-      // Send to WhatsApp
-      sendToWhatsApp(inquiryData);
+      const data = await response.json();
 
-      // Show success animation
+      if (!response.ok || !data.success) {
+        throw new Error(data.message || 'Failed to submit inquiry');
+      }
+
+      setInquiryNumber(data.data?.inquiryNumber || '');
       setShowSuccess(true);
     } catch (error) {
       console.error('Error submitting inquiry:', error);
-      alert('Failed to send inquiry. Please try again.');
+      toast.error('Failed to submit inquiry. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -100,6 +111,7 @@ const ProductNotFoundForm = ({ searchQuery }: ProductNotFoundFormProps) => {
       phone: "",
       email: "",
       quantity: "",
+      location: "",
       specifications: ""
     });
   };
@@ -107,7 +119,9 @@ const ProductNotFoundForm = ({ searchQuery }: ProductNotFoundFormProps) => {
   if (showSuccess) {
     return (
       <SuccessAnimation
-        message="Your inquiry has been sent via WhatsApp! We'll get back to you shortly."
+        message={inquiryNumber
+          ? `Your product request has been submitted! Inquiry ${inquiryNumber}. Our team will reach out with options shortly.`
+          : 'Your product request has been submitted! Our team will reach out with options shortly.'}
         onComplete={handleSuccessComplete}
         duration={4000}
       />
@@ -212,6 +226,20 @@ const ProductNotFoundForm = ({ searchQuery }: ProductNotFoundFormProps) => {
           </div>
 
           <div className="space-y-2">
+            <Label htmlFor="location" className="flex items-center gap-2">
+              <MapPin className="w-4 h-4" />
+              Delivery Location (optional)
+            </Label>
+            <Input
+              id="location"
+              value={formData.location}
+              onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+              placeholder="City, state — helps us match the closest supplier"
+              className="border-primary/20"
+            />
+          </div>
+
+          <div className="space-y-2">
             <Label htmlFor="specifications" className="flex items-center gap-2">
               <FileText className="w-4 h-4" />
               Additional Specifications
@@ -227,22 +255,22 @@ const ProductNotFoundForm = ({ searchQuery }: ProductNotFoundFormProps) => {
 
           <Button
             type="submit"
-            className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white shadow-lg"
+            className="w-full bg-gradient-to-r from-primary to-secondary hover:opacity-90 text-white shadow-lg"
             size="lg"
             disabled={isSubmitting}
           >
             {isSubmitting ? (
-              "Sending..."
+              "Submitting..."
             ) : (
               <>
                 <MessageSquare className="w-5 h-5 mr-2" />
-                Send Inquiry via WhatsApp
+                Submit Product Request
               </>
             )}
           </Button>
 
           <p className="text-xs text-center text-muted-foreground">
-            Your inquiry will be sent directly to our team via WhatsApp for immediate assistance
+            Your request is queued for supplier matching. We'll notify you once options are available.
           </p>
         </form>
       </Card>

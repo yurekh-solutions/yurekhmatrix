@@ -8,6 +8,18 @@ export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
     port: 5173,
+    // Allow Google's OAuth popup to communicate with the parent window.
+    // Without this, Vite's default `Cross-Origin-Opener-Policy: same-origin`
+    // blocks the OAuth popup, causing
+    // "Cross-Origin-Opener-Policy policy would block the window.postMessage call"
+    // and "would block the window.closed call" errors in the console.
+    // Using `unsafe-none` (the most permissive) so the popup can communicate
+    // regardless of what the OAuth provider's response sets.
+    headers: {
+      'Cross-Origin-Opener-Policy': 'unsafe-none',
+      'Cross-Origin-Embedder-Policy': 'unsafe-none',
+      'Cross-Origin-Resource-Policy': 'cross-origin',
+    },
   },
   plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
   resolve: {

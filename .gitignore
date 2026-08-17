@@ -27,3 +27,4 @@ dist-ssr
 *.zip
 *.tar.gz
 *.rar
+.vercel

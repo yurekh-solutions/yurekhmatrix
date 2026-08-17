@@ -15,8 +15,9 @@ interface AuthContextType {
   token: string | null;
   userRole: string | null;
   loading: boolean;
-  login: (email: string, password: string) => Promise<{ success: boolean; message?: string }>;
+  login: (email: string, password: string) => Promise<{ success: boolean; message?: string; authProvider?: string }>;
   signup: (name: string, email: string, password: string, phone?: string, company?: string) => Promise<{ success: boolean; message?: string }>;
+  loginWithGoogle: (credential: string) => Promise<{ success: boolean; message?: string }>;
   logout: () => void;
   updateUser: (fields: Partial<BuyerUser>) => Promise<{ success: boolean; message?: string }>;
 }
@@ -67,7 +68,31 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         localStorage.setItem('buyerUser', JSON.stringify(data.user));
         return { success: true };
       }
-      return { success: false, message: data.message || 'Login failed' };
+      return { success: false, message: data.message || 'Login failed', authProvider: data.authProvider };
+    } catch {
+      return { success: false, message: 'Network error. Please try again.' };
+    }
+  };
+
+  // Google sign-in: the frontend gets a Google ID token (credential) from
+  // @react-oauth/google, sends it to the backend, and the backend verifies it,
+  // creates/links the buyer account, and returns our normal JWT + user.
+  const loginWithGoogle = async (credential: string) => {
+    try {
+      const res = await fetch(`${getApiUrl()}/auth/user/google`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ credential }),
+      });
+      const data = await res.json();
+      if (data.success && data.token) {
+        setToken(data.token);
+        setUser(data.user);
+        localStorage.setItem('buyerToken', data.token);
+        localStorage.setItem('buyerUser', JSON.stringify(data.user));
+        return { success: true };
+      }
+      return { success: false, message: data.message || 'Google sign-in failed' };
     } catch {
       return { success: false, message: 'Network error. Please try again.' };
     }
@@ -132,7 +157,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, token, userRole: user?.role || null, loading, login, signup, logout, updateUser }}>
+    <AuthContext.Provider value={{ user, token, userRole: user?.role || null, loading, login, signup, loginWithGoogle, logout, updateUser }}>
       {children}
     </AuthContext.Provider>
   );

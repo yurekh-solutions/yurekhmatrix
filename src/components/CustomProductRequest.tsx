@@ -6,6 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { MessageSquare, PackageSearch } from "lucide-react";
+import { API_BASE_URL } from "@/lib/api";
 
 interface CustomProductRequestProps {
   searchQuery: string;
@@ -17,10 +18,12 @@ const CustomProductRequest = ({ searchQuery }: CustomProductRequestProps) => {
     customerName: "",
     email: "",
     phone: "",
+    location: "",
     quantity: "",
     specifications: "",
   });
   const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -29,7 +32,7 @@ const CustomProductRequest = ({ searchQuery }: CustomProductRequestProps) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     // Validation
@@ -42,43 +45,74 @@ const CustomProductRequest = ({ searchQuery }: CustomProductRequestProps) => {
       return;
     }
 
-    // Create WhatsApp message
-    const message = `*New Product Inquiry*
+    setIsSubmitting(true);
 
-*Product Required:* ${formData.productName}
-*Customer Name:* ${formData.customerName}
-*Email:* ${formData.email || "Not provided"}
-*Phone:* ${formData.phone}
-*Quantity:* ${formData.quantity || "Not specified"}
-*Specifications:* ${formData.specifications || "None"}
+    try {
+      // Submit to backend Material Inquiry endpoint — the backend handles
+      // admin notification, supplier routing, and the buyer confirmation
+      // email. No client-side WhatsApp popup needed.
+      const qty = Number(formData.quantity) || 1;
+      const payload = {
+        customerName: formData.customerName,
+        email: formData.email || `${formData.phone}@ritzyard.placeholder`,
+        phone: formData.phone,
+        deliveryLocation: formData.location || 'Not specified',
+        materials: [
+          {
+            materialName: formData.productName,
+            category: 'Custom Request',
+            specification: formData.specifications || undefined,
+            quantity: qty,
+            unit: 'piece',
+          },
+        ],
+        additionalRequirements: formData.specifications || undefined,
+      };
 
-*Via:* Naaya Construction Website`;
+      const response = await fetch(`${API_BASE_URL}/material-inquiries`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
 
-    const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/917039047070?text=${encodedMessage}`;
+      const data = await response.json();
 
-    // Open WhatsApp
-    window.open(whatsappUrl, "_blank");
+      if (!response.ok || !data.success) {
+        throw new Error(data.message || 'Failed to submit request');
+      }
 
-    toast({
-      title: "Request Submitted",
-      description: "Redirecting you to WhatsApp to complete your inquiry...",
-    });
+      toast({
+        title: "Request Submitted",
+        description: data.data?.inquiryNumber
+          ? `Your custom product request (${data.data.inquiryNumber}) is queued. We'll notify you once suppliers respond.`
+          : "Your custom product request is queued. We'll notify you once suppliers respond.",
+      });
 
-    // Reset form
-    setFormData({
-      productName: "",
-      customerName: "",
-      email: "",
-      phone: "",
-      quantity: "",
-      specifications: "",
-    });
+      // Reset form
+      setFormData({
+        productName: "",
+        customerName: "",
+        email: "",
+        phone: "",
+        location: "",
+        quantity: "",
+        specifications: "",
+      });
+    } catch (error) {
+      console.error('Custom product request error:', error);
+      toast({
+        title: "Submission Failed",
+        description: error instanceof Error ? error.message : "Please try again in a moment.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <div className="min-h-[500px] flex items-center justify-center px-4 py-8 sm:py-12">
-      <GlassCard variant="premium" className="w-full max-w-2xl p-6 sm:p-8 lg:p-10 animate-fade-in">
+      <GlassCard className="w-full max-w-2xl p-6 sm:p-8 lg:p-10 animate-fade-in">
         {/* Header */}
         <div className="text-center mb-6 sm:mb-8">
           <div className="flex justify-center mb-4">
@@ -185,6 +219,22 @@ const CustomProductRequest = ({ searchQuery }: CustomProductRequestProps) => {
             </div>
           </div>
 
+          {/* Delivery Location */}
+          <div className="animate-fade-in animation-delay-200">
+            <Label htmlFor="location" className="text-foreground font-medium mb-2 block text-sm sm:text-base">
+              Delivery Location (optional)
+            </Label>
+            <Input
+              id="location"
+              name="location"
+              type="text"
+              value={formData.location}
+              onChange={handleInputChange}
+              placeholder="City, state — helps us match the closest supplier"
+              className="bg-transparent border-glass-border h-11 sm:h-12 text-sm sm:text-base hover:border-primary/50 transition-smooth"
+            />
+          </div>
+
           {/* Specifications */}
           <div className="animate-fade-in animation-delay-200">
             <Label htmlFor="specifications" className="text-foreground font-medium mb-2 block text-sm sm:text-base">
@@ -204,14 +254,15 @@ const CustomProductRequest = ({ searchQuery }: CustomProductRequestProps) => {
           {/* Submit Button */}
           <Button
             type="submit"
-            className="w-full  bg-gradient-to-r from-orange-500 to-red-500 hover:scale-105 transition-all duration-300 text-base sm:text-lg font-semibold h-12 sm:h-14 transition-all duration-300 animate-fade-in animation-delay-200"
+            disabled={isSubmitting}
+            className="w-full bg-gradient-primary hover:opacity-90 text-base sm:text-lg font-semibold h-12 sm:h-14 transition-all duration-300 animate-fade-in animation-delay-200"
           >
             <MessageSquare className="h-5 w-5 sm:h-6 sm:w-6 mr-2" />
-            Send Inquiry via WhatsApp
+            {isSubmitting ? 'Submitting...' : 'Submit Product Request'}
           </Button>
 
           <p className="text-xs sm:text-sm text-center text-muted-foreground animate-fade-in animation-delay-200">
-            Your inquiry will be sent directly to our team via WhatsApp for immediate assistance.
+            Your request is queued for supplier matching. We'll notify you once options are available.
           </p>
         </form>
       </GlassCard>

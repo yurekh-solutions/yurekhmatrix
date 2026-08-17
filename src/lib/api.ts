@@ -111,7 +111,7 @@ export const submitRFQ = async (rfqData: RFQSubmission): Promise<{ success: bool
       if (isLastAttempt) {
         return {
           success: false,
-          message: 'Backend is waking up — please wait 30 seconds and try again. Your WhatsApp message will still be sent.',
+          message: 'The server is waking up. Please wait 30 seconds and try again.',
         };
       }
 

@@ -8,8 +8,6 @@ import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Trash2, Package, ArrowRight, ArrowLeft, CheckCircle2, Shield } from "lucide-react";
 import { toast } from "sonner";
-import { sendToWhatsApp } from "@/lib/whatsappIntegration";
-import { saveToLocalStorage } from "@/lib/sheetsIntegration";
 import ScrollToTop from "@/components/ScrollToTop";
 import FloatingActionButtons from "@/components/FloatingActionButtons";
 import SEOHead from "@/components/SEOHead";
@@ -98,47 +96,21 @@ const RFQ = () => {
         totalItems: cartItems.length
       };
 
-      // Submit to backend API (best-effort — Render free tier may be waking up)
+      // Submit to backend — the backend handles ALL notifications
+      // (admin WhatsApp, supplier routing, buyer email) so the buyer
+      // never has to manually forward anything.
       const backendResponse = await submitRFQToBackend(rfqData);
-      
+
       if (!backendResponse.success) {
-        toast.warning("Backend is waking up — your RFQ is being sent via WhatsApp instead.");
+        toast.error(backendResponse.message || "Failed to submit RFQ. Please try again.");
+        setIsSubmitting(false);
+        return;
       }
 
-      // Capture RFQ number for tracking (if backend was reachable)
+      // Capture RFQ number for tracking
       if (backendResponse.rfqNumber) {
         setRfqNumber(backendResponse.rfqNumber);
       }
-
-      // Save EACH product to localStorage for Excel export
-      cartItems.forEach(item => {
-        saveToLocalStorage({
-          source: 'RFQ Page - Complete Submission',
-          productName: item.productName,
-          productCategory: item.category,
-          brand: item.brand,
-          grade: item.grade,
-          quantity: `${item.quantity} MT`,
-          customerName: customerInfo.name,
-          customerCompany: customerInfo.company,
-          deliveryLocation: customerInfo.location,
-          customerEmail: customerInfo.email,
-          customerPhone: customerInfo.phone
-        });
-      });
-
-      // Always send to WhatsApp — this ensures the lead is captured
-      // even if the backend is still waking up from Render free tier sleep
-      sendToWhatsApp({
-        type: 'rfq' as const,
-        customerName: customerInfo.name,
-        company: customerInfo.company,
-        location: customerInfo.location,
-        email: customerInfo.email,
-        phone: customerInfo.phone,
-        cartItems: cartItems,
-        totalItems: cartItems.length
-      });
 
       // Clear cart from sessionStorage
       sessionStorage.removeItem('rfq_cart');
@@ -194,7 +166,7 @@ const RFQ = () => {
             Thank you, <span className="font-semibold text-primary">{customerInfo.name}</span>!
           </p>
           <p className="text-sm text-muted-foreground mb-4">
-            Our team will review your request and contact you shortly.
+            A confirmation email is on its way. Our team will review your request and assign a verified supplier shortly.
           </p>
 
           {rfqNumber && (
@@ -208,7 +180,7 @@ const RFQ = () => {
 
           <div className="flex items-center justify-center gap-2 text-xs text-muted-foreground mb-4">
             <Shield className="w-3 h-3" />
-            <span>A supplier will be matched to your RFQ. Chat securely through RitzYard.</span>
+            <span>Your RFQ is queued for supplier matching. Track progress anytime using your RFQ number.</span>
           </div>
 
           <div className="flex gap-3 mt-4">
