@@ -2,7 +2,8 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "env": {
-    "VITE_API_URL": "https://backendmatrix-9q18.onrender.com/api"
+    "VITE_API_URL": "https://backendmatrix-9q18.onrender.com/api",
+    "VITE_GOOGLE_CLIENT_ID": "506720237614-9hn4m9qaivm1k5mloidcb3676a820e1f.apps.googleusercontent.com"
   },
   "headers": [
     {
